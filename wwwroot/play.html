@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wormix 1.05.0</title>
+    <style>
+        :root { --bg: #1d1d1d; --panel: #2a2a2a; --text: #e6e6e6; --muted: #9a9a9a; --accent: #f0a020; --error: #ff6b6b; }
+        html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 15px system-ui, sans-serif; }
+        #game { width: 900px; max-width: 100%; height: 600px; margin: 20px auto 8px; }
+        #game ruffle-player, #game ruffle-object, #game ruffle-embed { width: 100%; height: 100%; }
+        #bar { text-align: center; color: var(--muted); font-size: 13px; }
+        #bar button { background: none; border: 0; color: var(--accent); cursor: pointer; font: inherit; }
+        #login { max-width: 320px; margin: 80px auto; padding: 24px; background: var(--panel); border-radius: 10px; }
+        #login h1 { margin: 0 0 16px; font-size: 22px; text-align: center; }
+        #login label { display: block; margin: 10px 0 4px; color: var(--muted); font-size: 13px; }
+        #login input { box-sizing: border-box; width: 100%; padding: 9px 10px; border: 1px solid #444; border-radius: 6px;
+                       background: #1b1b1b; color: var(--text); font: inherit; }
+        #login .buttons { display: flex; gap: 8px; margin-top: 18px; }
+        #login button { flex: 1; padding: 10px; border: 0; border-radius: 6px; cursor: pointer; font: inherit; font-weight: 600; }
+        #login .primary { background: var(--accent); color: #1d1d1d; }
+        #login .secondary { background: #3a3a3a; color: var(--text); }
+        #msg { min-height: 20px; margin-top: 12px; color: var(--error); font-size: 13px; text-align: center; }
+        [hidden] { display: none !important; }
+    </style>
+    <!-- Ruffle: open-source Flash Player emulator (https://ruffle.rs) -->
+    <script src="https://unpkg.com/@ruffle-rs/ruffle@0.7.1/ruffle.js"></script>
+</head>
+<body>
+
+<form id="login" hidden>
+    <h1>Wormix</h1>
+    <label for="name">Логин</label>
+    <input id="name" autocomplete="username" required minlength="3">
+    <label for="pass">Пароль (минимум 8 символов)</label>
+    <input id="pass" type="password" autocomplete="current-password" required minlength="8">
+    <div class="buttons">
+        <button type="submit" class="primary" data-action="sign_in">Войти</button>
+        <button type="submit" class="secondary" data-action="sign_up">Регистрация</button>
+    </div>
+    <div id="msg"></div>
+</form>
+
+<div id="game"></div>
+<div id="bar" hidden><span id="who"></span> · <button id="logout" type="button">Выйти</button></div>
+
+<script>
+    // Everything (this page, the API at /api/ and the game connections) is served by the game host
+    // (wormix-relay) from one address, so the page works the same on any computer.
+    const API = location.origin + '/api/';
+    const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
+
+    // Remembered login, per browser (convenience only).
+    const store = {
+        get() { try { return JSON.parse(localStorage.getItem('wormix_session') || 'null'); } catch { return null; } },
+        set(v) { try { localStorage.setItem('wormix_session', JSON.stringify(v)); } catch { } },
+        clear() { try { localStorage.removeItem('wormix_session'); } catch { } }
+    };
+
+    async function api(path, { body, token } = {}) {
+        const res = await fetch(API + path, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+            },
+            body: body ? JSON.stringify(body) : undefined
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+            const err = new Error(data.message || ('HTTP ' + res.status));
+            err.status = res.status;
+            throw err;
+        }
+        return data;
+    }
+
+    // --- Login / registration -------------------------------------------------------------
+    const form = document.getElementById('login');
+    const msg = document.getElementById('msg');
+    let action = 'sign_in';
+    form.querySelectorAll('button[data-action]').forEach(b => b.addEventListener('click', () => action = b.dataset.action));
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.textContent = '';
+        const login = document.getElementById('name').value.trim();
+        const password = document.getElementById('pass').value;
+        try {
+            const body = action === 'sign_up'
+                ? { login, password, password_confirmation: password }
+                : { login, password };
+            const r = await api('account/' + action, { body });
+            store.set({ id: r.id, token: r.auth_token, login });
+            await startGame();
+        } catch (err) {
+            msg.textContent = action === 'sign_up'
+                ? 'Не удалось зарегистрироваться: ' + err.message + ' (логин может быть занят)'
+                : 'Неверный логин или пароль';
+        }
+    });
+
+    document.getElementById('logout').addEventListener('click', async () => {
+        const s = store.get();
+        store.clear();
+        if (s) api('account/sign_out', { token: s.token }).catch(() => { });
+        location.reload();
+    });
+
+    // --- Game --------------------------------------------------------------------------------
+    async function startGame() {
+        const s = store.get();
+        if (!s) { form.hidden = false; return; }
+
+        let authKey;
+        try {
+            authKey = (await api('account/game', { token: s.token })).auth_key;
+        } catch (err) {
+            store.clear();
+            form.hidden = false;
+            msg.textContent = 'Сессия истекла, войдите снова';
+            return;
+        }
+
+        form.hidden = true;
+        document.getElementById('bar').hidden = false;
+        document.getElementById('who').textContent = s.login;
+
+        const id = String(s.id);
+        const flashvars = {
+            api_id: '2', api_settings: '8479', viewer_type: '2', sid: 'smtp', secret: 'smtp',
+            access_token: '', user_id: id, viewer_id: id, group_id: '0', is_app_user: '1',
+            language: '0', parent_language: '0', ad_info: '', is_secure: '0', ads_app_id: 'smtp',
+            referrer: 'unknown', lc_name: 'smtp', hash: '', api_url: API, auth_key: authKey
+        };
+
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.RufflePlayer.config = {
+            autoplay: 'on',
+            unmuteOverlay: 'hidden',
+            allowScriptAccess: true,
+            letterbox: 'on',
+            logLevel: 'warn',
+            // Flash aborts scripts that run longer than 15 s. Building the destructible map is heavy
+            // and slower in Ruffle than in the old Flash Player, so allow more time.
+            maxExecutionDuration: 120,
+            // Browsers can't open raw TCP sockets, so Ruffle sends the game's connections through
+            // the game host (ws://<host>/<port>), which forwards them to wormix-core.
+            // The game has wormixtest.ru built in; these entries send it to our own server instead.
+            // Ports built into the 1.05.0 preloader: 49197 main, 49298 PvP, 49198/49199 achievements/clans.
+            socketProxy: [49197, 49198, 49199, 49297, 49298, 49299, 49300].flatMap(port =>
+                ['wormixtest.ru', 'battle.wormixtest.ru', 'localhost', '127.0.0.1'].map(host => ({
+                    host, port, proxyUrl: RELAY + '/' + port
+                })))
+        };
+
+        // Debug mode (play.html?debug): forward the game's log lines and Ruffle's warnings/errors
+        // to the game host, which prints them in its terminal.
+        if (new URLSearchParams(location.search).has('debug')) {
+            const queue = [];
+            const keep = /WLOG|ERROR|rror|ncaught|stub|panic/;
+            const original = console.log.bind(console);
+            const clean = s => String(s).replace(/%c/g, '');
+            console.log = (...args) => {
+                original(...args);
+                const line = clean(args[0]);
+                if (keep.test(line)) queue.push(line.replace(/\s+/g, ' ').trim());
+            };
+            setInterval(() => {
+                if (!queue.length) return;
+                const body = queue.splice(0).join('\n');
+                fetch('/debug-log', { method: 'POST', body }).catch(() => { });
+            }, 1000);
+        }
+
+        const player = window.RufflePlayer.newest().createPlayer();
+        document.getElementById('game').appendChild(player);
+        player.ruffle().load({ url: 'vk/1.05.0/preloader.swf', parameters: flashvars, base: 'vk/1.05.0/' })
+            .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
+    }
+
+    window.addEventListener('load', startGame);
+</script>
+</body>
+</html>

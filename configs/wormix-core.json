@@ -1,0 +1,33 @@
+{
+  "local": true,
+
+  "servers": {
+    "policy": {
+      "port": 843,
+      "enabled": true
+    },
+    "main": {
+      "port": 49197,
+      "enabled": true
+    },
+    "pvp": {
+      "port": 49298,
+      "enabled": true
+    },
+    "achievements": {
+      "port": 49198,
+      "enabled": true
+    },
+    "clan": {
+      "port": 49199,
+      "enabled": true
+    }
+  },
+
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379
+  },
+
+  "ApiUrl": "http://127.0.0.1:8000/api/internal/"
+}

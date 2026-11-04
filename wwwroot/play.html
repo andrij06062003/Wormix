@@ -145,6 +145,11 @@
             // Flash aborts scripts that run longer than 15 s. Building the destructible map is heavy
             // and slower in Ruffle than in the old Flash Player, so allow more time.
             maxExecutionDuration: 120,
+            // The 1.05.0 preloader has http://127.0.0.1:32700/vk/1.05.0/ built in as the place to load
+            // the game from. Send those requests to wherever this page is served (any domain, http or https).
+            urlRewriteRules: [
+                [new RegExp('^https?://(127\\.0\\.0\\.1|localhost):32700/(.*)$'), location.origin + '/$2']
+            ],
             // Browsers can't open raw TCP sockets, so Ruffle sends the game's connections through
             // the game host (ws://<host>/<port>), which forwards them to wormix-core.
             // The game has wormixtest.ru built in; these entries send it to our own server instead.

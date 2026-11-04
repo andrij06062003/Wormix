@@ -3,6 +3,9 @@
 Runs the original **Wormix 1.05.0** Flash client in a modern browser (Chrome, Edge, Firefox) with
 [Ruffle](https://ruffle.rs), against your own server. No Flash Player needed.
 
+**Hosting it for others (Docker + Cloudflare Tunnel): see [HOSTING.md](HOSTING.md).**
+The rest of this file is about running everything on one Windows PC.
+
 This folder is the **game host** plus the scripts that start everything:
 
 | Part | Folder | Port |

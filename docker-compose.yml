@@ -1,0 +1,61 @@
+# Wormix 1.05.0 server, published through a Cloudflare Tunnel.
+#
+#   cp .env.example .env      # then fill in CLOUDFLARE_TUNNEL_TOKEN
+#   docker compose up -d --build
+#
+# Players open https://<your hostname>/ in a normal browser. See HOSTING.md.
+# Nothing is opened on the router: cloudflared connects out to Cloudflare.
+
+name: wormix
+
+services:
+  redis:
+    image: redis:7.4.10-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "", "--appendonly", "no"]   # only live sessions, nothing to keep
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+      additional_contexts:
+        api: ${API_DIR:-../wormix-api}
+    restart: unless-stopped
+    environment:
+      APP_KEY: ${APP_KEY:-}            # optional; otherwise generated once and kept in the volume
+    volumes:
+      - api-data:/data                 # database, app key, uploaded photos
+
+  core:
+    build:
+      context: .
+      dockerfile: docker/core.Dockerfile
+    restart: unless-stopped
+    stdin_open: true                   # wormix-core waits on Console.ReadLine() to stay alive
+    tty: true
+    depends_on:
+      - redis
+      - api
+
+  relay:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ${CLIENT_DIR:-../wormix-client}:/client:ro   # game files (not in git)
+    ports:
+      - "127.0.0.1:32700:32700"        # for testing on the server itself: http://127.0.0.1:32700
+    depends_on:
+      - api
+      - core
+
+  cloudflared:
+    image: cloudflare/cloudflared:2026.10.3
+    restart: unless-stopped
+    command: ["tunnel", "--no-autoupdate", "run"]
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:?Set CLOUDFLARE_TUNNEL_TOKEN in .env (see HOSTING.md)}
+    depends_on:
+      - relay
+
+volumes:
+  api-data:

@@ -53,8 +53,11 @@ else
 }
 
 // Debug: play.html?debug posts the game's log lines here, so they appear in this terminal.
+// Off unless "DebugLog" is true (start.ps1 -GameLog turns it on), so the public can't fill the log.
+var debugLog = app.Configuration.GetValue("DebugLog", false);
 app.MapPost("/debug-log", async (HttpContext ctx) =>
 {
+    if (!debugLog) return Results.NotFound();
     using var reader = new StreamReader(ctx.Request.Body);
     var text = await reader.ReadToEndAsync();
     foreach (var line in text.Split('\n', StringSplitOptions.RemoveEmptyEntries))
@@ -70,6 +73,13 @@ string[] skipHeaders = { "Host", "Connection", "Transfer-Encoding", "Keep-Alive"
 
 app.Map("/api/{**rest}", async (HttpContext ctx) =>
 {
+    // /api/internal/ is for wormix-core only (it changes money, items, battle results).
+    // wormix-core calls the API directly, so players never need it: don't expose it.
+    if (ctx.Request.Path.StartsWithSegments("/api/internal", StringComparison.OrdinalIgnoreCase))
+    {
+        ctx.Response.StatusCode = 404;
+        return;
+    }
     var url = apiBase + ctx.Request.Path + ctx.Request.QueryString;
     using var req = new HttpRequestMessage(new HttpMethod(ctx.Request.Method), url);
     if (ctx.Request.ContentLength > 0 || ctx.Request.Headers.TransferEncoding.Count > 0)

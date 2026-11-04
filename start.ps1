@@ -103,7 +103,9 @@ $coreConfig = Join-Path $PSScriptRoot 'configs\wormix-core.json'
 Start-Part 'wormix-core' 49197 $dotnet @("`"$coreDll`"", "`"$coreConfig`"") $CoreDir
 
 $relayDll = Join-Path $PSScriptRoot 'bin\Release\net8.0\wormix-relay.dll'
-Start-Part 'Game host' 32700 $dotnet @("`"$relayDll`"", '--Urls', "http://${listen}:32700", '--ClientRoot', "`"$ClientDir`"") $PSScriptRoot
+$relayArgs = @("`"$relayDll`"", '--Urls', "http://${listen}:32700", '--ClientRoot', "`"$ClientDir`"")
+if ($GameLog) { $relayArgs += @('--DebugLog', 'true') }
+Start-Part 'Game host' 32700 $dotnet $relayArgs $PSScriptRoot
 
 # --- Done -----------------------------------------------------------------------------------
 $url = 'http://127.0.0.1:32700/' + $(if ($GameLog) { '?debug' } else { '' })

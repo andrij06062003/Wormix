@@ -39,6 +39,7 @@ class UpgradeController extends Controller
         if(
             ($craft->prev_upgrade_id < self::UPGRADE_BASE &&
             UserWeapon::query()
+                ->where('owner_id', $request->json('internal_user_id'))
                 ->where('weapon_id', $craft->prev_upgrade_id)
                 ->where('count', -1)
             ->count() == 0) ||

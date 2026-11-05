@@ -129,7 +129,11 @@ class WormixTrashHelper
             )
         );
         foreach($new_weapons as $weapon){
-            $old_weapon = UserWeapon::query()->where('weapon_id', $weapon[0])->get()->first();
+            // This player's own row only: without owner_id this took another player's weapon.
+            $old_weapon = UserWeapon::query()
+                ->where('owner_id', $wormData->owner_id)
+                ->where('weapon_id', $weapon[0])
+                ->get()->first();
             $user_weapon = $old_weapon === null ? new UserWeapon() : $old_weapon;
             $user_weapon->owner_id = $wormData->owner_id;
             $user_weapon->weapon_id = $weapon[0];

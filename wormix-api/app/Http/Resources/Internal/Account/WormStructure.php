@@ -35,7 +35,9 @@ class WormStructure extends JsonResource
 
             'Experience' => $this->teammate->experience,
             'Level' => $level,
-            'Hat' => $this->teammate->hat
+            'Hat' => $this->teammate->hat,
+            // Equipped artifact (item id 2001+), 0 = none. Read by the patched client after SocialOwnerId.
+            'Artifact' => (int)($this->teammate->artifact ?? 0)
         ];
     }
 }

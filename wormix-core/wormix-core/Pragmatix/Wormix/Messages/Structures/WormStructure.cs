@@ -15,6 +15,13 @@ public struct WormStructure : ISerializable
     public uint Experience;
 
     public short Hat;
+
+    /// <summary>
+    /// Equipped artifact (item id 2001+), 0 = none. Not in the original 1.05.0 protocol: added for the
+    /// artifacts port, read by the patched client right after SocialOwnerId.
+    /// </summary>
+    public short Artifact;
+
     public uint GetSize()
     {
         return
@@ -28,6 +35,7 @@ public struct WormStructure : ISerializable
                 + 4 //Experience
                 + 2 //Hat
                 + 2 + SocialOwnerId.Length
+                + 2 //Artifact
             );
     }
 
@@ -45,5 +53,7 @@ public struct WormStructure : ISerializable
         bw.WriteUInt16Be((ushort)Hat);
         
         bw.WriteUTF8(SocialOwnerId);
+
+        bw.WriteUInt16Be((ushort)Artifact);
     }
 }

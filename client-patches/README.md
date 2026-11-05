@@ -70,3 +70,38 @@ is removed. To rebuild from the original 1.25.0 file:
     java -jar ffdec-cli.jar -swf2xml achiev_room_125.swf room.xml
     python3 client-patches/achiev_room_layout.py room.xml room_fixed.xml
     java -jar ffdec-cli.jar -xml2swf room_fixed.xml achiev_room.swf
+
+## `artifacts/`: artifacts from 1.25.0 (stage 1: shop, wardrobe, bonuses)
+
+1.25.0 added artifacts: an item held in the hand, in its own slot next to the hat. They are ported
+on top of the hat code. An artifact is a `HatRecord` with `isArtifact`, kept with the hats of every race,
+so the shop's stuff tab, buying and the wardrobe list them with no new screens.
+
+- Protocol: `WormStructure` has a new `artifact` short (item id 2001+, 0 = none) after `socialOwnerId`.
+  Server (wormix-core `WormStructure.Artifact`) and client must ship together.
+- `HatRecord`: the 1.25.0 names of the bonuses 1.05.0 already has are mapped:
+  `fireDamage`/`fireReduction` → `fireDamageBonus`/`fireDamageReduction`, and `poisonDamage` (%) →
+  `poison` levels (20% each). Bonuses with no effect in 1.05.0 yet (shock/air/frost, penetration,
+  squad armor/attack, fortitude, heal bonus, poison protection %, ...) are kept in `extraBonuses` for a
+  later stage. An artifact whose bonuses all have no effect yet is `hideInShop` in artifacts.json.
+- `UserProfile`: the artifact slot (`getArtifact`/`setArtifact`). `setHat(artifact)` puts it in that slot,
+  so shop purchases and rewards work unchanged. `BonusStats` adds the artifact's bonuses to the hat's.
+- `WardrobeRoom`: the hat and the artifact are both highlighted. A click on an artifact puts it on, a
+  click on the one you wear takes it off. Saving sends `SelectStuff` for the hat, then for the artifact
+  (`2000` = take it off).
+- `CharGraphics.setHat` ignores artifacts (they are not drawn on the head; drawing them in the hand is a later stage).
+- Data: `ConfigsConverter.ARTIFACTS` is generated from `wormix-api/resources/game/artifacts.json`
+  (the server's copy) by `gen_artifacts_config.py`. Graphics: `data/common/objects/artifacts.swf` from a
+  1.25.0 client (github.com/lightcool697/wormix.github.io, `vk/1.25.0/data/common/objects/artifacts.swf`),
+  listed in resconfig.xml. Names: `ARTIFACT.*` in `items.messages_*.xml`.
+
+Rebuild on top of the patches above (one `-replace` per class, in this order):
+
+    python3 client-patches/artifacts/gen_artifacts_config.py
+    for c in model.items.HatRecord model.items.ItemsStore messages.structures.WormStructure \
+             serialization.structures.WormStructureBinarySerializer model.user.UserProfile \
+             model.worm.BonusStats objects.graphics.CharGraphics loader.ConfigsConverter \
+             gui.house.wardrobe.WardrobeRoom; do
+        java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
+            client-patches/artifacts/${c##*.}.as && mv Wormix.new.swf Wormix.swf
+    done

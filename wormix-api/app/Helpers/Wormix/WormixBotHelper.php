@@ -21,6 +21,8 @@ class WormixBotHelper
 
         $random_stuff = Weapon::query()
             ->where('id', '>', WormixTrashHelper::STUFF_START_INDEX)
+            // Hats only: artifacts (2001+) are not worn on the head.
+            ->where('id', '<', WormixTrashHelper::ARTIFACT_START_INDEX)
             ->where('required_level', '<=', $userWorm->level)
             ->where('required_rating', '<=', $user_profile->rating)
             ->where('hide_in_shop', 0)

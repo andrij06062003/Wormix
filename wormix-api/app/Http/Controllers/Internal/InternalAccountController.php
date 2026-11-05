@@ -16,6 +16,10 @@ class InternalAccountController extends Controller
 {
     public function selectStuff(SelectStuffRequest $request)
     {
+        $stuffId = (int)$request->json('StuffId');
+        if ($stuffId >= WormixTrashHelper::ARTIFACT_START_INDEX && $stuffId < WormixTrashHelper::ARTIFACT_END_INDEX)
+            return $this->selectArtifact($request, $stuffId);
+
         $user_weapon = UserWeapon::query()
             ->where('owner_id', $request->json('internal_user_id'))
             ->where('weapon_id', $request->json('StuffId'))
@@ -49,6 +53,34 @@ class InternalAccountController extends Controller
 
     }
 
+
+    /**
+     * Equip an owned (and not expired) artifact, or take it off with ARTIFACT_START_INDEX.
+     * Answers with the selected id, like for hats.
+     */
+    private function selectArtifact(SelectStuffRequest $request, int $stuffId)
+    {
+        $userId = $request->json('internal_user_id');
+        if ($stuffId !== WormixTrashHelper::ARTIFACT_START_INDEX) {
+            $owned = UserWeapon::query()
+                ->where('owner_id', $userId)
+                ->where('weapon_id', $stuffId)
+                ->where(fn($q) => $q->where('expire_at', -1)->orWhere('expire_at', '>', time()))
+                ->exists();
+            if (!$owned)
+                return [
+                    'data' => new SelectStuffResult(Collection::empty(), SelectStuffResult::Error, 0)
+                ];
+        }
+
+        $worm = WormData::query()->where('owner_id', $userId)->firstOrFail();
+        $worm->artifact = $stuffId === WormixTrashHelper::ARTIFACT_START_INDEX ? 0 : $stuffId;
+        $worm->save();
+
+        return [
+            'data' => new SelectStuffResult(Collection::empty(), SelectStuffResult::Success, $stuffId)
+        ];
+    }
 
     public function distributePoints(DistributePointsRequest $request)
     {

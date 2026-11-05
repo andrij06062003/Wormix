@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Internal\Account;
 
+use App\Helpers\Wormix\WormixTrashHelper;
+use App\Models\Wormix\Weapon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SelectStuffRequest extends FormRequest
@@ -23,7 +25,14 @@ class SelectStuffRequest extends FormRequest
     {
         return [
             'internal_user_id' => 'required|integer|exists:users,id',
-            'StuffId' => 'required|integer|exists:wormix_weapons,id|min:1000',
+            'StuffId' => [
+                'required', 'integer', 'min:1000',
+                // An item id, or ARTIFACT_START_INDEX (no item) to take the artifact off.
+                function (string $attribute, mixed $value, \Closure $fail) {
+                    if ((int)$value !== WormixTrashHelper::ARTIFACT_START_INDEX && !Weapon::query()->whereKey($value)->exists())
+                        $fail('Unknown item.');
+                },
+            ],
         ];
     }
 }

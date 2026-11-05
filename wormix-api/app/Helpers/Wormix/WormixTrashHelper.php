@@ -17,6 +17,13 @@ class WormixTrashHelper
     public const STUFF_START_INDEX = 1000;
 
     /**
+     * Artifacts (ported from 1.25.0) are items 2001..2999. Selecting ARTIFACT_START_INDEX itself takes the
+     * equipped artifact off.
+     */
+    public const ARTIFACT_START_INDEX = 2000;
+    public const ARTIFACT_END_INDEX = 3000;
+
+    /**
      * @param int $hat worm_structure.hat
      * @return int[] 0-race id, 1-hat id
      */

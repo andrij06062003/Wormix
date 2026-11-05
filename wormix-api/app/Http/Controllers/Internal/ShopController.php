@@ -96,6 +96,17 @@ class ShopController extends Controller
                     $new_weapons->add($old_weapon);
                 }
             }
+
+            // The client puts a bought artifact on at once: do the same here.
+            $artifactIds = array_values(array_filter(
+                array_map(fn($item) => (int)$item['Id'], $request->json('ShopItems')),
+                fn($id) => $id > WormixTrashHelper::ARTIFACT_START_INDEX && $id < WormixTrashHelper::ARTIFACT_END_INDEX
+            ));
+            if (!empty($artifactIds)) {
+                WormData::query()
+                    ->where('owner_id', $request->json('internal_user_id'))
+                    ->update(['artifact' => end($artifactIds)]);
+            }
             return new ShopResult($new_weapons, ShopResult::Success);
         }
         catch (\Exception $ex){

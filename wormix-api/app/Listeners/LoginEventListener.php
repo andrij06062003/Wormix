@@ -83,6 +83,21 @@ class LoginEventListener
             $user_worm->save();
         }
 
+        // Take the artifact off when it's gone or expired, like the hat.
+        $artifactId = (int)$user->worm_data->artifact;
+        if ($artifactId !== 0) {
+            $artifactOwned = UserWeapon::query()
+                ->where('owner_id', $user->id)
+                ->where('weapon_id', $artifactId)
+                ->where(fn($q) => $q->where('expire_at', -1)->orWhere('expire_at', '>', time()))
+                ->exists();
+            if (!$artifactOwned) {
+                $user_worm = $user->worm_data;
+                $user_worm->artifact = 0;
+                $user_worm->save();
+            }
+        }
+
         $battle_info = UserBattleInfo::query()->where('user_id', $user->id)
             ->get()
             ->first();

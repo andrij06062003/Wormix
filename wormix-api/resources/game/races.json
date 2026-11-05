@@ -1,0 +1,44 @@
+[
+    {
+        "raceId": 0,
+        "configName": "worm",
+        "requiredLevel": 1,
+        "price": 300,
+        "realPrice": 3
+    },
+    {
+        "raceId": 2,
+        "configName": "boxer",
+        "requiredLevel": 1,
+        "price": 300,
+        "realPrice": 3
+    },
+    {
+        "raceId": 3,
+        "configName": "daemon",
+        "requiredLevel": 8,
+        "price": 1000,
+        "realPrice": 10
+    },
+    {
+        "raceId": 4,
+        "configName": "rabbit",
+        "requiredLevel": 12,
+        "price": 1600,
+        "realPrice": 16
+    },
+    {
+        "raceId": 5,
+        "configName": "zombie",
+        "requiredLevel": 10,
+        "price": 1200,
+        "realPrice": 12
+    },
+    {
+        "raceId": 6,
+        "configName": "cat",
+        "requiredLevel": 14,
+        "price": 2500,
+        "realPrice": 25
+    }
+]

@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+    <message name="NEXT_HELP_TEXT_BTN" value="Next"/>
+    <!--1 MISSION-->
+    <message name="LEARNING_1_TURN_1_N1_TEXT"
+             value="Welcome to Wormix - a rough and dangerous world! There's no time for wasting, straight to business!"/>
+
+    <message name="LEARNING_1_TURN_1_N2_PART_1_TEXT"
+             value="First, you msut learn how to move around and get yourself a weapon. See the crate? There's a rifle in it. Come to the crate using"/>
+    <message name="LEARNING_1_TURN_1_N2_PART_2_TEXT" value="buttons and take the weapon."/>
+
+    <message name="LEARNING_1_TURN_2_N1_PART_1_TEXT"
+             value="Great! Now, shooting. If you don't know how to shoot, you'll be dead very fast. Aim with"/>
+    <message name="LEARNING_1_TURN_2_N1_PART_2_TEXT" value="Aim straight at this marker."/>
+
+    <message name="LEARNING_1_TURN_3_TEXT" value="To shoot press SPACE."/>
+
+    <message name="LEARNING_1_TURN_4_TEXT" value="Holy sheep! Good shot! Nail down the success - try again."/>
+
+    <message name="LEARNING_1_TURN_5_TEXT"
+             value="What a shot - your enemy wouldn't stand a chance! That's how we do it in Wormix. Congratulations - you've just accomplished your first mission!"/>
+
+    <!--2 MISSION-->
+    <message name="LEARNING_2_TURN_1_PART_1_TEXT" value="What are you going to do when you get in such place? Jump!"/>
+    <message name="LEARNING_2_TURN_1_PART_2_TEXT" value="Go to the edge of platform."/>
+    <message name="LEARNING_2_TURN_1_PART_3_TEXT" value="Press the"/>
+    <message name="LEARNING_2_TURN_1_PART_4_TEXT" value="button to jump forward."/>
+
+    <message name="LEARNING_2_TURN_2_TEXT"
+             value="To get on the next platform, you shouldlearn a special jump: Backflip. Turn your back to the wall and press"/>
+
+    <message name="LEARNING_2_TURN_3_TEXT" value="Good. There's a shotgun in this crate, take it."/>
+
+    <message name="LEARNING_2_TURN_4_TEXT"
+             value="And now let's watch your weapon in action. Jump to the next platform and destroy the target!"/>
+
+    <message name="LEARNING_2_TURN_5_TEXT" value="Target destroyed! Great job!"/>
+
+    <!--3 MISSION-->
+    <message name="LEARNING_3_TURN_1_TEXT"
+             value="The wind is the key to greatest shots. Depending on your skill, the wind can be your ally, but it also may become your foe."/>
+
+    <message name="LEARNING_3_TURN_2_TEXT" value="Here you can see the strength of wind and its direction."/>
+
+    <message name="LEARNING_3_TURN_3_PART1_TEXT"
+             value="Lots of good weapons are affected by the wind. For example, bazooka."/>
+    <message name="LEARNING_3_TURN_3_PART2_TEXT"
+             value="All your weapons are stored in the backpack. Click on this icon."/>
+
+    <message name="LEARNING_3_TURN_4_TEXT" value="Double click on this icon to take the bazooka."/>
+
+    <message name="LEARNING_3_TURN_5_N1_PART_1_TEXT" value="To shoot the bazooka you should also adjust the power."/>
+    <message name="LEARNING_3_TURN_5_N1_PART_2_TEXT" value="Power is increasing by holding SPACE."/>
+
+    <message name="LEARNING_3_TURN_5_N2_TEXT"
+             value="Here's your targe! Take aim at the marker and shoot with maximum force. Press and hold SPACE."/>
+
+    <message name="LEARNING_3_TURN_6_N1_TEXT" value="Target dispatched. Great job! Let's try again!"/>
+
+    <message name="LEARNING_3_TURN_7_TEXT"
+             value="Great, let's go forth. Not all the weapons are affected by the wind. Look, there's a grenade in your backpack, take it."/>
+    <message name="LEARNING_3_TURN_8_TEXT"
+             value="You may set the explosion delay for the grenade with 1-5 keys. Now the timer is set for 3 seconds, which is perfect for the next target."/>
+
+    <message name="LEARNING_3_TURN_9_TEXT"
+             value="Now it's your turn - take aim and throw the grenade with maximum power."/>
+
+    <message name="LEARNING_3_TURN_10_TEXT"
+             value="Whoa! Seems like it's getting hot here, just don't go wild. It was your last training. Now you're on your own. Great battles are waiting!"/>
+
+    <!--name & decription-->
+    <message name="LEARNING_MISSION_1_NAME" value="Training: Shooting"/>
+    <message name="LEARNING_MISSION_2_NAME" value="Training: Jumping"/>
+    <message name="LEARNING_MISSION_3_NAME" value="Training: Bazooka and grenade"/>
+    <message name="LEARNING_MISSION_1_DESCR" value="-"/>
+    <message name="LEARNING_MISSION_2_DESCR" value="Learn how to jump around the map."/>
+    <message name="LEARNING_MISSION_3_DESCR" value="Learn how to perform precise shots and use the wind."/>
+
+    <message name="BOSS_PIRATE_NAME" value="Pirate Gang"/>
+    <message name="BOSS_PIRATE_DESCR"
+             value="The Pirate Captain has sunken so many times, that he is not afraid of water anymore."/>
+    <message name="TEAM_NAME_PIRATE1" value="Captain"/>
+    <message name="TEAM_NAME_PIRATE2" value="Cannon fodder"/>
+    <message name="BOT_NAME_PIRATE1" value="Captain"/>
+    <message name="BOT_NAME_PIRATE2" value="Sailor"/>
+    <message name="BOT_NAME_PIRATE3" value="Fallen sailor"/>
+
+    <message name="BOSS_ILLUSIONIST_NAME" value="The Illusionist"/>
+    <message name="BOSS_ILLUSIONIST_DESCR"
+             value="It's hard to kill the Illusionist, when you don't know which one of them is real."/>
+    <message name="TEAM_NAME_ILLUSIONIST1" value="The Illusionist"/>
+    <message name="BOT_NAME_ILLUSIONIST1" value="Illusionist"/>
+
+    <message name="BOSS_SHAMAN_NAME" value="Voodoo shaman"/>
+    <message name="BOSS_SHAMAN_DESCR"
+             value="Shaman relies on pesky demons, which may teleport anywhere, if you attack them"/>
+    <message name="TEAM_NAME_SHAMAN1" value="Voodoo shaman"/>
+    <message name="TEAM_NAME_SHAMAN2" value="Summoned forces"/>
+    <message name="BOT_NAME_SHAMAN1" value="Voodoo shaman"/>
+    <message name="BOT_NAME_SHAMAN2" value="Lesser demon"/>
+
+    <message name="BOSS_VIKING_NAME" value="Vikings"/>
+    <message name="BOSS_VIKING_DESCR" value="You're fighting against 3 veterans and your time leaks away."/>
+    <message name="TEAM_NAME_VIKING1" value="Baleog"/>
+    <message name="TEAM_NAME_VIKING2" value="Eric"/>
+    <message name="TEAM_NAME_VIKING3" value="Olaf"/>
+    <message name="BOT_NAME_VIKING1" value="Baleog"/>
+    <message name="BOT_NAME_VIKING2" value="Eric"/>
+    <message name="BOT_NAME_VIKING3" value="Olaf"/>
+
+    <message name="BOSS_WIND_MASTER_NAME" value="Wind Master"/>
+    <message name="BOSS_WIND_MASTER_DESCR" value="Wind is not an ally anymore - it serves the Wind Master!"/>
+    <message name="TEAM_NAME_WIND1" value="Wind Master"/>
+    <message name="TEAM_NAME_WIND2" value="Master's Guard"/>
+    <message name="BOT_NAME_WIND1" value="Wind Master"/>
+    <message name="BOT_NAME_WIND2" value="Lieutenant"/>
+    <message name="BOT_NAME_WIND3" value="Accolyte"/>
+
+    <message name="BOSS_SAMURAI_CAT_NAME" value="The Samurai"/>
+    <message name="BOSS_SAMURAI_CAT_DESCR"
+             value="This cat really has 9 lives! This duel's going to be a test of your endurance."/>
+    <message name="TEAM_NAME_SAMURAI_CAT" value="Samurai"/>
+    <message name="BOT_NAME_SAMURAI_CAT" value="Samurai"/>
+
+    <message name="BOSS_MINER_NAME" value="The Miner"/>
+    <message name="BOSS_MINER_DESCR" value="Genius of explosions, which base is well protected by enhanced mines."/>
+    <message name="TEAM_NAME_MINER" value="Miner"/>
+    <message name="BOT_NAME_MINER" value="Miner"/>
+
+    <message name="BOSS_ELDER_DEMONS_NAME" value="Burning zombies"/>
+    <message name="BOSS_ELDER_DEMONS_DESCR"
+             value="This zombies were possesed by some powerful force. Are you prepared to meteor shower?"/>
+    <message name="TEAM_NAME_ELDER_DEMONS" value="Burning zombies"/>
+    <message name="BOT_NAME_DEMON" value="Zombie"/>
+
+    <message name="BOSS_SOUL_NAME" value="Wandering spirit"/>
+    <message name="BOSS_SOUL_DESCR"
+             value="The Spirit heals his carriers while trying to escape you. Don't give him a chance."/>
+    <message name="TEAM_NAME_SOUL_1" value="Carriers"/>
+    <message name="BOT_NAME_SOUL_1" value="Carrier"/>
+
+    <message name="BOSS_GHOST_NAME" value="Ancient ghost"/>
+    <message name="BOSS_GHOST_DESCR"
+             value="Malicious creature, who managed to subdue the energy of lightning. You simply don't have a chance."/>
+    <message name="TEAM_NAME_GHOST_MAIN" value="Ancient ghost"/>
+    <message name="BOT_NAME_GHOST_MAIN" value="Ancient ghost"/>
+    <message name="TEAM_NAME_GHOST_ACOLYTE" value="Servants"/>
+    <message name="BOT_NAME_GHOST_ACOLYTE" value="Servant"/>
+
+    <message name="BOSS_YAKUZA_NAME" value="Yakuza"/>
+    <message name="BOSS_YAKUZA_DESCR"
+             value="The gang members are tightly linked to each other. By killing one of them, you make others stronger."/>
+    <message name="TEAM_NAME_YAKUZA_CAT" value="Tiger"/>
+    <message name="BOT_NAME_YAKUZA_CAT" value="Tiger"/>
+    <message name="TEAM_NAME_YAKUZA_BOXER" value="Steel"/>
+    <message name="BOT_NAME_YAKUZA_BOXER" value="Steel"/>
+    <message name="TEAM_NAME_YAKUZA_RABBIT" value="Storm"/>
+    <message name="BOT_NAME_YAKUZA_RABBIT" value="Storm"/>
+
+    <message name="BOSS_ROMEO_JULIET_NAME" value="Romeo and Juliet"/>
+    <message name="BOSS_ROMEO_JULIET_DESCR"
+             value="One of the best mercenary teams. Noone has unraveled their secret yet."/>
+    <message name="TEAM_NAME_ROMEO" value="Romeo"/>
+    <message name="BOT_NAME_ROMEO" value="Romeo"/>
+    <message name="TEAM_NAME_JULIET" value="Juliet"/>
+    <message name="BOT_NAME_JULIET" value="Juliet"/>
+
+    <message name="BOSS_KING_DEAD_NAME" value="Zombie King"/>
+    <message name="BOSS_KING_DEAD_DESCR" value="You think you can handle the horde of zombies and King's black magic?"/>
+    <message name="TEAM_KING_DEAD_NAME" value="Zombie King"/>
+    <message name="BOT_KING_DEAD_NAME" value="Zombie King"/>
+    <message name="TEAM_KING_DEAD_MINIONS" value="King's guard"/>
+    <message name="BOT_KING_DEAD_SUMMONER" value="Summoner"/>
+    <message name="BOT_KING_DEAD_MINION" value="Minion"/>
+
+    <message name="BOSS_DEAD_PIRATE_NAME" value="Vengeful Captain"/>
+    <message name="BOSS_DEAD_PIRATE_DESCR" value="The Old Pirate has returned with extra powers! Revenge!"/>
+
+    <message name="BOSS_SERGEANT_NAME" value="Sergeant"/>
+    <message name="BOSS_SERGEANT_DESCR"
+             value="Sergeant is protected by the loyal guard and brand new invisible guarding bots!"/>
+    <message name="TEAM_SERGEANT_NAME_1" value="Sergeant"/>
+    <message name="BOT_SERGEANT_NAME_1" value="Sergeant"/>
+    <message name="TEAM_SERGEANT_NAME_2" value="Guard"/>
+    <message name="BOT_SERGEANT_NAME_2" value="Corporal"/>
+
+    <message name="BOSS_FARMER_NAME" value="Farmer"/>
+    <message name="BOSS_FARMER_DESCR"
+             value="It's not known exactly, what is grown by this Farmer, but he must be interrupted."/>
+    <message name="BOT_NAME_FARMER" value="Farmer"/>
+    <message name="ENHANCEMENT_APPLE_NAME" value="Strange apple"/>
+
+    <message name="BOSS_HUNTER_NAME" value="Hunter"/>
+    <message name="BOSS_HUNTER_DESCR"
+             value="The Hunter relies on his laser traps, which are impossible to escape from (as he thinks)."/>
+    <message name="BOT_NAME_HUNTER" value="Hunter"/>
+
+    <message name="BOSS_MANIACS_NAME" value="Maniacs"/>
+    <message name="BOSS_MANIACS_DESCR"
+             value="This creatures are skilled with their dreadful hooks - so keep the distance!"/>
+    <message name="BOT_NAME_MANIAC_1" value="Freddy"/>
+    <message name="BOT_NAME_MANIAC_2" value="Jack"/>
+
+    <message name="BOSS_GUARDIANS_DEPTHS_NAME" value="Guardians of Depths"/>
+    <message name="BOSS_GUARDIANS_DEPTHS_DESCR"
+             value="The Earth itself fights for the Guardians! Don't even try to attack without a strong team!"/>
+    <message name="TEAM_GUARDIANS_DEPTHS_NAME" value="Guardians"/>
+    <message name="BOT_GUARDIANS_DEPTHS" value="Guardian"/>
+    <message name="PROGRESS_BAR_GUARDIANS_DEPTHS" value="earthquake"/>
+
+    <message name="BOSS_ENGINEER_NAME" value="Engineer"/>
+    <message name="BOSS_ENGINEER_DESCR"
+             value="Inventor, who created a vault in ancient tomb. First wrong action will lead to your defeat!"/>
+    <message name="BOT_NAME_ENGINEER_BOSS" value="Engineer"/>
+    <message name="BOT_NAME_ENGINEER_DROID" value="Protective Droid"/>
+    <message name="PROGRESS_BAR_ENGINEER" value="next droid"/>
+</dictionary>

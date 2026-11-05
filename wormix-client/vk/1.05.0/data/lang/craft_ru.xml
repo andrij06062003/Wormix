@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+    <message name="BATTERY" value="Батарейка"/>
+    <message name="GEAR" value="Шестеренка"/>
+    <message name="WOOD" value="Доска"/>
+    <message name="STONE" value="Камень"/>
+    <message name="METAL_PLATE" value="Пластинка"/>
+    <message name="SAND" value="Песок"/>
+    <message name="COAL" value="Уголь"/>
+    <message name="SCREW_BOLT" value="Шуруп"/>
+    <message name="SCREW_NUT" value="Гайка"/>
+    <message name="PIPE" value="Трубка"/>
+    <message name="SPRING" value="Пружина"/>
+    <message name="UMBRELLA" value="Зонтик"/>
+    <message name="ACCUMULATOR" value="Аккумулятор"/>
+    <message name="HAMMER" value="Молоток"/>
+    <message name="GUNPOWDER" value="Порох"/>
+    <message name="STEEL_BAR" value="Сталь"/>
+    <message name="SCREWDRIVER" value="Отвертка"/>
+    <message name="WRENCH" value="Гаечный ключ"/>
+    <message name="CRYSTAL" value="Кристалл"/>
+    <message name="GENERATOR" value="Генератор"/>
+    <message name="MICROCHIP" value="Микрочип"/>
+    <message name="SNIPER_SCOPE" value="Оптический прицел"/>
+    <message name="TITAN_BAR" value="Титан"/>
+
+    <message name="RECIPE.NAME" value="recipe"/>
+
+    <message name="CRAFT_CRATE" value="Ресурсы"/>
+    <message name="CRAFT_QTIP" value="Оружейная"/>
+    <message name="CRAFT_DISABLE_QTIP" value="Оружейная доступна с {level} уровня"/>
+    <message name="COLLECT_FOR_REAGENT_BTN" value="собрать"/>
+    <message name="COLLECT_FOR_RUBY_BTN" value="собрать за"/>
+    <message name="CRAFT_REWARD_TITLE" value="Полученные предметы"/>
+
+    <message name="CONFIRMATION_COLLECT_FOR_RUBIES_TEXT"
+             value="Вы уверены, что хотите купить это улучшение за рубины?"/>
+    <message name="CONFIRMATION_COLLECT_TEXT" value="Вы уверены, что хотите приобрести это улучшение?"/>
+    <message name="REQUIRED_LEVEL_HINT" value="Вам нужен {level} уровень, чтобы собрать это улучшение"/>
+    <message name="DOWNGRADE_BTN" value="разобрать"/>
+    <message name="DOWNGRADE_BTN2" value="разобрать за"/>
+    <message name="CONFIRMATION_DOWNGRADE_TEXT"
+             value="При разборе оружия вы получите 80% ресурсов. Вы уверены, что хотите разобрать?"/>
+
+    <message name="SEARCH_ZONE_GRADE_D" value="Чаще всего можно найти, раскапывая землю в миссиях или собирая ящики на низких ставках."/>
+    <message name="SEARCH_ZONE_GRADE_C" value="Попадается при раскопке земли в миссиях, падает с неба в ящиках на любых ставках. С большой вероятностью можно получить за победу над боссом."/>
+    <message name="SEARCH_ZONE_GRADE_B" value="Выпадает на высоких ставках, а также выдается за победу над боссами. Практически не встречается на низких ставках и в миссиях."/>
+
+    <message name="REAGENT_DEMAND" value="Требуется для сбора:"/>
+</dictionary>

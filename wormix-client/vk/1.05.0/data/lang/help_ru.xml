@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <message name="HELP_CONTROL_TITLE1" value="Перемещение влево/вправо"/>
+    <message name="HELP_CONTROL_DESCR1" >
+        <![CDATA[<b>Стрелки влево/вправо</b> на клавиатуре,клавиши <b>A/D</b>]]>
+    </message>
+
+    <message name="HELP_CONTROL_TITLE2" value="Прыжок вперед"/>
+    <message name="HELP_CONTROL_DESCR2">
+        <![CDATA[Клавиша <b>Enter</b> или клавиша <b>F</b>]]>
+    </message>
+
+    <message name="HELP_CONTROL_TITLE3" value="Прыжок назад"/>
+    <message name="HELP_CONTROL_DESCR3">
+        <![CDATA[Клавиша <b>Backspace</b> или клавиша <b>R</b>]]>
+    </message>
+
+    <message name="HELP_CONTROL_TITLE4" value="Перемещение прицела"/>
+    <message name="HELP_CONTROL_DESCR4">
+        <![CDATA[<b>Стрелки вверх/вниз</b> на клавиатуре, клавиши <b>W/S</b>]]>
+    </message>
+
+    <message name="HELP_CONTROL_TITLE5" value="Стрелять"/>
+    <message name="HELP_CONTROL_DESCR5">
+        <![CDATA[Клавиша <b>пробел</b>. Для изменения силы выстрела удерживайте нажатой клавишу пробел]]>
+    </message>
+
+    <message name="HELP_CONTROL_TITLE6" value="Выбор оружия в рюкзаке"/>
+    <message name="HELP_CONTROL_DESCR6">
+        <![CDATA[<b>Q/I</b> - открыть, <b>A/W/S/D</b> - перемещение, <b>пробел/E</b> - выбрать]]>
+    </message>
+
+    <message name="HELP_CONTROL_TITLE7" value="Задание таймера для гранаты"/>
+    <message name="HELP_CONTROL_DESCR7">
+        <![CDATA[Используйте <b>клавиши 1-5</b>]]>
+    </message>
+</dictionary>

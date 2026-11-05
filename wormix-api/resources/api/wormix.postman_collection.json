@@ -1,0 +1,328 @@
+{
+    "info": {
+        "_postman_id": "49eb0d1d-8f0d-46d0-a8f4-c32d37ef5b30",
+        "name": "WROXMIX",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "20606959"
+    },
+    "item": [
+        {
+            "name": "OPEN",
+            "item": [
+                {
+                    "name": "VK API",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "method",
+                                    "value": "getAppFriends",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{base_url}}",
+                            "host": [
+                                "{{base_url}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "LOCAL",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:3137/preloader.html?api_url=http://127.0.0.1:8000/api/&api_id=2&api_settings=8479&viewer_id=1&viewer_type=2&sid=smtp&secret=smtp&access_token=&user_id=2&group_id=0&is_app_user=1&auth_key=05be53bc99c732f78baa696ca98fe5f762d266848e67b06998648c7bf117b7f5&language=0&parent_language=0&ad_info=dasss==&is_secure=0&ads_app_id=smtp&referrer=unknown&lc_name=smtp&hash=",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "3137",
+                            "path": [
+                                "preloader.html"
+                            ],
+                            "query": [
+                                {
+                                    "key": "api_url",
+                                    "value": "http://127.0.0.1:8000/api/",
+                                    "description": "Api URL"
+                                },
+                                {
+                                    "key": "api_id",
+                                    "value": "2"
+                                },
+                                {
+                                    "key": "api_settings",
+                                    "value": "8479"
+                                },
+                                {
+                                    "key": "viewer_id",
+                                    "value": "1",
+                                    "description": "User id"
+                                },
+                                {
+                                    "key": "viewer_type",
+                                    "value": "2"
+                                },
+                                {
+                                    "key": "sid",
+                                    "value": "smtp"
+                                },
+                                {
+                                    "key": "secret",
+                                    "value": "smtp"
+                                },
+                                {
+                                    "key": "access_token",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "user_id",
+                                    "value": "2"
+                                },
+                                {
+                                    "key": "group_id",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "is_app_user",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "auth_key",
+                                    "value": "05be53bc99c732f78baa696ca98fe5f762d266848e67b06998648c7bf117b7f5"
+                                },
+                                {
+                                    "key": "language",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "parent_language",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "ad_info",
+                                    "value": "dasss=="
+                                },
+                                {
+                                    "key": "is_secure",
+                                    "value": "0"
+                                },
+                                {
+                                    "key": "ads_app_id",
+                                    "value": "smtp"
+                                },
+                                {
+                                    "key": "referrer",
+                                    "value": "unknown"
+                                },
+                                {
+                                    "key": "lc_name",
+                                    "value": "smtp"
+                                },
+                                {
+                                    "key": "hash",
+                                    "value": ""
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "SIGN UP",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"login\": \"jopka2\",\r\n    \"password\": \"1235678000\",\r\n    \"password_confirmation\": \"1235678000\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}account/sign_up",
+                            "host": [
+                                "{{base_url}}account"
+                            ],
+                            "path": [
+                                "sign_up"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "SIGN IN",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"login\": \"jopka3\",\r\n    \"password\": \"1235678000\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}account/sign_in",
+                            "host": [
+                                "{{base_url}}account"
+                            ],
+                            "path": [
+                                "sign_in"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "AUTH BASE",
+            "item": [
+                {
+                    "name": "ACCOUNT",
+                    "item": [
+                        {
+                            "name": "START GAME",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{base_url}}account/game",
+                                    "host": [
+                                        "{{base_url}}account"
+                                    ],
+                                    "path": [
+                                        "game"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "ACCOUNT INFO",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{base_url}}account/",
+                                    "host": [
+                                        "{{base_url}}account"
+                                    ],
+                                    "path": [
+                                        ""
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "SIGN OUT",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}account/sign_out",
+                            "host": [
+                                "{{base_url}}account"
+                            ],
+                            "path": [
+                                "sign_out"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": [
+                    {
+                        "key": "token",
+                        "value": "1|bTfdopUdfOEYcWiosHmJcrtoxva0cbkK0ueSyTfG404e6a65",
+                        "type": "string"
+                    }
+                ]
+            },
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "type": "text/javascript",
+                        "packages": {},
+                        "exec": [
+                            ""
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "type": "text/javascript",
+                        "packages": {},
+                        "exec": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://127.0.0.1:8000/api/",
+            "type": "string"
+        }
+    ]
+}

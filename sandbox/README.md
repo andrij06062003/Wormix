@@ -3,16 +3,8 @@
 Runs the whole Wormix stack (api, core, relay, redis, cloudflared) inside one
 Docker-in-Docker container capped at 1 CPU and 2 GB RAM.
 
-Expected layout (same as the main compose file):
-
-```
-<dir>/
-  Wormix/          # this repo
-  wormix-api/      # https://github.com/andrij06062003/Wormix_Test
-  wormix-client/   # game files (not in git)
-```
-
-Override with `API_DIR` / `CLIENT_DIR` if yours differ. Put your
+The API (`wormix-api/`) and game files (`wormix-client/`) are included in
+this repo. Override with `API_DIR` / `CLIENT_DIR` to use other copies. Put your
 `CLOUDFLARE_TUNNEL_TOKEN` in `Wormix/.env` (see `.env.example`).
 
 ```

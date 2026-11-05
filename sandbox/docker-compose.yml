@@ -23,8 +23,8 @@ services:
     volumes:
       - wormix-dind-data:/var/lib/docker
       - ..:/workspace/wormix-relay
-      - ${API_DIR:-../../wormix-api}:/workspace/wormix-api
-      - ${CLIENT_DIR:-../../wormix-client}:/workspace/wormix-client:ro
+      - ${API_DIR:-../wormix-api}:/workspace/wormix-api
+      - ${CLIENT_DIR:-../wormix-client}:/workspace/wormix-client:ro
 
 volumes:
   wormix-dind-data:

@@ -155,6 +155,11 @@ class ResetController extends Controller
             }
         }
 
+        //Grant dev achievement points for dev environment
+        if ($isDev) {
+            AchievementsController::grantDevAchievements($request->json('internal_user_id'));
+        }
+
         Cache::delete('user_session_' . $request->json('internal_user_id'));
         return [
             'data' => [

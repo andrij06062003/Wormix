@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Helpers\Wormix\WormixTrashHelper;
+use App\Http\Controllers\Internal\AchievementsController;
 use App\Models\User;
 use App\Models\UserSocialData;
 use App\Models\Wormix\Level;
@@ -99,6 +100,11 @@ class UserObserver
                     WormixTrashHelper::addWeaponsAwards($l->awards, $worm_data);
                 }
             }
+        }
+
+        //Grant dev achievement points for dev environment
+        if ($isDev) {
+            AchievementsController::grantDevAchievements($user->id);
         }
     }
 

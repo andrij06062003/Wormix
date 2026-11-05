@@ -39,6 +39,21 @@ class AchievementsController extends Controller
         return self::$config;
     }
 
+    public static function grantDevAchievements(int $userId): void
+    {
+        $config = self::config();
+        foreach ($config['achievements'] as $id => $ach) {
+            $levels = $ach['levels'] ?? [];
+            if (empty($levels))
+                continue;
+            $maxVal = end($levels)['max'];
+            UserAchievement::updateOrCreate(
+                ['user_id' => $userId, 'achievement_id' => (int)$id],
+                ['value' => $maxVal]
+            );
+        }
+    }
+
     public function login(Request $request)
     {
         $userId = (int)$request->json('id');

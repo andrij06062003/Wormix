@@ -1,144 +1,144 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <dictionary>
 
-    <message name="NEXT_HELP_TEXT_BTN" value="Далее"/>
+    <message name="NEXT_HELP_TEXT_BTN" value="Далі"/>
     <!--1 MISSION-->
-    <message name="LEARNING_1_TURN_1_N1_TEXT" value="Добро пожаловать в Вормикс - мир суровый и опасный! Не будем тратить время на болтовню. Сразу к делу."/>
+    <message name="LEARNING_1_TURN_1_N1_TEXT" value="Ласкаво просимо до Вормікс — світу суворого й небезпечного! Не будемо марнувати час на балачки. Одразу до справи."/>
 
-    <message name="LEARNING_1_TURN_1_N2_PART_1_TEXT" value="Первое - надо научиться перемещаться и как можно скорее найти себе какое-нибудь оружие. Видите ящик? В нем спрятано ружье. Подойдите к ящику, используя кнопки"/>
-    <message name="LEARNING_1_TURN_1_N2_PART_2_TEXT" value="и возьмите оружие. Потренируйтесь."/>
+    <message name="LEARNING_1_TURN_1_N2_PART_1_TEXT" value="По-перше, треба навчитися пересуватися і якнайшвидше знайти собі якусь зброю. Бачите ящик? У ньому сховано рушницю. Підійдіть до ящика, використовуючи кнопки"/>
+    <message name="LEARNING_1_TURN_1_N2_PART_2_TEXT" value="і візьміть зброю. Потренуйтеся."/>
 
-    <message name="LEARNING_1_TURN_2_N1_PART_1_TEXT" value="Отлично! Теперь стреляем. Если вы не умеете стрелять, в Вормикс вам будет очень непросто. Цельтесь, используя кнопки"/>
-    <message name="LEARNING_1_TURN_2_N1_PART_2_TEXT" value="Видите маркер? Цельтесь прямо в него."/>
+    <message name="LEARNING_1_TURN_2_N1_PART_1_TEXT" value="Чудово! Тепер стріляємо. Якщо ви не вмієте стріляти, у Вормікс вам буде дуже непросто. Цільтеся, використовуючи кнопки"/>
+    <message name="LEARNING_1_TURN_2_N1_PART_2_TEXT" value="Бачите маркер? Цільтеся прямо в нього."/>
 
-    <message name="LEARNING_1_TURN_3_TEXT" value="Чтобы выстрелить, нажмите ПРОБЕЛ."/>
+    <message name="LEARNING_1_TURN_3_TEXT" value="Щоб вистрілити, натисніть ПРОБІЛ."/>
 
-    <message name="LEARNING_1_TURN_4_TEXT" value="Ничего себе! Хороший выстрел! Закрепим успех - попробуйте еще раз."/>
+    <message name="LEARNING_1_TURN_4_TEXT" value="Оце так! Гарний постріл! Закріпимо успіх — спробуйте ще раз."/>
 
-    <message name="LEARNING_1_TURN_5_TEXT" value="Какой выстрел - у врага не было бы шансов! Так и надо в Вормикс. Поздравляем - вы только что прошли первую миссию!"/>
+    <message name="LEARNING_1_TURN_5_TEXT" value="Оце постріл — у ворога не було б шансів! Саме так і треба у Вормікс. Вітаємо — ви щойно пройшли першу місію!"/>
 
     <!--2 MISSION-->
-    <message name="LEARNING_2_TURN_1_PART_1_TEXT" value="А что вы будете делать, если окажетесь, например, здесь? Прыгать!"/>
-    <message name="LEARNING_2_TURN_1_PART_2_TEXT" value="Подойдите к краю платформы."/>
-    <message name="LEARNING_2_TURN_1_PART_3_TEXT" value="Нажмите кнопку"/>
-    <message name="LEARNING_2_TURN_1_PART_4_TEXT" value="чтобы прыгнуть вперед."/>
+    <message name="LEARNING_2_TURN_1_PART_1_TEXT" value="А що ви робитимете, якщо опинитеся, наприклад, тут? Стрибати!"/>
+    <message name="LEARNING_2_TURN_1_PART_2_TEXT" value="Підійдіть до краю платформи."/>
+    <message name="LEARNING_2_TURN_1_PART_3_TEXT" value="Натисніть кнопку"/>
+    <message name="LEARNING_2_TURN_1_PART_4_TEXT" value="щоб стрибнути вперед."/>
 
-    <message name="LEARNING_2_TURN_2_TEXT" value="Чтобы запрыгнуть на это препятствие, необходимо выучить специальный прыжок - сальто назад. Повернитесь спиной к стенке и нажмите"/>
+    <message name="LEARNING_2_TURN_2_TEXT" value="Щоб застрибнути на цю перешкоду, треба вивчити спеціальний стрибок — сальто назад. Поверніться спиною до стінки й натисніть"/>
 
-    <message name="LEARNING_2_TURN_3_TEXT" value="Хорошо. В ящике лежит дробовик - возьмите его."/>
+    <message name="LEARNING_2_TURN_3_TEXT" value="Добре. У ящику лежить дробовик — візьміть його."/>
 
-    <message name="LEARNING_2_TURN_4_TEXT" value="А теперь проверим ваше оружие в деле. Запрыгните наверх и уничтожьте цель!"/>
+    <message name="LEARNING_2_TURN_4_TEXT" value="А тепер перевіримо вашу зброю в ділі. Застрибніть нагору й знищте ціль!"/>
 
-    <message name="LEARNING_2_TURN_5_TEXT" value="Цель уничтожена. Отличная работа!"/>
+    <message name="LEARNING_2_TURN_5_TEXT" value="Ціль знищено. Чудова робота!"/>
 
     <!--3 MISSION-->
-    <message name="LEARNING_3_TURN_1_TEXT" value="Еще один секрет хорошей стрельбы - ветер. Ветер может очень сильно помочь или навредить - все зависит от вашего мастерства."/>
+    <message name="LEARNING_3_TURN_1_TEXT" value="Ще один секрет доброї стрільби — вітер. Вітер може дуже допомогти або зашкодити — усе залежить від вашої майстерності."/>
 
-    <message name="LEARNING_3_TURN_2_TEXT" value="Здесь вы всегда можете увидеть силу ветра и направление."/>
+    <message name="LEARNING_3_TURN_2_TEXT" value="Тут ви завжди можете побачити силу та напрямок вітру."/>
 
-    <message name="LEARNING_3_TURN_3_PART1_TEXT" value="В Вормикс много хорошего оружия, которое подвержено влиянию ветра. Например, базука."/>
-    <message name="LEARNING_3_TURN_3_PART2_TEXT" value="Все ваше оружие хранится в рюкзаке. Нажмите на иконку."/>
+    <message name="LEARNING_3_TURN_3_PART1_TEXT" value="У Вормікс багато гарної зброї, на яку впливає вітер. Наприклад, базука."/>
+    <message name="LEARNING_3_TURN_3_PART2_TEXT" value="Уся ваша зброя зберігається в рюкзаку. Натисніть на іконку."/>
 
-    <message name="LEARNING_3_TURN_4_TEXT" value="Выберите базуку, дважды кликнув на значке."/>
+    <message name="LEARNING_3_TURN_4_TEXT" value="Виберіть базуку, двічі клацнувши на значку."/>
 
-    <message name="LEARNING_3_TURN_5_N1_PART_1_TEXT" value="Для базуки также необходимо правильно выбрать силу выстрела."/>
-    <message name="LEARNING_3_TURN_5_N1_PART_2_TEXT" value="Сила регулируется нажатием на ПРОБЕЛ."/>
+    <message name="LEARNING_3_TURN_5_N1_PART_1_TEXT" value="Для базуки також треба правильно вибрати силу пострілу."/>
+    <message name="LEARNING_3_TURN_5_N1_PART_2_TEXT" value="Сила регулюється натисканням на ПРОБІЛ."/>
 
-    <message name="LEARNING_3_TURN_5_N2_TEXT" value="Вот ваша цель! Прицельтесь по маркеру и стреляйте смело с максимальной силой. Зажмите и не отпускайте ПРОБЕЛ."/>
+    <message name="LEARNING_3_TURN_5_N2_TEXT" value="Ось ваша ціль! Прицільтеся по маркеру й сміливо стріляйте з максимальною силою. Затисніть і не відпускайте ПРОБІЛ."/>
 
-    <message name="LEARNING_3_TURN_6_N1_TEXT" value="Цель уничтожена. Отличная работа! Попробуем еще раз!"/>
+    <message name="LEARNING_3_TURN_6_N1_TEXT" value="Ціль знищено. Чудова робота! Спробуймо ще раз!"/>
 
-    <message name="LEARNING_3_TURN_7_TEXT" value="Отлично, поехали дальше. Не все оружие подвержено ветру. Посмотрите, в рюкзаке есть граната, возьмите ее."/>
-    <message name="LEARNING_3_TURN_8_TEXT" value="Для гранаты можно установить задержку перед взрывом кнопками 1-5. Сейчас таймер установлен на 3 секунды, нас это полностью устраивает."/>
+    <message name="LEARNING_3_TURN_7_TEXT" value="Чудово, їдемо далі. Не на всю зброю впливає вітер. Подивіться, у рюкзаку є граната, візьміть її."/>
+    <message name="LEARNING_3_TURN_8_TEXT" value="Для гранати можна встановити затримку перед вибухом кнопками 1-5. Зараз таймер стоїть на 3 секунди, нас це цілком влаштовує."/>
 
-    <message name="LEARNING_3_TURN_9_TEXT" value="А теперь ваш ход - прицельтесь и выстрелите с максимальной силой."/>
+    <message name="LEARNING_3_TURN_9_TEXT" value="А тепер ваш хід — прицільтеся й вистріліть з максимальною силою."/>
 
-    <message name="LEARNING_3_TURN_10_TEXT" value="Ничего себе! Стоп-стоп, что-то вы разошлись. Пожалуй, мне пора уносить ноги - здесь опасно. Это было последнее задание в обучении. Дальше сами, без меня. Красивых побед!"/>
+    <message name="LEARNING_3_TURN_10_TEXT" value="Оце так! Стоп-стоп, щось ви розійшлися. Мабуть, мені час тікати — тут небезпечно. Це було останнє завдання навчання. Далі самі, без мене. Гарних перемог!"/>
 
     <!--name & decription-->
-    <message name="LEARNING_MISSION_1_NAME" value="Обучение: Стрельба"/>
-    <message name="LEARNING_MISSION_2_NAME" value="Обучение: Прыжки"/>
-    <message name="LEARNING_MISSION_3_NAME" value="Обучение: Базука и Граната"/>
+    <message name="LEARNING_MISSION_1_NAME" value="Навчання: Стрільба"/>
+    <message name="LEARNING_MISSION_2_NAME" value="Навчання: Стрибки"/>
+    <message name="LEARNING_MISSION_3_NAME" value="Навчання: Базука і Граната"/>
     <message name="LEARNING_MISSION_1_DESCR" value="-"/>
-    <message name="LEARNING_MISSION_2_DESCR" value="В этой миссии вы научитесь сложным прыжкам."/>
-    <message name="LEARNING_MISSION_3_DESCR" value="Здесь вы овладеете навыками точной стрельбы с учетом ветра."/>
+    <message name="LEARNING_MISSION_2_DESCR" value="У цій місії ви навчитеся складних стрибків."/>
+    <message name="LEARNING_MISSION_3_DESCR" value="Тут ви опануєте точну стрільбу з урахуванням вітру."/>
 
-    <message name="BOSS_PIRATE_NAME" value="Пираты"/>
+    <message name="BOSS_PIRATE_NAME" value="Пірати"/>
     <message name="BOSS_PIRATE_DESCR"
-             value="Капитан пиратов так часто тонул, что перестал бояться воды. А вот вам стоит."/>
-    <message name="TEAM_NAME_PIRATE1" value="Капитан"/>
-    <message name="TEAM_NAME_PIRATE2" value="Пушечное мясо"/>
-    <message name="BOT_NAME_PIRATE1" value="Капитан"/>
+             value="Капітан піратів так часто тонув, що перестав боятися води. А от вам варто."/>
+    <message name="TEAM_NAME_PIRATE1" value="Капітан"/>
+    <message name="TEAM_NAME_PIRATE2" value="Гарматне м'ясо"/>
+    <message name="BOT_NAME_PIRATE1" value="Капітан"/>
     <message name="BOT_NAME_PIRATE2" value="Матрос"/>
-    <message name="BOT_NAME_PIRATE3" value="Падший матрос"/>
+    <message name="BOT_NAME_PIRATE3" value="Полеглий матрос"/>
 
-    <message name="BOSS_ILLUSIONIST_NAME" value="Иллюзионист"/>
+    <message name="BOSS_ILLUSIONIST_NAME" value="Ілюзіоніст"/>
     <message name="BOSS_ILLUSIONIST_DESCR"
-             value="Искусный фокусник, умеет создавать фальшивые клоны самого себя. Опасный и коварный противник."/>
-    <message name="TEAM_NAME_ILLUSIONIST1" value="Иллюзионист"/>
-    <message name="BOT_NAME_ILLUSIONIST1" value="Иллюзионист"/>
+             value="Вправний фокусник, уміє створювати фальшиві клони самого себе. Небезпечний і підступний суперник."/>
+    <message name="TEAM_NAME_ILLUSIONIST1" value="Ілюзіоніст"/>
+    <message name="BOT_NAME_ILLUSIONIST1" value="Ілюзіоніст"/>
 
     <message name="BOSS_SHAMAN_NAME" value="Шаман вуду"/>
     <message name="BOSS_SHAMAN_DESCR"
-             value="Шаман использует демонов - хитрых и опасных: они перемещаются после каждой вашей атаки."/>
+             value="Шаман використовує демонів — хитрих і небезпечних: вони переміщуються після кожної вашої атаки."/>
     <message name="TEAM_NAME_SHAMAN1" value="Шаман Вуду"/>
-    <message name="TEAM_NAME_SHAMAN2" value="Подручные демоны"/>
+    <message name="TEAM_NAME_SHAMAN2" value="Демони-помічники"/>
     <message name="BOT_NAME_SHAMAN1" value="Шаман Вуду"/>
-    <message name="BOT_NAME_SHAMAN2" value="Младший демон"/>
+    <message name="BOT_NAME_SHAMAN2" value="Молодший демон"/>
 
-    <message name="BOSS_VIKING_NAME" value="Викинги"/>
+    <message name="BOSS_VIKING_NAME" value="Вікінги"/>
     <message name="BOSS_VIKING_DESCR"
-             value="Против вас 3 суровых бойца, а время уходит. Будете медлить - останется всего 5 секунд на ход!"/>
-    <message name="TEAM_NAME_VIKING1" value="Балеог Свирепый"/>
-    <message name="TEAM_NAME_VIKING2" value="Эрик Быстрый"/>
-    <message name="TEAM_NAME_VIKING3" value="Олаф Крепкий"/>
+             value="Проти вас 3 суворі бійці, а час спливає. Зволікатимете — залишиться лише 5 секунд на хід!"/>
+    <message name="TEAM_NAME_VIKING1" value="Балеог Лютий"/>
+    <message name="TEAM_NAME_VIKING2" value="Ерік Швидкий"/>
+    <message name="TEAM_NAME_VIKING3" value="Олаф Міцний"/>
     <message name="BOT_NAME_VIKING1" value="Балеог"/>
-    <message name="BOT_NAME_VIKING2" value="Эрик"/>
+    <message name="BOT_NAME_VIKING2" value="Ерік"/>
     <message name="BOT_NAME_VIKING3" value="Олаф"/>
 
-    <message name="BOSS_WIND_MASTER_NAME" value="Мастер ветра"/>
+    <message name="BOSS_WIND_MASTER_NAME" value="Майстер вітру"/>
     <message name="BOSS_WIND_MASTER_DESCR"
-             value="Держитесь крепче! Ветер больше не помощник - он слуга Мастера Ветра."/>
-    <message name="TEAM_NAME_WIND1" value="Мастер ветра"/>
-    <message name="TEAM_NAME_WIND2" value="Охрана Мастера"/>
-    <message name="BOT_NAME_WIND1" value="Мастер ветра"/>
+             value="Тримайтеся міцніше! Вітер більше не помічник — він слуга Майстра Вітру."/>
+    <message name="TEAM_NAME_WIND1" value="Майстер вітру"/>
+    <message name="TEAM_NAME_WIND2" value="Охорона Майстра"/>
+    <message name="BOT_NAME_WIND1" value="Майстер вітру"/>
     <message name="BOT_NAME_WIND2" value="Лейтенант"/>
     <message name="BOT_NAME_WIND3" value="Прислужник"/>
 
-    <message name="BOSS_SAMURAI_CAT_NAME" value="Cамурай"/>
+    <message name="BOSS_SAMURAI_CAT_NAME" value="Самурай"/>
     <message name="BOSS_SAMURAI_CAT_DESCR"
-             value="У этого кота действительно 9 жизней! Поединок с ним станет испытанием вашей выносливости."/>
-    <message name="TEAM_NAME_SAMURAI_CAT" value="Cамурай"/>
-    <message name="BOT_NAME_SAMURAI_CAT" value="Cамурай"/>
+             value="У цього кота справді 9 життів! Двобій із ним стане випробуванням вашої витривалості."/>
+    <message name="TEAM_NAME_SAMURAI_CAT" value="Самурай"/>
+    <message name="BOT_NAME_SAMURAI_CAT" value="Самурай"/>
 
-    <message name="BOSS_MINER_NAME" value="Минер"/>
-    <message name="BOSS_MINER_DESCR" value="Гений-подрывник, чья база защищена множеством улучшенных мин."/>
-    <message name="TEAM_NAME_MINER" value="Минер"/>
-    <message name="BOT_NAME_MINER" value="Минер"/>
+    <message name="BOSS_MINER_NAME" value="Мінер"/>
+    <message name="BOSS_MINER_DESCR" value="Геніальний підривник, чия база захищена безліччю покращених мін."/>
+    <message name="TEAM_NAME_MINER" value="Мінер"/>
+    <message name="BOT_NAME_MINER" value="Мінер"/>
 
-    <message name="BOSS_ELDER_DEMONS_NAME" value="Пылающие зомби"/>
+    <message name="BOSS_ELDER_DEMONS_NAME" value="Палаючі зомбі"/>
     <message name="BOSS_ELDER_DEMONS_DESCR"
-             value="Эти зомби захвачены темными силами. Надеюсь, вы подготовлены к метеоритному дождю?"/>
-    <message name="TEAM_NAME_ELDER_DEMONS" value="Пылающие зомби"/>
-    <message name="BOT_NAME_DEMON" value="Зомби"/>
+             value="Ці зомбі захоплені темними силами. Сподіваюся, ви готові до метеоритного дощу?"/>
+    <message name="TEAM_NAME_ELDER_DEMONS" value="Палаючі зомбі"/>
+    <message name="BOT_NAME_DEMON" value="Зомбі"/>
 
-    <message name="BOSS_SOUL_NAME" value="Блуждающий дух"/>
+    <message name="BOSS_SOUL_NAME" value="Блукаючий дух"/>
     <message name="BOSS_SOUL_DESCR"
-             value="Дух будет ускользать от вас, пытаясь лечить своих носителей. Не давайте ему шанса."/>
-    <message name="TEAM_NAME_SOUL_1" value="Носители"/>
-    <message name="BOT_NAME_SOUL_1" value="Носитель"/>
+             value="Дух вислизатиме від вас, намагаючись лікувати своїх носіїв. Не давайте йому шансу."/>
+    <message name="TEAM_NAME_SOUL_1" value="Носії"/>
+    <message name="BOT_NAME_SOUL_1" value="Носій"/>
 
-    <message name="BOSS_GHOST_NAME" value="Древний призрак"/>
+    <message name="BOSS_GHOST_NAME" value="Прадавній привид"/>
     <message name="BOSS_GHOST_DESCR"
-             value="Злобное существо, за долгие годы сумевшее подчинить себе силу молний. У вас нет шансов."/>
-    <message name="TEAM_NAME_GHOST_MAIN" value="Древний призрак"/>
-    <message name="BOT_NAME_GHOST_MAIN" value="Древний призрак"/>
+             value="Злісна істота, що за довгі роки підкорила собі силу блискавок. У вас немає шансів."/>
+    <message name="TEAM_NAME_GHOST_MAIN" value="Прадавній привид"/>
+    <message name="BOT_NAME_GHOST_MAIN" value="Прадавній привид"/>
     <message name="TEAM_NAME_GHOST_ACOLYTE" value="Прислужники"/>
     <message name="BOT_NAME_GHOST_ACOLYTE" value="Прислужник"/>
 
     <message name="BOSS_YAKUZA_NAME" value="Якудза"/>
     <message name="BOSS_YAKUZA_DESCR"
-             value="Между членами банды тесная связь. Убив одного из них, вы делаете сильнее остальных."/>
+             value="Між членами банди тісний зв'язок. Убивши одного з них, ви робите сильнішими решту."/>
     <message name="TEAM_NAME_YAKUZA_CAT" value="Тигр"/>
     <message name="BOT_NAME_YAKUZA_CAT" value="Тигр"/>
     <message name="TEAM_NAME_YAKUZA_BOXER" value="Сталь"/>
@@ -146,62 +146,62 @@
     <message name="TEAM_NAME_YAKUZA_RABBIT" value="Буря"/>
     <message name="BOT_NAME_YAKUZA_RABBIT" value="Буря"/>
 
-    <message name="BOSS_ROMEO_JULIET_NAME" value="Ромео и Джульетта"/>
+    <message name="BOSS_ROMEO_JULIET_NAME" value="Ромео і Джульєтта"/>
     <message name="BOSS_ROMEO_JULIET_DESCR"
-             value="Самая успешная команда наемников. Пока еще никто не разгадал их секрет."/>
+             value="Найуспішніша команда найманців. Поки що ніхто не розгадав їхнього секрету."/>
     <message name="TEAM_NAME_ROMEO" value="Ромео"/>
     <message name="BOT_NAME_ROMEO" value="Ромео"/>
-    <message name="TEAM_NAME_JULIET" value="Джульетта"/>
-    <message name="BOT_NAME_JULIET" value="Джульетта"/>
+    <message name="TEAM_NAME_JULIET" value="Джульєтта"/>
+    <message name="BOT_NAME_JULIET" value="Джульєтта"/>
 
-    <message name="BOSS_KING_DEAD_NAME" value="Король мертвых"/>
+    <message name="BOSS_KING_DEAD_NAME" value="Король мертвих"/>
     <message name="BOSS_KING_DEAD_DESCR"
-             value="Вы серьезно намерены справиться с толпой зомби и черной магией Короля?"/>
-    <message name="TEAM_KING_DEAD_NAME" value="Король мертвых"/>
-    <message name="BOT_KING_DEAD_NAME" value="Король мертвых"/>
+             value="Ви серйозно збираєтеся впоратися з натовпом зомбі та чорною магією Короля?"/>
+    <message name="TEAM_KING_DEAD_NAME" value="Король мертвих"/>
+    <message name="BOT_KING_DEAD_NAME" value="Король мертвих"/>
     <message name="TEAM_KING_DEAD_MINIONS" value="Прислужники короля"/>
-    <message name="BOT_KING_DEAD_SUMMONER" value="Заклинатель"/>
-    <message name="BOT_KING_DEAD_MINION" value="Миньон"/>
+    <message name="BOT_KING_DEAD_SUMMONER" value="Заклинач"/>
+    <message name="BOT_KING_DEAD_MINION" value="Міньйон"/>
 
-    <message name="BOSS_DEAD_PIRATE_NAME" value="Оживший Капитан"/>
-    <message name="BOSS_DEAD_PIRATE_DESCR" value="Старый Пират вернулся с новыми силами! Мстить!"/>
+    <message name="BOSS_DEAD_PIRATE_NAME" value="Ожилий Капітан"/>
+    <message name="BOSS_DEAD_PIRATE_DESCR" value="Старий Пірат повернувся з новими силами! Помститися!"/>
 
     <message name="BOSS_SERGEANT_NAME" value="Сержант"/>
     <message name="BOSS_SERGEANT_DESCR"
-             value="Сержант защищен верной командой и новейшей военной разработкой - невидимыми охранниками!"/>
+             value="Сержанта захищає вірна команда й новітня військова розробка — невидимі охоронці!"/>
     <message name="TEAM_SERGEANT_NAME_1" value="Сержант"/>
     <message name="BOT_SERGEANT_NAME_1" value="Сержант"/>
-    <message name="TEAM_SERGEANT_NAME_2" value="Боевой состав"/>
+    <message name="TEAM_SERGEANT_NAME_2" value="Бойовий склад"/>
     <message name="BOT_SERGEANT_NAME_2" value="Капрал"/>
 
     <message name="BOSS_FARMER_NAME" value="Фермер"/>
     <message name="BOSS_FARMER_DESCR"
-             value="Точно неизвестно, что выращивает этот Фермер, но необходимо остановить его эксперименты."/>
+             value="Невідомо напевно, що вирощує цей Фермер, але його експерименти треба зупинити."/>
     <message name="BOT_NAME_FARMER" value="Фермер"/>
-    <message name="ENHANCEMENT_APPLE_NAME" value="Странное яблоко"/>
+    <message name="ENHANCEMENT_APPLE_NAME" value="Дивне яблуко"/>
 
-    <message name="BOSS_HUNTER_NAME" value="Охотник"/>
+    <message name="BOSS_HUNTER_NAME" value="Мисливець"/>
     <message name="BOSS_HUNTER_DESCR"
-             value="Охотник полагается на свои лазерные капканы, из которых, по его мнению, невозможно выбраться."/>
-    <message name="BOT_NAME_HUNTER" value="Охотник"/>
+             value="Мисливець покладається на свої лазерні капкани, з яких, на його думку, неможливо вибратися."/>
+    <message name="BOT_NAME_HUNTER" value="Мисливець"/>
 
-    <message name="BOSS_MANIACS_NAME" value="Маньяки"/>
+    <message name="BOSS_MANIACS_NAME" value="Маніяки"/>
     <message name="BOSS_MANIACS_DESCR"
-             value="Эти создания мастерски владеют крючьями - держитесь от них подальше, и вы победите."/>
-    <message name="BOT_NAME_MANIAC_1" value="Фредди"/>
+             value="Ці створіння майстерно володіють гаками — тримайтеся від них подалі, і ви переможете."/>
+    <message name="BOT_NAME_MANIAC_1" value="Фредді"/>
     <message name="BOT_NAME_MANIAC_2" value="Джек"/>
 
-    <message name="BOSS_GUARDIANS_DEPTHS_NAME" value="Стражи недр"/>
+    <message name="BOSS_GUARDIANS_DEPTHS_NAME" value="Вартові надр"/>
     <message name="BOSS_GUARDIANS_DEPTHS_DESCR"
-             value="На стороне стражей сражается сама земля! Даже не пытайтесь атаковать без сильной команды!"/>
-    <message name="TEAM_GUARDIANS_DEPTHS_NAME" value="Стражи"/>
-    <message name="BOT_GUARDIANS_DEPTHS" value="Страж"/>
-    <message name="PROGRESS_BAR_GUARDIANS_DEPTHS" value="землетрясение"/>
+             value="На боці вартових б'ється сама земля! Навіть не пробуйте атакувати без сильної команди!"/>
+    <message name="TEAM_GUARDIANS_DEPTHS_NAME" value="Вартові"/>
+    <message name="BOT_GUARDIANS_DEPTHS" value="Вартовий"/>
+    <message name="PROGRESS_BAR_GUARDIANS_DEPTHS" value="землетрус"/>
 
-    <message name="BOSS_ENGINEER_NAME" value="Инженер"/>
+    <message name="BOSS_ENGINEER_NAME" value="Інженер"/>
     <message name="BOSS_ENGINEER_DESCR"
-             value="Изобретатель, построивший свою базу в древней гробнице. Любой неверный шаг - поражение!"/>
-    <message name="BOT_NAME_ENGINEER_BOSS" value="Инженер"/>
-    <message name="BOT_NAME_ENGINEER_DROID" value="Защитный дроид"/>
-    <message name="PROGRESS_BAR_ENGINEER" value="новый дроид"/>
+             value="Винахідник, що збудував свою базу в стародавній гробниці. Будь-який хибний крок — поразка!"/>
+    <message name="BOT_NAME_ENGINEER_BOSS" value="Інженер"/>
+    <message name="BOT_NAME_ENGINEER_DROID" value="Захисний дроїд"/>
+    <message name="PROGRESS_BAR_ENGINEER" value="новий дроїд"/>
 </dictionary>

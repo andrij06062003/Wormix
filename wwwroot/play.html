@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,19 +30,19 @@
 
 <form id="login" hidden>
     <h1>Wormix</h1>
-    <label for="name">Логин</label>
+    <label for="name">Логін</label>
     <input id="name" autocomplete="username" required minlength="3">
-    <label for="pass">Пароль (минимум 8 символов)</label>
+    <label for="pass">Пароль (щонайменше 8 символів)</label>
     <input id="pass" type="password" autocomplete="current-password" required minlength="8">
     <div class="buttons">
-        <button type="submit" class="primary" data-action="sign_in">Войти</button>
-        <button type="submit" class="secondary" data-action="sign_up">Регистрация</button>
+        <button type="submit" class="primary" data-action="sign_in">Увійти</button>
+        <button type="submit" class="secondary" data-action="sign_up">Реєстрація</button>
     </div>
     <div id="msg"></div>
 </form>
 
 <div id="game"></div>
-<div id="bar" hidden><span id="who"></span> · <button id="logout" type="button">Выйти</button></div>
+<div id="bar" hidden><span id="who"></span> · <button id="logout" type="button">Вийти</button></div>
 
 <script>
     // Everything (this page, the API at /api/ and the game connections) is served by the game host
@@ -96,8 +96,8 @@
             await startGame();
         } catch (err) {
             msg.textContent = action === 'sign_up'
-                ? 'Не удалось зарегистрироваться: ' + err.message + ' (логин может быть занят)'
-                : 'Неверный логин или пароль';
+                ? 'Не вдалося зареєструватися: ' + err.message + ' (можливо, логін уже зайнятий)'
+                : 'Неправильний логін або пароль';
         }
     });
 
@@ -119,7 +119,7 @@
         } catch (err) {
             store.clear();
             form.hidden = false;
-            msg.textContent = 'Сессия истекла, войдите снова';
+            msg.textContent = 'Сесія закінчилася, увійдіть знову';
             return;
         }
 

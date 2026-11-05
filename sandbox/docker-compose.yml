@@ -1,0 +1,30 @@
+name: wormix-dedicated
+
+services:
+  wormix-sandbox:
+    build:
+      context: .
+    image: wormix-sandbox:latest
+    container_name: wormix-sandbox
+    restart: unless-stopped
+    privileged: true
+    cpus: 1.0
+    mem_limit: 2048M
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2048M
+    ports:
+      - "127.0.0.1:32700:32700"
+    environment:
+      - DOCKER_TLS_CERTDIR=
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - wormix-dind-data:/var/lib/docker
+      - ..:/workspace/wormix-relay
+      - ${API_DIR:-../../wormix-api}:/workspace/wormix-api
+      - ${CLIENT_DIR:-../../wormix-client}:/workspace/wormix-client:ro
+
+volumes:
+  wormix-dind-data:

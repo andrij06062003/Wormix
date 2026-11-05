@@ -43,7 +43,7 @@ services:
     volumes:
       - ${CLIENT_DIR:-../wormix-client}:/client:ro   # game files (not in git)
     ports:
-      - "127.0.0.1:32700:32700"        # for testing on the server itself: http://127.0.0.1:32700
+      - "32700:32700"        # for testing on the server itself: http://127.0.0.1:32700
     depends_on:
       - api
       - core

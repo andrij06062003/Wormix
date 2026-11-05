@@ -21,6 +21,11 @@ if [ -z "$APP_KEY" ]; then
     export APP_KEY
 fi
 
+# Ensure DB_DATABASE is explicitly in .env so PHP CLI server workers inherit it
+if ! grep -q "^DB_DATABASE=" .env; then
+    echo "DB_DATABASE=/data/database.sqlite" >> .env
+fi
+
 # Uploaded files persist in /data/photos.
 mkdir -p /data/photos
 if [ ! -L storage/app ]; then
@@ -33,6 +38,8 @@ if [ ! -f "$DB_DATABASE" ]; then
     touch "$DB_DATABASE"
     fresh=1
 fi
+
+ln -sf /data/database.sqlite /app/database/database.sqlite
 
 php artisan migrate --force
 

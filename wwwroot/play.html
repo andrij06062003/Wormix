@@ -181,7 +181,7 @@
 
         const player = window.RufflePlayer.newest().createPlayer();
         document.getElementById('game').appendChild(player);
-        player.ruffle().load({ url: 'vk/1.05.0/preloader.swf', parameters: flashvars, base: 'vk/1.05.0/' })
+        player.ruffle().load({ url: 'vk/1.05.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.05.0/' })
             .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
     }
 

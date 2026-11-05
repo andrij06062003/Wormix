@@ -1,7 +1,7 @@
 #!/bin/bash
 # Starts the sandbox's own Docker daemon, then the deployer as the main process.
-# The Wormix containers inside come back by themselves (restart: unless-stopped); the deployer
-# only touches them when a new commit on its branch has passed CI.
+# The Wormix containers inside are started again here; the deployer only touches them when a new
+# commit on its branch has passed CI.
 set -euo pipefail
 
 log() { echo "$(date '+%Y-%m-%d %H:%M:%S') [${CD_ENV:-sandbox}] $*"; }
@@ -20,6 +20,11 @@ if ! docker info > /dev/null 2>&1; then
     exit 1
 fi
 log "Docker daemon ready"
+
+# Bring the game back. stop() below stops its containers on shutdown, and Docker's "unless-stopped"
+# then treats them as stopped on purpose, so they would not start again by themselves.
+docker ps -aq --filter label=com.docker.compose.project=wormix | xargs -r docker start > /dev/null \
+    && log "game containers started" || log "WARNING: could not start the game containers"
 
 DEPLOYER_PID=""
 stop() {

@@ -25,3 +25,11 @@ Rebuild (JPEXS FFDec, https://github.com/jindrapetrik/jpexs-decompiler):
         ru.pragmatix.wormix.crosshair.PointCrosshair client-patches/PointCrosshair.as
 
 `Wormix.orig.swf` is the unpatched file from git history (commit 1c91837).
+
+## Missing file: `data/common/rooms/achiev_room.swf`
+
+The 1.05.0 client archive had no achievements room (the house's achievements screen failed to open
+with a 404). `vk/1.05.0/data/common/rooms/achiev_room.swf` is taken from a 1.25.0 client
+(github.com/mazmax228228/wormix, `vk/1.25.0/data/common/rooms/achiev_room.swf`). It is graphics only,
+with the same classes (AchievRoom, AwardCell, AchievTabPage, AchievTabAwards) and the named parts
+the 1.05.0 code uses. It also has a "bosses" tab button from 1.25.0 that does nothing here.

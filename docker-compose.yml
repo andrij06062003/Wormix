@@ -3,6 +3,10 @@
 #   cp .env.example .env      # then fill in CLOUDFLARE_TUNNEL_TOKEN
 #   docker compose up -d --build
 #
+# cloudflared only starts with the "tunnel" profile (COMPOSE_PROFILES=tunnel in .env), so the stack
+# also runs locally without a tunnel token. IMAGE_TAG names the build (the CD deployer sets it to
+# the commit, so the previous release's images stay around for a rollback).
+#
 # Players open https://<your hostname>/ in a normal browser. See HOSTING.md.
 # Nothing is opened on the router: cloudflared connects out to Cloudflare.
 
@@ -15,6 +19,7 @@ services:
     command: ["redis-server", "--save", "", "--appendonly", "no"]   # only live sessions, nothing to keep
 
   api:
+    image: wormix-api:${IMAGE_TAG:-local}
     build:
       context: .
       dockerfile: docker/api.Dockerfile
@@ -27,6 +32,7 @@ services:
       - api-data:/data                 # database, app key, uploaded photos
 
   core:
+    image: wormix-core:${IMAGE_TAG:-local}
     build:
       context: .
       dockerfile: docker/core.Dockerfile
@@ -38,6 +44,7 @@ services:
       - api
 
   relay:
+    image: wormix-relay:${IMAGE_TAG:-local}
     build: .
     restart: unless-stopped
     volumes:
@@ -51,9 +58,10 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:2026.10.3
     restart: unless-stopped
+    profiles: ["tunnel"]
     command: ["tunnel", "--no-autoupdate", "run"]
     environment:
-      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:?Set CLOUDFLARE_TUNNEL_TOKEN in .env (see HOSTING.md)}
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:-}
     depends_on:
       - relay
 

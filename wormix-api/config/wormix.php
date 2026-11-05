@@ -1,11 +1,25 @@
 <?php
+
+$isDev = env('APP_ENV') === 'dev'
+    || env('APP_ENV') === 'development'
+    || env('APP_ENV') === 'local'
+    || env('CD_ENV') === 'dev'
+    || env('WORMIX_DEV') === true
+    || env('WORMIX_DEV') === 'true'
+    || env('WORMIX_DEV') === '1';
+
 return [
     'starter' => [
-        'money' => 450,
-        'real_money' => 3,
+        'money' => (int) env('WORMIX_STARTER_MONEY', 450),
+        'real_money' => (int) env('WORMIX_STARTER_REAL_MONEY', $isDev ? 3000 : 3),
+        'level' => (int) env('WORMIX_STARTER_LEVEL', $isDev ? 30 : 1),
         'missions' => 10,
         'race' => 0,
-        'weapons' => [1, 2, 4]
+        'weapons' => [1, 2, 4],
+        'dev' => [
+            'level' => (int) env('WORMIX_DEV_STARTER_LEVEL', 30),
+            'real_money' => (int) env('WORMIX_DEV_STARTER_REAL_MONEY', 3000),
+        ],
     ],
     'game' => [
         'missions' => [

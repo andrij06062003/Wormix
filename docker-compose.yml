@@ -28,6 +28,8 @@ services:
     restart: unless-stopped
     environment:
       APP_KEY: ${APP_KEY:-}            # optional; otherwise generated once and kept in the volume
+      APP_ENV: ${APP_ENV:-production}
+      CD_ENV: ${CD_ENV:-}
     volumes:
       - api-data:/data                 # database, app key, uploaded photos
 

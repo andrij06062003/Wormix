@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Internal;
 
+use App\Helpers\Wormix\WormixTrashHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Internal\Account\ResetAccountRequest;
 use App\Http\Requests\Internal\Account\ResetParametersRequest;
 use App\Http\Resources\Internal\Account\ResetParametersResult;
 use App\Models\Wormix\HouseAction;
+use App\Models\Wormix\Level;
 use App\Models\Wormix\LoginSequence;
 use App\Models\Wormix\UserBattleInfo;
 use App\Models\Wormix\UserProfile;
@@ -43,6 +45,19 @@ class ResetController extends Controller
             ->get()
             ->first();
 
+        $isDev = app()->environment('dev', 'development', 'local')
+            || env('CD_ENV') === 'dev'
+            || env('WORMIX_DEV') === true
+            || env('WORMIX_DEV') === 'true'
+            || env('WORMIX_DEV') === '1';
+
+        $starterLevel = $isDev
+            ? (int) config('wormix.starter.dev.level', 30)
+            : (int) config('wormix.starter.level', 1);
+
+        $starterRealMoney = $isDev
+            ? (int) config('wormix.starter.dev.real_money', 3000)
+            : (int) config('wormix.starter.real_money', 3);
 
         try{
             DB::beginTransaction();
@@ -60,10 +75,10 @@ class ResetController extends Controller
 
 
             //Wipe worm data
-            WormData::withoutEvents(function () use ($wormData) {
+            WormData::withoutEvents(function () use ($wormData, $starterLevel) {
                 $wormData->armor = 0;
                 $wormData->attack = 0;
-                $wormData->level = 1;
+                $wormData->level = $starterLevel;
                 $wormData->experience = 0;
                 $wormData->hat = config('wormix.starter.race');
                 $wormData->save();
@@ -71,7 +86,7 @@ class ResetController extends Controller
 
             //Wipe user profile
             $user_profile->money = config('wormix.starter.money');
-            $user_profile->real_money = config('wormix.starter.real_money');
+            $user_profile->real_money = $starterRealMoney;
             $user_profile->rating = 0;
             $user_profile->reaction_rate = 0;
             $user_profile->reagents = [];
@@ -128,6 +143,21 @@ class ResetController extends Controller
             $newWeapon->count = -1;
             $newWeapon->owner_id = $request->json('internal_user_id');
             $newWeapon->save();
+        }
+
+        //Add level awards weapons for dev environment
+        if ($isDev && $starterLevel > 1) {
+            $levels = Level::query()->whereBetween('id', [2, $starterLevel])->get();
+            foreach ($levels as $l) {
+                if (!empty($l->awards)) {
+                    WormixTrashHelper::addWeaponsAwards($l->awards, $wormData);
+                }
+            }
+        }
+
+        //Grant dev achievement points for dev environment
+        if ($isDev) {
+            AchievementsController::grantDevAchievements($request->json('internal_user_id'));
         }
 
         Cache::delete('user_session_' . $request->json('internal_user_id'));

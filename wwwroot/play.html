@@ -7,7 +7,7 @@
     <style>
         :root { --bg: #1d1d1d; --panel: #2a2a2a; --text: #e6e6e6; --muted: #9a9a9a; --accent: #f0a020; --error: #ff6b6b; }
         html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 15px system-ui, sans-serif; }
-        #game { width: 900px; max-width: 100%; height: 600px; margin: 20px auto 8px; }
+        #game { width: 900px; max-width: 100%; aspect-ratio: 3 / 2; margin: 20px auto 8px; }
         #game ruffle-player, #game ruffle-object, #game ruffle-embed { width: 100%; height: 100%; }
         #bar { text-align: center; color: var(--muted); font-size: 13px; }
         #bar button { background: none; border: 0; color: var(--accent); cursor: pointer; font: inherit; }
@@ -141,7 +141,11 @@
             autoplay: 'on',
             unmuteOverlay: 'hidden',
             allowScriptAccess: true,
-            letterbox: 'on',
+            // The game is 900x600 (3:2). Stretch it to fill the player, so full screen on a 16:9
+            // monitor has no black bars at the sides. forceScale keeps the game from switching it back.
+            scale: 'exactFit',
+            forceScale: true,
+            letterbox: 'off',
             logLevel: 'warn',
             // Flash aborts scripts that run longer than 15 s. Building the destructible map is heavy
             // and slower in Ruffle than in the old Flash Player, so allow more time.

@@ -1,0 +1,2793 @@
+[
+  {
+    "id": 1,
+    "hideInShop": true,
+    "name": "BAZOOKA.NAME",
+    "description": "BAZOOKA.DESCR",
+    "hint": "BAZOOKA.HINT",
+    "iconClassName": "MainBazooka",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainBazooka",
+      "charParams": {
+        "default": {
+          "x": -9.2,
+          "y": -0.9,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -3,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconMainBazooka",
+    "bagX": 1,
+    "bagY": 6,
+    "price": 10,
+    "realprice": 0,
+    "requiredFriends": 0,
+    "requiredLevel": 1,
+    "classname": "Bazooka",
+    "infinite": true,
+    "maxdamage": "BAZOOKA.DAMAGE",
+    "params": {
+      "clipClassName": "AmMainBazooka",
+      "damage": 60,
+      "damageRadius": 70,
+      "explosionRadius": 45,
+      "pushForce": 0
+    },
+    "property": {
+      "classMissile": "BazookaMissile"
+    }
+  },
+  {
+    "id": 2,
+    "hideInShop": true,
+    "name": "GRENADE.NAME",
+    "description": "GRENADE.DESCR",
+    "note": "WEAPON.TIMER",
+    "hint": "GRENADE.HINT",
+    "iconClassName": "MainGrenade",
+    "menuIcon": "IconMainGrenade",
+    "bagX": 2,
+    "bagY": 6,
+    "render": {
+      "type": "clip",
+      "clipClass": "MainGrenade",
+      "charParams": {
+        "default": {
+          "x": -6.5,
+          "y": 0.6,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -6.5,
+          "y": 3.6
+        }
+      }
+    },
+    "price": 10,
+    "realprice": 0,
+    "requiredLevel": 1,
+    "classname": "Grenade",
+    "infinite": true,
+    "maxdamage": "GRENADE.DAMAGE",
+    "params": {
+      "clipClassName": "AmMainGrenade",
+      "damage": 60,
+      "damageRadius": 70,
+      "explosionRadius": 45,
+      "pushForce": 0
+    },
+    "property": {
+      "classGrenade": "BouncingGrenade",
+      "blink": "MainGrenadeBlink"
+    }
+  },
+  {
+    "id": 16,
+    "name": "PNEUMATIC_DRILL.NAME",
+    "description": "PNEUMATIC_DRILL.DESCR",
+    "note": "PNEUMATIC_DRILL.NOTE",
+    "hint": "PNEUMATIC_DRILL.HINT",
+    "iconClassName": "PneumaticDrill",
+    "render": {
+      "type": "clip",
+      "clipClass": "PneumaticDrill",
+      "charParams": {
+        "default": {
+          "x": 0,
+          "y": 2.8,
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": 0,
+          "y": 6.8
+        }
+      }
+    },
+    "menuIcon": "IconPneumaticDrill",
+    "bagX": 7,
+    "bagY": 4,
+    "price": 560,
+    "realprice": 6,
+    "requiredLevel": 1,
+    "classname": "Drill",
+    "infinite": true,
+    "maxdamage": "PNEUMATIC_DRILL.DAMAGE"
+  },
+  {
+    "id": 17,
+    "name": "BLOW_TORCH.NAME",
+    "description": "BLOW_TORCH.DESCR",
+    "note": "PNEUMATIC_DRILL.NOTE",
+    "hint": "BLOW_TORCH.HINT",
+    "iconClassName": "MainBlowTorch",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainBlowTorch",
+      "charParams": {
+        "default": {
+          "x": 1.6,
+          "y": -0.8,
+          "hideHands": "left"
+        },
+        "zombie": {
+          "x": 1.7,
+          "y": -0.9,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 4.8
+        }
+      }
+    },
+    "price": 880,
+    "realprice": 9,
+    "requiredLevel": 2,
+    "classname": "BlowTorch",
+    "menuIcon": "IconMainBlowTorch",
+    "bagX": 7,
+    "bagY": 3,
+    "infinite": true,
+    "maxdamage": "BLOW_TORCH.DAMAGE",
+    "params": {
+      "clipClassName": "AmMainBlowTorch"
+    },
+    "property": {
+      "drillDistance": 80
+    }
+  },
+  {
+    "id": 21,
+    "refId": 17,
+    "price": 16,
+    "comparePrice": "879",
+    "requiredLevel": 1
+  },
+  {
+    "id": 19,
+    "name": "DYNAMITE.NAME",
+    "description": "DYNAMITE.DESCR",
+    "hint": "DYNAMITE.HINT",
+    "iconClassName": "Dynamite",
+    "render": {
+      "type": "clip",
+      "clipClass": "Dynamite",
+      "charParams": {
+        "default": {
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 3
+        }
+      }
+    },
+    "menuIcon": "IconDynamite",
+    "bagX": 3,
+    "bagY": 3,
+    "price": 800,
+    "realprice": 8,
+    "requiredLevel": 2,
+    "classname": "Dynamite",
+    "infinite": true,
+    "maxdamage": "DYNAMITE.DAMAGE",
+    "params": {
+      "clipClassName": "AmDynamite",
+      "damage": 75,
+      "damageRadius": 90,
+      "explosionRadius": 60,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 20,
+    "refId": 19,
+    "price": 15,
+    "realprice": 0,
+    "comparePrice": "799",
+    "requiredLevel": 1
+  },
+  {
+    "id": 39,
+    "name": "MINE.NAME",
+    "description": "MINE.DESCR",
+    "iconClassName": "MainMine",
+    "hint": "MINE.HINT",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainMine",
+      "charParams": {
+        "default": {
+          "hideHands": "left"
+        },
+        "worm": {
+          "x": 0,
+          "y": 4
+        },
+        "bull": {
+          "x": 0,
+          "y": 6.5
+        }
+      }
+    },
+    "menuIcon": "IconMainMine",
+    "bagX": 3,
+    "bagY": 1,
+    "price": 800,
+    "realprice": 8,
+    "requiredLevel": 2,
+    "classname": "MineWeapon",
+    "infinite": {
+      "maxShots": 4
+    },
+    "maxdamage": "MINE.DAMAGE",
+    "params": {
+      "clipClassName": "AmMainMine",
+      "damage": 45,
+      "damageRadius": 65,
+      "explosionRadius": 45,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 4,
+    "hideInShop": true,
+    "name": "RIFLE.NAME",
+    "description": "RIFLE.DESCR",
+    "hint": "RIFLE.HINT",
+    "iconClassName": "MainRifle",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainRifle",
+      "charParams": {
+        "default": {
+          "x": -1.4,
+          "y": -0.5,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 5
+        }
+      }
+    },
+    "menuIcon": "IconMainRifle",
+    "bagX": 4,
+    "bagY": 6,
+    "price": 660,
+    "realprice": 7,
+    "requiredLevel": 2,
+    "classname": "Rifle",
+    "infinite": true,
+    "maxdamage": "RIFLE.DAMAGE",
+    "params": {
+      "clipClassName": "AmGun",
+      "damage": 30,
+      "damageRadius": 45,
+      "explosionRadius": 25,
+      "pushForce": 0
+    },
+    "property": {
+      "trajectoryCrosshair": false
+    }
+  },
+  {
+    "id": 3,
+    "refId": 4,
+    "price": 16,
+    "requiredLevel": 1
+  },
+  {
+    "id": 49,
+    "name": "ROPE.NAME",
+    "description": "ROPE.DESCR",
+    "note": "ROPE.NOTE",
+    "hint": "ROPE.HINT",
+    "iconClassName": "Rope",
+    "render": {
+      "type": "clip",
+      "clipClass": "Rope",
+      "charParams": {
+        "bull": {
+          "x": -3.8,
+          "y": 5.75
+        },
+        "worm": {
+          "x": -4,
+          "y": 0
+        },
+        "default": {
+          "x": -4.3,
+          "y": -3.6,
+          "hideHands": "both"
+        }
+      }
+    },
+    "realprice": 22,
+    "price": 2000,
+    "requiredLevel": 8,
+    "classname": "RopeGun",
+    "menuIcon": "IconRope",
+    "bagX": 7,
+    "bagY": 1,
+    "infinite": true,
+    "params": {
+      "clipClassName": "RopeTip"
+    }
+  },
+  {
+    "id": 53,
+    "name": "GIRDER.NAME",
+    "description": "GIRDER.DESCR",
+    "note": "GIRDER.NOTE",
+    "hint": "GIRDER.HINT",
+    "iconClassName": "IconGirder",
+    "render": {
+      "type": "clip",
+      "clipClass": ""
+    },
+    "realprice": 22,
+    "price": 2100,
+    "requiredLevel": 14,
+    "classname": "Girder",
+    "menuIcon": "IconGirder",
+    "bagX": 6,
+    "bagY": 4,
+    "infinite": {
+      "maxShots": 2
+    }
+  },
+  {
+    "id": 45,
+    "name": "SHURIKEN.NAME",
+    "description": "SHURIKEN.DESCR",
+    "hint": "SHURIKEN.HINT",
+    "iconClassName": "MainShuriken",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainShuriken",
+      "charParams": {
+        "default": {
+          "x": -7.1,
+          "y": 0.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 4
+        }
+      }
+    },
+    "menuIcon": "IconMainShuriken",
+    "bagX": 6,
+    "bagY": 1,
+    "price": 1500,
+    "realprice": 15,
+    "requiredLevel": 3,
+    "classname": "ShurikenToss",
+    "infinite": true,
+    "maxdamage": "SHURIKEN.DAMAGE",
+    "note": "SHURIKEN.NOTE",
+    "params": {
+      "clipClassName": "AmMainShuriken",
+      "damage": 17,
+      "damageRadius": 35,
+      "explosionRadius": 20,
+      "pushForce": 0
+    },
+    "property": {
+      "quantityShots": 4,
+      "classShuriken": "Shuriken",
+      "power": 35,
+      "trajectoryCrosshair": false
+    }
+  },
+  {
+    "id": 5,
+    "name": "CL_GRENADE.NAME",
+    "description": "CL_GRENADE.DESCR",
+    "note": "WEAPON.TIMER",
+    "hint": "CL_GRENADE.HINT",
+    "iconClassName": "ClMainGrenade",
+    "render": {
+      "type": "clip",
+      "clipClass": "ClMainGrenade",
+      "charParams": {
+        "default": {
+          "x": -7.1,
+          "y": 0.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -3,
+          "y": 4
+        }
+      }
+    },
+    "menuIcon": "IconMainClGrenade",
+    "bagX": 2,
+    "bagY": 5,
+    "price": 950,
+    "realprice": 10,
+    "requiredLevel": 2,
+    "classname": "ClusterGrenade",
+    "infinite": true,
+    "maxdamage": "CL_GRENADE.DAMAGE",
+    "params": {
+      "clipClassName": "AmClMainGrenade",
+      "damage": 40,
+      "damageRadius": 60,
+      "explosionRadius": 30,
+      "pushForce": 0
+    },
+    "secondaryParams": {
+      "damage": 15,
+      "damageRadius": 40,
+      "explosionRadius": 20
+    },
+    "property": {
+      "quantityShards": 8,
+      "classShard": "Shard",
+      "classCluster": "BouncingClusterGrenade",
+      "blinkClassName": "ClMainGrenadeBlink"
+    }
+  },
+  {
+    "id": 7,
+    "name": "UZI.NAME",
+    "description": "UZI.DESCR",
+    "note": "UZI.NOTE",
+    "hint": "UZI.HINT",
+    "iconClassName": "MainUzi",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainUzi",
+      "charParams": {
+        "default": {
+          "x": 0.3,
+          "y": -1.3,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -1,
+          "y": 5
+        }
+      }
+    },
+    "menuIcon": "IconMainUzi",
+    "bagX": 4,
+    "bagY": 5,
+    "price": 1200,
+    "realprice": 12,
+    "requiredLevel": 3,
+    "classname": "Uzi",
+    "infinite": true,
+    "maxdamage": "UZI.DAMAGE",
+    "params": {
+      "clipClassName": "",
+      "damage": 5,
+      "damageRadius": 20,
+      "explosionRadius": 10,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 6,
+    "refId": 7,
+    "price": 28,
+    "comparePrice": 1199,
+    "requiredLevel": 2
+  },
+  {
+    "id": 9,
+    "name": "MORTAR.NAME",
+    "description": "MORTAR.DESCR",
+    "hint": "MORTAR.HINT",
+    "iconClassName": "MainMortar",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainMortar",
+      "charParams": {
+        "default": {
+          "x": 0,
+          "y": 0,
+          "hideHands": "both"
+        },
+        "worm": {
+          "y": 4,
+          "hideHands": "both"
+        },
+        "bull": {
+          "y": 4,
+          "hideHands": "both"
+        }
+      }
+    },
+    "menuIcon": "IconMainMortar",
+    "bagX": 1,
+    "bagY": 1,
+    "price": 1100,
+    "realprice": 12,
+    "requiredLevel": 4,
+    "classname": "Mortar",
+    "infinite": true,
+    "maxdamage": "MORTAR.DAMAGE",
+    "params": {
+      "clipClassName": "AmMainMortar",
+      "damage": 35,
+      "damageRadius": 80,
+      "explosionRadius": 50,
+      "pushForce": 0
+    },
+    "secondaryParams": {
+      "damage": 25,
+      "damageRadius": 40,
+      "explosionRadius": 20
+    },
+    "property": {
+      "additionalMissile": 0,
+      "trajectoryCrosshair": false
+    }
+  },
+  {
+    "id": 8,
+    "refId": 9,
+    "price": 25,
+    "comparePrice": 1099,
+    "requiredLevel": 3
+  },
+  {
+    "id": 29,
+    "name": "STICKY_BOMB.NAME",
+    "description": "STICKY_BOMB.DESCR",
+    "hint": "STICKY_BOMB.HINT",
+    "menuIcon": "IconMainStickyBomb",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainStickyBomb",
+      "charParams": {
+        "default": {
+          "x": -7.5,
+          "y": -1.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -2,
+          "y": 6
+        }
+      }
+    },
+    "iconClassName": "MainStickyBomb",
+    "bagX": 2,
+    "bagY": 4,
+    "price": 1500,
+    "realprice": 15,
+    "requiredLevel": 4,
+    "classname": "StickyGrenade",
+    "infinite": true,
+    "maxdamage": "STICKY_BOMB.DAMAGE",
+    "params": {
+      "clipClassName": "AmMainStickyBomb",
+      "damage": 40,
+      "damageRadius": 80,
+      "explosionRadius": 40,
+      "pushForce": 0
+    },
+    "secondaryParams": {
+      "clipClassName": "AmStickBombSplinter",
+      "damage": 20,
+      "damageRadius": 40,
+      "explosionRadius": 20
+    },
+    "property": {
+      "quantityShards": 7,
+      "classShard": "Shard",
+      "classProjectile": "StickyProjectile",
+      "blinkClassName": "MainStickyBombBlink"
+    }
+  },
+  {
+    "id": 14,
+    "name": "SHOTGUN.NAME",
+    "description": "SHOTGUN.DESCR",
+    "hint": "SHOTGUN.HINT",
+    "iconClassName": "MainShotgun",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainShotgun",
+      "charParams": {
+        "default": {
+          "x": -3,
+          "y": -0.3,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -2,
+          "y": 4
+        }
+      }
+    },
+    "menuIcon": "IconMainShotgun",
+    "bagX": 4,
+    "bagY": 4,
+    "price": 1800,
+    "realprice": 19,
+    "comparePrice": 1799,
+    "requiredLevel": 5,
+    "classname": "Shotgun",
+    "infinite": true,
+    "maxdamage": "SHOTGUN.DAMAGE",
+    "params": {
+      "damage": 13,
+      "damageRadius": 20,
+      "explosionRadius": 10,
+      "pushForce": 0
+    },
+    "property": {
+      "quantityBullets": 7,
+      "classBullet": "Bullet",
+      "shots": 1
+    }
+  },
+  {
+    "id": 13,
+    "refId": 14,
+    "price": 35,
+    "comparePrice": 1798,
+    "requiredLevel": 4
+  },
+  {
+    "id": 40,
+    "name": "SHEEP.NAME",
+    "description": "SHEEP.DESCR",
+    "note": "SHEEP.NOTE",
+    "hint": "SHEEP.HINT",
+    "maxdamage": "SHEEP.DAMAGE",
+    "menuIcon": "IconSheep",
+    "iconClassName": "Sheep",
+    "render": {
+      "type": "clip",
+      "clipClass": "Sheep",
+      "charParams": {
+        "default": {
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -2,
+          "y": 4
+        }
+      }
+    },
+    "bagX": 3,
+    "bagY": 4,
+    "realprice": 18,
+    "price": 1800,
+    "requiredLevel": 8,
+    "infinite": {
+      "maxShots": 3
+    },
+    "classname": "SheepWeapon",
+    "params": {
+      "clipClassName": "AmSheep",
+      "damage": 90,
+      "damageRadius": 100,
+      "explosionRadius": 80,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 41,
+    "name": "SUPER_SHEEP.NAME",
+    "description": "SUPER_SHEEP.DESCR",
+    "note": "SUPER_SHEEP.NOTE",
+    "maxdamage": "SUPER_SHEEP.DAMAGE",
+    "hint": "SUPER_SHEEP.HINT",
+    "menuIcon": "IconSuperSheep",
+    "bagX": 3,
+    "bagY": 5,
+    "iconClassName": "SuperSheep",
+    "render": {
+      "type": "clip",
+      "clipClass": "SuperSheep"
+    },
+    "realprice": 34,
+    "requiredLevel": 1,
+    "infinite": {
+      "maxShots": 2
+    },
+    "classname": "SuperSheepWeapon",
+    "params": {
+      "damage": 90,
+      "damageRadius": 90,
+      "explosionRadius": 70,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 10,
+    "name": "MINIGUN.NAME",
+    "description": "MINIGUN.DESCR",
+    "maxdamage": "MINIGUN.DAMAGE",
+    "hint": "MINIGUN.HINT",
+    "iconClassName": "MainMinigun",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainMinigun",
+      "charParams": {
+        "default": {
+          "x": -4.8,
+          "y": -0.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -4,
+          "y": 4.5
+        }
+      }
+    },
+    "menuIcon": "IconMainMinigun",
+    "bagX": 4,
+    "bagY": 3,
+    "price": 2100,
+    "realprice": 23,
+    "requiredLevel": 6,
+    "requiredFriends": 7,
+    "classname": "Minigun",
+    "infinite": true,
+    "params": {
+      "clipClassName": "",
+      "damage": 6,
+      "damageRadius": 40,
+      "explosionRadius": 15,
+      "pushForce": 0
+    },
+    "property": {
+      "quantityBullets": 20,
+      "angleFluct": "Math.PI / 180",
+      "classBullet": "Bullet"
+    }
+  },
+  {
+    "id": 54,
+    "name": "FREEZER.NAME",
+    "description": "FREEZER.DESCR",
+    "maxdamage": "FREEZER.DAMAGE",
+    "hint": "FREEZER.HINT",
+    "iconClassName": "IconFreezingBazooka",
+    "render": {
+      "type": "clip",
+      "clipClass": "FreezingBazooka",
+      "charParams": {
+        "default": {
+          "x": -7.8,
+          "y": -0.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -4,
+          "y": 4.5
+        }
+      }
+    },
+    "menuIcon": "IconFreezingBazooka",
+    "bagX": 5,
+    "bagY": 5,
+    "price": 2300,
+    "realprice": 23,
+    "requiredLevel": 8,
+    "classname": "FreezingBazooka",
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "AmFreezingBazooka",
+      "damage": 40,
+      "damageRadius": 70,
+      "explosionRadius": 70,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 44,
+    "name": "CARPET_BAZOOKA.NAME",
+    "description": "CARPET_BAZOOKA.DESCR",
+    "maxdamage": "CARPET_BAZOOKA.DAMAGE",
+    "hint": "CARPET_BAZOOKA.HINT",
+    "iconClassName": "CarpetBazooka",
+    "render": {
+      "type": "clip",
+      "clipClass": "CarpetBazooka",
+      "charParams": {
+        "default": {
+          "x": -9.1,
+          "y": -3.5,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -2,
+          "y": 4
+        }
+      }
+    },
+    "menuIcon": "IconCarpetBazooka",
+    "bagX": 1,
+    "bagY": 2,
+    "price": 2400,
+    "realprice": 24,
+    "requiredLevel": 7,
+    "classname": "CarpetBazooka",
+    "infinite": true,
+    "params": {
+      "clipClassName": "AmCarpetStrike",
+      "damage": 50,
+      "damageRadius": 70,
+      "explosionRadius": 40,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 11,
+    "name": "DRILL.NAME",
+    "description": "DRILL.DESCR",
+    "maxdamage": "DRILL.DAMAGE",
+    "hint": "DRILL.HINT",
+    "iconClassName": "Drill",
+    "render": {
+      "type": "clip",
+      "clipClass": "Drill",
+      "charParams": {
+        "default": {
+          "x": -9.2,
+          "y": -0.9,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -1,
+          "y": 4
+        }
+      }
+    },
+    "price": 60,
+    "comparePrice": 1998,
+    "requiredLevel": 6,
+    "classname": "DrillGun",
+    "menuIcon": "IconDrill",
+    "bagX": 1,
+    "bagY": 4,
+    "params": {
+      "clipClassName": "AmDrill",
+      "damage": 60,
+      "damageRadius": 50,
+      "explosionRadius": 20,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 12,
+    "name": "DRILL.NAME",
+    "description": "DRILL.DESCR",
+    "maxdamage": "DRILL.DAMAGE",
+    "hint": "DRILL.HINT",
+    "iconClassName": "Drill",
+    "render": {
+      "type": "clip",
+      "clipClass": "Drill",
+      "charParams": {
+        "default": {
+          "x": -9.2,
+          "y": -0.9,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -1,
+          "y": 4
+        }
+      }
+    },
+    "price": 2000,
+    "realprice": 20,
+    "comparePrice": 1999,
+    "requiredLevel": 7,
+    "classname": "DrillGun",
+    "menuIcon": "IconDrill",
+    "bagX": 1,
+    "bagY": 4,
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "AmDrill",
+      "damage": 60,
+      "damageRadius": 50,
+      "explosionRadius": 20,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 50,
+    "name": "HARPOON.NAME",
+    "description": "HARPOON.DESCR",
+    "maxdamage": "HARPOON.DAMAGE",
+    "hint": "HARPOON.HINT",
+    "iconClassName": "MainElectricHarpoon",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainElectricHarpoon",
+      "charParams": {
+        "default": {
+          "x": -1.8,
+          "y": -0.6,
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -2,
+          "y": 4
+        }
+      }
+    },
+    "realprice": 25,
+    "price": 2300,
+    "requiredLevel": 12,
+    "classname": "ElectricHarpoon",
+    "menuIcon": "IconElectricHarpoon",
+    "bagX": 8,
+    "bagY": 2,
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "MainElectricHarpoonTip",
+      "damage": 40,
+      "damageRadius": 35,
+      "explosionRadius": 20,
+      "pushForce": 0
+    },
+    "property": {
+      "trajectoryCrosshair": false,
+      "dragDamage": 10
+    }
+  },
+  {
+    "id": 33,
+    "name": "SHOCKER.NAME",
+    "description": "SHOCKER.DESCR",
+    "note": "SHOCKER.NOTE",
+    "maxdamage": "SHOCKER.DAMAGE",
+    "hint": "SHOCKER.HINT",
+    "iconClassName": "Shocker",
+    "render": {
+      "type": "clip",
+      "clipClass": "Shocker",
+      "charParams": {
+        "default": {
+          "x": -1.8,
+          "y": -0.6,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -2,
+          "y": 4
+        }
+      }
+    },
+    "price": 2100,
+    "realprice": 21,
+    "requiredLevel": 7,
+    "classname": "Shocker",
+    "menuIcon": "IconShocker",
+    "bagX": 8,
+    "bagY": 1,
+    "infinite": true,
+    "params": {
+      "clipClassName": "AmShocker",
+      "damage": 40,
+      "damageRadius": 25,
+      "explosionRadius": 0,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 52,
+    "name": "KALASH.NAME",
+    "description": "KALASH.DESCR",
+    "maxdamage": "KALASH.DAMAGE",
+    "hint": "KALASH.HINT",
+    "iconClassName": "Kalash",
+    "render": {
+      "type": "clip",
+      "clipClass": "Kalash",
+      "charParams": {
+        "default": {
+          "x": -1.8,
+          "y": -0.6,
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 4
+        }
+      }
+    },
+    "realprice": 35,
+    "price": 3200,
+    "requiredFriends": 15,
+    "requiredLevel": 13,
+    "classname": "Kalash",
+    "menuIcon": "IconKalash",
+    "bagX": 4,
+    "bagY": 2,
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "AmGun",
+      "damage": 16,
+      "damageRadius": 35,
+      "explosionRadius": 15,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 55,
+    "name": "CROSSBOW.NAME",
+    "description": "CROSSBOW.DESCR",
+    "maxdamage": "CROSSBOW.DAMAGE",
+    "note": "CROSSBOW.NOTE",
+    "hint": "CROSSBOW.HINT",
+    "iconClassName": "IconCrossbow",
+    "render": {
+      "type": "clip",
+      "clipClass": "Crossbow",
+      "charParams": {
+        "default": {
+          "x": -1.8,
+          "y": -0.6,
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 4
+        }
+      }
+    },
+    "menuIcon": "IconCrossbow",
+    "bagX": 6,
+    "bagY": 2,
+    "price": 2500,
+    "realprice": 25,
+    "requiredLevel": 12,
+    "classname": "Crossbow",
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "AmCrossbow",
+      "damage": 7,
+      "damageRadius": 30,
+      "explosionRadius": 10,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 38,
+    "name": "GUIDING_BAZOOKA.NAME",
+    "description": "GUIDING_BAZOOKA.DESCR",
+    "note": "GUIDING_BAZOOKA.NOTE",
+    "maxdamage": "GUIDING_BAZOOKA.DAMAGE",
+    "hint": "GUIDING_BAZOOKA.HINT",
+    "iconClassName": "MainHomingBazooka",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainHomingBazooka",
+      "charParams": {
+        "default": {
+          "x": -9.2,
+          "y": -0.9,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -3,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconMainHomingBazooka",
+    "bagX": 1,
+    "bagY": 5,
+    "price": 2200,
+    "realprice": 22,
+    "requiredLevel": 8,
+    "classname": "HomingBazooka",
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "AmMainHomingBazooka",
+      "damage": 60,
+      "damageRadius": 60,
+      "explosionRadius": 30,
+      "pushForce": 0
+    },
+    "property": {
+      "classMissile": "HomingMissile"
+    }
+  },
+  {
+    "id": 46,
+    "name": "CANNON.NAME",
+    "description": "CANNON.DESCR",
+    "maxdamage": "CANNON.DAMAGE",
+    "hint": "CANNON.HINT",
+    "iconClassName": "Cannon",
+    "render": {
+      "type": "clip",
+      "clipClass": "Cannon",
+      "charParams": {
+        "default": {
+          "x": 1,
+          "y": 1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 5
+        }
+      }
+    },
+    "menuIcon": "IconCannon",
+    "bagX": 5,
+    "bagY": 3,
+    "price": 3900,
+    "realprice": 42,
+    "requiredLevel": 14,
+    "classname": "Cannon",
+    "infinite": {
+      "maxShots": 3
+    },
+    "params": {
+      "clipClassName": "AmCannon",
+      "damage": 90,
+      "damageRadius": 120,
+      "explosionRadius": 100,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 34,
+    "name": "TELE_THROWER.NAME",
+    "description": "TELE_THROWER.DESCR",
+    "note": "TELE_THROWER.NOTE",
+    "hint": "TELE_THROWER.HINT",
+    "iconClassName": "TeleportThrower",
+    "render": {
+      "type": "clip",
+      "clipClass": "TeleportThrower",
+      "charParams": {
+        "default": {
+          "x": -9.8,
+          "y": -1.8,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 4
+        }
+      }
+    },
+    "price": 2200,
+    "realprice": 22,
+    "requiredLevel": 8,
+    "classname": "TeleThrower",
+    "menuIcon": "IconTeleportThrower",
+    "bagX": 6,
+    "bagY": 6,
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "AmTeleportThrower",
+      "damage": 10,
+      "damageRadius": 35,
+      "explosionRadius": 22,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 42,
+    "name": "SWITCH_TURN.NAME",
+    "description": "SWITCH_TURN.DESCR",
+    "note": "SWITCH_TURN.NOTE",
+    "hint": "SWITCH_TURN.HINT",
+    "iconClassName": "",
+    "bagX": 7,
+    "bagY": 6,
+    "render": {
+      "type": "clip",
+      "clipClass": ""
+    },
+    "realprice": 31,
+    "price": 3100,
+    "requiredLevel": 9,
+    "classname": "SwitchTurn",
+    "menuIcon": "IconNextTurn",
+    "infinite": {
+      "maxShots": 3
+    }
+  },
+  {
+    "id": 48,
+    "name": "SPIDER.NAME",
+    "description": "SPIDER.DESCR",
+    "note": "SPIDER.NOTE",
+    "maxdamage": "SPIDER.DAMAGE",
+    "hint": "SPIDER.HINT",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainSpider",
+      "charParams": {
+        "default": {
+          "x": -5.6,
+          "y": 0.3,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -1,
+          "y": 5
+        }
+      }
+    },
+    "menuIcon": "IconMainSpider",
+    "bagX": 3,
+    "bagY": 6,
+    "realprice": 30,
+    "requiredLevel": 1,
+    "infinite": {
+      "maxShots": 4
+    },
+    "classname": "SpiderWeapon",
+    "params": {
+      "clipClassName": "AmMainSpider",
+      "damage": 65,
+      "damageRadius": 80,
+      "explosionRadius": 60,
+      "pushForce": 0
+    },
+    "property": {
+      "classMine": "SpiderMineSimple"
+    }
+  },
+  {
+    "id": 32,
+    "name": "FIREWORK.NAME",
+    "description": "FIREWORK.DESCR",
+    "note": "FIREWORK.NOTE",
+    "maxdamage": "FIREWORK.DAMAGE",
+    "hint": "FIREWORK.HINT",
+    "iconClassName": "Firework",
+    "render": {
+      "type": "clip",
+      "clipClass": "Firework",
+      "charParams": {
+        "default": {
+          "x": -3,
+          "y": 3,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -2,
+          "y": 4
+        },
+        "worm": {
+          "x": -1,
+          "y": 3
+        }
+      }
+    },
+    "realprice": 35,
+    "requiredLevel": 1,
+    "classname": "Firework",
+    "menuIcon": "IconFirework",
+    "bagX": 9,
+    "bagY": 1,
+    "infinite": true,
+    "params": {
+      "clipClassName": "AmFirework",
+      "damage": 50,
+      "damageRadius": 50,
+      "explosionRadius": 20,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 51,
+    "name": "BAT.NAME",
+    "description": "BAT.DESCR",
+    "maxdamage": "BAT.DAMAGE",
+    "hint": "BAT.HINT",
+    "iconClassName": "Bat",
+    "render": {
+      "type": "clip",
+      "clipClass": "Bat",
+      "charParams": {
+        "default": {
+          "hideHands": "left"
+        },
+        "worm": {
+          "x": 7,
+          "y": 2
+        },
+        "bull": {
+          "x": 3,
+          "y": 1
+        }
+      }
+    },
+    "realprice": 33,
+    "price": 3300,
+    "requiredLevel": 15,
+    "requiredFriends": 30,
+    "classname": "Bat",
+    "menuIcon": "IconBat",
+    "bagX": 8,
+    "bagY": 4,
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AmShocker",
+      "damage": 40,
+      "damageRadius": 25,
+      "explosionRadius": 0,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 23,
+    "name": "SNIPER_RIFLE.NAME",
+    "description": "SNIPER_RIFLE.DESCR",
+    "note": "SNIPER_RIFLE.NOTE",
+    "maxdamage": "SNIPER_RIFLE.DAMAGE",
+    "hint": "SNIPER_RIFLE.HINT",
+    "iconClassName": "MainSniperRifle",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainSniperRifle",
+      "charParams": {
+        "default": {
+          "x": -5.6,
+          "y": 2.3,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -5,
+          "y": 4
+        }
+      }
+    },
+    "menuIcon": "IconMainSniperRifle",
+    "bagX": 4,
+    "bagY": 1,
+    "price": 3500,
+    "realprice": 35,
+    "requiredLevel": 9,
+    "classname": "SniperRifle",
+    "infinite": true,
+    "params": {
+      "clipClassName": "AmGun",
+      "damage": 90,
+      "damageRadius": 0,
+      "explosionRadius": 3,
+      "pushForce": 0
+    },
+    "property": {
+      "rayLength": 500,
+      "angleFluct": "Math.PI / 144",
+      "colorLaser": 15623731
+    }
+  },
+  {
+    "id": 37,
+    "name": "MOLOTOV.NAME",
+    "description": "MOLOTOV.DESCR",
+    "maxdamage": "MOLOTOV.DAMAGE",
+    "hint": "MOLOTOV.HINT",
+    "menuIcon": "IconMolotov",
+    "bagX": 2,
+    "bagY": 1,
+    "iconClassName": "Molotov",
+    "render": {
+      "type": "clip",
+      "clipClass": "Molotov",
+      "charParams": {
+        "default": {
+          "x": -7.8,
+          "y": -1.3,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -1,
+          "y": 4
+        }
+      }
+    },
+    "price": 4000,
+    "realprice": 40,
+    "requiredLevel": 10,
+    "classname": "Molotov",
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "AmMolotov",
+      "damage": 40,
+      "damageRadius": 50,
+      "explosionRadius": 30,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 30,
+    "name": "FIRE_THROWER.NAME",
+    "description": "FIRE_THROWER.DESCR",
+    "maxdamage": "FIRE_THROWER.DAMAGE",
+    "hint": "FIRE_THROWER.HINT",
+    "iconClassName": "FireThrow",
+    "render": {
+      "type": "clip",
+      "clipClass": "FireThrow",
+      "charParams": {
+        "worm": {
+          "x": -3,
+          "y": 0
+        },
+        "bull": {
+          "x": -4,
+          "y": 5
+        },
+        "default": {
+          "x": -9.9,
+          "y": 0,
+          "hideHands": "left"
+        }
+      },
+      "secondaryClip": {
+        "clipClass": "FireThrowBag",
+        "charParams": {
+          "bull": {
+            "x": -4,
+            "y": 3.5
+          },
+          "default": {
+            "x": -7,
+            "y": 2
+          }
+        }
+      }
+    },
+    "menuIcon": "IconFireThrow",
+    "bagX": 5,
+    "bagY": 1,
+    "price": 4300,
+    "realprice": 43,
+    "requiredLevel": 10,
+    "classname": "FireThrower",
+    "infinite": {
+      "maxShots": 4
+    },
+    "params": {
+      "clipClassName": "FireShot",
+      "damage": 5,
+      "damageRadius": 25,
+      "explosionRadius": 5,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 43,
+    "name": "NAPALM.NAME",
+    "description": "NAPALM.DESCR",
+    "note": "AIR_CONTROL.NOTE",
+    "maxdamage": "NAPALM.DAMAGE",
+    "hint": "NAPALM.HINT",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl",
+      "charParams": {
+        "default": {
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconNapalm",
+    "bagX": 9,
+    "bagY": 5,
+    "realprice": 46,
+    "price": 4600,
+    "requiredLevel": 13,
+    "requiredFriends": 13,
+    "classname": "NapalmStrike",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AirBomb",
+      "damage": 20,
+      "damageRadius": 50,
+      "explosionRadius": 30,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 27,
+    "name": "AIR_STRIKE.NAME",
+    "description": "AIR_STRIKE.DESCR",
+    "note": "AIR_CONTROL.NOTE",
+    "maxdamage": "AIR_STRIKE.DAMAGE",
+    "hint": "AIR_STRIKE.HINT",
+    "iconClassName": "AirControl",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl",
+      "charParams": {
+        "default": {
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconAirBomb",
+    "bagX": 9,
+    "bagY": 3,
+    "realprice": 50,
+    "price": 5000,
+    "requiredLevel": 11,
+    "requiredFriends": 15,
+    "classname": "AirStrike",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AirBomb",
+      "damage": 50,
+      "damageRadius": 75,
+      "explosionRadius": 45,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 28,
+    "name": "METEOR.NAME",
+    "description": "METEOR.DESCR",
+    "maxdamage": "METEOR.DAMAGE",
+    "hint": "METEOR.HINT",
+    "menuIcon": "IconMeteor",
+    "bagX": 9,
+    "bagY": 4,
+    "iconClassName": "AirControl",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl",
+      "charParams": {
+        "default": {
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 8
+        }
+      }
+    },
+    "realprice": 55,
+    "requiredLevel": 1,
+    "classname": "MeteorStrike",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "Meteor",
+      "damage": 65,
+      "damageRadius": 75,
+      "explosionRadius": 45,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 36,
+    "name": "CARPET_STRIKE.NAME",
+    "description": "CARPET_STRIKE.DESCR",
+    "note": "CARPET_STRIKE.NOTE",
+    "maxdamage": "CARPET_STRIKE.DAMAGE",
+    "hint": "CARPET_STRIKE.HINT",
+    "iconClassName": "AirControl",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl",
+      "charParams": {
+        "default": {
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconCarpetStrike",
+    "bagX": 9,
+    "bagY": 2,
+    "realprice": 70,
+    "requiredLevel": 1,
+    "classname": "CarpetStrike",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AmCarpetStrike",
+      "damage": 50,
+      "damageRadius": 70,
+      "explosionRadius": 40,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 24,
+    "name": "WATERMELON.NAME",
+    "description": "WATERMELON.DESCR",
+    "note": "WEAPON.TIMER",
+    "maxdamage": "WATERMELON.DAMAGE",
+    "hint": "WATERMELON.HINT",
+    "iconClassName": "Watermelon",
+    "render": {
+      "type": "clip",
+      "clipClass": "Watermelon",
+      "charParams": {
+        "default": {
+          "x": -8.8,
+          "y": -2.9,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -3,
+          "y": 6
+        }
+      }
+    },
+    "menuIcon": "IconWatermelon",
+    "bagX": 2,
+    "bagY": 2,
+    "realprice": 60,
+    "price": 6000,
+    "requiredLevel": 16,
+    "infinite": {
+      "maxShots": 1
+    },
+    "classname": "WatermelonBomb",
+    "params": {
+      "clipClassName": "AmWatermelon",
+      "damage": 80,
+      "damageRadius": 130,
+      "explosionRadius": 110,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 15,
+    "refId": 24,
+    "hideInShop": true,
+    "price": 9999,
+    "realprice": 9999,
+    "requiredLevel": 8
+  },
+  {
+    "id": 25,
+    "name": "HOLYGRENADE.NAME",
+    "description": "HOLYGRENADE.DESCR",
+    "maxdamage": "HOLYGRENADE.DAMAGE",
+    "hint": "HOLYGRENADE.HINT",
+    "iconClassName": "MainHolyGrenade",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainHolyGrenade",
+      "charParams": {
+        "default": {
+          "x": -7.3,
+          "y": -1.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -3,
+          "y": 6
+        },
+        "worm": {
+          "x": -2,
+          "y": 2
+        }
+      }
+    },
+    "menuIcon": "IconMainHolyGrenade",
+    "bagX": 2,
+    "bagY": 3,
+    "price": 5500,
+    "realprice": 55,
+    "requiredLevel": 14,
+    "infinite": {
+      "maxShots": 1
+    },
+    "classname": "HolyGrenade",
+    "params": {
+      "clipClassName": "AmMainHolyGrenade",
+      "damage": 115,
+      "damageRadius": 150,
+      "explosionRadius": 120,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 18,
+    "refId": 25,
+    "hideInShop": true,
+    "price": 9999,
+    "realprice": 9999,
+    "requiredLevel": 8
+  },
+  {
+    "id": 47,
+    "name": "SLEDGEHAMMER.NAME",
+    "description": "SLEDGEHAMMER.DESCR",
+    "maxdamage": "SLEDGEHAMMER.DAMAGE",
+    "hint": "SLEDGEHAMMER.HINT",
+    "render": {
+      "type": "clip",
+      "clipClass": "SledgeHammer",
+      "charParams": {
+        "default": {
+          "hideHands": "left"
+        }
+      }
+    },
+    "menuIcon": "IconSledgehammer",
+    "bagX": 8,
+    "bagY": 3,
+    "price": 6000,
+    "realprice": 60,
+    "requiredLevel": 15,
+    "classname": "Sledgehammer",
+    "infinite": {
+      "maxShots": 3
+    },
+    "params": {
+      "clipClassName": "AmShocker",
+      "damage": 60,
+      "damageRadius": 25,
+      "explosionRadius": 0,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 26,
+    "name": "TELEPORT.NAME",
+    "description": "TELEPORT.DESCR",
+    "note": "TELEPORT.NOTE",
+    "hint": "TELEPORT.HINT",
+    "menuIcon": "IconTeleport",
+    "bagX": 6,
+    "bagY": 6,
+    "iconClassName": "Teleport",
+    "render": {
+      "type": "clip",
+      "clipClass": "Teleport",
+      "charParams": {
+        "bull": {
+          "x": 3,
+          "y": 4.25
+        },
+        "default": {
+          "x": 0.3,
+          "y": -3.5,
+          "hideHands": "right"
+        }
+      }
+    },
+    "realprice": 45,
+    "requiredLevel": 1,
+    "infinite": {
+      "maxShots": 3
+    },
+    "classname": "Teleport",
+    "params": {
+      "clipClassName": "Teleport",
+      "damage": 40,
+      "damageRadius": 35,
+      "explosionRadius": 22,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 22,
+    "refId": 26,
+    "hideInShop": true,
+    "price": 9999,
+    "realprice": 9999,
+    "requiredLevel": 9
+  },
+  {
+    "id": 35,
+    "name": "JETPACK.NAME",
+    "description": "JETPACK.DESCR",
+    "note": "JETPACK.NOTE",
+    "hint": "JETPACK.HINT",
+    "iconClassName": "Jetpack",
+    "render": {
+      "type": "graphics",
+      "action": "jetpackStay"
+    },
+    "realprice": 150,
+    "price": 15000,
+    "requiredLevel": 12,
+    "classname": "Jetpack",
+    "menuIcon": "IconJetpack",
+    "bagX": 6,
+    "bagY": 5,
+    "infinite": {
+      "maxShots": 4
+    }
+  },
+  {
+    "id": 56,
+    "name": "FREEZING_MINE.NAME",
+    "description": "FREEZING_MINE.DESCR",
+    "maxdamage": "FREEZING_MINE.DAMAGE",
+    "hint": "FREEZING_MINE.HINT",
+    "render": {
+      "type": "clip",
+      "clipClass": "IceMine",
+      "charParams": {
+        "default": {
+          "hideHands": "left"
+        },
+        "worm": {
+          "x": 0,
+          "y": 4
+        },
+        "bull": {
+          "x": 0,
+          "y": 6.5
+        }
+      }
+    },
+    "menuIcon": "IconIceMine",
+    "bagX": 3,
+    "bagY": 6,
+    "price": 2600,
+    "realprice": 26,
+    "requiredLevel": 10,
+    "requiredFriends": 12,
+    "classname": "FreezingMineWeapon",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AmIceMine",
+      "damage": 25,
+      "damageRadius": 70,
+      "explosionRadius": 70,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 57,
+    "name": "GROUNDBREAKER.NAME",
+    "description": "GROUNDBREAKER.DESCR",
+    "maxdamage": "GROUNDBREAKER.DAMAGE",
+    "hint": "GROUNDBREAKER.HINT",
+    "render": {
+      "type": "clip",
+      "clipClass": "FugasRocketBazooka",
+      "charParams": {
+        "default": {
+          "x": -6.5,
+          "y": 12.5,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -3,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconFugasRocket",
+    "bagX": 5,
+    "bagY": 4,
+    "realprice": 56,
+    "requiredLevel": 1,
+    "classname": "GroundBreaker",
+    "infinite": {
+      "maxShots": 2
+    },
+    "params": {
+      "clipClassName": "AmFugasRocket",
+      "damage": 50,
+      "damageRadius": 90,
+      "explosionRadius": 70,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 58,
+    "name": "BUNKER_BUSTER.NAME",
+    "description": "BUNKER_BUSTER.DESCR",
+    "maxdamage": "BUNKER_BUSTER.DAMAGE",
+    "hint": "BUNKER_BUSTER.HINT",
+    "iconClassName": "AirControl",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl",
+      "charParams": {
+        "default": {
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconBunkerBreaker",
+    "bagX": 9,
+    "bagY": 6,
+    "realprice": 44,
+    "price": 4400,
+    "requiredFriends": 25,
+    "requiredLevel": 14,
+    "classname": "BunkerBuster",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AmBunkerBreaker",
+      "damage": 40,
+      "damageRadius": 90,
+      "explosionRadius": 70,
+      "pushForce": 0
+    },
+    "secondaryParams": {
+      "clipClassName": "AmDrill",
+      "damage": 30,
+      "damageRadius": 70,
+      "explosionRadius": 50
+    }
+  },
+  {
+    "id": 60,
+    "name": "GUARDING_BOT.NAME",
+    "description": "GUARDING_BOT.DESCR",
+    "maxdamage": "GUARDING_BOT.DAMAGE",
+    "hint": "GUARDING_BOT.HINT",
+    "iconClassName": "GuardingBotWeapon",
+    "render": {
+      "type": "clip",
+      "clipClass": "GuardingBotWeapon",
+      "charParams": {
+        "default": {
+          "hideHands": "left"
+        },
+        "worm": {
+          "x": 0,
+          "y": 4
+        },
+        "bull": {
+          "x": 0,
+          "y": 6.5
+        }
+      }
+    },
+    "menuIcon": "IconGuardingBotWeapon",
+    "bagX": 5,
+    "bagY": 6,
+    "realprice": 38,
+    "price": 3800,
+    "requiredLevel": 16,
+    "requiredFriends": 10,
+    "classname": "GuardingBotWeapon",
+    "infinite": {
+      "maxShots": 2
+    },
+    "params": {
+      "clipClassName": "AmGuardingBot",
+      "damage": 25,
+      "damageRadius": 50,
+      "explosionRadius": 30,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 62,
+    "order": 45,
+    "hideInShop": true,
+    "name": "DISC_LAUNCHER.NAME",
+    "description": "DISC_LAUNCHER.DESCR",
+    "hint": "DISC_LAUNCHER.HINT",
+    "iconClassName": "Discgun",
+    "render": {
+      "type": "clip",
+      "clipClass": "Discgun",
+      "charParams": {
+        "default": {
+          "x": -3,
+          "y": 3,
+          "hideHands": "both"
+        },
+        "worm": {
+          "x": -3,
+          "y": 1,
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 4
+        }
+      }
+    },
+    "menuIcon": "IconDiscgun",
+    "bagX": 8,
+    "bagY": 5,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "classname": "DiscLauncher",
+    "infinite": {
+      "maxShots": 3
+    },
+    "maxdamage": "DISC_LAUNCHER.DAMAGE",
+    "params": {
+      "clipClassName": "AmDiscgun",
+      "damage": 50,
+      "damageRadius": 60,
+      "explosionRadius": 40,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 63,
+    "hideInShop": true,
+    "name": "HOPPING_BAZOOKA.NAME",
+    "description": "HOPPING_BAZOOKA.DESCR",
+    "hint": "HOPPING_BAZOOKA.HINT",
+    "iconClassName": "Birdgun",
+    "render": {
+      "type": "clip",
+      "clipClass": "Birdgun",
+      "charParams": {
+        "default": {
+          "x": -3,
+          "y": 6,
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -3,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconBirdgun",
+    "bagX": 8,
+    "bagY": 6,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredFriends": 0,
+    "requiredLevel": 1,
+    "classname": "HoppingWeapon",
+    "infinite": {
+      "maxShots": 3
+    },
+    "maxdamage": "HOPPING_BAZOOKA.DAMAGE",
+    "params": {
+      "clipClassName": "AmBirdgun",
+      "damage": 40,
+      "damageRadius": 70,
+      "explosionRadius": 50,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 64,
+    "hideInShop": true,
+    "name": "HELICOPTER.NAME",
+    "description": "HELICOPTER.DESCR",
+    "maxdamage": "HELICOPTER.DAMAGE",
+    "hint": "HELICOPTER.HINT",
+    "menuIcon": "IconHelicopter",
+    "bagX": 5,
+    "bagY": 6,
+    "iconClassName": "AirControl",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl"
+    },
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "infinite": {
+      "maxShots": 1
+    },
+    "classname": "Helipad",
+    "params": {
+      "clipClassName": "Helicopter",
+      "damage": 30,
+      "damageRadius": 50,
+      "explosionRadius": 30,
+      "pushForce": 0
+    },
+    "secondaryParams": {
+      "clipClassName": "AmMainBazooka",
+      "damage": 25,
+      "damageRadius": 50,
+      "explosionRadius": 30
+    }
+  },
+  {
+    "id": 65,
+    "name": "UFO.NAME",
+    "description": "UFO.DESCR",
+    "hint": "UFO.HINT",
+    "maxdamage": "UFO.DAMAGE",
+    "menuIcon": "IconUfo",
+    "bagX": 5,
+    "bagY": 7,
+    "iconClassName": "AirControl",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl"
+    },
+    "realprice": 32,
+    "requiredLevel": 1,
+    "infinite": {
+      "maxShots": 1
+    },
+    "classname": "UfoPad",
+    "params": {
+      "clipClassName": "AmFlight",
+      "damage": 80,
+      "damageRadius": 60,
+      "explosionRadius": 40,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 66,
+    "name": "ANTIFREEZE.NAME",
+    "description": "ANTIFREEZE.DESCR",
+    "hint": "ANTIFREEZE.HINT",
+    "iconClassName": "Defrost",
+    "render": {
+      "type": "clip",
+      "clipClass": "Defrost",
+      "charParams": {
+        "default": {
+          "x": 20,
+          "y": 3,
+          "hideHands": "right"
+        },
+        "worm": {
+          "x": 18,
+          "y": 3,
+          "hideHands": "right"
+        },
+        "bull": {
+          "x": 20,
+          "y": 3
+        }
+      }
+    },
+    "price": 2200,
+    "realprice": 25,
+    "requiredLevel": 8,
+    "classname": "AntifreezePotion",
+    "menuIcon": "IconDefrost",
+    "bagX": 7,
+    "bagY": 5,
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "",
+      "damage": 50,
+      "damageRadius": 0,
+      "explosionRadius": 0,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 67,
+    "hideInShop": true,
+    "name": "FORCE_FIELD.NAME",
+    "description": "FORCE_FIELD.DESCR",
+    "hint": "FORCE_FIELD.HINT",
+    "iconClassName": "Antimagnit",
+    "render": {
+      "type": "clip",
+      "clipClass": "Antimagnit",
+      "charParams": {
+        "default": {
+          "x": -8,
+          "y": 9,
+          "hideHands": "left"
+        },
+        "worm": {
+          "x": 2,
+          "y": 13
+        },
+        "bull": {
+          "x": -4,
+          "y": 13
+        }
+      }
+    },
+    "menuIcon": "IconAntimagnit",
+    "bagX": 9,
+    "bagY": 7,
+    "realprice": 99999,
+    "price": 99999,
+    "requiredLevel": 1,
+    "classname": "ForceField",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AmAntimagnit",
+      "damageRadius": 400
+    }
+  },
+  {
+    "id": 68,
+    "hideInShop": true,
+    "name": "WORMCANNON.NAME",
+    "description": "WORMCANNON.DESCR",
+    "maxdamage": "WORMCANNON.DAMAGE",
+    "hint": "WORMCANNON.HINT",
+    "iconClassName": "BigCannon",
+    "render": {
+      "type": "clip",
+      "clipClass": "BigCannon",
+      "charParams": {
+        "default": {
+          "x": 1,
+          "y": 1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 5
+        }
+      }
+    },
+    "menuIcon": "IconBigCannon",
+    "bagX": 2,
+    "bagY": 7,
+    "price": 1,
+    "realprice": 99999,
+    "requiredLevel": 99999,
+    "classname": "WormCannon",
+    "infinite": {
+      "maxShots": 2
+    },
+    "params": {
+      "clipClassName": "",
+      "damage": 120,
+      "damageRadius": 80,
+      "explosionRadius": 60,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 69,
+    "name": "BOOMERANG.NAME",
+    "description": "BOOMERANG.DESCR",
+    "maxdamage": "BOOMERANG.DAMAGE",
+    "hint": "BOOMERANG.HINT",
+    "iconClassName": "Boomerang",
+    "render": {
+      "type": "clip",
+      "clipClass": "Boomerang",
+      "charParams": {
+        "default": {
+          "x": -9,
+          "y": 7,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -9,
+          "y": 7
+        }
+      }
+    },
+    "menuIcon": "IconBoomerang",
+    "bagX": 8,
+    "bagY": 7,
+    "price": 2700,
+    "realprice": 27,
+    "requiredLevel": 10,
+    "classname": "BoomerangWeapon",
+    "infinite": {
+      "maxShots": 3
+    },
+    "params": {
+      "clipClassName": "AmBoomerang",
+      "damage": 70,
+      "damageRadius": 45,
+      "explosionRadius": 25,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 70,
+    "hideInShop": true,
+    "name": "ANVIL.NAME",
+    "description": "ANVIL.DESCR",
+    "maxdamage": "ANVIL.DAMAGE",
+    "hint": "ANVIL.HINT",
+    "iconClassName": "AmAnvil",
+    "render": {
+      "type": "clip",
+      "clipClass": "AmAnvil",
+      "charParams": {
+        "default": {
+          "x": 1,
+          "y": 1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 5
+        }
+      }
+    },
+    "menuIcon": "IconAnvil",
+    "bagX": 9,
+    "bagY": 7,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "classname": "NapalmStrike",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AmAnvil",
+      "damage": 90,
+      "damageRadius": 120,
+      "explosionRadius": 100,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 71,
+    "name": "EMERGENCY_TELEPORT.NAME",
+    "description": "EMERGENCY_TELEPORT.DESCR",
+    "hint": "EMERGENCY_TELEPORT.HINT",
+    "iconClassName": "",
+    "bagX": 6,
+    "bagY": 7,
+    "render": {
+      "type": "clip",
+      "clipClass": "EmergencyTeleport",
+      "charParams": {
+        "default": {
+          "x": -7.1,
+          "y": 0.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 4
+        },
+        "worm": {
+          "x": 0,
+          "y": 4
+        }
+      }
+    },
+    "realprice": 28,
+    "price": 2800,
+    "requiredLevel": 14,
+    "classname": "EmergencyTeleport",
+    "menuIcon": "IconEmergencyTeleport",
+    "infinite": {
+      "maxShots": 1
+    }
+  },
+  {
+    "id": 72,
+    "name": "BANDAGE.NAME",
+    "description": "BANDAGE.DESCR",
+    "hint": "BANDAGE.HINT",
+    "iconClassName": "",
+    "bagX": 7,
+    "bagY": 6,
+    "render": {
+      "type": "clip",
+      "clipClass": "Bandage",
+      "charParams": {
+        "default": {
+          "x": -7.1,
+          "y": 0.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 4
+        },
+        "worm": {
+          "x": 0,
+          "y": 4
+        }
+      }
+    },
+    "realprice": 1,
+    "requiredLevel": 1,
+    "classname": "Bandage",
+    "menuIcon": "IconBandage"
+  },
+  {
+    "id": 73,
+    "name": "GRAVITY_GUN.NAME",
+    "description": "GRAVITY_GUN.DESCR",
+    "hint": "GRAVITY_GUN.HINT",
+    "maxdamage": "GRAVITY_GUN.DAMAGE",
+    "iconClassName": "",
+    "bagX": 4,
+    "bagY": 7,
+    "render": {
+      "type": "clip",
+      "clipClass": "GravityGun",
+      "charParams": {
+        "default": {
+          "x": -3,
+          "y": -4.5,
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -3,
+          "y": -1
+        }
+      }
+    },
+    "realprice": 27,
+    "price": 2700,
+    "requiredLevel": 11,
+    "classname": "GravityGun",
+    "menuIcon": "IconGravityGun",
+    "infinite": {
+      "maxShots": 2
+    },
+    "params": {
+      "clipClassName": "AmThunderBolt",
+      "damage": 20,
+      "damageRadius": 65,
+      "explosionRadius": 0
+    }
+  },
+  {
+    "id": 74,
+    "name": "THUNDERBOLT.NAME",
+    "description": "THUNDERBOLT.DESCR",
+    "hint": "THUNDERBOLT.HINT",
+    "maxdamage": "THUNDERBOLT.DAMAGE",
+    "iconClassName": "",
+    "render": {
+      "type": "clip",
+      "clipClass": "ThunderBolt",
+      "charParams": {
+        "default": {
+          "x": -6.5,
+          "y": 2.5,
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -3,
+          "y": 2
+        }
+      }
+    },
+    "menuIcon": "IconThunderbolt",
+    "bagX": 1,
+    "bagY": 7,
+    "price": 7000,
+    "realprice": 70,
+    "requiredFriends": 0,
+    "requiredLevel": 19,
+    "classname": "Thunderbolt",
+    "infinite": {
+      "maxShots": 2
+    },
+    "params": {
+      "clipClassName": "AmShocker",
+      "damage": 95,
+      "damageRadius": 60,
+      "explosionRadius": 40
+    },
+    "secondaryParams": {
+      "clipClassName": "AmShocker",
+      "damage": 80,
+      "damageRadius": 50,
+      "explosionRadius": 30
+    }
+  },
+  {
+    "id": 75,
+    "name": "THUNDERBOLT.NAME",
+    "description": "THUNDERBOLT.DESCR",
+    "hint": "THUNDERBOLT.HINT",
+    "maxdamage": "THUNDERBOLT.DAMAGE",
+    "hideInShop": true,
+    "iconClassName": "",
+    "render": {
+      "type": "clip",
+      "clipClass": "AmFreezingBazooka",
+      "charParams": {
+        "default": {
+          "x": -9.2,
+          "y": -0.9,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -3,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "AmFreezingBazooka",
+    "bagX": 3,
+    "bagY": 7,
+    "price": 9999,
+    "realprice": 9999,
+    "requiredFriends": 0,
+    "requiredLevel": 1,
+    "classname": "Blizzard",
+    "infinite": {
+      "maxShots": 2
+    },
+    "params": {
+      "clipClassName": "AmFreezingBazooka",
+      "damage": 60,
+      "damageRadius": 0,
+      "explosionRadius": 0
+    }
+  },
+  {
+    "id": 76,
+    "name": "BARRIER.NAME",
+    "description": "BARRIER.DESCR",
+    "iconClassName": "MainLaserBarrier",
+    "hint": "BARRIER.HINT",
+    "render": {
+      "type": "clip",
+      "clipClass": "MainLaserBarrier",
+      "charParams": {
+        "default": {
+          "hideHands": "left"
+        },
+        "worm": {
+          "x": 0,
+          "y": 4
+        },
+        "bull": {
+          "x": 0,
+          "y": 6.5
+        }
+      }
+    },
+    "menuIcon": "IconMainLaserBarrier",
+    "bagX": 3,
+    "bagY": 7,
+    "price": 3500,
+    "realprice": 35,
+    "requiredLevel": 14,
+    "classname": "LaserBarrier",
+    "infinite": {
+      "maxShots": 4
+    },
+    "maxdamage": "BARRIER.DAMAGE",
+    "params": {
+      "clipClassName": "AmMainLaserBarrier",
+      "damage": 40,
+      "damageRadius": 0,
+      "explosionRadius": 0,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 77,
+    "hideInShop": true,
+    "name": "AIR_STRIKE.NAME",
+    "description": "AIR_STRIKE.DESCR",
+    "note": "AIR_CONTROL.NOTE",
+    "maxdamage": "AIR_STRIKE.DAMAGE",
+    "hint": "AIR_STRIKE.HINT",
+    "iconClassName": "AirControl",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl",
+      "charParams": {
+        "default": {
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconAirBomb",
+    "bagX": 8,
+    "bagY": 7,
+    "realprice": 1,
+    "price": 1,
+    "requiredLevel": 1,
+    "classname": "AtomBombWeapon",
+    "infinite": {
+      "maxShots": 1
+    },
+    "params": {
+      "clipClassName": "AmCannon",
+      "damage": 80,
+      "damageRadius": 125,
+      "explosionRadius": 90,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 78,
+    "hideInShop": true,
+    "name": "BAZOOKA.NAME",
+    "description": "BAZOOKA.DESCR",
+    "hint": "BAZOOKA.HINT",
+    "iconClassName": "Bazooka",
+    "render": {
+      "type": "clip",
+      "clipClass": "Bazooka",
+      "charParams": {
+        "default": {
+          "x": -9.2,
+          "y": -0.9,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": -3,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconBazooka",
+    "bagX": 1,
+    "bagY": 6,
+    "price": 10,
+    "realprice": 0,
+    "requiredFriends": 0,
+    "requiredLevel": 1,
+    "classname": "FrozenOrbWeapon",
+    "infinite": true,
+    "maxdamage": "BAZOOKA.DAMAGE",
+    "params": {
+      "clipClassName": "AmFreezingBazooka",
+      "damage": 16,
+      "damageRadius": 30,
+      "explosionRadius": 40,
+      "pushForce": 0
+    },
+    "secondaryParams": {
+      "clipClassName": "AmFreezingBazooka",
+      "damage": 10,
+      "damageRadius": 14,
+      "explosionRadius": 20
+    }
+  },
+  {
+    "id": 79,
+    "hideInShop": true,
+    "name": "MINIGUN.NAME",
+    "description": "MINIGUN.DESCR",
+    "maxdamage": "MINIGUN.DAMAGE",
+    "hint": "MINIGUN.HINT",
+    "iconClassName": "Minigun",
+    "render": {
+      "type": "clip",
+      "clipClass": "AirControl",
+      "charParams": {
+        "default": {
+          "hideHands": "both"
+        },
+        "bull": {
+          "x": -1,
+          "y": 8
+        }
+      }
+    },
+    "menuIcon": "IconMinigun",
+    "bagX": 4,
+    "bagY": 3,
+    "price": 2100,
+    "realprice": 23,
+    "requiredLevel": 6,
+    "requiredFriends": 7,
+    "classname": "SentryGunWeapon",
+    "infinite": true,
+    "params": {
+      "clipClassName": "AmAntimagnit",
+      "damage": 20,
+      "damageRadius": 8,
+      "explosionRadius": 4,
+      "pushForce": 0
+    }
+  },
+  {
+    "id": 80,
+    "name": "ANTITOXIN.NAME",
+    "description": "ANTITOXIN.DESCR",
+    "hint": "ANTITOXIN.HINT",
+    "iconClassName": "",
+    "bagX": 7,
+    "bagY": 7,
+    "render": {
+      "type": "clip",
+      "clipClass": "Antitoxin",
+      "charParams": {
+        "default": {
+          "x": -7.1,
+          "y": 0.1,
+          "hideHands": "left"
+        },
+        "bull": {
+          "x": 0,
+          "y": 4
+        },
+        "worm": {
+          "x": 0,
+          "y": 4
+        }
+      }
+    },
+    "realprice": 1,
+    "requiredLevel": 1,
+    "classname": "Antitoxin",
+    "menuIcon": "IconAntitoxin",
+    "params": {
+      "damage": 15,
+      "damageRadius": 0,
+      "explosionRadius": 0,
+      "pushForce": 0
+    }
+  }
+]

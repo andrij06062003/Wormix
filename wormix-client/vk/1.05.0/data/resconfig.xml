@@ -1,0 +1,1656 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- Внимание ресурсов с одинаковым именем файла быть не должно, даже если они лежат по отдельным папкам -->
+
+    <!--TODO: указать правильные размеры estimatedBytes="497036" -->
+    <!-- общие для всех звуки -->
+    <library path="common/sound/sound.swf" lazy="true" estimatedBytes="497036">
+        <!-- ambient -->
+        <resource className="menu_loop"/>
+        <!--<resource className="map1_loop"/>-->
+        <!-- menu -->
+        <resource className="arena"/>
+        <resource className="armory"/>
+        <resource className="bag"/>
+        <resource className="bank"/>
+        <resource className="best"/>
+        <resource className="menu_close"/>
+        <resource className="menu_deny"/>
+        <resource className="menu_grant"/>
+        <resource className="menu_open"/>
+        <resource className="menu_select"/>
+        <resource className="menu_turn"/>
+        <resource className="shop"/>
+        <resource className="message"/>
+
+        <!-- misk -->
+        <resource className="airstrike"/>
+        <resource className="battle_start"/>
+        <resource className="bonus"/>
+        <resource className="lose"/>
+        <resource className="screenshot"/>
+        <resource className="water_splash1"/>
+        <resource className="water_splash2"/>
+        <resource className="water_splash3"/>
+        <resource className="impact"/>
+        <resource className="move_drop"/>
+
+        <!-- weapon -->
+        <resource className="kanat_impact"/>
+        <resource className="icegun_attack"/>
+        <resource className="icegun_explosion"/>
+        <resource className="icegun_icecrash"/>
+        <resource className="hrumhrum"/>
+        <resource className="cough1"/>
+        <resource className="cough2"/>
+        <resource className="cough3"/>
+        <resource className="cough4"/>
+        <resource className="bat_swoosh"/>
+        <resource className="bat_smash"/>
+        <resource className="balka"/>
+        <resource className="arbalet_attack"/>
+
+        <resource className="arbuz_bounce"/>
+        <resource className="direction"/>
+        <resource className="dynamite_explosion"/>
+        <resource className="dynamite_fuse_loop"/>
+        <resource className="electroshocker"/>
+        <resource className="fire_loop"/>
+        <resource className="flamer"/>
+        <resource className="flamer_loop"/>
+        <resource className="grenade_attack"/>
+        <resource className="grenade1_bounce"/>
+        <resource className="grenade1_bounce_stop"/>
+        <resource className="grenade1_explosion"/>
+        <resource className="ground_loop"/>
+        <resource className="haliluya"/>
+        <resource className="jackhammer"/>
+        <resource className="jetpack_loop"/>
+        <resource className="jetpack_start"/>
+        <resource className="jetpack_stop"/>
+        <resource className="mine_beep"/>
+        <resource className="molotov_broke"/>
+        <resource className="rikoshet1"/>
+        <resource className="rikoshet2"/>
+        <resource className="rocket_attack"/>
+        <resource className="rocket1_explosion"/>
+        <resource className="salute_explosion"/>
+        <resource className="salute_start"/>
+        <resource className="sheep"/>
+        <resource className="sheep_super_loop"/>
+        <resource className="shotgun_attack"/>
+        <resource className="shotgun2_attack"/>
+        <resource className="slimer"/>
+        <resource className="sniper"/>
+        <resource className="teleport"/>
+        <resource className="throwpower"/>
+        <resource className="uzi_loop"/>
+        <resource className="vulcan_loop"/>
+        <resource className="cassete_explosion_random1"/>
+        <resource className="cassete_explosion_random2"/>
+        <resource className="cassete_explosion_random3"/>
+        <resource className="water_impact_random1"/>
+        <resource className="water_impact_random2"/>
+        <resource className="water_impact_random3"/>
+
+        <resource className="SpiderMineWalk_LOOP"/>
+        <resource className="SpiderMineWalk_LOOP2"/>
+        <resource className="SpiderMineArmed"/>
+        <resource className="SpiderMineAttack"/>
+        <resource className="ShurikenAttack01"/>
+        <resource className="ShurikenAttack02"/>
+        <resource className="ShurikenAttack03"/>
+        <resource className="ShurikenAttack04"/>
+        <resource className="ShurikenHitGround01"/>
+        <resource className="ShurikenHitGround02"/>
+        <resource className="ShurikenHitGround03"/>
+        <resource className="ShurikenHitGround04"/>
+        <resource className="ShurikenHitWorm01"/>
+        <resource className="ShurikenHitWorm02"/>
+        <resource className="ShurikenHitWorm03"/>
+        <resource className="ShurikenHitWorm04"/>
+        <resource className="VintageCannonAttack"/>
+        <resource className="VintageCannonballExplosion"/>
+        <resource className="VintageCannonballHit01"/>
+        <resource className="VintageCannonballHit02"/>
+        <resource className="VintageCannonballHit03"/>
+        <resource className="WoodClubAttack"/>
+
+        <!-- новые пушки -->
+        <resource className="antifreeze"/>
+        <resource className="boomerang_attack"/>
+        <resource className="boomerang_bounce"/>
+        <resource className="disc_attack"/>
+        <resource className="disc_bounce"/>
+        <resource className="grenade_jump"/>
+        <resource className="helicopter_loop"/>
+        <resource className="helicopter_shot"/>
+        <resource className="jet_aero"/>
+        <resource className="shield_activation"/>
+        <resource className="shield_loop"/>
+        <resource className="ufo_loop"/>
+        <resource className="ufo_pickup"/>
+    </library>
+
+    <!-- звуки для русского червя -->
+    <library path="common/sound/sound_worm_ru.swf" lazy="true">
+        <!-- misk -->
+        <resource className="worm.win"/>
+
+        <!-- payer -->
+        <resource className="worm.damage1"/>
+        <resource className="worm.damage2"/>
+        <resource className="worm.damage3"/>
+        <resource className="worm.damage4"/>
+
+        <resource className="worm.speak_cheknutiy"/>
+        <resource className="worm.speak_granata"/>
+        <resource className="worm.speak_hoho"/>
+        <resource className="worm.speak_lojis"/>
+        <resource className="worm.speak_mest"/>
+        <resource className="worm.speak_nashol"/>
+        <resource className="worm.speak_nepopal"/>
+        <resource className="worm.speak_nukanuka"/>
+        <resource className="worm.speak_ogon"/>
+        <resource className="worm.speak_pervayakrov"/>
+        <resource className="worm.speak_pogodi"/>
+        <resource className="worm.speak_predatel"/>
+        <resource className="worm.speak_prijok1"/>
+        <resource className="worm.speak_prijok2"/>
+        <resource className="worm.speak_promazal"/>
+        <resource className="worm.speak_smeh1"/>
+        <resource className="worm.speak_smeh2"/>
+        <resource className="worm.speak_smotri"/>
+        <resource className="worm.speak_ubit"/>
+        <resource className="worm.speak_vottebe"/>
+        <resource className="worm.speak_vpered"/>
+        <resource className="worm.speak_yessir"/>
+        <resource className="worm.speak_vboy"/>
+        <resource className="worm.speak_v_ataku"/>
+        <resource className="worm.speak_komandir"/>
+        <resource className="worm.speak_jdu_prikaza"/>
+        <resource className="worm.speak_cel_obnarujena"/>
+    </library>
+
+    <!-- звуки для русского червя -->
+    <library path="common/sound/sound_worm_en.swf" lazy="true">
+        <!-- misk -->
+        <resource className="worm.win"/>
+
+        <!-- payer -->
+        <resource className="worm.damage1"/>
+        <resource className="worm.damage2"/>
+        <resource className="worm.damage3"/>
+        <resource className="worm.damage4"/>
+
+        <resource className="worm.speak_cheknutiy"/>
+        <resource className="worm.speak_granata"/>
+        <resource className="worm.speak_hoho"/>
+        <resource className="worm.speak_lojis"/>
+        <resource className="worm.speak_mest"/>
+        <resource className="worm.speak_nashol"/>
+        <resource className="worm.speak_nepopal"/>
+        <resource className="worm.speak_nukanuka"/>
+        <resource className="worm.speak_ogon"/>
+        <resource className="worm.speak_pervayakrov"/>
+        <resource className="worm.speak_pogodi"/>
+        <resource className="worm.speak_predatel"/>
+        <resource className="worm.speak_prijok1"/>
+        <resource className="worm.speak_prijok2"/>
+        <resource className="worm.speak_promazal"/>
+        <resource className="worm.speak_smeh1"/>
+        <resource className="worm.speak_smeh2"/>
+        <resource className="worm.speak_smotri"/>
+        <resource className="worm.speak_ubit"/>
+        <resource className="worm.speak_vottebe"/>
+        <resource className="worm.speak_vpered"/>
+        <resource className="worm.speak_yessir"/>
+        <resource className="worm.speak_vboy"/>
+        <resource className="worm.speak_v_ataku"/>
+        <resource className="worm.speak_komandir"/>
+        <resource className="worm.speak_jdu_prikaza"/>
+        <resource className="worm.speak_cel_obnarujena"/>
+    </library>
+
+    <!-- звуки для украинского червя -->
+    <library path="common/sound/sound_worm_ua.swf" lazy="true">
+        <!-- misk -->
+        <resource className="worm.win"/>
+
+        <!-- payer -->
+        <resource className="worm.damage1"/>
+        <resource className="worm.damage2"/>
+        <resource className="worm.damage3"/>
+        <resource className="worm.damage4"/>
+
+        <resource className="worm.speak_cheknutiy"/>
+        <resource className="worm.speak_granata"/>
+        <resource className="worm.speak_hoho"/>
+        <resource className="worm.speak_lojis"/>
+        <resource className="worm.speak_mest"/>
+        <resource className="worm.speak_nashol"/>
+        <resource className="worm.speak_nepopal"/>
+        <resource className="worm.speak_nukanuka"/>
+        <resource className="worm.speak_ogon"/>
+        <resource className="worm.speak_pervayakrov"/>
+        <resource className="worm.speak_pogodi"/>
+        <resource className="worm.speak_predatel"/>
+        <resource className="worm.speak_prijok1"/>
+        <resource className="worm.speak_prijok2"/>
+        <resource className="worm.speak_promazal"/>
+        <resource className="worm.speak_smeh1"/>
+        <resource className="worm.speak_smeh2"/>
+        <resource className="worm.speak_smotri"/>
+        <resource className="worm.speak_ubit"/>
+        <resource className="worm.speak_vottebe"/>
+        <resource className="worm.speak_vpered"/>
+        <resource className="worm.speak_yessir"/>
+        <resource className="worm.speak_vboy"/>
+        <resource className="worm.speak_v_ataku"/>
+        <resource className="worm.speak_komandir"/>
+        <resource className="worm.speak_jdu_prikaza"/>
+        <resource className="worm.speak_cel_obnarujena"/>
+    </library>
+
+    <!-- звуки для русского боксера -->
+    <library path="common/sound/sound_boxer_ru.swf" lazy="true">
+        <!-- misk -->
+        <resource className="boxer.win_boxer_rus"/>
+
+        <!-- payer -->
+        <resource className="boxer.damage1"/>
+        <resource className="boxer.damage2"/>
+        <resource className="boxer.damage3"/>
+        <resource className="boxer.damage4"/>
+
+        <resource className="boxer.speak_cel_obnarujena"/>
+        <resource className="boxer.speak_cheknutiy"/>
+        <resource className="boxer.speak_granata"/>
+        <resource className="boxer.speak_hoho"/>
+        <resource className="boxer.speak_jdu_prikaza"/>
+        <resource className="boxer.speak_komandir"/>
+        <resource className="boxer.speak_lojis"/>
+        <resource className="boxer.speak_mest"/>
+        <resource className="boxer.speak_nashol"/>
+        <resource className="boxer.speak_nepopal"/>
+        <resource className="boxer.speak_nukanuka"/>
+        <resource className="boxer.speak_ogon"/>
+        <resource className="boxer.speak_pervayakrov"/>
+        <resource className="boxer.speak_pobeda"/>
+        <resource className="boxer.speak_pogodi"/>
+        <resource className="boxer.speak_predatel"/>
+        <resource className="boxer.speak_prijok1"/>
+        <resource className="boxer.speak_prijok2"/>
+        <resource className="boxer.speak_promazal"/>
+        <resource className="boxer.speak_smeh1"/>
+        <resource className="boxer.speak_smeh2"/>
+        <resource className="boxer.speak_smotri"/>
+        <resource className="boxer.speak_ubit"/>
+        <resource className="boxer.speak_v_ataku"/>
+        <resource className="boxer.speak_vboy"/>
+        <resource className="boxer.speak_vottebe"/>
+        <resource className="boxer.speak_vpered"/>
+    </library>
+
+    <!-- звуки для английского боксера -->
+    <library path="common/sound/sound_boxer_en.swf" lazy="true">
+        <!-- misk -->
+        <resource className="boxer.win_boxer_eng"/>
+
+        <!-- payer -->
+        <resource className="boxer.damage1"/>
+        <resource className="boxer.damage2"/>
+        <resource className="boxer.damage3"/>
+        <resource className="boxer.damage4"/>
+
+        <resource className="boxer.speak_cel_obnarujena"/>
+        <resource className="boxer.speak_cheknutiy"/>
+        <resource className="boxer.speak_granata"/>
+        <resource className="boxer.speak_hoho"/>
+        <resource className="boxer.speak_jdu_prikaza"/>
+        <resource className="boxer.speak_komandir"/>
+        <resource className="boxer.speak_lojis"/>
+        <resource className="boxer.speak_mest"/>
+        <resource className="boxer.speak_nashol"/>
+        <resource className="boxer.speak_nepopal"/>
+        <resource className="boxer.speak_nukanuka"/>
+        <resource className="boxer.speak_ogon"/>
+        <resource className="boxer.speak_pervayakrov"/>
+        <resource className="boxer.speak_pobeda"/>
+        <resource className="boxer.speak_pogodi"/>
+        <resource className="boxer.speak_predatel"/>
+        <resource className="boxer.speak_prijok1"/>
+        <resource className="boxer.speak_prijok2"/>
+        <resource className="boxer.speak_promazal"/>
+        <resource className="boxer.speak_smeh1"/>
+        <resource className="boxer.speak_smeh2"/>
+        <resource className="boxer.speak_smotri"/>
+        <resource className="boxer.speak_ubit"/>
+        <resource className="boxer.speak_v_ataku"/>
+        <resource className="boxer.speak_vboy"/>
+        <resource className="boxer.speak_vottebe"/>
+        <resource className="boxer.speak_vpered"/>
+    </library>
+
+    <!-- звуки для польского червя -->
+    <library path="common/sound/sound_worm_pl.swf" lazy="true">
+        <!-- misk -->
+        <resource className="worm.victory"/>
+
+        <!-- payer -->
+        <resource className="worm.damage1"/>
+        <resource className="worm.damage2"/>
+        <resource className="worm.damage3"/>
+        <resource className="worm.damage4"/>
+
+        <resource className="worm.charge"/>
+        <resource className="worm.comeOn"/>
+        <resource className="worm.commander"/>
+        <resource className="worm.fire"/>
+        <resource className="worm.firstBlood"/>
+        <resource className="worm.forward"/>
+        <resource className="worm.foundIt"/>
+        <resource className="worm.getDown"/>
+        <resource className="worm.granade"/>
+        <resource className="worm.hop1"/>
+        <resource className="worm.hop2"/>
+        <resource className="worm.IgetYou"/>
+        <resource className="worm.laugh1"/>
+        <resource className="worm.laugh2"/>
+        <resource className="worm.laugh3"/>
+        <resource className="worm.missed"/>
+        <resource className="worm.nuts"/>
+        <resource className="worm.revenge"/>
+        <resource className="worm.takeThis1"/>
+        <resource className="worm.takeThis2"/>
+        <resource className="worm.targetSided"/>
+        <resource className="worm.toBattle"/>
+        <resource className="worm.traitor"/>
+        <resource className="worm.victory"/>
+        <resource className="worm.waitingOrders"/>
+        <resource className="worm.watch"/>
+        <resource className="worm.yesSir"/>
+    </library>
+
+    <library path="common/sound/sound_boxer_pl.swf" lazy="true">
+        <!-- misk -->
+        <resource className="boxer.victory"/>
+
+        <!-- payer -->
+        <resource className="boxer.damage1"/>
+        <resource className="boxer.damage2"/>
+        <resource className="boxer.damage3"/>
+        <resource className="boxer.damage4"/>
+
+        <resource className="boxer.charge"/>
+        <resource className="boxer.comeOn"/>
+        <resource className="boxer.commander"/>
+        <resource className="boxer.fire"/>
+        <resource className="boxer.firstBlood"/>
+        <resource className="boxer.forward"/>
+        <resource className="boxer.foundIt1"/>
+        <resource className="boxer.foundIt2"/>
+        <resource className="boxer.getDown"/>
+        <resource className="boxer.granade"/>
+        <resource className="boxer.hop1"/>
+        <resource className="boxer.hop2"/>
+        <resource className="boxer.IgetYou"/>
+        <resource className="boxer.laugh1"/>
+        <resource className="boxer.laugh2"/>
+        <resource className="boxer.laugh3"/>
+        <resource className="boxer.missed"/>
+        <resource className="boxer.nuts"/>
+        <resource className="boxer.revenge"/>
+        <resource className="boxer.takeThis"/>
+        <resource className="boxer.targetSided"/>
+        <resource className="boxer.toBattle"/>
+        <resource className="boxer.traitor"/>
+        <resource className="boxer.victory"/>
+        <resource className="boxer.waitingOrders"/>
+        <resource className="boxer.watch"/>
+        <resource className="boxer.yesSir"/>
+    </library>
+
+    <!-- максимальная степень сжатия 57%, ибо сильно ужудшается качество и ломаются линии обводки, даже при Line Optimize = false -->
+    <library path="social/{social}/newsPanel.swf" name="news" estimatedBytes="115455">
+        <resource className="NewsPanel"/>
+    </library>
+
+    <library path="social/{social}/wormix-ui.swf" estimatedBytes="584970">
+        <resource className="UpgradeHint"/>
+        <resource className="ReagentHint"/>
+        <!-- встроенные шрифты -->
+        <resource className="TitleFont"/>
+        <!-- для заголовков -->
+        <resource className="NumberFont"/>
+
+        <resource className="AwardHintLabel"/>
+        <resource className="ProgressAchievements"/>
+        <resource className="HintProgressAchiev"/>
+
+        <resource className="AchievLevelUpMessage"/>
+        <resource className="AchievCell"/>
+        <resource className="StatCell"/>
+        <resource className="AchievHint"/>
+        <resource className="BankMenuVK"/>
+
+        <resource className="DailyBonusPanel"/>
+        <resource className="HolidayBonusPanel"/>
+        <resource className="NeedRubyPanel"/>
+        <resource className="HelpControl"/>
+        <resource className="WeaponTipsPanel"/>
+
+        <resource className="AppIcon"/>
+        <resource className="ReactionHint"/>
+        <resource className="SelectMapMenu"/>
+        <resource className="HatHint"/>
+        <resource className="FriendTeamHint"/>
+        <resource className="DefaultPhoto"/>
+        <resource className="FriendGiftPanel"/>
+        <resource className="MainMenuHint"/>
+        <resource className="UserPagePopup"/>
+        <resource className="RatingPopup"/>
+        <resource className="FriendListPopup"/>
+        <resource className="SendGiftPopup"/>
+
+        <resource className="ChooseStatusDialog"/>
+        <resource className="CheatCode"/>
+        <resource className="WormHint"/>
+
+        <resource className="NoteDialog"/>
+        <resource className="BuyItemDialog"/>
+        <resource className="BuyZeroProfileDialog"/>
+
+        <resource className="RatingPanel"/>
+        <resource className="RatingCell"/>
+        <resource className="RatingTabAllTime"/>
+        <resource className="RatingTab"/>
+
+        <resource className="BattleOfferDialog"/>
+        <resource className="WaitForPvpOpponentDialog"/>
+        <resource className="WaitForPvpBattleDialog"/>
+        <resource className="CallPvpOpponentById"/>
+
+        <resource className="BattleMessage"/>
+        <resource className="LoadingMessageWithIcon"/>
+        <resource className="GameOverPanel"/>
+        <resource className="LevelUpDialog"/>
+        <resource className="FriendGameOverPanel"/>
+        <resource className="ZeroAccSMSConfirmationPanel"/>
+        <resource className="PvpGameOverPanel"/>
+        <resource className="Qtip"/>
+        <resource className="WeaponHint"/>
+        <resource className="SimpleItemHint"/>
+        <resource className="HealthHint"/>
+        <resource className="ChatPanel"/>
+        <resource className="ExchangeMenu"/>
+        <resource className="UserParamsMenu"/>
+        <resource className="SimpleBuyDialog"/>
+        <resource className="BuyFriendDialog"/>
+        <resource className="MsgVertBox"/>
+        <resource className="MsgSimpleBox"/>
+        <resource className="MsgBox"/>
+        <resource className="MsgBlackBox"/>
+        <resource className="FullUserHint"/>
+        <resource className="ChooseFriendMenu"/>
+        <resource className="PhotoUpload"/>
+
+        <resource className="BagMenu"/>
+        <resource className="ArenaMenu"/>
+        <resource className="ShopMenu"/>
+        <resource className="StartVideoRecording"/>
+        <resource className="SaveVideo"/>
+        <resource className="UploadVideo"/>
+        <resource className="Surrender"/>
+
+        <!-- house -->
+        <resource className="HouseMenu"/>
+        <resource className="PumpReactionMovie"/>
+
+        <!-- battle interface -->
+        <resource className="BattleInterface" x="0" y="0" width="745" height="590"/>
+        <resource className="HatCell"/>
+        <resource className="Bubbles"/>
+
+        <resource className="FindCount"/>
+
+        <resource className="BossGameOverWinPanel"/>
+        <resource className="BossGameOverLosePanel"/>
+        <resource className="BossGameOverDrawPanel"/>
+    </library>
+
+    <library path="common/objects/mapStuff.swf" estimatedBytes="6303">
+        <resource className="BlueClouds" x="800" y="307" width="1077" height="195"/>
+        <resource className="WhiteClouds" x="435" y="72"/>
+
+        <!-- game objects -->
+        <resource className="WormCursor"/>
+        <resource className="Shot"/>
+        <resource className="Cannonball"/>
+        <resource className="CrossHair"/>
+        <resource className="CrossAdditional"/>
+        <resource className="CrossHairOld"/>
+
+        <resource className="PointerArrow_0"/>
+        <resource className="PointerArrow_1"/>
+        <resource className="PointerArrow_2"/>
+        <resource className="PointerArrow_3"/>
+        <resource className="PointerBody_0"/>
+        <resource className="PointerBody_1"/>
+        <resource className="PointerBody_2"/>
+        <resource className="PointerBody_3"/>
+    </library>
+
+    <library path="social/{social}/mainMenu.swf" estimatedBytes="154596">
+        <resource className="MainMenuScena"/>
+        <resource className="UserInfo" x="2" y="1"/>
+        <resource className="FriendsControl" x="4" y="-20"/>
+    </library>
+
+    <library path="social/{social}/objects/wormActions.swf" name="wormActions" estimatedBytes="66598">
+        <!-- worm -->
+        <resource className="WormStay" width="32" height="41"/>
+        <resource className="WormStayUp" width="31" height="46"/>
+        <resource className="WormStayDown" width="32" height="41"/>
+
+        <resource className="WormGo" width="32" height="41"/>
+        <resource className="WormGoUp" width="30" height="46"/>
+        <resource className="WormGoDown" width="32" height="41"/>
+
+        <resource className="WormPrepareToJump" width="32" height="41"/>
+        <resource className="WormJump" width="38" height="56"/>
+        <resource className="WormJumpBack" width="28" height="51"/>
+        <resource className="WormEndJump" width="27" height="48"/>
+
+        <resource className="WormBreath" width="33" height="41"/>
+        <resource className="WormBreathUp" width="31" height="47"/>
+        <resource className="WormBreathDown" width="31" height="41"/>
+        <resource className="WormSad" width="36.75" height="37.5"/>
+        <resource className="WormSadDown" width="35.85" height="36.7"/>
+        <resource className="WormSadUp" width="33" height="42"/>
+
+        <resource className="WormBlink" width="33" height="41"/>
+        <resource className="WormWink" width="33" height="41"/>
+        <resource className="WormMakeFaces" width="33" height="41"/>
+        <resource className="WormClap" width="33" height="42"/>
+
+        <resource className="WormJetpack" width="41" height="51"/>
+        <resource className="WormJetpackStay" width="40.6" height="41"/>
+        <resource className="ShockerWorm"/>
+        <resource className="WormHammerHit" width="53" height="52"/>
+        <resource className="WormPiece" width="53" height="52"/>
+        <resource className="WormBat"/>
+        <resource className="WormRope"/>
+    </library>
+
+    <!-- общие ресурсы -->
+    <library path="common/objects/bullActions.swf" estimatedBytes="68392">
+        <!-- taur -->
+        <resource className="BullStay" width="44" height="54"/>
+        <resource className="BullStayUp" width="43.4" height="58.6"/>
+        <resource className="BullStayDown" width="43.35" height="51.65"/>
+
+        <resource className="BullGo" width="43.8" height="53.55"/>
+        <resource className="BullGoUp" width="43.4" height="58.6"/>
+        <resource className="BullGoDown" width="46" height="53.55"/>
+
+        <resource className="BullPrepareToJump" width="41.1" height="51.6"/>
+        <resource className="BullJump" width="43.8" height="64.9"/>
+        <resource className="BullJumpBack" width="44.15" height="67.05"/>
+
+        <resource className="BullBreath" width="41.1" height="51.65"/>
+        <resource className="BullBreathUp" width="39.5" height="56.1"/>
+        <resource className="BullBreathDown" width="43.35" height="51.65"/>
+
+        <resource className="BullClap" width="43.8" height="53.55"/>
+        <resource className="BullBlink" width="41.1" height="51.65"/>
+        <resource className="BullWink" width="41.1" height="51.65"/>
+        <resource className="BullDamage" width="41.1" height="51.65"/>
+        <resource className="BullDamage2" width="41.1" height="51.65"/>
+        <resource className="BullDamage2InHat" width="41.1" height="51.65"/>
+
+        <resource className="BullJetpack" width="45.7" height="79.3"/>
+        <resource className="BullJetpackStay" width="49" height="54"/>
+        <resource className="ShockerBull"/>
+        <resource className="BullHammerHit" width="51.25" height="58.55"/>
+        <resource className="BullPiece" width="39.5" height="79.2"/>
+        <resource className="BullBat" width="45" height="52"/>
+        <resource className="BullRope" width="42" height="74"/>
+    </library>
+
+    <library path="common/objects/charActions.swf" estimatedBytes="180060">
+        <!-- boxer -->
+        <resource className="BoxerStay"/>
+        <resource className="BoxerGo"/>
+
+        <resource className="BoxerPrepareToJump"/>
+        <resource className="BoxerEndJump"/>
+        <resource className="BoxerJump"/>
+        <resource className="BoxerJumpBack"/>
+
+        <resource className="BoxerBreath"/>
+        <resource className="BoxerClap"/>
+        <resource className="BoxerHappy"/>
+        <resource className="BoxerJetpack"/>
+        <resource className="BoxerJetpackStay"/>
+
+        <resource className="ShockerBoxer"/>
+        <resource className="BoxerHammerHit"/>
+        <resource className="BoxerBat"/>
+        <resource className="BoxerRope"/>
+        <resource className="BoxerWink"/>
+        <resource className="BoxerSad"/>
+        <resource className="BoxerWave"/>
+        <resource className="BoxerThinkDeath"/>
+        <resource className="BoxerThinkPizza"/>
+        <resource className="BoxerThinkGrenade"/>
+        <resource className="BoxerThinkCoffee"/>
+        <resource className="BoxerBoom"/>
+
+        <!-- rabbit -->
+        <resource className="RabbitStay"/>
+        <resource className="RabbitGo"/>
+
+        <resource className="RabbitPrepareToJump"/>
+        <resource className="RabbitEndJump"/>
+        <resource className="RabbitJump"/>
+        <resource className="RabbitJumpBack"/>
+
+        <resource className="RabbitBreath"/>
+        <resource className="RabbitClap"/>
+        <resource className="RabbitHappy"/>
+        <resource className="RabbitJetpack"/>
+        <resource className="RabbitJetpackStay"/>
+
+        <resource className="ShockerRabbit"/>
+        <resource className="RabbitHammerHit"/>
+        <resource className="RabbitBat"/>
+        <resource className="RabbitRope"/>
+        <resource className="RabbitWink"/>
+        <resource className="RabbitSad"/>
+        <resource className="RabbitWave"/>
+        <resource className="RabbitCarrotEating"/>
+        <resource className="RabbitThinkDeath"/>
+        <resource className="RabbitThinkPizza"/>
+        <resource className="RabbitThinkGrenade"/>
+        <resource className="RabbitThinkCoffee"/>
+        <resource className="RabbitBoom"/>
+
+        <!-- zombie -->
+        <resource className="ZombieStay"/>
+        <resource className="ZombieGo"/>
+
+        <resource className="ZombiePrepareToJump"/>
+        <resource className="ZombieEndJump"/>
+        <resource className="ZombieJump"/>
+        <resource className="ZombieJumpBack"/>
+
+        <resource className="ZombieBreath"/>
+        <resource className="ZombieClap"/>
+        <resource className="ZombieHappy"/>
+        <resource className="ZombieJetpack"/>
+        <resource className="ZombieJetpackStay"/>
+
+        <resource className="ShockerZombie"/>
+        <resource className="ZombieHammerHit"/>
+        <resource className="ZombieBat"/>
+        <resource className="ZombieRope"/>
+        <resource className="ZombieWink"/>
+        <resource className="ZombieSad"/>
+        <resource className="ZombieWave"/>
+        <resource className="ZombieThinkDeath"/>
+        <resource className="ZombieThinkPizza"/>
+        <resource className="ZombieThinkGrenade"/>
+        <resource className="ZombieThinkCoffee"/>
+        <resource className="ZombieBoom"/>
+
+        <!-- demon -->
+        <resource className="DemonStay"/>
+        <resource className="DemonGo"/>
+
+        <resource className="DemonPrepareToJump"/>
+        <resource className="DemonEndJump"/>
+        <resource className="DemonJump"/>
+        <resource className="DemonJumpBack"/>
+
+        <resource className="DemonBreath"/>
+        <resource className="DemonClap"/>
+        <resource className="DemonHappy"/>
+        <resource className="DemonJetpack"/>
+        <resource className="DemonJetpackStay"/>
+
+        <resource className="ShockerDemon"/>
+        <resource className="DemonHammerHit"/>
+        <resource className="DemonBat"/>
+        <resource className="DemonRope"/>
+        <resource className="DemonWink"/>
+        <resource className="DemonSad"/>
+        <resource className="DemonWave"/>
+        <resource className="DemonThinkDeath"/>
+        <resource className="DemonThinkPizza"/>
+        <resource className="DemonThinkGrenade"/>
+        <resource className="DemonThinkCoffee"/>
+        <resource className="DemonBoom"/>
+
+        <!-- cat -->
+        <resource className="CatStay"/>
+        <resource className="CatGo"/>
+        <resource className="CatBreath"/>
+        <resource className="CatJetpack"/>
+        <resource className="CatJetpackStay"/>
+        <resource className="CatHammerHit"/>
+        <resource className="CatBat"/>
+        <resource className="CatRope"/>
+        <resource className="CatSad"/>
+        <resource className="CatWink"/>
+        <resource className="CatWave"/>
+        <resource className="CatThinkDeath"/>
+        <resource className="CatThinkPizza"/>
+        <resource className="CatThinkGrenade"/>
+        <resource className="CatThinkCoffee"/>
+        <resource className="CatHappy"/>
+        <resource className="CatBoom"/>
+        <resource className="CatJumpBack"/>
+        <resource className="CatClap"/>
+        <resource className="CatPrepareToJump"/>
+        <resource className="CatEndJump"/>
+        <resource className="CatJump"/>
+        <resource className="CatClimbs"/>
+        <resource className="CatFlying"/>
+
+        <resource className="ShockerUnit"/>
+        <resource className="HotShield"/>
+    </library>
+
+    <!-- game objects -->
+    <library path="common/objects/rip.swf" estimatedBytes="29150">
+        <resource className="WormGrave"/>
+        <resource className="BoxerGrave"/>
+        <resource className="DemonGrave"/>
+        <resource className="CatGrave"/>
+        <resource className="RabbitGrave"/>
+        <resource className="ZombieGrave"/>
+        <resource className="WormSoul"/>
+        <resource className="BigSoul"/>
+        <resource className="Ungraving"/>
+        <resource className="Burning"/>
+    </library>
+
+    <!-- для оружия которое червь держит в руке обязательно задавать width, height !!!!!-->
+    <library path="common/objects/weapons.swf">
+        <!-- иконка для скорости реакции в магазине -->
+        <resource className="IconReactionRate"/>
+
+        <!-- фугас -->
+        <resource className="IconFugasRocket"/>
+        <resource className="AmFugasRocket"/>
+        <resource className="FugasRocketBazooka" width="37.1" height="22.2"/>
+
+        <!-- бункер -->
+        <resource className="IconBunkerBreaker"/>
+        <resource className="AmBunkerBreaker"/>
+
+        <!-- супербункер -->
+        <resource className="IconSuperBunkerBuster"/>
+
+        <!-- Ледяная мина -->
+        <resource className="IceMine" width="14.6" height="10.8"/>
+        <resource className="IconIceMine"/>
+        <resource className="AmIceMine"/>
+
+        <!-- Замораживающая базука -->
+        <resource className="FreezingBazooka" width="28" height="19.3"/>
+        <resource className="IconFreezingBazooka"/>
+        <resource className="AmFreezingBazooka"/>
+        <!--Лед для замороженного червя -->
+        <resource className="IceWorm"/>
+
+        <!-- Арбалет -->
+        <resource className="Crossbow" width="40.9" height="16.5"/>
+        <resource className="IconCrossbow"/>
+        <resource className="AmCrossbow"/>
+
+        <!--Телепорт-граната -->
+        <resource className="IconTeleportThrower"/>
+        <resource className="TeleportThrower" width="18.7" height="17.75"/>
+        <resource className="AmTeleportThrower" width="18" height="18"/>
+        <resource className="TeleportThrowerBlink" width="18" height="18"/>
+        <resource className="Box"/>
+
+		<!--bazooka-->
+        <!--main bazooka-->
+        <resource className="MainBazooka" width="30" height="16.5"/>
+        <resource className="AmMainBazooka"/>
+        <resource className="IconMainBazooka"/>
+		<!--main bazooka-->
+        <resource className="BazookaUpg1" width="45.8" height="32.2"/>
+        <resource className="IconBazookaUpg1"/>
+        <resource className="AmBazookaUpg1"/>
+        <!--cumulative bazooka-->
+        <resource className="CumulativeBazooka" width="41.55" height="34.3"/>
+        <resource className="IconCumulativeBazooka"/>
+        <resource className="AmCumulativeBazooka"/>
+
+        <!-- простая граната-->
+        <!-- main grenade-->
+		<resource className="IconMainGrenade" width="21" height="23"/>
+        <resource className="MainGrenade" width="22" height="24"/>
+        <resource className="AmMainGrenade" width="21" height="23"/>
+        <resource className="MainGrenadeBlink" width="21" height="23"/>
+		<!-- stuffed bouncing grenade -->
+        <resource className="IconStuffedBouncingGrenade"/>
+        <resource className="AmStuffedBouncingGrenade" width="28.1" height="27.15"/>
+        <resource className="StuffedBouncingGrenade" width="29.1" height="28.15"/>
+        <resource className="StuffedBouncingGrenadeBlink" width="28.1" height="27.15"/>
+        <!-- grenade upg 2-->
+        <resource className="IconGrenadeUpg2"/>
+        <resource className="AmGrenadeUpg2" width="30.6" height="38.6"/>
+        <resource className="GrenadeUpg2Blink" width="30.6" height="38.6"/>
+        <resource className="GrenadeUpg2" width="32.95" height="38.6"/>
+
+        <!-- осколочная граната -->
+        <resource className="DefaultShard" width="6" height="6"/>
+		
+        <!-- cl grenade main -->
+        <resource className="IconMainClGrenade"/>
+        <resource className="ClMainGrenade" width="16.5" height="17.15"/>
+        <resource className="AmClMainGrenade" width="16.5" height="17.05"/>
+        <resource className="ClMainGrenadeBlink" width="16.5" height="17.05"/>
+        <!-- cl grenade upg 1 -->
+        <resource className="IconClGrenadeUpg1"/>
+        <resource className="ClGrenadeUpg1" width="17.4" height="18.7"/>
+        <resource className="AmClGrenadeUpg1" width="17.4" height="17.9"/>
+        <resource className="ClGrenadeUpg1Blink" width="17.4" height="17.9"/>
+		
+        <!-- cl grenade homing -->
+        <resource className="IconHomingClGrenade"/>
+        <resource className="HomingClGrenade" width="19" height="18.6"/>
+        <resource className="AmHomingClGrenade" width="19" height="18.45"/>
+        <resource className="HomingClGrenadeBlink" width="19" height="18.45"/>
+        <resource className="HomingClGrenadeSplinter" width="16.75" height="13.35"/>
+        <!-- cl grenade mine -->
+        <resource className="IconClGrenadeMine"/>
+        <resource className="ClGrenadeMine" width="20.35" height="20.2"/>
+        <resource className="AmClGrenadeMine" width="20.35" height="18.8"/>
+        <resource className="ClGrenadeMineBlink" width="20.35" height="18.8"/>
+
+        <!--Липучая граната -->
+        <resource className="AmStickBombSplinter" width="16.95" height="15.75"/>
+        <!-- sticky bomb main -->
+        <resource className="IconMainStickyBomb"/>
+        <resource className="MainStickyBomb" width="23.25" height="23.2"/>
+        <resource className="AmMainStickyBomb" width="21.5" height="22.2"/>
+        <resource className="MainStickyBombBlink" width="21.5" height="22.2"/>
+        <!-- sticky bomb upg1 -->
+        <resource className="IconStickyBombUpg1"/>
+        <resource className="StickyBombUpg1" width="18" height="19.45"/>
+        <resource className="AmStickyBombUpg1" width="15.85" height="18.45"/>
+        <resource className="StickyBombUpg1Blink" width="15.85" height="18.45"/>
+        <!-- poison sticky bomb -->
+        <resource className="IconPoisonStickyBomb"/>
+        <resource className="PoisonStickyBomb" width="19.15" height="18.75"/>
+        <resource className="AmPoisonStickyBomb" width="19.15" height="18.3"/>
+        <resource className="PoisonStickyBombBlink" width="19.15" height="18.3"/>
+        <!-- sticky bomb - mine-->
+        <resource className="IconStickyBombMine"/>
+        <resource className="StickyBombMine" width="21.85" height="24.1"/>
+        <resource className="AmStickyBombMine" width="20.85" height="23.1"/>
+        <resource className="StickyBombMineBlink" width="20.85" height="23.1"/>
+        <resource className="AmStickBombMineSplinter" width="16.35" height="15.15"/>
+
+        <!-- blow torch -->
+        <!-- main blow torch -->
+        <resource className="MainBlowTorch" width="34.5" height="17"/>
+        <resource className="AmMainBlowTorch" width="38" height="25"/>
+        <resource className="IconMainBlowTorch"/>
+		<!-- blow torch upg 1 -->
+        <resource className="IconBlowTorchUpg1"/>
+        <resource className="BlowTorchUpg1" width="24.6" height="20.8"/>
+        <resource className="AmBlowTorchUpg1" width="34.8" height="33.25"/>
+        <!-- blow torch upg 2 -->
+        <resource className="IconBlowTorchUpg2"/>
+        <resource className="BlowTorchUpg2" width="21.75" height="23.6"/>
+        <resource className="AmBlowTorchUpg2" width="31.4" height="29.7"/>
+		
+        <!-- drill -->
+        <resource className="Drill" width="29.6" height="16.5"/>
+        <resource className="AmDrill"/>
+        <resource className="IconDrill"/>
+
+        <!-- авиаудар-->
+        <resource className="AirControl" width="18.35" height="37.95"/>
+
+        <resource className="AirBomb"/>
+        <resource className="IconAirBomb"/>
+        <resource className="RightAirCursor"/>
+        <resource className="LeftAirCursor"/>
+
+        <resource className="Meteor"/>
+        <resource className="IconMeteor"/>
+
+        <!-- mortar-->
+        <!-- main mortar-->
+        <resource className="IconMainMortar"/>
+        <resource className="MainMortar" width="38.75" height="38.5"/>
+        <resource className="AmMainMortar" width="22.45" height="16"/>
+        <!-- mortar upg 1-->
+        <resource className="IconMortarUpg1"/>
+        <resource className="MortarUpg1" width="33.65" height="33.8"/>
+        <resource className="AmMortarUpg1" width="22.45" height="16"/>
+        <!-- mortar upg radius-->
+        <resource className="IconMortarUpgRadius"/>
+        <resource className="MortarRadius" width="37.1" height="38.05"/>
+        <resource className="AmMortarRadius" width="22.45" height="16"/>
+        <!-- mortar upg radius-->
+        <resource className="IconMortarDoubleShot"/>
+        <resource className="MortarDoubleShot" width="38.35" height="38.65"/>
+        <resource className="AmMortarDoubleShot" width="22.45" height="16"/>
+
+        <!-- shotgun -->
+        <resource className="AmShotgun" width="2" height="2"/>
+        <!-- main shotgun -->
+        <resource className="IconMainShotgun"/>
+        <resource className="MainShotgun" width="41.9" height="14.75"/>
+        <!-- shotgun upg 1-->
+        <resource className="IconShotgunUpg1"/>
+        <resource className="ShotgunUpg1" width="37.2" height="12.25"/>
+        <!-- shotgun slowing-->
+        <resource className="IconSlowingShotgun"/>
+        <resource className="SlowingShotgun" width="37.75" height="13.3"/>
+        <!-- shotgun double shot-->
+        <resource className="IconShotgunDoubleShot"/>
+        <resource className="ShotgunDoubleShot" width="38.3" height="16.1"/>
+
+		<!--rifle-->
+        <!--main rifle-->
+        <resource className="IconMainRifle"/>
+		<resource className="MainRifle" width="37" height="11"/>
+		<!--rifle upg1-->
+        <resource className="IconRifleUpg1"/>
+        <resource className="RifleUpg1" width="47.8" height="24.45"/>
+		
+        <!-- minigun -->
+        <!-- main minigun -->
+        <resource className="IconMainMinigun"/>
+        <resource className="MainMinigun" width="40.7" height="22.6"/>
+        <!-- minigun upg 1-->
+        <resource className="IconMinigunUpg1"/>
+        <resource className="MinigunUpg1" width="43.1" height="25.85"/>
+        <!-- minigun rocket -->
+        <resource className="IconRocketMinigun"/>
+        <resource className="RocketMinigun" width="40.5" height="39.5"/>
+        <!-- minigun reduce armor -->
+        <resource className="IconMinigunReduceArmor"/>
+        <resource className="MinigunReduceArmor" width="39.15" height="27.5"/>
+		<!--uzi-->
+        <!--main uzi-->
+        <resource className="IconMainUzi"/>
+		<resource className="MainUzi" width="28" height="20"/>
+		<!--uzi upg1-->
+        <resource className="IconUziUpg1"/>
+        <resource className="UziUpg1" width="32.25" height="26.55"/>
+
+        <!-- sniper rifle -->
+        <resource className="IconMainSniperRifle"/>
+        <resource className="MainSniperRifle" width="43.15" height="16.1"/>
+        <resource className="IconSniperRifleUpgSight"/>
+        <resource className="SniperRifleUpgSight" width="47.2" height="15.3"/>
+
+        <resource className="AmGun" width="22.5" height="4.5"/>
+
+        <!-- Отбойный молоток -->
+        <resource className="PneumaticDrill" width="24" height="35"/>
+        <resource className="AmPneumaticDrill" width="24" height="36"/>
+        <resource className="IconPneumaticDrill"/>
+
+        <resource className="Dynamite" width="13.65" height="26"/>
+
+        <resource className="IconDynamite"/>
+        <resource className="AmDynamite" width="16" height="40"/>
+
+		<!--holy grenade-->
+        <!-- main holy grenade -->
+        <resource className="MainHolyGrenade" width="17" height="24"/>
+        <resource className="AmMainHolyGrenade" width="17" height="24"/>
+        <resource className="IconMainHolyGrenade"/>
+		<!-- holy grenade upg1 -->
+        <resource className="IconHolyGrenadeUpg1"/>
+        <resource className="AmHolyGrenadeUpg1" width="25.6" height="28.6"/>
+        <resource className="HolyGrenadeUpg1" width="28.15" height="28.85"/>
+
+        <resource className="IconJetpack"/>
+
+        <!--Китайский фейверк -->
+        <resource className="IconFirework"/>
+        <resource className="Firework" width="19" height="40"/>
+        <resource className="AniFirework" width="19" height="41"/>
+        <resource className="AmFirework"/>
+
+        <!--Огнемет -->
+        <resource className="IconFireThrow"/>
+        <resource className="FireThrow" width="21.25" height="9.2"/>
+        <resource className="FireThrowBag" width="12" height="18"/>
+
+        <!--<resource className="Fire" width="21" height="30"/>-->
+        <resource className="Fire" width="19" height="24"/>
+        <resource className="FireShot" width="36" height="7"/>
+
+        <!-- Teleport-->
+        <resource className="Teleport" width="28" height="34"/>
+        <resource className="IconTeleport"/>
+
+        <resource className="AmShocker"/>
+        <resource className="IconShocker"/>
+        <resource className="Shocker" width="32.85" height="29.45"/>
+
+		<!-- Mine-->
+        <!-- main mine-->
+        <resource className="IconMainMine"/>
+        <resource className="AmMainMine"/>
+        <resource className="MainMine" width="16.45" height="12.75"/>
+		<!--mine upg1-->
+        <resource className="IconMineUpg1"/>
+        <resource className="AmMineUpg1"/>
+        <resource className="MineUpg1" width="29.05" height="13.5"/>
+        <!--mine upg2-->
+        <resource className="IconMineUpg2"/>
+        <resource className="AmMineUpg2"/>
+        <resource className="MineUpg2" width="28.7" height="11.65"/>
+
+        <resource className="IconGuardingBotWeapon"/>
+        <resource className="AmGuardingBot"/>
+        <resource className="GuardingBotWeapon" width="15.65" height="19"/>
+
+        <!-- арбузобомба -->
+        <resource className="IconWatermelon" width="22" height="25"/>
+        <resource className="Watermelon" width="24" height="25"/>
+        <resource className="AmWatermelon" width="22" height="25"/>
+        <resource className="WatermelonPiece" width="22" height="10"/>
+
+        <resource className="IconCarpetStrike"/>
+        <resource className="AmCarpetStrike"/>
+		
+	    <resource className="GuidingBazookaCursor"/>
+
+		<!--homing bazooka-->
+        <!--main homing bazooka-->
+        <resource className="MainHomingBazooka" width="30" height="15"/>
+        <resource className="IconMainHomingBazooka"/>
+        <resource className="AmMainHomingBazooka"/>
+		<!--homing bazooka upg1-->
+        <resource className="IconHomingBazookaUpg1"/>
+        <resource className="HomingBazookaUpg1" width="47.1" height="38.8"/>
+        <resource className="AmHomingBazookaUpg1" width="22.7" height="16.7"/>
+        <!--homing bazooka upg2-->
+        <resource className="IconHomingBazookaUpg2"/>
+        <resource className="HomingBazookaUpg2" width="52.65" height="36.4"/>
+        <resource className="AmHomingBazookaUpg2" width="19.95" height="15.2"/>
+		
+        <resource className="IconMolotov"/>
+        <resource className="Molotov" width="21" height="31"/>
+        <resource className="AmMolotov"/>
+
+        <resource className="MedkitLarge"/>
+        <resource className="MedkitMedium"/>
+        <resource className="MedkitSmall"/>
+
+        <resource className="Star"/>
+        <resource className="DisappearingStar"/>
+
+        <resource className="IconSheep"/>
+        <resource className="AmSheep"/>
+        <resource className="Sheep" width="31" height="21"/>
+        <resource className="TumblingSheep"/>
+
+        <resource className="IconSuperSheep"/>
+        <resource className="SuperSheep" width="19" height="36"/>
+        <resource className="AmSuperSheepRight"/>
+        <resource className="AmSuperSheepLeft"/>
+        <resource className="AmSuperSheepUp"/>
+
+        <resource className="NextTurn"/>
+        <resource className="IconNextTurn"/>
+
+        <resource className="IconNapalm"/>
+
+        <resource className="IconCarpetBazooka"/>
+        <resource className="CarpetBazooka" width="32" height="29"/>
+
+        <!-- кувалда-->
+        <resource className="SledgeHammer" width="8.3" height="7.55"/>
+        <resource className="IconSledgehammer"/>
+
+        <!-- сюрикен -->
+        <!-- main сюрикен -->
+        <resource className="IconMainShuriken"/>
+        <resource className="MainShuriken" width="25.15" height="25.5"/>
+        <resource className="AmMainShuriken" width="28.95" height="29.4"/>
+        <!-- сюрикен upg 1-->
+        <resource className="IconShurikenUpg1"/>
+        <resource className="ShurikenUpg1" width="23.05" height="22.95"/>
+        <resource className="AmShurikenUpg1" width="27.65" height="27.55"/>
+        <!-- сюрикен upg 1-->
+        <resource className="IconShurikenTrajectory"/>
+        <resource className="ShurikenTrajectory" width="21.2" height="24.3"/>
+        <resource className="AmShurikenTrajectory" width="22.75" height="28"/>
+        <!-- saw сюрикен -->
+        <resource className="IconShurikenSaw"/>
+        <resource className="ShurikenSaw" width="27.45" height="27.15"/>
+        <resource className="AmShurikenSaw" width="31.75" height="31.35"/>
+
+        <!-- пушка -->
+        <resource className="Cannon" width="40" height="22"/>
+        <resource className="AmCannon"/>
+        <resource className="IconCannon"/>
+
+        <!-- паук -->
+        <!-- main spider -->
+        <resource className="MainSpider" width="65" height="35"/>
+        <resource className="AmMainSpider"/>
+        <resource className="IconMainSpider"/>
+		<!-- spider upg 1 -->
+        <resource className="IconSpiderUpg1"/>
+        <resource className="AmSpiderUpg1"/>
+        <resource className="SpiderUpg1" width="45.65" height="34.5"/>
+
+        <!-- веревка -->
+        <resource className="IconRope"/>
+        <resource className="Rope" width="30.6" height="14.25"/>
+        <resource className="RopeTip" width="10.65" height="23.25"/>
+
+        <!-- гарпун -->
+		<!--main electric harpoon-->
+        <resource className="IconElectricHarpoon"/>
+        <resource className="MainElectricHarpoon" width="43.7" height="18.6"/>
+        <resource className="MainElectricHarpoonTip"/>
+		<!--main electric harpoon-->
+        <resource className="MainElectricHarpoonTrajectory" width="76.05" height="29.95"/>
+        <resource className="IconElectricHarpoonTrajectory"/>
+        <resource className="MainElectricHarpoonTrajectoryTip"/>
+        <!--electro gun-->
+        <resource className="IconElectroGun"/>
+        <resource className="ElectroGun" width="47.05" height="25.5"/>
+        <!--electro harpoon upg 2-->
+        <resource className="ElectricHarpoonUpg2" width="63.75" height="26.8"/>
+        <resource className="IconElectricHarpoonUpg2"/>
+        <resource className="ElectricHarpoonUpg2Tip"/>
+		
+        <!-- бита -->
+        <resource className="IconBat"/>
+        <resource className="Bat" width="34.7" height="32.65"/>
+
+        <!-- калаш -->
+        <resource className="IconKalash"/>
+        <resource className="Kalash" width="43.45" height="23.40"/>
+
+        <!-- НОВЫЕ ПУШКИ -->
+        <!-- бумеранг -->
+        <resource className="AmBoomerang"/>
+        <resource className="Boomerang" width="33.25" height="35"/>
+        <resource className="IconBoomerang"/>
+
+        <!-- курячья пушка -->
+        <resource className="AmBirdgun"/>
+        <resource className="Birdgun" width="36.65" height="15.2"/>
+        <resource className="IconBirdgun"/>
+
+        <!-- антимагнит -->
+        <resource className="AmAntimagnit"/>
+        <resource className="Antimagnit" width="14" height="12.45"/>
+        <resource className="IconAntimagnit"/>
+        <resource className="PulsatingWave"/>
+
+        <!-- дисковая пушка -->
+        <resource className="AmDiscgun"/>
+        <resource className="Discgun" width="48.75" height="17.9"/>
+        <resource className="IconDiscgun"/>
+
+        <!-- наковальня -->
+        <resource className="AmAnvil"/>
+        <resource className="IconAnvil"/>
+
+        <!-- нло -->
+        <resource className="AmFlight" width="70.05" height="24.6"/>
+        <resource className="AmFreight"/>
+        <resource className="IconUfo"/>
+
+        <!-- вертолет -->
+        <resource className="Helicopter" width="78.35" height="42.6"/>
+        <resource className="IconHelicopter"/>
+
+        <!-- разморозка -->
+        <resource className="Defrost" width="19" height="25.85"/>
+        <resource className="IconDefrost"/>
+
+        <!-- большая пушка -->
+        <resource className="BigCannonWheels" width="54.9" height="33.6"/>
+        <resource className="BigCannon" width="57.25" height="36.35"/>
+        <resource className="IconBigCannon"/>
+
+        <!-- балка -->
+        <resource className="IconGirder" width="15" height="15"/>
+        <resource className="GirderH" width="200" height="20"/>
+        <resource className="GirderV" width="83.5" height="83.5"/>
+
+        <!-- супербалка -->
+        <resource className="IconTitaniumGirder"/>
+
+        <!-- explosions -->
+        <resource className="ExpParticle" width="15" height="15"/>
+        <resource className="Boom" width="11" height="11"/>
+        <resource className="ExplosionSmall"/>
+        <resource className="ExplosionMedium"/>
+        <resource className="ExplosionLarge"/>
+
+        <!-- blood-->
+        <resource className="Blood1"/>
+        <resource className="Blood2"/>
+        <resource className="Blood3"/>
+        <resource className="Blood4"/>
+        <resource className="Blood5"/>
+        <resource className="Blood6"/>
+
+        <resource className="FireThrowBag" width="12.05" height="17.9"/>
+
+        <!-- тыква бомба-->
+        <resource className="PumpkinBomb" width="33.7" height="34.2"/>
+        <resource className="IconPumpkinBomb"/>
+        <resource className="AmPumpkinBomb"/>
+        <resource className="PumkinBombLigthBolt"/>
+        <resource className="PumkinBombParticle"/>
+
+        <resource className="ZombieExplosion"/>
+
+        <!-- НОВЫЕ ПУШКИ -->
+        <resource className="PumpkinBomb" width="33.7" height="34.2"/>
+        <resource className="IconPumpkinBomb"/>
+        <resource className="AmPumpkinBomb"/>
+        <resource className="PumkinBombLigthBolt"/>
+        <resource className="PumkinBombParticle"/>
+        <resource className="IconEmergencyTeleport"/>
+        <resource className="EmergencyTeleport" width="17.3" height="15.2"/>
+        <resource className="IconBandage"/>
+        <resource className="Bandage" width="16.4" height="15.45"/>
+        <resource className="IconGravityGun"/>
+        <resource className="GravityGun" width="65.6" height="37.55"/>
+        <resource className="AmGravityGun"/>
+        <resource className="IconThunderbolt"/>
+        <resource className="ThunderBolt" width="51.8" height="35.75"/>
+        <resource className="AmThunderBolt"/>
+
+        <!-- эффекты -->
+        <resource className="StormCloud"/>
+        <resource className="Heal"/>
+        <resource className="WindAura"/>
+        <resource className="AnimatedText"/>
+        <resource className="Obsession"/>
+        <resource className="SoulAura"/>
+        <resource className="RageAura"/>
+        <resource className="ElectricExplosion"/>
+        <resource className="MinimalExplosion"/>
+        <resource className="SlowEffect"/>
+
+        <resource className="IconAntitoxin"/>
+        <resource className="Antitoxin" width="38.85" height="17.6"/>
+		
+        <!-- laser barrier -->
+        <!-- main laser barrier -->
+        <resource className="IconMainLaserBarrier"/>
+        <resource className="MainLaserBarrier" width="15.5" height="15.45"/>
+        <resource className="AmMainLaserBarrier" width="15.5" height="15.45"/>
+        <!-- laser barrier upg 1-->
+        <resource className="IconLaserBarrierUpg1"/>
+        <resource className="AmLaserBarrierUpg1" width="13.5" height="13.5"/>
+        <resource className="LaserBarrierUpg1" width="16.9" height="15.7"/>
+		
+        <resource className="AntitoxinActivation"/>
+        <resource className="AntitoxinEffect"/>
+		
+		<resource className="AppleBoss" width="23.3" height="25.2"/>
+		<resource className="LaserActivatorDestructible" width="30" height="30"/>
+		<resource className="LaserActivatorIndestructible" width="30" height="30"/>
+		<resource className="ProgressBarBoss" width="260.25" height="17.4"/>
+        <resource className="ProtectiveDroid" width="29.25" height="23.55"/>
+		<resource className="SafetyArea" width="90" height="14.5"/>
+    </library>
+
+    <library path="common/objects/hats.swf" estimatedBytes="55392">
+        <!-- worm hats-->
+        <!-- NEW-->
+        <resource className="WormVoodoo"/>
+        <resource className="WormTribal"/>
+        <resource className="WormSombrero"/>
+        <resource className="WormNazi"/>
+        <resource className="WormIndian"/>
+        <resource className="WormCowboy"/>
+        <resource className="WormChieftain"/>
+        <resource className="WormAqualung"/>
+
+        <resource className="AceHat"/>
+        <resource className="AlienHat"/>
+        <resource className="Crown"/>
+        <resource className="Helmet"/>
+        <resource className="HornHat"/>
+        <resource className="LegionaryHat"/>
+        <resource className="LegionaryPinkHat"/>
+        <resource className="MasterHat"/>
+        <resource className="MonsterHelmet"/>
+        <resource className="PirateHat"/>
+        <resource className="ShrederHat"/>
+        <resource className="SilkHat"/>
+        <resource className="SimpleHat"/>
+        <resource className="SpikesHat"/>
+        <resource className="TankCrewHelmet"/>
+        <resource className="TehnoShreder"/>
+        <resource className="WormBrownCap"/>
+        <resource className="WormCrown_F"/>
+        <resource className="WormHairsPinkRim"/>
+        <resource className="WormPinkHat"/>
+        <resource className="WormPinkHelmet"/>
+        <resource className="WormRedCap_F"/>
+        <resource className="WormWhiteHat"/>
+        <resource className="WormBlueCap"/>
+        <resource className="WormGreenHat"/>
+        <resource className="WormStarHat"/>
+
+        <!-- other race hats -->
+        <resource className="BoxerVoodoo"/>
+        <resource className="BoxerTribal"/>
+        <resource className="BoxerSombrero"/>
+        <resource className="BoxerNazi"/>
+        <resource className="BoxerIndian"/>
+        <resource className="BoxerCowboy"/>
+        <resource className="BoxerChieftain"/>
+        <resource className="BoxerAqualung"/>
+
+        <resource className="BoxerArtist"/>
+        <resource className="BoxerCrown"/>
+        <resource className="BoxerDartvader"/>
+        <resource className="BoxerFarmer"/>
+        <resource className="BoxerFirelord"/>
+        <resource className="BoxerGentleman"/>
+        <resource className="BoxerGirlberret"/>
+        <resource className="BoxerJason"/>
+        <resource className="BoxerLegioner"/>
+        <resource className="BoxerMaster"/>
+        <resource className="BoxerNaruto"/>
+        <resource className="BoxerPinkhat"/>
+        <resource className="BoxerPinkhelm"/>
+        <resource className="BoxerPinklegioner"/>
+        <resource className="BoxerPirate"/>
+        <resource className="BoxerPrincess"/>
+        <resource className="BoxerRedcap"/>
+        <resource className="BoxerSadomazo"/>
+        <resource className="BoxerScorpion"/>
+        <resource className="BoxerSimplehelm"/>
+        <resource className="BoxerSubzero"/>
+        <resource className="BoxerTankhelm"/>
+        <resource className="BoxerThief"/>
+        <resource className="BoxerViking"/>
+        <resource className="BoxerWhitehat"/>
+        <resource className="BoxerWizzard"/>
+
+        <!--boss hats-->
+        <resource className="BossPirateHatWorm"/>
+        <resource className="BossPirateHatBoxer"/>
+        <resource className="BossIllusionistHatBoxer"/>
+        <resource className="BossIllusionistHatWorm"/>
+        <resource className="BossShamanHatBoxer"/>
+        <resource className="BossShamanHatWorm"/>
+        <resource className="BossVikingHatBoxer"/>
+        <resource className="BossVikingHatWorm"/>
+        <resource className="BossWindMasterHatWorm"/>
+        <resource className="BossWindMasterHatBoxer"/>
+        <resource className="BossGhostHatWorm"/>
+        <resource className="BossGhostHatBoxer"/>
+        <resource className="BoxerHatElvis"/>
+        <resource className="WormHatElvis"/>
+        <resource className="WormHatCrashHelmet"/>
+        <resource className="BoxerHatCrashHelmet"/>
+        <resource className="BossKingDeadHatWorm"/>
+        <resource className="BossKingDeadHatBoxer"/>
+        <resource className="BossDeadPirateHatWorm"/>
+        <resource className="BossDeadPirateHatBoxer"/>
+        <resource className="BossRomeoHatWorm"/>
+        <resource className="BossRomeoHatBoxer"/>
+        <resource className="BossJulietHatWorm"/>
+        <resource className="BossJulietHatBoxer"/>
+        <resource className="BossYakuza1HatBoxer"/>
+        <resource className="BossYakuza2HatBoxer"/>
+        <resource className="BossYakuza3HatBoxer"/>
+        <resource className="BossYakuza1HatWorm"/>
+        <resource className="BossYakuza2HatWorm"/>
+        <resource className="BossYakuza3HatWorm"/>
+        <resource className="WormHatSoviet"/>
+        <resource className="BoxerHatSoviet"/>
+        <resource className="WormHatRussian"/>
+        <resource className="BoxerHatRussian"/>
+        <resource className="WormHatOfficer"/>
+        <resource className="BoxerHatOfficer"/>
+        <resource className="MinerHat"/>
+        <resource className="ElderDemonHat"/>
+
+        <!-- NEW-->
+        <resource className="BoxerHatVampire"/>
+        <resource className="WormHatVampire"/>
+        <resource className="BoxerHatDoctorArmband"/>
+        <resource className="WormHatDoctorArmband"/>
+        <resource className="BoxerHatNeo"/>
+        <resource className="WormHatNeo"/>
+        <resource className="BoxerHatNinjaTurtles"/>
+        <resource className="WormHatNinjaTurtles"/>
+		<resource className="BossEngineerHatWorm"/>
+        <resource className="BossEngineerHatBoxer"/>
+        <resource className="BossGuardiansDepthsHatWorm"/>
+        <resource className="BossGuardiansDepthsHatBoxer"/>
+		<resource className="WormHatMask"/>
+        <resource className="BoxerHatMask"/>
+    </library>
+
+    <!-- Банк -->
+    <library path="social/{social}/bank.swf" name="bank">
+        <resource className="BankMenu"/>
+    </library>
+
+    <library path="common/rooms/armory_room.swf" estimatedBytes="53900" lazy="true">
+        <resource className="Armory"/>
+    </library>
+
+    <library path="common/rooms/team_room.swf" estimatedBytes="40907" lazy="true">
+        <resource className="TeamRoom"/>
+    </library>
+
+    <library path="common/rooms/wardrobe_room.swf" estimatedBytes="37595" lazy="true">
+        <resource className="WardrobeRoom"/>
+    </library>
+
+    <library path="common/rooms/race_room.swf" estimatedBytes="86016" lazy="true">
+        <resource className="RaceRoom"/>
+        <resource className="RaceAbilHint"/>
+        <resource className="RaceCell"/>
+    </library>
+
+    <library path="common/rooms/photo_room.swf" estimatedBytes="49152" lazy="true">
+        <resource className="PhotoStudio"/>
+        <resource className="PhotoStatusCell"/>
+    </library>
+
+    <library path="common/rooms/achiev_icons.swf">
+        <!-- иконки ачивок -->
+        <!-- боевые -->
+        <resource className="Militant"/>
+        <resource className="Unstoppable"/>
+        <resource className="Maniac"/>
+        <resource className="Soldier"/>
+        <resource className="Bazutchik"/>
+        <resource className="MasterBazooka"/>
+        <resource className="Diver"/>
+        <resource className="Merman"/>
+        <resource className="Neptune"/>
+        <resource className="Winner"/>
+        <resource className="Champion"/>
+        <resource className="Hero"/>
+        <resource className="Negotiator"/>
+        <resource className="Diplomat"/>
+        <resource className="Consigliere"/>
+        <resource className="Gunner"/>
+        <resource className="WindMaster"/>
+        <resource className="Shaman"/>
+        <resource className="Topitel"/>
+        <resource className="UnderTaker"/>
+        <resource className="Buffy"/>
+        <resource className="Lucky"/>
+        <resource className="Lucky2"/>
+        <resource className="DeceivedDeath"/>
+        <resource className="Stable"/>
+        <resource className="Unshakable"/>
+        <resource className="Rock"/>
+        <resource className="Secretive"/>
+        <resource className="Accurate"/>
+        <resource className="Paranoik"/>
+        <resource className="Aeronaut"/>
+        <resource className="Pilot"/>
+        <resource className="Ace"/>
+        <resource className="RapidFire"/>
+        <resource className="Killer"/>
+        <resource className="WormaxPayne"/>
+        <resource className="Apothecary"/>
+        <resource className="Sage"/>
+        <resource className="Doctor"/>
+        <resource className="TreasureHunter"/>
+        <resource className="Plunderer"/>
+        <resource className="SeaDog"/>
+        <resource className="Kamikadze"/>
+        <resource className="ComeWithMe"/>
+        <resource className="DeathGrip"/>
+        <resource className="Demolitions"/>
+        <resource className="Exterminator"/>
+        <resource className="Pyromaniac"/>
+        <resource className="MorningRun"/>
+        <resource className="Walkman"/>
+        <resource className="WormixGump"/>
+        <resource className="Dandy"/>
+        <resource className="HatLover"/>
+        <resource className="MadHatter"/>
+        <resource className="Fan"/>
+        <resource className="Celebrity"/>
+        <resource className="Idol"/>
+        <resource className="Slayer"/>
+        <resource className="Inquisitor"/>
+        <resource className="Saint"/>
+		<resource className="PartisanLvl1"/>
+        <resource className="PartisanLvl2"/>
+        <resource className="PartisanLvl3"/>
+        <resource className="CollectorLvl1"/>
+        <resource className="CollectorLvl2"/>
+        <resource className="CollectorLvl3"/>
+        <!-- финансы -->
+        <resource className="Spender"/>
+        <resource className="Embezzler"/>
+        <resource className="King"/>
+        <resource className="Rich"/>
+        <resource className="Cool"/>
+        <resource className="Millionaire"/>
+        <!-- друзья -->
+        <resource className="Friend"/>
+        <resource className="Buddy"/>
+        <resource className="KingOfParties"/>
+        <resource className="Miner"/>
+        <resource className="SuperMiner"/>
+        <resource className="Jeweler"/>
+        <!-- игра -->
+        <resource className="Photographer"/>
+        <resource className="Reporter"/>
+        <resource className="Paparazzi"/>
+        <resource className="Cinemaddict"/>
+        <resource className="Operator"/>
+        <resource className="MovieDirector"/>
+        <resource className="Dilettant"/>
+        <resource className="Gamer"/>
+        <resource className="GameManiac"/>
+    </library>
+
+    <library path="common/rooms/achiev_room.swf" lazy="true">   <!-- estimatedBytes="385024" -->
+        <resource className="AchievRoom"/>
+        <resource className="AwardCell"/>
+        <resource className="AchievTabPage"/>
+        <resource className="AchievTabAwards"/>
+    </library>
+
+    <library path="common/objects/learningMissionObjects.swf" lazy="true">
+        <!-- MAPS ELEMENTS -->
+        <!--1 mission-->
+        <resource className="LearningMission1_LeftPart"/>
+        <resource className="LearningMission1_CentralPart"/>
+        <resource className="LearningMission1_RightPart"/>
+        <!--2 mission-->
+        <resource className="LearningMission2_MovingPart"/>
+        <resource className="LearningMission2_StandingPart"/>
+        <!--3 mission-->
+        <resource className="LearningMission3_CentralPart"/>
+        <resource className="LearningMission3_LeftDownPart"/>
+        <resource className="LearningMission3_LeftUpPart"/>
+        <resource className="LearningMission3_RightPart"/>
+
+        <!--light-->
+        <resource className="PointerBagBtn"/>
+        <resource className="ArrowBagMenu"/>
+        <resource className="SelectedItemLight"/>
+
+        <!--game objects learning missions-->
+        <resource className="LearningMissionCursor"/>
+        <resource className="LearningMissionMark"/>
+        <resource className="LearningMissionPointerArrow"/>
+        <resource className="LearningMissionPointerBody"/>
+        <resource className="LearningMissionMarkExplosion"/>
+
+        <resource className="TutorialPanel_mc"/>
+        <resource className="LEARNING_1_TURN_1_N2_MC"/>
+        <resource className="LEARNING_1_TURN_2_MC"/>
+
+        <resource className="LEARNING_2_TURN_1_MC"/>
+        <resource className="LEARNING_2_TURN_2_MC"/>
+
+        <resource className="LEARNING_3_TURN_5_N1_MC"/>
+        <resource className="LEARNING_3_TURN_5_N2_MC"/>
+    </library>
+
+
+    <library path="common/rooms/craft_room.swf" lazy="true">
+        <resource className="CraftRoom"/>
+        <resource className="UpgradeBtn"/>
+        <resource className="SingleArrow"/>
+        <resource className="DoubleArrow"/>
+        <resource className="DoubleArrow"/>
+        <resource className="PanelWeaponCollection"/>
+        <resource className="ReagentItem"/>
+    </library>
+
+    <library path="common/objects/reagent_icons.swf">
+        <resource className="IconAccumulator"/>
+        <resource className="IconBattery"/>
+        <resource className="IconCoal"/>
+        <resource className="IconCrystal"/>
+        <resource className="IconGear"/>
+        <resource className="IconGenerator"/>
+        <resource className="IconGunpowder"/>
+        <resource className="IconHammer"/>
+        <resource className="IconMetalPlate"/>
+        <resource className="IconMicrochip"/>
+        <resource className="IconPipe"/>
+        <resource className="IconSand"/>
+        <resource className="IconScrewBolt"/>
+        <resource className="IconScrewdriver"/>
+        <resource className="IconScrewNut"/>
+        <resource className="IconSniperScope"/>
+        <resource className="IconSpring"/>
+        <resource className="IconSteelBar"/>
+        <resource className="IconStone"/>
+        <resource className="IconTitanBar"/>
+        <resource className="IconUmbrella"/>
+        <resource className="IconWood"/>
+        <resource className="IconWrench"/>
+    </library>
+
+</resources>

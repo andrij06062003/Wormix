@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dictionary>
+<message name="HELP_CONTROL_TITLE1" value="Movement"/>
+<message name="HELP_CONTROL_DESCR1"><![CDATA[<b>LEFT/RIGHT arrow keys</b>, or <b>A/D</b> keys]]></message>
+<message name="HELP_CONTROL_TITLE2" value="Jump forward"/>
+<message name="HELP_CONTROL_DESCR2"><![CDATA[<b>Enter</b> key or <b>F</b> key]]></message>
+<message name="HELP_CONTROL_TITLE3" value="Jump backwards"/>
+<message name="HELP_CONTROL_DESCR3"><![CDATA[<b>Backspace</b> key or <b>R</b> key]]></message>
+<message name="HELP_CONTROL_TITLE4" value="Aim"/>
+<message name="HELP_CONTROL_DESCR4"><![CDATA[<b>UP/DOWN</b> keys, or <b>W/S</b> keys]]></message>
+<message name="HELP_CONTROL_TITLE5" value="Shoot"/>
+<message name="HELP_CONTROL_DESCR5"><![CDATA[<b>SPACE</b> key. To change shot power for some weapons hold <b>SPACE</b>]]></message>
+<message name="HELP_CONTROL_TITLE6" value="Backpack"/>
+<message name="HELP_CONTROL_DESCR6"><![CDATA[<b>Q/I</b> key to open, <b>W/A/S/D</b> to navigate, <b>SPACE/E</b> to pick weapon]]></message>
+<message name="HELP_CONTROL_TITLE7" value="Grenade timers"/>
+<message name="HELP_CONTROL_DESCR7"><![CDATA[<b>1-5</b> keys]]></message>
+</dictionary>

@@ -1,0 +1,547 @@
+[
+    {
+        "level": 1,
+        "required_experience": 20,
+        "max_worms_count": 1,
+        "reward_weapons": []
+    },
+    {
+        "level": 2,
+        "required_experience": 40,
+        "max_worms_count": 1,
+        "reward_weapons": [
+            [
+                35,
+                3
+            ],
+            [
+                21,
+                5
+            ],
+            [
+                11,
+                2
+            ],
+            [
+                13,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 3,
+        "required_experience": 70,
+        "max_worms_count": 1,
+        "reward_weapons": [
+            [
+                35,
+                2
+            ],
+            [
+                22,
+                2
+            ],
+            [
+                29,
+                2
+            ],
+            [
+                44,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 4,
+        "required_experience": 100,
+        "max_worms_count": 1,
+        "reward_weapons": [
+            [
+                34,
+                4
+            ],
+            [
+                16,
+                3
+            ],
+            [
+                21,
+                3
+            ],
+            [
+                38,
+                2
+            ],
+            [
+                40,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 5,
+        "required_experience": 130,
+        "max_worms_count": 2,
+        "reward_weapons": [
+            [
+                34,
+                4
+            ],
+            [
+                39,
+                4
+            ],
+            [
+                45,
+                3
+            ],
+            [
+                10,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 6,
+        "required_experience": 160,
+        "max_worms_count": 2,
+        "reward_weapons": [
+            [
+                22,
+                2
+            ],
+            [
+                11,
+                2
+            ],
+            [
+                38,
+                2
+            ],
+            [
+                53,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 7,
+        "required_experience": 190,
+        "max_worms_count": 2,
+        "reward_weapons": [
+            [
+                49,
+                8
+            ],
+            [
+                23,
+                2
+            ],
+            [
+                33,
+                2
+            ],
+            [
+                27,
+                1
+            ]
+        ]
+    },
+    {
+        "level": 8,
+        "required_experience": 220,
+        "max_worms_count": 2,
+        "reward_weapons": [
+            [
+                34,
+                4
+            ],
+            [
+                44,
+                2
+            ],
+            [
+                10,
+                2
+            ],
+            [
+                51,
+                1
+            ],
+            [
+                57,
+                1
+            ]
+        ]
+    },
+    {
+        "level": 9,
+        "required_experience": 250,
+        "max_worms_count": 2,
+        "reward_weapons": [
+            [
+                49,
+                8
+            ],
+            [
+                54,
+                2
+            ],
+            [
+                66,
+                2
+            ],
+            [
+                43,
+                1
+            ]
+        ]
+    },
+    {
+        "level": 10,
+        "required_experience": 280,
+        "max_worms_count": 2,
+        "reward_weapons": [
+            [
+                42,
+                4
+            ],
+            [
+                52,
+                2
+            ],
+            [
+                46,
+                2
+            ],
+            [
+                33,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 11,
+        "required_experience": 310,
+        "max_worms_count": 2,
+        "reward_weapons": [
+            [
+                49,
+                8
+            ],
+            [
+                48,
+                2
+            ],
+            [
+                55,
+                3
+            ],
+            [
+                28,
+                1
+            ]
+        ]
+    },
+    {
+        "level": 12,
+        "required_experience": 340,
+        "max_worms_count": 2,
+        "reward_weapons": [
+            [
+                42,
+                3
+            ],
+            [
+                63,
+                3
+            ],
+            [
+                62,
+                3
+            ],
+            [
+                53,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 13,
+        "required_experience": 370,
+        "max_worms_count": 3,
+        "reward_weapons": [
+            [
+                50,
+                3
+            ],
+            [
+                42,
+                3
+            ],
+            [
+                56,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 14,
+        "required_experience": 400,
+        "max_worms_count": 3,
+        "reward_weapons": [
+            [
+                52,
+                3
+            ],
+            [
+                23,
+                3
+            ],
+            [
+                51,
+                1
+            ]
+        ]
+    },
+    {
+        "level": 15,
+        "required_experience": 430,
+        "max_worms_count": 3,
+        "reward_weapons": [
+            [
+                41,
+                2
+            ],
+            [
+                22,
+                2
+            ],
+            [
+                27,
+                1
+            ]
+        ]
+    },
+    {
+        "level": 16,
+        "required_experience": 470,
+        "max_worms_count": 3,
+        "reward_weapons": [
+            [
+                32,
+                2
+            ],
+            [
+                46,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 17,
+        "required_experience": 510,
+        "max_worms_count": 3,
+        "reward_weapons": [
+            [
+                60,
+                3
+            ],
+            [
+                58,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 18,
+        "required_experience": 550,
+        "max_worms_count": 3,
+        "reward_weapons": [
+            [
+                30,
+                3
+            ],
+            [
+                37,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 19,
+        "required_experience": 590,
+        "max_worms_count": 3,
+        "reward_weapons": [
+            [
+                18,
+                3
+            ],
+            [
+                51,
+                1
+            ]
+        ]
+    },
+    {
+        "level": 20,
+        "required_experience": 630,
+        "max_worms_count": 3,
+        "reward_weapons": [
+            [
+                57,
+                2
+            ],
+            [
+                41,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 21,
+        "required_experience": 670,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                47,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 22,
+        "required_experience": 710,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                15,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 23,
+        "required_experience": 750,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                48,
+                4
+            ]
+        ]
+    },
+    {
+        "level": 24,
+        "required_experience": 790,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                32,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 25,
+        "required_experience": 830,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                36,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 26,
+        "required_experience": 930,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                64,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 27,
+        "required_experience": 1030,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                67,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 28,
+        "required_experience": 1130,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                67,
+                1
+            ],
+            [
+                64,
+                1
+            ],
+            [
+                63,
+                3
+            ],
+            [
+                62,
+                3
+            ]
+        ]
+    },
+    {
+        "level": 29,
+        "required_experience": 1230,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                67,
+                1
+            ],
+            [
+                64,
+                1
+            ],
+            [
+                48,
+                2
+            ],
+            [
+                41,
+                2
+            ]
+        ]
+    },
+    {
+        "level": 30,
+        "required_experience": 1330,
+        "max_worms_count": 4,
+        "reward_weapons": [
+            [
+                67,
+                1
+            ],
+            [
+                57,
+                2
+            ],
+            [
+                18,
+                2
+            ],
+            [
+                28,
+                2
+            ]
+        ]
+    }
+]

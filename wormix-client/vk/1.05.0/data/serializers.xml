@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serializers>
+
+    <commands>
+
+        <command serializer="ru.pragmatix.wormix.serialization.client.BattleLoginBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::BattleLogin" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.BattleReconnectBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::BattleReconnect" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.BattleOfferResultBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::BattleOfferResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.BattleRequestBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::BattleRequest" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.CancelBattleBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::CancelBattle" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.CheatDetectedBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::CheatDetected" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PvpActionExBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::PvpActionEx" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.PvpStartTurnBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.server::PvpStartTurn" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PvpEndTurnBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::PvpEndTurn" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PvpEndTurnResponseBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::PvpEndTurnResponse" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PvpEndBattleBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::PvpEndBattle" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PvpDropPlayerBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::PvpDropPlayer" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.PvpSystemMessageBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.server::PvpSystemMessage" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PvpRetryCommandRequestClientBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.client::PvpRetryCommandRequestClient" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.PvpRetryCommandRequestServerBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.server::PvpRetryCommandRequestServer" />
+
+        <command serializer="ru.pragmatix.wormix.serialization.server.BattleLoginErrorBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.server::BattleLoginError" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.BattleLoginSuccessBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.server::BattleLoginSuccess" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.BattleOfferBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.server::BattleOffer" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.BattleRequestResultBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.server::BattleRequestResult" />
+
+        <command serializer="ru.pragmatix.wormix.serialization.client.AddToGroupBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::AddToGroup" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.BuyBattleBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::BuyBattle" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.BuyShopItemsBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::BuyShopItems" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.ChatMessageBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::ChatMessage" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PvpChatMessageBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::PvpChatMessage" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.DistributePointsBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::DistributePoints" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.EndBattleBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::EndBattle" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.GetArenaBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::GetArena" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.GetFriendListPageBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::GetFriendListPage" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.GetProfilesBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::GetProfiles" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.GetRatingBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::GetRating" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.LoginByProfileStringIdBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::LoginByProfileStringId" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.LoginBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::Login" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.AchieveLoginBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::AchieveLogin" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.AchieveLoginBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::AchieveLogin" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.GetAchievementsBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::GetAchievements" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.IncreaseAchievementsBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::IncreaseAchievements" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.GetDailyRatingBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::GetDailyRating" />
+
+        <command serializer="ru.pragmatix.wormix.serialization.client.NeedMoneyBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::NeedMoney" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PingBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::Ping" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.RemoveFromGroupBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::RemoveFromGroup" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.ResetParametersBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::ResetParameters" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.SearchTheHouseBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::SearchTheHouse" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.BuyReactionRateBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::BuyReactionRate" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PumpReactionRateBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::PumpReactionRate" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.PumpReactionRatesBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::PumpReactionRates" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.GetWhoPumpedReactionBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::GetWhoPumpedReaction" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.WipeProfileBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::WipeProfile" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.StartBattleBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::StartBattle" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.SelectStuffBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::SelectStuff" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.ChangeRaceBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::ChangeRace" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.SendWipeConfirmCodeBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::SendWipeConfirmCode" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.ChooseBonusItemBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::ChooseBonusItem" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.SyncInvestedAwardPointsBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::SyncInvestedAwardPoints" />
+
+        <command serializer="ru.pragmatix.wormix.serialization.server.AddToGroupResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::AddToGroupResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ArenaLockedBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ArenaLocked" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ArenaResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ArenaResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.BuyBattleResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::BuyBattleResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.DistributePointsResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::DistributePoints" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.EnterAccountBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::EnterAccount" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.GetFriendListPageResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::GetFriendListPageResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.GetRatingResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::GetRatingResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.LoginErrorBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::LoginError" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.NeedMoneyResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::NeedMoneyResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.PongBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::Pong" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ProfilesResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ProfilesResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.RemoveFromGroupResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::RemoveFromGroupResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ResetParametersResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ResetParametersResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.SearchTheHouseResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::SearchTheHouseResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.PumpReactionRateResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::PumpReactionRateTheHouseResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.PumpReactionRatesResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::PumpReactionRatesResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.WhoPumpedReactionResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::WhoPumpedReactionResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ChatMessageResponseBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ChatMessageResponse" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.SendWipeConfirmCodeResponseBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::SendWipeConfirmCodeResponse" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.BuyReactionRateResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::BuyReactionRateResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.WipeProfileResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::WipeProfileResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ShopResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ShopResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ShowSystemMessageBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ShowSystemMessage" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.StartBattleResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::StartBattleResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.SelectStuffResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::SelectStuffResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.UserIsBannedBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::UserIsBanned" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ChangeRaceResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ChangeRaceResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.IncomingPaymentBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::IncomingPaymen" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.AchieveLoginSuccessBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::AchieveLoginSuccess" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.GetAchievementsResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::GetAchievementsResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.IncreaseAchievementResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::IncreaseAchievementResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.AchieveLoginErrorBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::AchieveLoginError" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ChooseBonusItemResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ChooseBonusItemResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.SyncInvestedAwardPointsResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::SyncInvestedAwardPointsResult" />
+
+        <command serializer="ru.pragmatix.wormix.serialization.wager.WagerBattleRequestBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.wager::WagerBattleRequest" />
+        <command serializer="ru.pragmatix.wormix.serialization.wager.WagerBattleRequestErrorBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.wager::WagerBattleRequestError" />
+        <command serializer="ru.pragmatix.wormix.serialization.wager.WagerBattleRequestResultBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.wager::WagerBattleRequestResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.wager.WagerCancelBattleBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.wager::WagerCancelBattle" />
+
+        <command serializer="ru.pragmatix.wormix.serialization.client.BuyUnlockMissionBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::BuyUnlockMission" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.BuyUnlockMissionResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::BuyUnlockMissionResult" />
+
+        <command serializer="ru.pragmatix.wormix.serialization.client.GetReagentsForProfileBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::GetReagentsForProfile" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.UpgradeWeaponBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::UpgradeWeapon" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.DowngradeWeaponBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::DowngradeWeapon" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.ReagentsForProfileBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ReagentsForProfile" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.UpgradeWeaponResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::UpgradeWeaponResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.server.DowngradeWeaponResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::DowngradeWeaponResult" />
+
+        <command serializer="ru.pragmatix.wormix.serialization.server.ReorderGroupResultBinarySerializer" forClass="ru.pragmatix.wormix.messages.server::ReorderGroupResult" />
+        <command serializer="ru.pragmatix.wormix.serialization.client.ReorderGroupBinarySerializer" forClass="ru.pragmatix.wormix.messages.client::ReorderGroup" />
+    </commands>
+
+    <structures>
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.PositionStructureBinarySerializer" forClass="ru.pragmatix.wormix.pvp.messages.structures::PositionStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.RatingProfileStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::RatingProfileStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.ShopItemStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::ShopItemStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.UserProfileStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::UserProfileStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.WeaponStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::WeaponStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.WormStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::WormStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.DailyBonusStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::DailyBonusStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.BonusDaysStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::BonusDaysStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.PumpReactionRateStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::PumpReactionRateStructure" />
+        <structure serializer="ru.pragmatix.wormix.serialization.structures.ProfileDoubleKeyStructureBinarySerializer" forClass="ru.pragmatix.wormix.messages.structures::ProfileDoubleKeyStructure" />
+    </structures>
+
+</serializers>
+
+        

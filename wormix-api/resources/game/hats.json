@@ -1,0 +1,1464 @@
+[
+  {
+    "id": 1003,
+    "name": "HAT.FARMER",
+    "infinite": true,
+    "price": 1000,
+    "realprice": 10,
+    "hp": 20,
+    "requiredRating": 80,
+    "requiredLevel": 5,
+    "charConfig": [
+      {
+        "iconClassName": "SimpleHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerFarmer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1025,
+    "name": "HAT.WIZARD",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "price": 1000,
+    "realprice": 10,
+    "hp": 20,
+    "requiredRating": 80,
+    "requiredLevel": 5,
+    "charConfig": [
+      {
+        "iconClassName": "WormStarHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerWizzard",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1004,
+    "name": "HAT.SIMPLEHELM",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "price": 1300,
+    "realprice": 13,
+    "requiredLevel": 6,
+    "requiredRating": 100,
+    "armor": 2,
+    "hp": 5,
+    "charConfig": [
+      {
+        "iconClassName": "Helmet",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerSimplehelm",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1022,
+    "name": "HAT.WHITEHAT",
+    "infinite": true,
+    "price": 1300,
+    "realprice": 13,
+    "requiredLevel": 6,
+    "requiredRating": 100,
+    "armor": 2,
+    "hp": 5,
+    "charConfig": [
+      {
+        "iconClassName": "WormWhiteHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerWhitehat",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1006,
+    "name": "HAT.GENTLEMAN",
+    "infinite": true,
+    "realprice": 12,
+    "requiredLevel": 1,
+    "hp": 30,
+    "charConfig": [
+      {
+        "iconClassName": "SilkHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerGentleman",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1018,
+    "name": "HAT.JAPAN",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "realprice": 12,
+    "requiredLevel": 1,
+    "hp": 30,
+    "charConfig": [
+      {
+        "iconClassName": "WormHairsPinkRim",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerNaruto",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1009,
+    "name": "HAT.TANKHELM",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "price": 1600,
+    "realprice": 16,
+    "armor": 2,
+    "attack": 1,
+    "requiredLevel": 9,
+    "requiredRating": 200,
+    "charConfig": [
+      {
+        "iconClassName": "TankCrewHelmet",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerTankhelm",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1019,
+    "name": "HAT.PINKHAT",
+    "infinite": true,
+    "price": 1600,
+    "realprice": 16,
+    "armor": 2,
+    "attack": 1,
+    "requiredLevel": 9,
+    "requiredRating": 200,
+    "charConfig": [
+      {
+        "iconClassName": "WormPinkHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerPinkhat",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1023,
+    "name": "HAT.CAP",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "price": 1800,
+    "realprice": 18,
+    "requiredLevel": 10,
+    "requiredRating": 300,
+    "armor": 2,
+    "attack": 1,
+    "hp": 20,
+    "charConfig": [
+      {
+        "iconClassName": "WormBlueCap",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerRedcap",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1005,
+    "name": "HAT.ALIEN",
+    "infinite": true,
+    "price": 1800,
+    "realprice": 18,
+    "requiredLevel": 10,
+    "requiredRating": 300,
+    "armor": 2,
+    "attack": 1,
+    "hp": 20,
+    "charConfig": [
+      {
+        "iconClassName": "AlienHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerDartvader",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1007,
+    "name": "HAT.VIKING",
+    "infinite": true,
+    "price": 2100,
+    "realprice": 21,
+    "requiredLevel": 11,
+    "requiredRating": 350,
+    "armor": 2,
+    "attack": 2,
+    "hp": 10,
+    "charConfig": [
+      {
+        "iconClassName": "HornHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerViking",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1010,
+    "name": "HAT.MONSTER",
+    "infinite": true,
+    "price": 2200,
+    "realprice": 22,
+    "requiredRating": 400,
+    "requiredLevel": 12,
+    "armor": 1,
+    "attack": 3,
+    "hp": 25,
+    "charConfig": [
+      {
+        "iconClassName": "MonsterHelmet",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerJason",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1016,
+    "name": "HAT.ARTIST",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "price": 2200,
+    "realprice": 22,
+    "requiredRating": 400,
+    "requiredLevel": 12,
+    "armor": 1,
+    "attack": 3,
+    "hp": 25,
+    "charConfig": [
+      {
+        "iconClassName": "WormBrownCap",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerArtist",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1021,
+    "name": "HAT.GIRLBERRET",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "price": 2200,
+    "realprice": 22,
+    "requiredRating": 400,
+    "requiredLevel": 12,
+    "armor": 1,
+    "attack": 3,
+    "hp": 25,
+    "charConfig": [
+      {
+        "iconClassName": "WormRedCap_F",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerGirlberret",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1008,
+    "name": "HAT.PIRATE",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "realprice": 24,
+    "requiredLevel": 1,
+    "armor": 1,
+    "attack": 4,
+    "hp": 20,
+    "charConfig": [
+      {
+        "iconClassName": "PirateHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerPirate",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1031,
+    "name": "HAT.INDIAN",
+    "infinite": true,
+    "price": 2500,
+    "realprice": 25,
+    "requiredLevel": 13,
+    "attack": 2,
+    "poison": 2,
+    "hp": 15,
+    "requiredRating": 600,
+    "charConfig": [
+      {
+        "iconClassName": "WormIndian",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerIndian",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1011,
+    "name": "HAT.SAMURAI",
+    "infinite": true,
+    "realprice": 27,
+    "requiredLevel": 1,
+    "armor": 4,
+    "hp": 50,
+    "charConfig": [
+      {
+        "iconClassName": "ShrederHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerSubzero",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1024,
+    "name": "HAT.GANSTER",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "price": 3000,
+    "requiredLevel": 15,
+    "requiredRating": 800,
+    "armor": 1,
+    "attack": 3,
+    "hp": 45,
+    "charConfig": [
+      {
+        "iconClassName": "WormGreenHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerThief",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1012,
+    "name": "HAT.SPIKES",
+    "infinite": true,
+    "price": 3000,
+    "requiredLevel": 15,
+    "requiredRating": 800,
+    "armor": 1,
+    "attack": 3,
+    "hp": 45,
+    "charConfig": [
+      {
+        "iconClassName": "SpikesHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerSadomazo",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1020,
+    "name": "HAT.PINKHELMET",
+    "infinite": true,
+    "price": 3000,
+    "requiredLevel": 15,
+    "requiredRating": 800,
+    "armor": 1,
+    "attack": 3,
+    "hp": 45,
+    "charConfig": [
+      {
+        "iconClassName": "WormPinkHelmet",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerPinkhelm",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1029,
+    "name": "HAT.SOMBRERO",
+    "infinite": true,
+    "price": 3300,
+    "realprice": 33,
+    "requiredLevel": 18,
+    "attack": 2,
+    "hp": 20,
+    "speed": 1,
+    "requiredRating": 1500,
+    "charConfig": [
+      {
+        "iconClassName": "WormSombrero",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerSombrero",
+        "charName": "default",
+        "hideEars": "true",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1030,
+    "name": "HAT.MUZZLE",
+    "infinite": true,
+    "price": 3800,
+    "realprice": 38,
+    "requiredLevel": 20,
+    "armor": 5,
+    "hp": 10,
+    "poisonProtection": 1,
+    "requiredRating": 2500,
+    "charConfig": [
+      {
+        "iconClassName": "WormNazi",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerNazi",
+        "charName": "default",
+        "hideEars": "true",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1013,
+    "name": "HAT.ELEGANTSAMURAI",
+    "infinite": true,
+    "realprice": 36,
+    "requiredLevel": 1,
+    "armor": 6,
+    "attack": 0,
+    "hp": 75,
+    "charConfig": [
+      {
+        "iconClassName": "TehnoShreder",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerScorpion",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1033,
+    "name": "HAT.CHIEFTAIN",
+    "infinite": true,
+    "realprice": 38,
+    "requiredLevel": 1,
+    "attack": 3,
+    "poison": 1,
+    "speed": 1,
+    "hp": 20,
+    "requiredRating": 0,
+    "charConfig": [
+      {
+        "iconClassName": "WormChieftain",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerChieftain",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1014,
+    "name": "HAT.LEGIONER",
+    "infinite": true,
+    "price": 4500,
+    "requiredLevel": 22,
+    "requiredRating": 1500,
+    "armor": 1,
+    "attack": 6,
+    "hp": 80,
+    "charConfig": [
+      {
+        "iconClassName": "LegionaryHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerLegioner",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1026,
+    "name": "HAT.PINKLEGIONER",
+    "infinite": true,
+    "price": 4500,
+    "requiredLevel": 22,
+    "requiredRating": 1500,
+    "armor": 1,
+    "attack": 6,
+    "hp": 80,
+    "charConfig": [
+      {
+        "iconClassName": "LegionaryPinkHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerPinklegioner",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1015,
+    "name": "HAT.CROWN",
+    "infinite": true,
+    "price": 4800,
+    "realprice": 48,
+    "requiredLevel": 25,
+    "requiredRating": 2000,
+    "armor": 3,
+    "attack": 4,
+    "hp": 90,
+    "charConfig": [
+      {
+        "iconClassName": "Crown",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerCrown",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1017,
+    "name": "HAT.PRINCESS",
+    "alignMenuIcon": "true",
+    "infinite": true,
+    "price": 4800,
+    "realprice": 48,
+    "requiredLevel": 25,
+    "armor": 3,
+    "attack": 4,
+    "hp": 90,
+    "requiredRating": 2000,
+    "charConfig": [
+      {
+        "iconClassName": "WormCrown_F",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerPrincess",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1002,
+    "name": "HAT.MASTER",
+    "infinite": true,
+    "price": 5500,
+    "requiredLevel": 26,
+    "armor": 4,
+    "attack": 4,
+    "hp": 105,
+    "requiredRating": 3000,
+    "charConfig": [
+      {
+        "iconClassName": "MasterHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerMaster",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1032,
+    "name": "HAT.COWBOY",
+    "infinite": true,
+    "price": 6500,
+    "requiredLevel": 27,
+    "attack": 5,
+    "armor": 4,
+    "hp": 90,
+    "speed": 1,
+    "requiredRating": 3000,
+    "charConfig": [
+      {
+        "iconClassName": "WormCowboy",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerCowboy",
+        "charName": "default",
+        "hideEars": "true",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1000,
+    "name": "HAT.ACE",
+    "infinite": true,
+    "price": 6000,
+    "requiredLevel": 27,
+    "armor": 5,
+    "attack": 4,
+    "hp": 110,
+    "requiredRating": 4500,
+    "charConfig": [
+      {
+        "iconClassName": "AceHat",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerFirelord",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1027,
+    "order": 27,
+    "hideInShop": true,
+    "name": "HAT.VOODOO",
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "doubleJump": 1,
+    "attack": 5,
+    "hp": 20,
+    "requiredRating": 0,
+    "charConfig": [
+      {
+        "iconClassName": "WormVoodoo",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerVoodoo",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1028,
+    "order": 28,
+    "name": "HAT.TRIBAL",
+    "infinite": true,
+    "price": 7000,
+    "realprice": 70,
+    "requiredLevel": 28,
+    "attack": 3,
+    "hp": 50,
+    "speed": 1,
+    "doubleJump": 1,
+    "requiredRating": 4000,
+    "charConfig": [
+      {
+        "iconClassName": "WormTribal",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerTribal",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1034,
+    "order": 34,
+    "hideInShop": true,
+    "name": "HAT.AQUALUNG",
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "armor": 3,
+    "hp": 50,
+    "waterBreath": 1,
+    "requiredRating": 0,
+    "charConfig": [
+      {
+        "iconClassName": "WormAqualung",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerAqualung",
+        "charName": "default",
+        "hideEars": "true",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1041,
+    "name": "HAT.ELVIS",
+    "infinite": true,
+    "realprice": 62,
+    "requiredLevel": 1,
+    "fireDamageBonus": 2,
+    "hp": 35,
+    "speed": 1,
+    "mightyJump": 1,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatElvis",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatElvis",
+        "charName": "default",
+        "scale": 0.1,
+        "hideEars": true
+      }
+    ]
+  },
+  {
+    "id": 1042,
+    "name": "HAT.CRASH_HELMET",
+    "infinite": true,
+    "price": 5200,
+    "requiredRating": 1000,
+    "realprice": 52,
+    "requiredLevel": 26,
+    "fireDamageBonus": 2,
+    "fireDamageReduction": 4,
+    "armor": 3,
+    "hp": 30,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatCrashHelmet",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatCrashHelmet",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1051,
+    "name": "HAT.RUSSIAN",
+    "infinite": true,
+    "price": 5400,
+    "realprice": 54,
+    "requiredLevel": 27,
+    "requiredRating": 2500,
+    "attack": 2,
+    "hp": 70,
+    "frostProtection": 1,
+    "speed": 1,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatRussian",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatRussian",
+        "charName": "default",
+        "scale": 0.1,
+        "hideEars": true
+      }
+    ]
+  },
+  {
+    "id": 1052,
+    "name": "HAT.OFFICER",
+    "infinite": true,
+    "price": 7500,
+    "requiredLevel": 30,
+    "requiredRating": 6000,
+    "armor": 4,
+    "attack": 4,
+    "speed": 1,
+    "mightyJump": 1,
+    "hp": 80,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatOfficer",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatOfficer",
+        "charName": "default",
+        "hideEars": "true",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1047,
+    "name": "HAT.BOSS_YAKUZA",
+    "infinite": true,
+    "price": 4600,
+    "realprice": 46,
+    "requiredLevel": 25,
+    "requiredRating": 3000,
+    "poisonProtection": 1,
+    "attack": 5,
+    "hp": 30,
+    "charConfig": [
+      {
+        "iconClassName": "BossYakuza1HatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossYakuza1HatBoxer",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1035,
+    "name": "HAT.BOSS_PIRATE",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "hp": 40,
+    "waterBreath": 1,
+    "charConfig": [
+      {
+        "iconClassName": "BossPirateHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossPirateHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1036,
+    "name": "HAT.BOSS_GENTLEMAN",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "hp": 90,
+    "attack": 3,
+    "poison": 1,
+    "speed": 1,
+    "charConfig": [
+      {
+        "iconClassName": "BossIllusionistHatWorm",
+        "charName": "worm",
+        "hideEars": true
+      },
+      {
+        "iconClassName": "BossIllusionistHatBoxer",
+        "charName": "default",
+        "scale": 0.1,
+        "hideEars": true
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1037,
+    "name": "HAT.BOSS_TRIBAL",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "poison": 1,
+    "hp": 30,
+    "speed": 1,
+    "doubleJump": 1,
+    "charConfig": [
+      {
+        "iconClassName": "BossShamanHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossShamanHatBoxer",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1038,
+    "name": "HAT.BOSS_VIKING",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "armor": 6,
+    "attack": 8,
+    "hp": 75,
+    "speed": 1,
+    "charConfig": [
+      {
+        "iconClassName": "BossVikingHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossVikingHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1039,
+    "name": "HAT.BOSS_ACE",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "armor": 6,
+    "attack": 4,
+    "hp": 90,
+    "doubleJump": 1,
+    "charConfig": [
+      {
+        "iconClassName": "BossWindMasterHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossWindMasterHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1040,
+    "name": "HAT.BOSS_GHOST",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "attack": 10,
+    "hp": 40,
+    "leech": 20,
+    "speed": 1,
+    "mightyJump": 1,
+    "charConfig": [
+      {
+        "iconClassName": "BossGhostHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossGhostHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1043,
+    "name": "HAT.BOSS_KING_DEAD",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "armor": 12,
+    "attack": 8,
+    "hp": 120,
+    "speed": 1,
+    "charConfig": [
+      {
+        "iconClassName": "BossKingDeadHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossKingDeadHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1044,
+    "name": "HAT.BOSS_DEAD_PIRATE",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "waterBreath": 1,
+    "poison": 1,
+    "hp": 50,
+    "charConfig": [
+      {
+        "iconClassName": "BossDeadPirateHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossDeadPirateHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1045,
+    "name": "HAT.BOSS_ROMEO",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "speed": 1,
+    "doubleJump": 1,
+    "hp": 60,
+    "armor": 5,
+    "charConfig": [
+      {
+        "iconClassName": "BossRomeoHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossRomeoHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1046,
+    "name": "HAT.BOSS_JUILET",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "speed": 1,
+    "hp": 30,
+    "poison": 2,
+    "charConfig": [
+      {
+        "iconClassName": "BossJulietHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossJulietHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1048,
+    "name": "HAT.BOSS_YAKUZA",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "attack": 2,
+    "poison": 3,
+    "hp": 40,
+    "charConfig": [
+      {
+        "iconClassName": "BossYakuza2HatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossYakuza2HatBoxer",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1049,
+    "name": "HAT.BOSS_YAKUZA",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "attack": 4,
+    "armor": 3,
+    "frostProtection": 1,
+    "poisonProtection": 1,
+    "hp": 20,
+    "charConfig": [
+      {
+        "iconClassName": "BossYakuza3HatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossYakuza3HatBoxer",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1053,
+    "name": "HAT.CAP",
+    "alignMenuIcon": "true",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 30,
+    "requiredRating": 300,
+    "armor": 2,
+    "attack": 2,
+    "hp": 40,
+    "charConfig": [
+      {
+        "iconClassName": "MinerHat",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1054,
+    "name": "HAT.ACE",
+    "infinite": true,
+    "hideInShop": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 30,
+    "armor": 2,
+    "attack": 10,
+    "hp": 99,
+    "charConfig": [
+      {
+        "iconClassName": "ElderDemonHat",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1055,
+    "name": "HAT.VAMPIRE",
+    "infinite": true,
+    "price": 7800,
+    "realprice": 78,
+    "requiredLevel": 28,
+    "requiredRating": 7500,
+    "leech": 10,
+    "attack": 5,
+    "hp": 30,
+    "speed": 1,
+    "mightyJump": 1,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatVampire",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatVampire",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1056,
+    "name": "HAT.DOCTOR_ARMBAND",
+    "infinite": true,
+    "realprice": 72,
+    "requiredLevel": 1,
+    "regeneration": 10,
+    "attack": 3,
+    "armor": 5,
+    "hp": 55,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatDoctorArmband",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatDoctorArmband",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1057,
+    "name": "HAT.NEO",
+    "infinite": true,
+    "realprice": 50,
+    "requiredLevel": 25,
+    "price": 5000,
+    "requiredRating": 2000,
+    "dodge": 8,
+    "hp": 20,
+    "speed": 1,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatNeo",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatNeo",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1058,
+    "name": "HAT.NINJA_TURTLES",
+    "infinite": true,
+    "price": 6800,
+    "requiredLevel": 29,
+    "requiredRating": 5000,
+    "dodge": 8,
+    "attack": 2,
+    "hp": 10,
+    "speed": 1,
+    "doubleJump": 1,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatNinjaTurtles",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatNinjaTurtles",
+        "charName": "default",
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1059,
+    "name": "HAT.BOSS_ENGINEER",
+    "infinite": true,
+    "hideInShop": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "poisonProtection": 1,
+    "speed": 1,
+    "hp": 50,
+    "attack": 9,
+    "armor": 3,
+    "charConfig": [
+      {
+        "iconClassName": "BossEngineerHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossEngineerHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1060,
+    "name": "HAT.BOSS_GUARDIAN",
+    "hideInShop": true,
+    "infinite": true,
+    "price": 99999,
+    "realprice": 99999,
+    "requiredLevel": 1,
+    "regeneration": 20,
+    "speed": 1,
+    "hp": 70,
+    "attack": 5,
+    "armor": 8,
+    "charConfig": [
+      {
+        "iconClassName": "BossGuardiansDepthsHatWorm",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BossGuardiansDepthsHatBoxer",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ],
+    "oneDay": true
+  },
+  {
+    "id": 1050,
+    "name": "HAT.SOVIET",
+    "isNew": true,
+    "infinite": true,
+    "price": 6600,
+    "realprice": 66,
+    "speed": 1,
+    "frostProtection": 1,
+    "armor": 2,
+    "attack": 2,
+    "fireDamageReduction": 3,
+    "hp": 80,
+    "requiredLevel": 28,
+    "requiredRating": 3500,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatSoviet",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatSoviet",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  },
+  {
+    "id": 1061,
+    "name": "HAT.PSYCHO",
+    "isNew": true,
+    "infinite": true,
+    "price": 7900,
+    "realprice": 79,
+    "regeneration": 8,
+    "speed": 1,
+    "attack": 4,
+    "hp": 60,
+    "poison": 1,
+    "requiredLevel": 28,
+    "requiredRating": 6000,
+    "charConfig": [
+      {
+        "iconClassName": "WormHatMask",
+        "charName": "worm"
+      },
+      {
+        "iconClassName": "BoxerHatMask",
+        "charName": "default",
+        "hideEars": true,
+        "scale": 0.1
+      }
+    ]
+  }
+]

@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: docker/api.Dockerfile
       additional_contexts:
-        api: ${API_DIR:-../wormix-api}
+        api: ${API_DIR:-./wormix-api}
     restart: unless-stopped
     environment:
       APP_KEY: ${APP_KEY:-}            # optional; otherwise generated once and kept in the volume
@@ -41,9 +41,9 @@ services:
     build: .
     restart: unless-stopped
     volumes:
-      - ${CLIENT_DIR:-../wormix-client}:/client:ro   # game files (not in git)
+      - ${CLIENT_DIR:-./wormix-client}:/client:ro   # game files
     ports:
-      - "127.0.0.1:32700:32700"        # for testing on the server itself: http://127.0.0.1:32700
+      - "32700:32700"        # for testing on the server itself: http://127.0.0.1:32700
     depends_on:
       - api
       - core

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+    <message name="BATTERY" value="Battery"/>
+    <message name="GEAR" value="Gear"/>
+    <message name="WOOD" value="Wood"/>
+    <message name="STONE" value="Stone"/>
+    <message name="METAL_PLATE" value="Metal plate"/>
+    <message name="SAND" value="Sand"/>
+    <message name="COAL" value="Coal"/>
+    <message name="SCREW_BOLT" value="Screw bolt"/>
+    <message name="SCREW_NUT" value="Screw nut"/>
+    <message name="PIPE" value="Pipe"/>
+    <message name="SPRING" value="Spring"/>
+    <message name="UMBRELLA" value="Umbrella"/>
+    <message name="ACCUMULATOR" value="Accumulator"/>
+    <message name="HAMMER" value="Hammer"/>
+    <message name="GUNPOWDER" value="Gunpowder"/>
+    <message name="STEEL_BAR" value="Steel bar"/>
+    <message name="SCREWDRIVER" value="Screwdriver"/>
+    <message name="WRENCH" value="Wrench"/>
+    <message name="CRYSTAL" value="Crystal"/>
+    <message name="GENERATOR" value="Generator"/>
+    <message name="MICROCHIP" value="Microchip"/>
+    <message name="SNIPER_SCOPE" value="Sniper scope"/>
+    <message name="TITAN_BAR" value="Titan bar"/>
+
+    <message name="RECIPE.NAME" value="Recipe"/>
+
+    <message name="CRAFT_CRATE" value="Resources"/>
+    <message name="CRAFT_QTIP" value="Armory"/>
+    <message name="CRAFT_DISABLE_QTIP" value="Armory will be opened when you get {level} level"/>
+    <message name="COLLECT_FOR_REAGENT_BTN" value="craft"/>
+    <message name="COLLECT_FOR_RUBY_BTN" value="craft for"/>
+    <message name="CRAFT_REWARD_TITLE" value="Received items"/>
+
+    <message name="CONFIRMATION_COLLECT_FOR_RUBIES_TEXT"
+             value="Are you sure, you want to buy this upgrade for rubies?"/>
+    <message name="CONFIRMATION_COLLECT_TEXT" value="Are you sure, you want to make this upgrade?"/>
+    <message name="REQUIRED_LEVEL_HINT" value="You need {level} level to make this upgrade"/>
+    <message name="DOWNGRADE_BTN" value="downgrade"/>
+    <message name="DOWNGRADE_BTN2" value="disassemble"/>
+    <message name="CONFIRMATION_DOWNGRADE_TEXT"
+             value="You get 80% of the resources when you disassemble the weapon. Are you sure, you want to downgrade?"/>
+
+    <message name="SEARCH_ZONE_GRADE_D" value="The best way to get it is to destroy the ground in missions, or to collect crates on low wagers."/>
+    <message name="SEARCH_ZONE_GRADE_C" value="Can be found in the ground in missions, drops from the sky on any wagers. There's good chance to get it as a reward for beating a boss."/>
+    <message name="SEARCH_ZONE_GRADE_B" value="Drops from the sky on high wagers, also can be got as a reward for a boss. There's a very small chance to get it in mission or on low wager."/>
+
+    <message name="REAGENT_DEMAND" value="Required for:"/>
+</dictionary>

@@ -1,0 +1,32 @@
+[
+    {
+        "sequence": 1,
+        "type": 1,
+        "value": 50,
+        "random": false
+    },
+    {
+        "sequence": 2,
+        "type": 4,
+        "value": 3,
+        "random": false
+    },
+    {
+        "sequence": 3,
+        "type": 1,
+        "value": 90,
+        "random": false
+    },
+    {
+        "sequence": 4,
+        "type": 2,
+        "value": 1,
+        "random": false
+    },
+    {
+        "sequence": 5,
+        "type": 0,
+        "value": 0,
+        "random": true
+    }
+]

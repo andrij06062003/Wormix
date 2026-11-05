@@ -1,0 +1,163 @@
+[
+  {
+    "id": 0,
+    "name": "BATTERY",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconBattery",
+    "price": 50
+  },
+  {
+    "id": 1,
+    "name": "GEAR",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconGear",
+    "price": 50
+  },
+  {
+    "id": 2,
+    "name": "WOOD",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconWood",
+    "price": 50
+  },
+  {
+    "id": 3,
+    "name": "STONE",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconStone",
+    "price": 50
+  },
+  {
+    "id": 4,
+    "name": "METAL_PLATE",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconMetalPlate",
+    "price": 50
+  },
+  {
+    "id": 5,
+    "name": "SAND",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconSand",
+    "price": 50
+  },
+  {
+    "id": 6,
+    "name": "COAL",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconCoal",
+    "price": 50
+  },
+  {
+    "id": 7,
+    "name": "SCREW_BOLT",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconScrewBolt",
+    "price": 50
+  },
+  {
+    "id": 8,
+    "name": "SCREW_NUT",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconScrewNut",
+    "price": 50
+  },
+  {
+    "id": 9,
+    "name": "PIPE",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconPipe",
+    "price": 50
+  },
+  {
+    "id": 10,
+    "name": "SPRING",
+    "description": "SEARCH_ZONE_GRADE_D",
+    "menuIcon": "IconSpring",
+    "price": 50
+  },
+  {
+    "id": 20,
+    "name": "UMBRELLA",
+    "description": "SEARCH_ZONE_GRADE_C",
+    "menuIcon": "IconUmbrella",
+    "price": 100
+  },
+  {
+    "id": 21,
+    "name": "ACCUMULATOR",
+    "description": "SEARCH_ZONE_GRADE_C",
+    "menuIcon": "IconGenerator",
+    "price": 100
+  },
+  {
+    "id": 22,
+    "name": "HAMMER",
+    "description": "SEARCH_ZONE_GRADE_C",
+    "menuIcon": "IconHammer",
+    "price": 100
+  },
+  {
+    "id": 23,
+    "name": "GUNPOWDER",
+    "description": "SEARCH_ZONE_GRADE_C",
+    "menuIcon": "IconGunpowder",
+    "price": 100
+  },
+  {
+    "id": 24,
+    "name": "STEEL_BAR",
+    "description": "SEARCH_ZONE_GRADE_C",
+    "menuIcon": "IconSteelBar",
+    "price": 100
+  },
+  {
+    "id": 25,
+    "name": "SCREWDRIVER",
+    "description": "SEARCH_ZONE_GRADE_C",
+    "menuIcon": "IconScrewdriver",
+    "price": 100
+  },
+  {
+    "id": 26,
+    "name": "WRENCH",
+    "description": "SEARCH_ZONE_GRADE_C",
+    "menuIcon": "IconWrench",
+    "price": 100
+  },
+  {
+    "id": 40,
+    "name": "CRYSTAL",
+    "description": "SEARCH_ZONE_GRADE_B",
+    "menuIcon": "IconCrystal",
+    "price": 150
+  },
+  {
+    "id": 41,
+    "name": "GENERATOR",
+    "description": "SEARCH_ZONE_GRADE_B",
+    "menuIcon": "IconAccumulator",
+    "price": 150
+  },
+  {
+    "id": 42,
+    "name": "MICROCHIP",
+    "description": "SEARCH_ZONE_GRADE_B",
+    "menuIcon": "IconMicrochip",
+    "price": 150
+  },
+  {
+    "id": 43,
+    "name": "SNIPER_SCOPE",
+    "description": "SEARCH_ZONE_GRADE_B",
+    "menuIcon": "IconSniperScope",
+    "price": 150
+  },
+  {
+    "id": 44,
+    "name": "TITAN_BAR",
+    "description": "SEARCH_ZONE_GRADE_B",
+    "menuIcon": "IconTitanBar",
+    "price": 150
+  }
+]

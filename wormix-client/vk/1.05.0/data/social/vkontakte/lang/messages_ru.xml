@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <!-- bank -->
+    <message name="ZERO_BALANCE">
+        <![CDATA[<font color="#A20000"><b>На Вашем счету нет голосов.</font> <font color="#524336">Чтобы пополнить счет, нажмите</font> <font color="#0069D5"><u><a href="event:changeBalance">здесь</a></u></b></font>.]]>
+    </message>
+    <message name="NOT_ZERO_BALANCE">
+        <![CDATA[<font color="#A20000"><b>На вашем счету: {votes} голосов.</font> <font color="#524336">Недостаточно? Нажмите</font> <font color="#0069D5"><u><a href="event:changeBalance"> здесь.</a></u></font></b>]]>
+    </message>
+
+    <message name="FB_CURRENCY" value="Кредитов"/>
+
+    <message name="VOTES" value="Голоса" />
+    <message name="BANK_RUBY_EXCHANGE" value="Курс обмена: 1 голос={exchange} рубина"/>
+    <message name="BANK_COIN_EXCHANGE" value="Курс обмена: 1 голос={exchange} фузов"/>
+
+    <!-- NEW ITEMS -->
+    <message name="VIRAL_NEW_WEAPON" value="Ура! У меня новое оружие: '{weapon}'!"/>
+
+    <!-- NEW HATS -->
+    <message name="VIRAL_NEW_HAT" value="Теперь у меня новая шапка: '{hat}'!"/>
+
+    <!-- gifts -->
+    <message name="FRIEND_GIFT_MENU" value="Отправить другу"/>
+    <message name="FRIEND_GIFT_TITLE" value="Подарок другу"/>
+    <message name="FRIEND_GIFT_DESCRIPTION" value="Подарок будет размещен на стене друга"/>
+
+    <!-- house -->
+    <message name="PHOTOSTUDIO_QTIP" value="Фотостудия"/>
+
+    <!-- обнуление профайла -->
+    <message name="WIPE_PROFILE_TITLE" value="Начать игру заново"/>
+    <message name="WIPE_PROFILE_TITLE2" value="Подтверждение"/>
+    <message name="WIPE_PROFILE_QUESTION">
+        <![CDATA[Вы уверены?<br>Данная операция должна быть подтверждена через SMS]]>
+    </message>
+    <message name="WIPE_PROFILE_ADD_QUESTION" value="Для отправки SMS разрешите приложению присылать Вам уведомления"/>
+    <message name="WIPE_PROFILE_MSG">
+        <![CDATA[Начав игру заново, Вы потеряете все деньги, оружие, шапки, уровень и все Ваши достижения.<br>Восстановление Ваших данных будет невозможно!]]>
+    </message>
+    <message name="WIPE_PROFILE_CODE_LABEL" value="Полученный код"/>
+    <message name="WIPE_PROFILE_EXAMPLE_LABEL" value="Пример: 2343"/>
+    <message name="WIPE_PROFILE_SMS_MSG">
+        <![CDATA[В течениие минуты на Ваш телефон, <font color="#E378FE"><a href="{social_settings_link}" target="_blank">указанный в настройках</a></font> придет SMS с кодом. Когда Вы получите код, введите его здесь и нажмите кнопку "Отправить". Все Ваши данные будут удалены.]]>
+    </message>
+    <message name="WIPE_PROFILE_LINK_PAGE_PHONE_NUMBER" value='Привяжите свою страницу к номеру телефона в секции "Изменить номер телефона"'/>
+    <message name="WIPE_PROFILE_CHANGE_PHONE_NUMBER_BTN" value="Задать номер телефона"/>
+    <message name="WIPE_PROFILE_WRONG_MOBILE_NUMBER" value="Не удалось отправить SMS на телефон, указанный в настройках. Попробуйте повторить позже"/>
+
+    <!-- race -->
+    <message name="RACE_NO_WORMS" value="Вернуться к расе {raceName} будет невозможно. Все шапки будут сохранены"/>
+    <message name="RACE_WORM_NAME" value="Червяк"/>
+    <message name="RACE_WORM_DESCR" value="Черви - они кольчатые и покрыты пороховой гарью и шрамами. Начали воевать еще до того, как придумали правила."/>
+
+    <!-- photostudio -->
+    <message name="PHOTO_STUDIO_QTIP1" value="Сменить фон"/>
+    <message name="PHOTO_STUDIO_QTIP2" value="Сменить шапку"/>
+    <message name="PHOTO_STUDIO_QTIP3" value="Сменить описание"/>
+
+    <message name="PHOTO_STUDIO_TITLE1" value="Ваш аватар"/>
+    <message name="PHOTO_STUDIO_TITLE2" value="Фотостатусы"/>
+
+    <message name="PHOTO_STUDIO_BUTTON1" value="Установить как аватар"/>
+    <message name="PHOTO_STUDIO_BUTTON2" value="Установить фотостатус"/>
+
+    <message name="ALBUM_PHOTO_STATUS_TITLE" value="Вормикс - Фотостатус"/>
+    <message name="ALBUM_PHOTO_STATUS_DESCRIPTION" value="Лучшие фотостатусы только в Вормикс! Заходи, сразимся: {app_link}"/>
+    <message name="PHOTO_STATUS_DESCRIPTION" value="Фотостатус создан в игре Вормикс! {app_link}"/>
+
+    <!-- ability -->
+    <message name="WORM_ABILITY_HP_NAME" value="Живучесть"/>
+    <message name="WORM_ABILITY_HP_DESCR" >
+        <![CDATA[Постоянный бонус <b>+{hp} единиц к здоровью</b>]]>
+    </message>
+    <message name="WORM_ABILITY_ATTACK_NAME" value="Усиленная атака"/>
+    <message name="WORM_ABILITY_ATTACK_DESCR" >
+         <![CDATA[Постоянный бонус  <b>+{attack} единицы к атаке</b>]]>
+    </message>
+
+    <!-- notes -->
+    <message name="NOTE_BODY_END">
+        <![CDATA[<br/><br/>Играй в Вормикс! Заходи, сразимся: {app_link}]]>
+    </message>
+
+    <!--- виралка TODO: вынести в отдельный файл-->
+    <!-- wall posts -->
+    <message name="VIRAL_SHARE" value="Расскажи своим друзьям."/>
+    <message name="VIRAL_NEW_RACE_TITLE" value="Новая раса!"/>
+    <message name="VIRAL_NEW_RACE" value="Я выбрал расу {race}"/>
+
+    <message name="VIRAL_NEW_HAT_TITLE" value="Новая шапка!"/>
+    <message name="VIRAL_NEW_HAT" value="Теперь у меня новая шапка: '{hat}'!"/>
+
+    <message name="VIRAL_NEW_WEAPON_TITLE" value="Новое оружие!"/>
+    <message name="VIRAL_NEW_WEAPON" value="Ура! У меня новое оружие: {weapon}!"/>
+
+    <message name="VIRAL_NEW_LEVEL" value="Я на {level}-м уровне в Вормикс!"/>
+
+    <message name="VIRAL_WIN_PVP_WAGER" value="{enemyName} повержен в игре Вормикс, теперь мой рейтинг {rating}."/>
+    <message name="VIRAL_WIN_PVP_NO_RATING" value="Я победил(а) {enemyName} в игре Вормикс."/>
+
+    <message name="VIRAL_FOUND_RUBY" value="Хей! Я обнаружил(а) рубин в домике у {name}!"/>
+    <message name="VIRAL_FOUND_RUBY_TITLE" value="Найден рубин"/>
+
+    <message name="VIRAL_4DAY_SEQUENCE" value="Мне достался рубин за то, что я 4 дня подряд заходил(а) в Вормикс!"/>
+    <message name="VIRAL_5DAY_SEQUENCE" value="Я заходил(а) в Вормикс 5 дней подряд, и мне дали {reward}!"/>
+    <message name="VIRAL_5DAY_2MISSION_REWARD" value="2 миссии!"/>
+    <message name="VIRAL_5DAY_REACTION_REWARD" value="+{count} к скорости реакции!"/>
+    <message name="VIRAL_5DAY_FUZZES_REWARD" value="{count} фузов!"/>
+    <message name="VIRAL_5DAY_RUBIES_REWARD" value="рубин!"/>
+
+    <!-- AWARD MESSAGE  tale weapon-->
+    <message name="AWARD_WEAPON_MESSAGE_1" value="Мое новое оружие. Такое даже за рубины не купишь!"/>
+    <message name="AWARD_WEAPON_MESSAGE_2" value="Как вам оружие? Красота! Получил за очки достижений."/>
+    <message name="AWARD_WEAPON_MESSAGE_3" value="Смотрите и завидуйте - мое новое оружие. Даже за рубины не купить. Только очки достижений."/>
+
+    <!-- notifications -->
+    <message name="VIRAL_QUESTION_ENEMY_LOSED" value="Оставить напоминание о Вашей победе?"/>
+
+    <message name="VIRAL_QUESTION_PUMP_REACTION_POST" value="Отправить другу просьбу прокачать реакцию в ответ?"/>
+    <message name="VIRAL_PUMPQUESTION_EMPTYLIST" value="Вы никого не выбрали для отправки просьбы прокачать реакцию"/>
+    <message name="VIRAL_PUMPREACTION" value="Качни мне реакцию, отвечу тем же!"/>
+
+    <message name="VIRAL_QUESTION_NEW_TEAMMATE" value="Рассказать другу, что Вы взяли его в команду?"/>
+
+    <message name="NOTIFY_QUESTION_KICK_TEAMMATE" value="Оповестить друга?"/>
+    <message name="NOTIFY_KICK_TEAMMATE" value="Ты уволен из моей команды в Вормикс!."/>
+    <message name="NOTIFY_NEW_TEAMMATE" value="Теперь ты в моей команде в Вормикс!"/>
+    <message name="NOTIFY_LOOSER_TEXT" value="Ты проиграл!"/>
+
+    <!-- ACHIEVEMENT MESSAGE -->
+    <message name="ACHIEVEMENT_MESSAGE_1" value="А у меня новое достижение в Вормикс: {achievement_name}!"/>
+    <message name="ACHIEVEMENT_MESSAGE_2" value="Поздравляем! Новое достижение - {achievement_name} в Вормикс!"/>
+    <message name="ACHIEVEMENT_MESSAGE_3" value="{user_name} получил достижение '{achievement_name}' в Вормикс!"/>
+
+</dictionary>

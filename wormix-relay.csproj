@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>WormixRelay</RootNamespace>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <!-- wormix-core is a separate project in a subfolder: don't compile its sources into the relay. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);wormix-core/**;wormix-api/**;wormix-client/**</DefaultItemExcludes>
   </PropertyGroup>
 
 </Project>

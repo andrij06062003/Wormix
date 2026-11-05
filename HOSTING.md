@@ -12,7 +12,7 @@ Works on Linux or Windows (Docker Desktop), on x86-64 or ARM64 (e.g. Raspberry P
 |---|---|---|
 | `cloudflared` | Cloudflare Tunnel: carries `https://<your hostname>` to `relay` | connects out to Cloudflare |
 | `relay` | Game host: page, game files, `/api/` forwarding, game connections | only through the tunnel |
-| `core` | Game server ([n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core)) | no |
+| `core` | Game server: main, PvP and achievements (`wormix-core/`, based on [n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core)) | no |
 | `api` | Accounts, money, items, battles (SQLite database in a Docker volume) | `/api/` only, `/api/internal/` is blocked |
 | `redis` | Live sessions for the game server | no |
 

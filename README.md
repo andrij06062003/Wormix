@@ -12,7 +12,7 @@ This folder is the **game host** plus the scripts that start everything:
 |---|---|---|
 | Redis (Garnet) | – | 6379 |
 | API (accounts, money, items, database) | `../wormix-api` | 8000 |
-| Game server | `../wormix-core` ([n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core)) | 49197, 49298, 49198 |
+| Game server | `wormix-core` (from [n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core), with PvP added here) | 49197, 49298, 49198 |
 | **Game host** (this project) | `.` | **32700** |
 | Game files | `../wormix-client` | served by the game host |
 
@@ -32,7 +32,6 @@ The game host does three things on one address, so players only ever need `http:
 ```
 D:\Vibecode\
   wormix-api\      your API (github.com/andrij06062003/Wormix_Test)
-  wormix-core\     git clone https://github.com/n30np14gu3/wormix-core.git
   wormix-client\   game files (not in git, see below)
   wormix-relay\    this folder
 ```
@@ -85,3 +84,15 @@ powershell -ExecutionPolicy Bypass -File .\stop.ps1
 
 `configs/wormix-core.json` is the wormix-core config matching the ports built into the 1.05.0 client
 (main 49197, PvP 49298, achievements 49198).
+
+## Playing against other players
+
+There are no VK friends any more, so PvP works with game ids (shown under the game, next to the login):
+
+- **Friends list / call by id**: challenge any player who is online; they get an offer to accept or decline.
+  Every registered player appears in the friends list.
+- **Arena > PvP (wager battles)**: pick a wager and wait; the next player choosing the same wager is your
+  opponent. The winner gets the wager back plus 80%, a draw returns it, and the rating changes.
+
+The PvP server (`wormix-core/wormix-core/Pvp/`) relays the moves between the two games and decides each turn
+and the winner. `tests/pvp/run.sh` tests it end to end with two simulated players in a throwaway Docker stack.

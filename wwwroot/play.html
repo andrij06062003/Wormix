@@ -125,7 +125,8 @@
 
         form.hidden = true;
         document.getElementById('bar').hidden = false;
-        document.getElementById('who').textContent = s.login;
+        // The game id is what friends enter in "call by id" to challenge this player.
+        document.getElementById('who').textContent = s.login + ' · ID ' + s.id;
 
         const id = String(s.id);
         const flashvars = {

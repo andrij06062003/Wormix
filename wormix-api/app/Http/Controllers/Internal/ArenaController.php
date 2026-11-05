@@ -137,6 +137,11 @@ class ArenaController extends Controller
                 ->get()
                 ->first();
 
+        // PvP: the game server pays out the result (PvpController::endBattle); the player's own message only
+        // reports the weapons used and reagents picked up.
+        if((int)$battle_info->battle_type === PvpController::BATTLE_TYPE_PVP)
+            return $this->processPvpEndBattle($request, $battle_info);
+
         $result = $request->json('Result') - $battle_info->current_battle_id;
         if(abs($result) >= 2){
             Log::debug("Invalid battle id", [
@@ -160,6 +165,57 @@ class ArenaController extends Controller
         ];
     }
 
+    private function processPvpEndBattle(EndBattleRequest $request, UserBattleInfo $battleInfo)
+    {
+        $awards = $battleInfo->awards ?? [];
+        if((int)$request->json('BattleId') !== (int)$battleInfo->current_battle_id || ($awards['items_done'] ?? true)){
+            Log::debug("Invalid PvP battle id", [
+                'request' => $request->json('BattleId'),
+                'current' => $battleInfo->current_battle_id,
+            ]);
+            return response([]);
+        }
+
+        $this->decreaseUsedWeapons($request, $battleInfo->user_id);
+
+        $reagents = array_values(array_filter(
+            $request->json('CollectedReagents') ?? [],
+            fn($reagent) => in_array($reagent, $awards['reagents'] ?? [])
+        ));
+        if(count($reagents) > 0){
+            $user_info = UserProfile::query()->where('user_id', $battleInfo->user_id)->get()->first();
+            WormixTrashHelper::addReagents($user_info, $reagents);
+        }
+
+        // Keep current_battle_id: the game server's result may still be on its way.
+        $awards['items_done'] = true;
+        $battleInfo->awards = $awards;
+        $battleInfo->save();
+
+        return [
+            'Status' => 'OK'
+        ];
+    }
+
+    private function decreaseUsedWeapons(EndBattleRequest $request, int $userId): void
+    {
+        foreach($request->json('Items') ?? [] as $item){
+            if($item['Count'] <= 0)
+                continue;
+            $user_weapon = UserWeapon::query()
+                ->where('weapon_id', $item['Id'])
+                ->where('count', '!=', -1)
+                ->where('owner_id', $userId)
+                ->get()->first();
+            if($user_weapon === null)
+                continue;
+            $user_weapon->count -= $item['Count'];
+            if($user_weapon->count < 0)
+                $user_weapon->count = 0;
+            $user_weapon->save();
+        }
+    }
+
     private function processBattleResult(EndBattleRequest $request, int $result, UserBattleInfo $battleInfo)
     {
         $wormData = WormData::query()->where('owner_id', $battleInfo->user_id)->get()->first();
@@ -169,20 +225,7 @@ class ArenaController extends Controller
             $wormData->experience += $request->json('ExpBonus');
 
         //Decrease used weapons
-        foreach($request->json('Items') as $item){
-            if($item['Count'] <= 0)
-                continue;
-            $user_weapon = UserWeapon::query()
-                ->where('weapon_id', $item['Id'])
-                ->where('count', '!=', -1)
-                ->where('owner_id', $battleInfo->user_id)
-                ->get()->first();
-
-            $user_weapon->count -= $item['Count'];
-            if($user_weapon->count < 0)
-                $user_weapon->count = 0;
-            $user_weapon->save();
-        }
+        $this->decreaseUsedWeapons($request, $battleInfo->user_id);
 
         $mission = null;
         $twiceRun = false;

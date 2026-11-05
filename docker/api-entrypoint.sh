@@ -26,6 +26,22 @@ if ! grep -q "^DB_DATABASE=" .env; then
     echo "DB_DATABASE=/data/database.sqlite" >> .env
 fi
 
+# Ensure APP_ENV and CD_ENV are in .env so PHP CLI server workers inherit them
+if [ -n "$APP_ENV" ]; then
+    if grep -q "^APP_ENV=" .env; then
+        sed -i "s/^APP_ENV=.*/APP_ENV=$APP_ENV/" .env
+    else
+        echo "APP_ENV=$APP_ENV" >> .env
+    fi
+fi
+if [ -n "$CD_ENV" ]; then
+    if grep -q "^CD_ENV=" .env; then
+        sed -i "s/^CD_ENV=.*/CD_ENV=$CD_ENV/" .env
+    else
+        echo "CD_ENV=$CD_ENV" >> .env
+    fi
+fi
+
 # Uploaded files persist in /data/photos.
 mkdir -p /data/photos
 if [ ! -L storage/app ]; then

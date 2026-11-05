@@ -25,6 +25,8 @@ public class LoginHandler(ICommandSerializer requestSerializer, IGameController 
             {
                 Cache.InitCache(Client);
                 Client.SetToken(account.SessionKey);
+                if (Client is MainServerSession main)
+                    main.OnLoggedIn(loginRequest.Id, loginRequest.AuthKey);
                 EnterAccountBinarySerializer enterSerializer = new EnterAccountBinarySerializer();
                 enterSerializer.SerializeCommand(account, Client.GetStream());
             }

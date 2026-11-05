@@ -1,16 +1,15 @@
 ﻿using wormix_core.Controllers.Http.Account;
 using wormix_core.Controllers.Http.Game;
 using wormix_core.Controllers.Http.Info;
-using wormix_core.Controllers.Http.PvP;
 using wormix_core.Controllers.Static.Account;
 using wormix_core.Controllers.Static.Service;
 using wormix_core.Handlers;
 using wormix_core.Handlers.Account;
 using wormix_core.Handlers.Game;
 using wormix_core.Handlers.Info;
-using wormix_core.Handlers.PvP;
 using wormix_core.Handlers.Service;
 using wormix_core.Pragmatix.Wormix.Serialization.Client;
+using wormix_core.Pvp;
 using wormix_core.Server;
 
 namespace wormix_core.Session;
@@ -22,6 +21,33 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
     public bool WipeRequested() => _wipeRequested;
 
     public bool SetWipeRequest() => _wipeRequested = true;
+
+    /// <summary>
+    /// Game id of the logged-in player (0 until login succeeds).
+    /// </summary>
+    public uint UserId { get; private set; }
+
+    /// <summary>
+    /// The auth key the player logged in with; the PvP server checks it on battle login.
+    /// </summary>
+    public string AuthKey { get; private set; } = "";
+
+    public void OnLoggedIn(uint userId, string authKey)
+    {
+        UserId = userId;
+        AuthKey = authKey;
+        Online.Register(this);
+    }
+
+    protected override void OnDisconnected()
+    {
+        Lobby.OnDisconnected(this);
+        Online.Unregister(this);
+        base.OnDisconnected();
+    }
+
+    // Finding an opponent: friend challenges and wager battles (see Lobby).
+    protected override bool HandleRaw(uint commandId, byte[] body) => Lobby.Handle(this, commandId, body);
     
     protected override Dictionary<uint, GameMessageHandler> GetHandlers()
     {
@@ -70,9 +96,7 @@ public class MainServerSession(TcpServer server) : TcpSession(server)
             {84, new EndBattleHandler(new EndBattleBinarySerializer(), new EndBattleController(), this)},
             
             {86, new UpgradeWeaponHandler(new UpgradeWeaponBinarySerializer(), new UpgradeWeaponController(), this)},
-            {88, new DowngradeWeaponHandler(new DowngradeWeaponBinarySerializer(), new DowngradeWeaponController(), this)},
-            {1001, new BattleLoginHandler(new BattleLoginBinarySerializer(), new BattleLoginController(), this)},
-            {1002, new BattleRequestHandler(new BattleRequestBinarySerializer(), new BattleRequestController(), this)}
+            {88, new DowngradeWeaponHandler(new DowngradeWeaponBinarySerializer(), new DowngradeWeaponController(), this)}
         };
     }
     

@@ -1,9 +1,11 @@
-# wormix-core (game server) by n30np14gu3, built from GitHub at a fixed, tested commit.
+# wormix-core (game server): main, PvP and achievements servers. Source: wormix-core/ in this repository
+# (from n30np14gu3/wormix-core, with the PvP server implemented here).
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG WORMIX_CORE_REPO=https://github.com/n30np14gu3/wormix-core.git
-ARG WORMIX_CORE_REF=e9be18d
-RUN git clone "$WORMIX_CORE_REPO" /src && git -C /src checkout "$WORMIX_CORE_REF"
-RUN dotnet publish /src/wormix-core/wormix-core.csproj -c Release -o /out
+WORKDIR /src
+COPY wormix-core/wormix-core/wormix-core.csproj wormix-core/
+RUN dotnet restore wormix-core/wormix-core.csproj
+COPY wormix-core/wormix-core/ wormix-core/
+RUN dotnet publish wormix-core/wormix-core.csproj -c Release -o /out --no-restore
 
 FROM mcr.microsoft.com/dotnet/runtime:8.0
 WORKDIR /app

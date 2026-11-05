@@ -13,17 +13,17 @@ public class TcpSession
     /// Server base object
     /// </summary>
     public readonly TcpServer Server;
-    
+
     /// <summary>
     /// Current TcpClient
     /// </summary>
     protected TcpClient? sessionClient { get; private set; }
-    
+
     /// <summary>
     /// Map of commands handlers
     /// </summary>
     protected Dictionary<uint, GameMessageHandler> handlers { get; private set; }
-    
+
     /// <summary>
     /// Session ID
     /// </summary>
@@ -34,32 +34,56 @@ public class TcpSession
     /// </summary>
     private readonly Thread _sessionThread;
 
-    
+
     /// <summary>
-    /// Cache redis connection
+    /// Cache redis connection (null for sessions that don't use Redis, see <see cref="UsesRedis"/>)
     /// </summary>
-    private readonly ConnectionMultiplexer _redisConnection;
+    private readonly ConnectionMultiplexer? _redisConnection;
+
+    private readonly IDatabase? _cache;
 
     /// <summary>
     /// Redis cache database
     /// </summary>
-    public readonly IDatabase Cache;
-    
+    public IDatabase Cache => _cache ?? throw new InvalidOperationException($"{GetType().Name} has no Redis connection");
+
     /// <summary>
     /// Session auth token
     /// </summary>
     private string _token;
 
+    /// <summary>
+    /// Serializes writes to the socket: messages can be sent to a session from other sessions' threads
+    /// (PvP offers, battle relay), so whole messages must go out one at a time.
+    /// </summary>
+    private readonly object _sendLock = new();
+
+    /// <summary>
+    /// Stream handed to serializers. Collects the pieces a serializer writes and sends each complete message at once.
+    /// </summary>
+    private readonly MessageWriteStream _writeStream;
+
+    private int _stopped;
+
+    /// <summary>
+    /// Whether this kind of session needs its own Redis connection (the PvP server doesn't).
+    /// </summary>
+    protected virtual bool UsesRedis => true;
+
     public TcpSession(TcpServer server)
     {
-        _redisConnection = ConnectionMultiplexer.Connect($"{Config.RedisConfig?.Host}:{Config.RedisConfig?.Port}");
-        _redisConnection.ConnectionFailed += RedisConnectionOnConnectionFailed;
-        Cache = _redisConnection.GetDatabase();
-        
+        if (UsesRedis)
+        {
+            _redisConnection = ConnectionMultiplexer.Connect($"{Config.RedisConfig?.Host}:{Config.RedisConfig?.Port}");
+            _redisConnection.ConnectionFailed += RedisConnectionOnConnectionFailed;
+            _cache = _redisConnection.GetDatabase();
+        }
+
         handlers = new();
         _token = string.Empty;
         Server = server;
-        _sessionThread = new Thread(MessageLoop);
+        _writeStream = new MessageWriteStream(this);
+        _sessionThread = new Thread(MessageLoop) { IsBackground = true };
     }
 
     private void RedisConnectionOnConnectionFailed(object? sender, ConnectionFailedEventArgs e)
@@ -67,7 +91,7 @@ public class TcpSession
         ColorPrint.WriteLine($"{this}\t[{Id}] Redis connection was closed!", ConsoleColor.Red);
         CloseSession();
     }
-    
+
 
     /// <summary>
     /// Setup client session
@@ -78,6 +102,7 @@ public class TcpSession
     {
         Id = id;
         sessionClient = client;
+        client.NoDelay = true;
     }
 
     /// <summary>
@@ -93,7 +118,7 @@ public class TcpSession
     /// </summary>
     public void CloseSession()
     {
-        sessionClient?.Client.Close();
+        try { sessionClient?.Client.Close(); } catch { /* already closed */ }
     }
 
     /// <summary>
@@ -101,42 +126,62 @@ public class TcpSession
     /// </summary>
     public void StopSession()
     {
-        sessionClient?.Close();
-        Facades.Cache.ClearCache(this);
-        if(_sessionThread.IsAlive) 
+        // Called both by the session's own loop and by other sessions (e.g. a second login); run it once.
+        if (Interlocked.Exchange(ref _stopped, 1) == 1)
+            return;
+        try { sessionClient?.Close(); } catch { /* already closed */ }
+        if (_cache != null)
+        {
+            try { Facades.Cache.ClearCache(this); } catch { /* Redis gone */ }
+        }
+        if(_sessionThread.IsAlive && _sessionThread != Thread.CurrentThread)
             _sessionThread.Interrupt();
         OnDisconnected();
     }
 
     /// <summary>
-    /// Get game session token 
+    /// Get game session token
     /// </summary>
     /// <returns>Session key</returns>
     public string GetToken() => _token;
-    
+
     /// <summary>
     /// Set game session token
     /// </summary>
     /// <param name="token">Session key</param>
     /// <returns></returns>
-
     public string SetToken(string token) => _token = token;
-    
+
     /// <summary>
-    /// Send message to client
+    /// Send one or more complete messages to the client. Safe to call from any thread.
     /// </summary>
-    /// <param name="message"></param>
-    public void SendMessage(byte[] message)
+    /// <returns>false if the connection is gone</returns>
+    public bool SendMessage(byte[] message)
     {
-        sessionClient?.Client.Send(message);
+        var socket = sessionClient?.Client;
+        if (socket == null)
+            return false;
+        lock (_sendLock)
+        {
+            try
+            {
+                var sent = 0;
+                while (sent < message.Length)
+                    sent += socket.Send(message, sent, message.Length - sent, SocketFlags.None);
+                return true;
+            }
+            catch (Exception ex) when (ex is SocketException or ObjectDisposedException)
+            {
+                return false;
+            }
+        }
     }
 
     /// <summary>
-    /// Get client network stream
+    /// Stream for serializers to write responses to. Each complete message is sent as one piece.
     /// </summary>
-    /// <returns>TcpClient NetworkStream object</returns>
-    public NetworkStream GetStream() => sessionClient?.GetStream()!;
-    
+    public Stream GetStream() => _writeStream;
+
     /// <summary>
     /// Send message to specific client
     /// </summary>
@@ -147,10 +192,9 @@ public class TcpSession
         var session = Server.FindSession(sessionId);
         if(session == null)
             return;
-
         session.SendMessage(message);
     }
-    
+
     /// <summary>
     /// On TcpClient connected handler
     /// </summary>
@@ -159,7 +203,6 @@ public class TcpSession
         //Init game commands handlers
         if (handlers.Count == 0)
             handlers = GetHandlers();
-        
     }
 
     /// <summary>
@@ -167,58 +210,69 @@ public class TcpSession
     /// </summary>
     protected virtual void OnDisconnected()
     {
-        _redisConnection.Close();
+        _redisConnection?.Close();
     }
-    
+
     /// <summary>
     /// TcpClient on message handler
     /// </summary>
     /// <param name="dataStream">TcpClient NetworkStream object</param>
     protected virtual void OnMessage(Stream dataStream)
     {
-        
+
     }
+
+    /// <summary>
+    /// Handle a message without a registered handler. Return true if it was handled.
+    /// </summary>
+    protected virtual bool HandleRaw(uint commandId, byte[] body) => false;
 
     /// <summary>
     /// Main data receive loop
     /// </summary>
     private void MessageLoop()
     {
-        OnConnected();
-        while (true)
+        try
         {
-            if(sessionClient == null)
-                break;
-                
-            try
+            OnConnected();
+            while (true)
             {
-                // if (SessionClient.Client.Poll(0, SelectMode.SelectRead))
-                //     continue;
-                
-                byte[] peakByte = new byte[1];
-                if (sessionClient.Client.Receive(peakByte, SocketFlags.Peek) == 0)
+                if (sessionClient == null)
                     break;
+                try
+                {
+                    byte[] peakByte = new byte[1];
+                    if (sessionClient.Client.Receive(peakByte, SocketFlags.Peek) == 0)
+                        break;
+                }
+                catch
+                {
+                    break;
+                }
+
+                if (sessionClient.Available == 0)
+                    continue;
+                OnMessage(sessionClient.GetStream());
             }
-            catch
-            {
-                break;
-            }
-                
-            if(sessionClient.Available == 0)
-                continue;
-            
-            OnMessage(sessionClient.GetStream());
         }
+        catch (ThreadInterruptedException)
+        {
+            // StopSession from another thread
+        }
+        catch (Exception ex)
+        {
+            ColorPrint.WriteLine($"[{this}] Session error: {ex.Message}", ConsoleColor.Red);
+        }
+
         Server.UnregisterSession(Id);
     }
 
-    
     /// <summary>
     /// Get session GUID
     /// </summary>
     /// <returns>Session GUID</returns>
     public Guid GetSessionId() => Id;
-    
+
     /// <summary>
     /// Return game message handlers map
     /// </summary>
@@ -247,10 +301,14 @@ public class TcpSession
                 ColorPrint.WriteLine($"[{this}] Length: {cmd.GetLength()}", ConsoleColor.Green);
             }
 
+            if (cmd.GetLength() > MaxMessageLength)
+                throw new ArgumentException($"Message too long ({cmd.GetLength()} bytes)");
+
+            // The body may arrive in several TCP segments: read all of it.
             byte[] data = new byte[cmd.GetLength()];
             if (cmd.GetLength() != 0)
             {
-                sessionClient?.Client.Receive(data);
+                dataStream.ReadExactly(data);
                 if(log)
                     ColorPrint.WriteLine($"[{this}] RAW:\n{HexDump.HexDump.Format(data)}", ConsoleColor.Yellow);
             }
@@ -261,22 +319,28 @@ public class TcpSession
                     ColorPrint.WriteLine($"[{this}] Processing via: {handlers[cmd.GetCommandId()]}", ConsoleColor.DarkGreen);
                 handlers[cmd.GetCommandId()].Handle(data, cmd);
             }
-            else
+            else if (!HandleRaw(cmd.GetCommandId(), data))
             {
                 if(log)
                     ColorPrint.WriteLine($"[{this}] Unknown CMD ID", ConsoleColor.Red);
             }
-                
         }
         catch (ArgumentException ex)
         {
             ColorPrint.WriteLine($"[{this}] Argument exception: {ex.Message}", ConsoleColor.Red);
+            ColorPrint.WriteLine($"[{this}] Closing client connection", ConsoleColor.Red);
+            CloseSession();
         }
         catch (Exception ex)
         {
             ColorPrint.WriteLine($"[{this}] Unknown error: {ex.Message}", ConsoleColor.Red);
             ColorPrint.WriteLine($"[{this}] Closing client connection", ConsoleColor.Red);
-            sessionClient?.Close();
+            CloseSession();
         }
     }
+
+    /// <summary>
+    /// Largest message a client may send (the biggest real ones, PvP move batches, are a few KB).
+    /// </summary>
+    private const uint MaxMessageLength = 1024 * 1024;
 }

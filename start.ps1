@@ -15,9 +15,9 @@ param(
     [switch]$NoBrowser,
     [switch]$Lan,
     [switch]$GameLog,
-    # Sibling folders, by default next to this one.
+    # Sibling folders, by default next to this one (wormix-core is part of this repository).
     [string]$ApiDir    = (Join-Path (Split-Path $PSScriptRoot) 'wormix-api'),
-    [string]$CoreDir   = (Join-Path (Split-Path $PSScriptRoot) 'wormix-core'),
+    [string]$CoreDir   = (Join-Path $PSScriptRoot 'wormix-core'),
     [string]$ClientDir = (Join-Path (Split-Path $PSScriptRoot) 'wormix-client')
 )
 

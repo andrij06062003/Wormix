@@ -32,4 +32,12 @@ The 1.05.0 client archive had no achievements room (the house's achievements scr
 with a 404). `vk/1.05.0/data/common/rooms/achiev_room.swf` is taken from a 1.25.0 client
 (github.com/mazmax228228/wormix, `vk/1.25.0/data/common/rooms/achiev_room.swf`). It is graphics only,
 with the same classes (AchievRoom, AwardCell, AchievTabPage, AchievTabAwards) and the named parts
-the 1.05.0 code uses. It also has a "bosses" tab button from 1.25.0 that does nothing here.
+the 1.05.0 code uses.
+
+The 1.25.0 rooms are laid out 228.4 px further right than in 1.05.0 (compare the race room, which
+exists in both), so the room is moved back, and the 1.25.0 "bosses" tab (nothing behind it in 1.05.0)
+is removed. To rebuild from the original 1.25.0 file:
+
+    java -jar ffdec-cli.jar -swf2xml achiev_room_125.swf room.xml
+    python3 client-patches/achiev_room_layout.py room.xml room_fixed.xml
+    java -jar ffdec-cli.jar -xml2swf room_fixed.xml achiev_room.swf

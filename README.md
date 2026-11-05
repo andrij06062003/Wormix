@@ -16,7 +16,7 @@ This folder is the **game host** plus the scripts that start everything:
 | **Game host** (this project) | `.` | **32700** |
 | Game files | `../wormix-client` | served by the game host |
 
-The game host does three things on one address, so players only ever need `http://<server>:32700`:
+The game host does four things on one address, so players only ever need `http://<server>:32700`:
 
 1. **Serves the game**: `wwwroot/play.html` (login/registration page + Ruffle) and the game files from `../wormix-client`.
 2. **Forwards `/api/`** to the API.
@@ -26,6 +26,11 @@ The game host does three things on one address, so players only ever need `http:
    The host also reassembles complete game messages before passing them on: wormix-core writes each message
    header in pieces, and the game's network code drops a reply whose header arrives split
    (that froze battles on "Инициализация карты").
+4. **Answers achievements** (`Achievements.cs`). The game sends them as HTTP POSTs to
+   `<server>:49199/wormix_achieve/`, not over a socket; `play.html` rewrites that URL to the host, which
+   decodes the binary commands and stores progress through the API (`/api/internal/achievements/`).
+   Level rewards (fuzzes, rubies, reaction) and the award items for every 1000 points are granted on the server.
+   `tests/achievements/ach_smoke.py` tests it end to end.
 
 ## Folder layout
 

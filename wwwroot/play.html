@@ -149,7 +149,10 @@
             // The 1.05.0 preloader has http://127.0.0.1:32700/vk/1.05.0/ built in as the place to load
             // the game from. Send those requests to wherever this page is served (any domain, http or https).
             urlRewriteRules: [
-                [new RegExp('^https?://(127\\.0\\.0\\.1|localhost):32700/(.*)$'), location.origin + '/$2']
+                [new RegExp('^https?://(127\\.0\\.0\\.1|localhost):32700/(.*)$'), location.origin + '/$2'],
+                // Achievements are plain HTTP to <game server>:49199/wormix_achieve/ (not a socket):
+                // the game host answers them itself (Achievements.cs).
+                [new RegExp('^https?://(wormixtest\\.ru|battle\\.wormixtest\\.ru|localhost|127\\.0\\.0\\.1):49199/(.*)$'), location.origin + '/$2']
             ],
             // Browsers can't open raw TCP sockets, so Ruffle sends the game's connections through
             // the game host (ws://<host>/<port>), which forwards them to wormix-core.

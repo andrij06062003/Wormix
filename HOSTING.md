@@ -47,7 +47,7 @@ You need a domain on Cloudflare (free plan is fine).
 ```bash
 cd wormix-relay
 cp .env.example .env
-# edit .env: paste the token into CLOUDFLARE_TUNNEL_TOKEN=
+# edit .env: paste the token into CLOUDFLARE_TUNNEL_TOKEN= (keep COMPOSE_PROFILES=tunnel: it starts cloudflared)
 docker compose up -d --build
 ```
 
@@ -101,3 +101,9 @@ game loads.
 | Game loads but can't connect | `docker compose logs relay core`: look for "Can't reach core". |
 | Battle stuck on "Инициализация карты" | Make sure you run the current `relay` (it reassembles game messages). |
 | Want the game's own log | Open `https://<hostname>/?debug` and set `DebugLog=true` for `relay` (environment), then `docker compose logs -f relay`. |
+
+## Prod and dev with automatic deploys
+
+On the dedicated host the stack runs in two sandboxes, `wormix-prod` (follows `main`) and
+`wormix-dev` (follows `dev`), each redeploying itself when CI passes for a merge to its branch.
+See [sandbox/README.md](sandbox/README.md).

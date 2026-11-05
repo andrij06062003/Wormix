@@ -1,30 +1,79 @@
-name: wormix-dedicated
+# The two Wormix environments on the host. Each is its own sandbox (Docker-in-Docker) with its own
+# database, images and deployer:
+#
+#   wormix-prod  follows main  ->  http://127.0.0.1:32700  (+ the prod Cloudflare tunnel)
+#   wormix-dev   follows dev   ->  http://127.0.0.1:32701  (+ the dev tunnel, if it has a token)
+#
+#   cp prod.env.example prod.env && cp dev.env.example dev.env   # fill in tokens
+#   docker compose up -d --build
+#
+# Deploys need nothing from the host after that: push to dev/main, CI passes, the sandbox updates.
+# Changes to this folder's Dockerfile/entrypoint.sh/docker-compose.yml need this command again
+# (deployer.sh updates itself).
+
+name: wormix-sandbox
+
+x-sandbox: &sandbox
+  build:
+    context: .
+  image: wormix-sandbox:latest
+  restart: unless-stopped
+  privileged: true                       # required by Docker-in-Docker
+  stop_grace_period: 60s
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
+  environment: &env
+    TZ: Europe/Kyiv
+    DOCKER_TLS_CERTDIR: ""
+    CD_REPO: ${CD_REPO:-andrij06062003/Wormix}
+    CD_POLL_SECONDS: ${CD_POLL_SECONDS:-30}
 
 services:
-  wormix-sandbox:
-    build:
-      context: .
-    image: wormix-sandbox:latest
-    container_name: wormix-sandbox
-    restart: unless-stopped
-    privileged: true
-    cpus: 1.0
-    mem_limit: 2048M
-    deploy:
-      resources:
-        limits:
-          cpus: '1.0'
-          memory: 2048M
-    ports:
-      - "127.0.0.1:32700:32700"
+  wormix-prod:
+    <<: *sandbox
+    container_name: wormix-prod
+    cpus: ${PROD_CPUS:-1.0}
+    mem_limit: ${PROD_MEMORY:-2048M}
+    env_file:
+      - path: prod.env
+        required: true
     environment:
-      - DOCKER_TLS_CERTDIR=
-      - DOCKER_HOST=unix:///var/run/docker.sock
+      <<: *env
+      CD_ENV: prod
+      CD_BRANCH: main
+    ports:
+      - "127.0.0.1:${PROD_PORT:-32700}:32700"
     volumes:
-      - wormix-dind-data:/var/lib/docker
-      - ..:/workspace/wormix-relay
-      - ${API_DIR:-../wormix-api}:/workspace/wormix-api
-      - ${CLIENT_DIR:-../wormix-client}:/workspace/wormix-client:ro
+      - prod-docker:/var/lib/docker
+      - prod-state:/state
+      - ${BACKUP_DIR:-./backups}/prod:/backups
+
+  wormix-dev:
+    <<: *sandbox
+    container_name: wormix-dev
+    cpus: ${DEV_CPUS:-1.0}
+    mem_limit: ${DEV_MEMORY:-1536M}
+    env_file:
+      - path: dev.env
+        required: true
+    environment:
+      <<: *env
+      CD_ENV: dev
+      CD_BRANCH: dev
+    ports:
+      - "127.0.0.1:${DEV_PORT:-32701}:32700"
+    volumes:
+      - dev-docker:/var/lib/docker
+      - dev-state:/state
+      - ${BACKUP_DIR:-./backups}/dev:/backups
 
 volumes:
-  wormix-dind-data:
+  # The Docker data of the earlier single sandbox: prod keeps its database (wormix_api-data inside).
+  prod-docker:
+    name: ${PROD_DOCKER_VOLUME:-wormix-dedicated_wormix-dind-data}
+  prod-state:
+  dev-docker:
+  dev-state:

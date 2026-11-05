@@ -7,7 +7,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 
-export COMPOSE_PROJECT_NAME=wormix-pvptest IMAGE_TAG=pvptest COMPOSE_PROFILES=
+export COMPOSE_PROJECT_NAME=wormix-pvptest IMAGE_TAG=pvptest COMPOSE_PROFILES= CLOUDFLARE_TUNNEL_TOKEN=unused
 compose() { docker compose -f docker-compose.yml "$@"; }
 cleanup() { [ "${KEEP:-}" = 1 ] || compose down -v --remove-orphans >/dev/null 2>&1 || true; }
 trap cleanup EXIT

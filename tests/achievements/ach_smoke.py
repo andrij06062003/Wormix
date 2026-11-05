@@ -128,9 +128,9 @@ again = increase(sid, t + 1, [(23, 5)])
 assert again == res, again
 print("ok  increase GAME_VISITS +5 (level 1), resend is not counted twice")
 
-res = increase(sid, t + 2, [(23, 15), (0, 10), (99, 3), (5, -4)])
-assert res["indexes"] == [23, 0] and res["values"] == [20, 10] and res["thr"] == [23] and res["thr_old"] == [5], res
-print("ok  increase +15 crosses levels 2 and 3, unknown/negative entries ignored")
+res = increase(sid, t + 2, [(23, 15), (0, 10), (99, 3), (5, -4), (107, 2)])
+assert res["indexes"] == [23, 0, 107] and res["values"] == [20, 10, 2] and res["thr"] == [23] and res["thr_old"] == [5], res
+print("ok  increase +15 crosses levels 2 and 3, statistics counter saved, unknown/negative entries ignored")
 
 assert choose(sid, 62) == (2, 62)
 print("ok  choose bonus without 1000 points -> MIN_REQUIREMENTS")
@@ -143,7 +143,7 @@ assert choose(sid, 63) == (2, 63)      # only one award per 1000 points
 print("ok  choose bonus: level lock, success, point limit")
 
 g = get(sid, uid)
-assert g["invested"] == 1 and dict(zip(g["indexes"], g["values"])) == {0: 10, 1: 30000, 3: 1000, 23: 20}, g
+assert g["invested"] == 1 and dict(zip(g["indexes"], g["values"])) == {0: 10, 1: 30000, 3: 1000, 23: 20, 107: 2}, g
 print("ok  get after progress", g)
 
 assert post([(3002, secure(utf(uid) + b"\x00"))], "0" * 32).startswith(b"401")

@@ -119,7 +119,7 @@ class AchievementsController extends Controller
         foreach ($indexes as $i => $index) {
             $index = (int)$index;
             $value = (int)($rises[$i] ?? 0);
-            if (!isset($config['achievements'][(string)$index]) || $value <= 0)
+            if (!self::isCounter($index) || $value <= 0)
                 continue;
             $rise[$index] = ($rise[$index] ?? 0) + $value;
         }
@@ -147,7 +147,7 @@ class AchievementsController extends Controller
                 $row->save();
 
                 $crossed = false;
-                foreach ($config['achievements'][(string)$index]['levels'] as $level) {
+                foreach ($config['achievements'][(string)$index]['levels'] ?? [] as $level) {
                     if ($old < $level['max'] && $new >= $level['max']) {
                         $crossed = true;
                         $this->grantLevelAward($profile, $level['award'], (int)$level['count']);
@@ -227,6 +227,17 @@ class AchievementsController extends Controller
         });
 
         return response(['result' => $result, 'item_id' => $itemId]);
+    }
+
+    /**
+     * Achievements (0..28, with levels and rewards) and the statistics page counters
+     * (100..127 in the client's Stats class: bets, missions, kills...; no rewards) travel the same way.
+     */
+    private static function isCounter(int $index): bool
+    {
+        $config = self::config();
+        return isset($config['achievements'][(string)$index])
+            || ($index >= $config['stats_first'] && $index <= $config['stats_last']);
     }
 
     private function allPoints(int $userId): int

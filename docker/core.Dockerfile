@@ -11,6 +11,7 @@ FROM mcr.microsoft.com/dotnet/runtime:8.0
 WORKDIR /app
 COPY --from=build /out .
 COPY docker/wormix-core.json /app/config.json
-EXPOSE 49197 49198 49298
+# Ports built into the 1.05.0 preloader: main 49197, PvP 49198, achievements 49199.
+EXPOSE 49197 49198 49199
 # wormix-core waits on Console.ReadLine() to stay alive, so compose gives it stdin + tty.
 ENTRYPOINT ["dotnet", "/app/wormix-core.dll", "/app/config.json"]

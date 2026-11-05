@@ -154,7 +154,7 @@
             // Browsers can't open raw TCP sockets, so Ruffle sends the game's connections through
             // the game host (ws://<host>/<port>), which forwards them to wormix-core.
             // The game has wormixtest.ru built in; these entries send it to our own server instead.
-            // Ports built into the 1.05.0 preloader: 49197 main, 49298 PvP, 49198/49199 achievements/clans.
+            // Ports built into the 1.05.0 preloader: 49197 main, 49198 PvP, 49199 achievements.
             socketProxy: [49197, 49198, 49199, 49297, 49298, 49299, 49300].flatMap(port =>
                 ['wormixtest.ru', 'battle.wormixtest.ru', 'localhost', '127.0.0.1'].map(host => ({
                     host, port, proxyUrl: RELAY + '/' + port

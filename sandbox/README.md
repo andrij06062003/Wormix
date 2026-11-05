@@ -5,8 +5,12 @@ Docker daemon, database, images and deployer:
 
 | Sandbox | Branch | Local address | Public address |
 |---|---|---|---|
-| `wormix-prod` | `main` | http://127.0.0.1:32700 | the prod Cloudflare tunnel (`prod.env`) |
-| `wormix-dev`  | `dev`  | http://127.0.0.1:32701 | a separate dev tunnel (`dev.env`), optional |
+| `wormix-prod` | `main` | http://127.0.0.1:32700 | https://ukrop4ix.vetos.site (the prod Cloudflare tunnel, `prod.env`) |
+| `wormix-dev`  | `dev`  | http://127.0.0.1:32701 | https://ukrop4ix-dev.vetos.site (a second route on the prod tunnel) |
+
+Both sandboxes share the Docker network `wormix-sandboxes` (172.31.70.0/24) with fixed addresses:
+prod 172.31.70.20, dev 172.31.70.10. The prod tunnel's connector runs inside `wormix-prod`, so its route
+for the dev hostname is `http://172.31.70.10:32700`; `dev.env` needs no tunnel token.
 
 ## How a change ships
 

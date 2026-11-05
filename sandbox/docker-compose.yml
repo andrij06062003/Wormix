@@ -46,6 +46,9 @@ services:
       CD_BRANCH: main
     ports:
       - "127.0.0.1:${PROD_PORT:-32700}:32700"
+    networks:
+      sandboxes:
+        ipv4_address: 172.31.70.20
     volumes:
       - prod-docker:/var/lib/docker
       - prod-state:/state
@@ -65,10 +68,22 @@ services:
       CD_BRANCH: dev
     ports:
       - "127.0.0.1:${DEV_PORT:-32701}:32700"
+    networks:
+      sandboxes:
+        # Fixed, so the prod tunnel can serve the dev hostname too: its connector runs inside
+        # wormix-prod, where 127.0.0.1 isn't the host. Tunnel route: http://172.31.70.10:32700
+        ipv4_address: 172.31.70.10
     volumes:
       - dev-docker:/var/lib/docker
       - dev-state:/state
       - ${BACKUP_DIR:-./backups}/dev:/backups
+
+networks:
+  sandboxes:
+    name: wormix-sandboxes
+    ipam:
+      config:
+        - subnet: 172.31.70.0/24
 
 volumes:
   # The Docker data of the earlier single sandbox: prod keeps its database (wormix_api-data inside).

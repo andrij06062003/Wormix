@@ -12,7 +12,7 @@ This folder is the **game host** plus the scripts that start everything:
 |---|---|---|
 | Redis (Garnet) | – | 6379 |
 | API (accounts, money, items, database) | `../wormix-api` | 8000 |
-| Game server | `wormix-core` (from [n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core), with PvP added here) | 49197, 49298, 49198 |
+| Game server | `wormix-core` (from [n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core), with PvP added here) | 49197, 49198, 49199 |
 | **Game host** (this project) | `.` | **32700** |
 | Game files | `../wormix-client` | served by the game host |
 
@@ -83,7 +83,7 @@ powershell -ExecutionPolicy Bypass -File .\stop.ps1
 | `LogApi` | `false` | Print every API request (passwords are hidden) |
 
 `configs/wormix-core.json` is the wormix-core config matching the ports built into the 1.05.0 client
-(main 49197, PvP 49298, achievements 49198).
+(main 49197, PvP 49198, achievements 49199; from the preloader's built-in server list).
 
 ## Playing against other players
 

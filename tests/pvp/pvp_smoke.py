@@ -22,7 +22,7 @@ import uuid
 
 API = os.environ.get("API", "http://api:8000/api/")
 CORE = os.environ.get("CORE", "core")
-MAIN_PORT, PVP_PORT = 49197, 49298
+MAIN_PORT, PVP_PORT = 49197, 49198   # as in the 1.05.0 preloader (AntWormixSettings)
 SECRET = b"ygfA69i3Uz6bDO8"
 
 

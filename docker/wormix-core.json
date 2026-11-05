@@ -11,15 +11,15 @@
       "enabled": true
     },
     "pvp": {
-      "port": 49298,
-      "enabled": true
-    },
-    "achievements": {
       "port": 49198,
       "enabled": true
     },
-    "clan": {
+    "achievements": {
       "port": 49199,
+      "enabled": true
+    },
+    "clan": {
+      "port": 49299,
       "enabled": false
     }
   },

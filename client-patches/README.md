@@ -40,6 +40,21 @@ Rebuild on top of the PointCrosshair patch:
     java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf \
         ru.pragmatix.flox.gui.controls.hint.Hintable client-patches/Hintable.as
 
+## `BattleRequestController.as`: friend battle desyncs after adding a teammate
+
+When you add a friend to your team, the client puts the friend in with their own level and stats, but the
+server scales a teammate to the owner's level. The player you challenge gets your team from the server,
+while your game kept its own version, so the two games started the battle with different worms.
+After logging in again the two matched, which is why it only went wrong after adding a teammate.
+
+Fix: when a friend battle is accepted, the challenger loads its own profile from the server's answer
+(`BattleRequestResult.myProfile`), as the accepting side and wager battles already do.
+
+Rebuild on top of the patches above:
+
+    java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf \
+        ru.pragmatix.wormix.pvp.controllers.BattleRequestController client-patches/BattleRequestController.as
+
 ## Missing file: `data/common/rooms/achiev_room.swf`
 
 The 1.05.0 client archive had no achievements room (the house's achievements screen failed to open

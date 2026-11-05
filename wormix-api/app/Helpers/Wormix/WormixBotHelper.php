@@ -106,7 +106,8 @@ class WormixBotHelper
             $armor += $levelPoints - ($armor + $attack);
 
 
-        $armorPoints = (int)(($armor / $levelPoints) * $toLevelPoints);
+        // Keep both within the target level's points: the game server reads them as unsigned numbers.
+        $armorPoints = min($toLevelPoints, max(0, (int)(($armor / $levelPoints) * $toLevelPoints)));
         $attackPoints = $toLevelPoints - $armorPoints;
 
         return [

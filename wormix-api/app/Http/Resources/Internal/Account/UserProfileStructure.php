@@ -18,8 +18,10 @@ class UserProfileStructure extends JsonResource
             'Id' => $this->user_id,
             'SocialId' => (string)$this->user_id,
 
-            'Money' => $this->money,
-            'RealMoney' => $this->real_money,
+            // The game server reads these as unsigned numbers and can't read a negative balance. Every login
+            // includes all players' profiles, so one negative balance would block login for everyone (stuck at 85%).
+            'Money' => max(0, (int)$this->money),
+            'RealMoney' => max(0, (int)$this->real_money),
 
             'ReactionRate' => $this->reaction_rate,
             'Rating' => $this->rating,

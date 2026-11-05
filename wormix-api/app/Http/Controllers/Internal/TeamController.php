@@ -44,8 +44,9 @@ class TeamController extends Controller
         $teammate->order = count($user->user_profile->teammates) + 1;
         $teammate->save();
 
+        // MoneyType 1 = fuzy (money), 0 = rubies (real_money), as checked above.
         $user_profile = $user->user_profile;
-        if($request->json('MoneyType') === 0)
+        if($request->json('MoneyType') === 1)
             $user_profile->money -= config('wormix.game.buy.teammate.money');
         else
             $user_profile->real_money -= config('wormix.game.buy.teammate.real_money');

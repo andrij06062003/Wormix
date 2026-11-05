@@ -4,83 +4,83 @@
 <taunts>
     <!-- начало хода-->
     <onNextTurn>
-        <message>Прячьтесь! %source% стрелять будет!</message>
-        <message>Стой! Не стреляй! Ты не прицелился!</message>
-		<message>Вот сейчас что-то будет...</message>
-		<message>%source%, твоя очередь</message>
-		<message>%source% настроен решительно</message>
-		<message>Эй, %source%, стреляй уже!</message>
-		<message>%source%, ты чего еще задумал?</message>
-		<message>%source%, промахнешься-промахнешься!</message>
-		<message>%source%, да ты не торопись, времени много</message>
-		<message>%source%, думаешь, попадешь?</message>
-		<message>Стреляй на счет три! Один...</message>
-		<message>%source%, ты прицеливайся, а я пока за кофейком сбегаю...</message>
-        <message>Есть только мы: ты, я и мортира!</message>
-        <message>%source% жаждет крови!</message>
-        <message>%source% настроен очень решительно</message>
-        <message>%source% в ярости!</message>
-        <message>%source%, сегодня не твой день</message>
-        <message>Лучшая оборона - это нападение</message>
-        <message>Наступает решающий момент!</message>
-        <message>Время писать завещание...</message>
-        <message>Может, сегодня %source% попадёт?</message>
+        <message>Ховайтеся! %source% зараз стрілятиме!</message>
+        <message>Стій! Не стріляй! Ти не прицілився!</message>
+		<message>Ось зараз щось буде...</message>
+		<message>%source%, твоя черга</message>
+		<message>%source% налаштований рішуче</message>
+		<message>Гей, %source%, та стріляй уже!</message>
+		<message>%source%, що ти ще задумав?</message>
+		<message>%source%, схибиш-схибиш!</message>
+		<message>%source%, та ти не поспішай, часу багато</message>
+		<message>%source%, думаєш, влучиш?</message>
+		<message>Стріляй на рахунок три! Один...</message>
+		<message>%source%, ти ціляйся, а я поки по кавусю збігаю...</message>
+        <message>Є тільки ми: ти, я і мортира!</message>
+        <message>%source% прагне крові!</message>
+        <message>%source% налаштований дуже рішуче</message>
+        <message>%source% в люті!</message>
+        <message>%source%, сьогодні не твій день</message>
+        <message>Найкращий захист — це напад</message>
+        <message>Настає вирішальний момент!</message>
+        <message>Час писати заповіт...</message>
+        <message>Може, сьогодні %source% влучить?</message>
     </onNextTurn>
     <!-- попал в противника-->
     <onDamage>
-        <message>Попал-попал!</message>
-        <message>Видели-видели? Попал!</message>
-		<message>Что тут сказать.. он сам виноват!</message>
-		<message>А я предупреждал, не надо со мной связываться!</message>
-		<message>Попал, что ли?</message>
+        <message>Влучив-влучив!</message>
+        <message>Бачили-бачили? Влучив!</message>
+		<message>Що тут скажеш.. сам винен!</message>
+		<message>А я попереджав: не треба зі мною зв'язуватися!</message>
+		<message>Влучив, чи що?</message>
 		<message>Шикарно!</message>
-		<message>Ты что? Еще не умер?</message>
+		<message>Ти що? Ще не вмер?</message>
 
-		<message>Эй, %target%, ты как там?</message>
-		<message>Ну что? Нечего ответить?</message>
-        <message>%target%, сдавайся!</message>
-        <message>%target%, моли о пощаде!</message>
-        <message>Ну все, %target%, ты проиграл!</message>
-        <message>%target%, да сколько у тебя там жизней!</message>
-        <message>%target%, в гневе я страшен!</message>
-        <message>%target%, получил, да?</message>
+		<message>Гей, %target%, ти як там?</message>
+		<message>Ну що? Нічого відповісти?</message>
+        <message>%target%, здавайся!</message>
+        <message>%target%, благай про пощаду!</message>
+        <message>Ну все, %target%, ти програв!</message>
+        <message>%target%, та скільки в тебе там життів!</message>
+        <message>%target%, у гніві я страшний!</message>
+        <message>%target%, дістав, так?</message>
 
-        <message>%source%, рано радуешься!</message>
-        <message>%source%, наконец-то ты попал. Умница.</message>
-        <message>%source%, что это было?</message>
-        <message>%source%, это твой лучший удар?</message>
-        <message>%source%, это и был твой "смертельный удар"?</message>
-		<message>%source%, ну насмешил...</message>
-		<message>%source%, ты бы хоть стрелять научился.</message>
+        <message>%source%, рано радієш!</message>
+        <message>%source%, нарешті ти влучив. Розумничка.</message>
+        <message>%source%, що це було?</message>
+        <message>%source%, це твій найкращий удар?</message>
+        <message>%source%, це й був твій «смертельний удар»?</message>
+		<message>%source%, ну насмішив...</message>
+		<message>%source%, ти б хоч стріляти навчився.</message>
 
-        <message>Остается только пожалеть тебя</message>
+        <message>Залишається тільки пожаліти тебе</message>
 
-        <message>%target%, как тебе на вкус мой порох?</message>
-        <message>%target%, поиграл и хватит</message>
-        <message>%target%, сдавайся!</message>
-        <message>%source%, я отомщу!</message>
-        <message>%source% повтори, мы всё пропустили</message>
+        <message>%target%, як тобі на смак мій порох?</message>
+        <message>%target%, погрався і досить</message>
+        <message>%target%, здавайся!</message>
+        <message>%source%, я помщуся!</message>
+        <message>%source%, повтори, ми все пропустили</message>
     </onDamage>
     <!-- попал в себя-->
     <onSelfDamage>
-        <message>Куда-то я не туда стрельнул...</message>
+        <message>Щось я не туди стрельнув...</message>
         <message>Ой!</message>
-        <message>Я случайно!</message>
-        <message>%source%, ты в кого стреляешь?!</message>
-		<message>Эй, %source%, аккуратней давай!</message>
-		<message>Не туда стреляешь!</message>
-		<message>Эй, а это-то за что?</message>
-		<message>Я больше не буду!</message>
-		<message>Пррростите...</message>
-		<message>Ой, не туда...</message>
+        <message>Я випадково!</message>
+        <message>%source%, ти в кого стріляєш?!</message>
+		<message>Гей, %source%, давай обережніше!</message>
+		<message>Не туди стріляєш!</message>
+		<message>Гей, а це за що?</message>
+		<message>Я більше не буду!</message>
+		<message>Пррробачте...</message>
+		<message>Ой, не туди...</message>
 
-        <message>%target% - дуралей</message>
-        <message>Бей своих, жалей чужих</message>
-        <message>Вот мой тебе совет – целься в голову</message>
-        <message>Я работаю над собой, работаю!!!</message>
-        <message>Я тебя породил, я тебя и убью!</message>
-        <message>Это я тренируюсь</message>
-        <message>Без комментариев</message>
-        <message>%target% всё перепутал</message>
+        <message>%target% — дурник</message>
+        <message>Бий своїх, щоб чужі боялися</message>
+        <message>Ось тобі моя порада — цілься в голову</message>
+        <message>Я працюю над собою, працюю!!!</message>
+        <message>Я тебе породив, я тебе і вб'ю!</message>
+        <message>Це я тренуюся</message>
+        <message>Без коментарів</message>
+        <message>%target% усе переплутав</message>
     </onSelfDamage>
 </taunts>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dictionary>
     <!--name & decription-->
-    <message name="LEARNING_MISSION_1_NAME" value="Стрельба"/>
-    <message name="LEARNING_MISSION_2_NAME" value="Прыжки"/>
-    <message name="LEARNING_MISSION_3_NAME" value="Базука и Граната"/>    
+    <message name="LEARNING_MISSION_1_NAME" value="Стрільба"/>
+    <message name="LEARNING_MISSION_2_NAME" value="Стрибки"/>
+    <message name="LEARNING_MISSION_3_NAME" value="Базука і Граната"/>    
 </dictionary>

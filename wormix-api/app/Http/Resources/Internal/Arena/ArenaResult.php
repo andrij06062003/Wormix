@@ -36,7 +36,9 @@ class ArenaResult extends JsonResource
             ,
             'BattlesCount' => $this->battles_count,
             'CurrentMission' => $this->last_mission_id,
-            'BossAvailable' => time() - $this->last_boss_fight_time > 24 * 60 * 60,
+            // No cooldown after a boss win: bosses are always available
+            // (still limited by BattlesCount like any other battle).
+            'BossAvailable' => true,
         ];
     }
 }

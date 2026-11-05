@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY wormix-relay.csproj .
 RUN dotnet restore
-COPY Program.cs appsettings.json ./
+COPY *.cs appsettings.json ./
 RUN dotnet publish -c Release -o /out --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0

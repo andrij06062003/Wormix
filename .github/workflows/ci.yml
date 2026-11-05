@@ -61,6 +61,8 @@ jobs:
             sleep 3
           done
           echo "the stack did not come up"; exit 1
+      - name: Achievements work through the relay
+        run: python3 tests/achievements/ach_smoke.py http://127.0.0.1:32700
       - name: No container restarted
         run: |
           sleep 10

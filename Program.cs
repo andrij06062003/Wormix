@@ -128,6 +128,9 @@ app.Map("/api/{**rest}", async (HttpContext ctx) =>
     }
 });
 
+// 4. The achievements server (HTTP, not a socket): see Achievements.cs.
+app.MapAchievements(apiBase, http, log);
+
 app.Map("/{port:int}", async (HttpContext ctx, int port) =>
 {
     if (!ctx.WebSockets.IsWebSocketRequest)

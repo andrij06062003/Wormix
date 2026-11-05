@@ -26,6 +26,20 @@ Rebuild (JPEXS FFDec, https://github.com/jindrapetrik/jpexs-decompiler):
 
 `Wormix.orig.swf` is the unpatched file from git history (commit 1c91837).
 
+## `Hintable.as`: weapon description stays on screen after closing the arsenal
+
+The description (hint) of a weapon or item is added to the scene, not inside the cell it belongs to,
+and is removed only when the cell sends ROLL_OUT. When a weapon is chosen the arsenal closes under the
+mouse; Ruffle sends no ROLL_OUT then, so the description stayed on screen.
+
+Fix: `Hintable` also listens for REMOVED_FROM_STAGE on the cell and then removes the hint (and cancels
+one that is still waiting to appear).
+
+Rebuild on top of the PointCrosshair patch:
+
+    java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf \
+        ru.pragmatix.flox.gui.controls.hint.Hintable client-patches/Hintable.as
+
 ## Missing file: `data/common/rooms/achiev_room.swf`
 
 The 1.05.0 client archive had no achievements room (the house's achievements screen failed to open

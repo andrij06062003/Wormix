@@ -7,6 +7,7 @@ usage: python difftest.py http://ref:8000 http://go:8000 vars.json
 exit code 0 when no differences.
 """
 import copy
+import os
 import json
 import sys
 import uuid
@@ -29,6 +30,9 @@ def r(x, v):
     return x(v) if callable(x) else x
 
 
+NO_EXPECT = os.environ.get("DIFF_NO_EXPECT") == "1"  # dev mode: only compare ref vs go
+
+
 def step(name, method, path, mode="exact", capture=None, expect=None, **kw):
     """mode: exact | shape | status | raw"""
     global count
@@ -44,7 +48,7 @@ def step(name, method, path, mode="exact", capture=None, expect=None, **kw):
     problems = []
     if sa != sb:
         problems.append(f"status ref={sa} go={sb}")
-    if expect is not None and sa != expect:
+    if expect is not None and sa != expect and not NO_EXPECT:
         problems.append(f"ref status {sa} != expected {expect}")
     if mode == "raw":
         if ba != bb:
@@ -238,6 +242,21 @@ step("buy items: zero price", "POST", "/api/internal/account/buy/items", json_bo
 step("select stuff: owned hat", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 1003}, headers=E)
 step("select stuff: not owned", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 1025}, headers=E)
 step("select stuff: invalid", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 5}, headers=E, expect=422)
+# artifacts (1.25.0 stage 1): shop, wardrobe (select_stuff 2001+ / 2000 = take off)
+step("artifact: buy 2001 (money)", "POST", "/api/internal/account/buy/items", json_body={"ShopItems": [{"Id": 2001, "Count": -1, "MoneyType": 1}]}, headers=E)
+step("artifact: buy weapon + 2002 (rubies)", "POST", "/api/internal/account/buy/items",
+     json_body={"ShopItems": [{"Id": 6, "Count": 1, "MoneyType": 1}, {"Id": 2002, "Count": -1, "MoneyType": 0}]}, headers=E)
+step("artifact: hidden boss drop", "POST", "/api/internal/account/buy/items", json_body={"ShopItems": [{"Id": 2007, "Count": -1, "MoneyType": 1}]}, headers=E)
+step("artifact: profile (worn 2002)", "POST", "/api/internal/pvp/profile", json_body={}, headers=E)
+step("artifact: select owned 2001", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 2001}, headers=E)
+step("artifact: select not owned 2010", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 2010}, headers=E)
+step("artifact: select string id", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": "2002"}, headers=E)
+step("artifact: take off (2000)", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 2000}, headers=E)
+step("artifact: unknown 2999", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 2999}, headers=E, expect=422)
+step("artifact: unknown 1500 + not int", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 1500.5}, headers=E, expect=422)
+step("artifact: hat still works", "POST", "/api/internal/account/select_stuff", json_body={"StuffId": 1003}, headers=E)
+step("artifact: profile after", "POST", "/api/internal/pvp/profile", json_body={}, headers=E)
+step("artifact: frank keeps his (negative balance shown as 0)", "POST", "/api/internal/pvp/profile", json_body={}, headers=internal("frank"))
 step("race: same", "POST", "/api/internal/account/buy/race", json_body={"RaceId": 2, "MoneyType": 1}, headers=E)
 step("race: too low level", "POST", "/api/internal/account/buy/race", json_body={"RaceId": 6, "MoneyType": 1}, headers=E)
 step("race: buy rubies", "POST", "/api/internal/account/buy/race", json_body={"RaceId": 3, "MoneyType": 0}, headers=E)

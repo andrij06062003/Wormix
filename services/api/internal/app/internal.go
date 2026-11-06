@@ -2,6 +2,8 @@ package app
 
 import (
 	"math"
+
+	"github.com/andrij06062003/Wormix/services/api/internal/db"
 	"math/rand/v2"
 	"time"
 
@@ -98,6 +100,11 @@ func (c *Ctx) loginEvent(u *Model) {
 		worm.Set("hat", hatByRaceAndHat(0, race))
 		c.saveWorm(worm)
 	}
+	// Take the artifact off when it's gone or expired, like the hat.
+	if art := php.ToInt(worm.Get("artifact")); art != 0 && !c.ownsValidItem(u.Get("id"), art) {
+		worm.Set("artifact", int64(0))
+		c.saveWorm(worm)
+	}
 	bi := c.First(defBattleInfo, `where "user_id" = ?`, u.Get("id"))
 	if php.Gt(worm.Get("level"), int64(5)) && php.Lt(must(bi).Get("last_mission_id"), int64(0)) {
 		bi.Set("last_mission_id", int64(0))
@@ -175,7 +182,17 @@ func (c *Ctx) enterAccount(u *Model, sessionKey string) *php.Arr {
 // ---- InternalAccountController ----
 
 func (c *Ctx) selectStuff() Resp {
-	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"StuffId", "required|integer|exists:wormix_weapons,id|min:1000"}})
+	c.ValidateWith([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"StuffId", "required|integer|min:1000"}},
+		map[string]Closure{"StuffId": func(v any) string {
+			// an item id, or artifactStart (no item) to take the artifact off
+			if php.ToInt(v) != artifactStart && c.Count(`select exists(select * from "wormix_weapons" where "wormix_weapons"."id" = ?)`, v) == 0 {
+				return "Unknown item."
+			}
+			return ""
+		}})
+	if id := php.ToInt(c.JSON("StuffId")); id >= artifactStart && id < artifactEnd {
+		return c.selectArtifact(id)
+	}
 	uw := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ?`, c.UserID(), c.JSON("StuffId"))
 	if uw == nil {
 		return dataResult("Result", int64(1), "StuffId", int64(0))
@@ -185,6 +202,31 @@ func (c *Ctx) selectStuff() Resp {
 	worm.Set("hat", hatByRaceAndHat(php.IntArg(uw.Get("weapon_id")), race))
 	c.saveWorm(worm)
 	return dataResult("Result", int64(0), "StuffId", php.IntArg(c.JSON("StuffId")))
+}
+
+// selectArtifact equips an owned (not expired) artifact, or takes it off with artifactStart.
+func (c *Ctx) selectArtifact(id int64) Resp {
+	uid := c.UserID()
+	if id != artifactStart && !c.ownsValidItem(uid, id) {
+		return dataResult("Result", int64(1), "StuffId", int64(0))
+	}
+	w := c.First(defWorm, `where "owner_id" = ? limit 1`, uid)
+	if w == nil {
+		abort(404, "Not Found")
+	}
+	if id == artifactStart {
+		w.Set("artifact", int64(0))
+	} else {
+		w.Set("artifact", id)
+	}
+	c.saveWorm(w)
+	return dataResult("Result", int64(0), "StuffId", id)
+}
+
+// ownsValidItem: the player has the item and it never expires or hasn't expired yet.
+func (c *Ctx) ownsValidItem(uid, weaponID any) bool {
+	return c.Count(`select exists(select * from "wormix_users_weapons" where "owner_id" = ? and "weapon_id" = ? and ("expire_at" = ? or "expire_at" > ?))`,
+		uid, weaponID, int64(-1), time.Now().Unix()) > 0
 }
 
 func (c *Ctx) distributePoints() Resp {
@@ -246,7 +288,7 @@ func (c *Ctx) addTeammate() Resp {
 	t.Set("teammate_id", c.JSON("ProfileId"))
 	t.Set("order", mates+1)
 	c.Save(t)
-	if php.StrictEq(mt, int64(0)) {
+	if php.StrictEq(mt, int64(1)) { // MoneyType 1 = fuzy, 0 = rubies
 		profile.Set("money", php.Sub(profile.Get("money"), int64(950)))
 	} else {
 		profile.Set("real_money", php.Sub(profile.Get("real_money"), int64(10)))
@@ -461,6 +503,16 @@ func (c *Ctx) buyItemsInner() Resp {
 		c.Save(old)
 		weapons.Append(php.Assoc("Id", old.Get("weapon_id"), "Count", idx(it, "Count")))
 	}
+	// The client puts a bought artifact on at once: do the same here.
+	var last int64 = -1
+	for _, it := range items.Values() {
+		if id := php.ToInt(idx(it, "Id")); id > artifactStart && id < artifactEnd {
+			last = id
+		}
+	}
+	if last >= 0 {
+		c.exec(`update "wormix_worms_data" set "artifact" = ?, "updated_at" = ? where "owner_id" = ?`, last, db.Now(), c.UserID())
+	}
 	return jsonResp(200, php.Assoc("data", php.Assoc("Result", int64(0), "Weapons", weapons, "Stuff", php.NewArr())))
 }
 
@@ -553,6 +605,7 @@ func (c *Ctx) resetAccount() Resp {
 	w := must(c.First(defWorm, `where "owner_id" = ?`, uid))
 	bi := must(c.First(defBattleInfo, `where "user_id" = ?`, uid))
 	ls := must(c.First(defLoginSeq, `where "user_id" = ?`, uid))
+	level, realMoney := c.app.Config.starter()
 
 	bi.Set("battles_count", int64(10))
 	bi.Set("last_mission_id", int64(-1))
@@ -566,13 +619,13 @@ func (c *Ctx) resetAccount() Resp {
 
 	w.Set("armor", int64(0))
 	w.Set("attack", int64(0))
-	w.Set("level", int64(1))
+	w.Set("level", level)
 	w.Set("experience", int64(0))
 	w.Set("hat", int64(0))
 	c.SaveAndSync(w)
 
-	p.Set("money", int64(450))
-	p.Set("real_money", int64(3))
+	p.Set("money", c.app.Config.StarterMoney)
+	p.Set("real_money", realMoney)
 	p.Set("rating", int64(0))
 	p.Set("reaction_rate", int64(0))
 	p.Set("reagents", php.NewArr())
@@ -599,6 +652,7 @@ func (c *Ctx) resetAccount() Resp {
 		nw.Set("owner_id", uid)
 		c.Save(nw)
 	}
+	c.devStarter(w, level, uid)
 	c.cacheForget("user_session_" + php.ToString(uid))
 	return dataResult("Result", int64(0))
 }
@@ -783,4 +837,42 @@ func (c *Ctx) downgradeWeapon() Resp {
 	p.Set("real_money", php.Sub(p.Get("real_money"), int64(5)))
 	c.Save(p)
 	return dataResult("Result", int64(0), "RecipeId", php.IntArg(rid))
+}
+
+// devStarter gives a dev-environment account the level awards up to its level and all
+// achievement points (UserObserver::created / ResetController::resetAccount).
+func (c *Ctx) devStarter(worm *Model, level int64, uid any) {
+	if !c.app.Config.IsDev {
+		return
+	}
+	if level > 1 {
+		for _, l := range c.All(defLevel, `where "id" between ? and ?`, int64(2), level) {
+			if aw, ok := l.Arr("awards").(*php.Arr); ok && aw.Len() > 0 {
+				c.addWeaponsAwards(aw, worm)
+			}
+		}
+	}
+	c.grantDevAchievements(uid)
+}
+
+// grantDevAchievements is AchievementsController::grantDevAchievements.
+func (c *Ctx) grantDevAchievements(uid any) {
+	cfg := achievementsConfig()
+	for _, id := range cfg.achievements.Keys() {
+		ach, _ := cfg.achievements.Val(id).(*php.Arr)
+		levels, _ := ach.Val("levels").(*php.Arr)
+		if levels.Len() == 0 {
+			continue
+		}
+		last := levels.Val(levels.Keys()[levels.Len()-1]).(*php.Arr)
+		aid := php.ToInt(id)
+		row := c.First(defAchievement, `where ("user_id" = ? and "achievement_id" = ?) limit 1`, uid, aid)
+		if row == nil {
+			row = New(defAchievement)
+			row.Set("user_id", uid)
+			row.Set("achievement_id", aid)
+		}
+		row.Set("value", last.Val("max"))
+		c.Save(row)
+	}
 }

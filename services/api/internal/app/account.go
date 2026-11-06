@@ -94,14 +94,16 @@ func (c *Ctx) signUp() Resp {
 // userCreated is UserObserver::created.
 func (c *Ctx) userCreated(u *Model) {
 	id := u.Get("id")
+	level, realMoney := c.app.Config.starter()
 	p := New(defProfile)
 	p.Set("user_id", id)
-	p.Set("money", int64(450))
-	p.Set("real_money", int64(3))
+	p.Set("money", c.app.Config.StarterMoney)
+	p.Set("real_money", realMoney)
 	c.Save(p)
 
 	w := New(defWorm)
 	w.Set("owner_id", id)
+	w.Set("level", level)
 	w.Set("hat", int64(0))
 	c.Save(w)
 
@@ -132,6 +134,7 @@ func (c *Ctx) userCreated(u *Model) {
 		uw.Set("weapon_id", wid)
 		c.Save(uw)
 	}
+	c.devStarter(w, level, id)
 }
 
 func (c *Ctx) signOut() Resp {

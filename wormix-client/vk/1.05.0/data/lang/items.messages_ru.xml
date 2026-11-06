@@ -681,4 +681,41 @@
     <message name="HAT.BOSS_ENGINEER" value="Каска інженера"/>
     <message name="HAT.PSYCHO" value="Чорний ворон"/>
 
+    <!-- Artifacts (ported from 1.25.0) -->
+    <message name="ARTIFACT.WOODEN_SHIELD" value="Дерев'яний щит"/>
+    <message name="ARTIFACT.TRAINING_SHIELD" value="Тренувальний щит"/>
+    <message name="ARTIFACT.BROKEN_SWORD" value="Зламаний меч"/>
+    <message name="ARTIFACT.WHINGER" value="Короткий меч"/>
+    <message name="ARTIFACT.TALISMAN" value="Ловець снів"/>
+    <message name="ARTIFACT.SKULL_STAFF" value="Посох із черепом"/>
+    <message name="ARTIFACT.SHIELD_ARCHDEMON" value="Щит Архідемона"/>
+    <message name="ARTIFACT.METAL_SHIELD" value="Залізний щит"/>
+    <message name="ARTIFACT.JEDI_SWORD" value="Світловий меч"/>
+    <message name="ARTIFACT.TOTEM_FIRE" value="Тотем вогню"/>
+    <message name="ARTIFACT.TOTEM_POISON" value="Тотем отрути"/>
+    <message name="ARTIFACT.SAW" value="Пилка"/>
+    <message name="ARTIFACT.PIRATE_HOOK" value="Піратський гак"/>
+    <message name="ARTIFACT.PALADIN_SWORD" value="Меч паладина"/>
+    <message name="ARTIFACT.ROBO_SHIELD" value="Робощит"/>
+    <message name="ARTIFACT.JARL_SPEAR" value="Спис ярла"/>
+    <message name="ARTIFACT.JARL_STONE_HAMMER" value="Кам'яний молот"/>
+    <message name="ARTIFACT.ARCHBOT_TOTEM" value="Жезл архібота"/>
+    <message name="ARTIFACT.ICE_SHARD" value="Крижане ікло"/>
+    <message name="ARTIFACT.WATER_SWORD" value="Меч глибин"/>
+    <message name="ARTIFACT.VAMPIRIC_SWORD" value="Вампірський меч"/>
+    <message name="ARTIFACT.MORGENSHTERN" value="Моргенштерн"/>
+    <message name="ARTIFACT.FIERY_DAGGER" value="Вогняний кинджал"/>
+    <message name="ARTIFACT.DEATH_TORCH" value="Посох смерті"/>
+    <message name="ARTIFACT.EMPEROR" value="Імператорський скіпетр"/>
+    <message name="ARTIFACT.SCIENTIST" value="Дивний пристрій"/>
+    <message name="ARTIFACT.SYMBIOTE" value="Біоклинок"/>
+    <message name="ARTIFACT.SHOVEL_SAPPER" value="Саперна лопатка"/>
+    <message name="ARTIFACT.GNAWED_BONE" value="Обгризена кістка"/>
+    <message name="ARTIFACT.PROVOKER_SHIELD" value="Щит провокатора"/>
+    <message name="ARTIFACT.GRAVITY_MASTER_SHIELD" value="Щит Гравімайстра"/>
+    <message name="ARTIFACT.TANK_SHIELD" value="Танкова пластина"/>
+    <message name="ARTIFACT.ARMY_KNIFE" value="Армійський ніж"/>
+    <message name="ARTIFACT.SOLAR_SICKLE" value="Сонячний серп"/>
+    <message name="ARTIFACT.MIRROR_SHIELD" value="Дзеркальний щит"/>
+
 </dictionary>

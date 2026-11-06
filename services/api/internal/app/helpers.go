@@ -12,7 +12,10 @@ const (
 	raceBase        = 500
 	raceLimit       = 50
 	stuffStartIndex = 1000
-	botBase         = -1000
+	// Artifacts (from 1.25.0) are items 2001..2999; selecting artifactStart takes the artifact off.
+	artifactStart = 2000
+	artifactEnd   = 3000
+	botBase       = -1000
 
 	missionsDelay = 120
 	missionsMax   = 5
@@ -50,7 +53,7 @@ func stripData(level, toLevel, armor, attack int64) (int64, int64) {
 	if armor+attack < levelPoints {
 		armor += levelPoints - (armor + attack)
 	}
-	armorPoints := php.ToInt(php.Mul(php.Div(armor, levelPoints), toLevelPoints))
+	armorPoints := min(toLevelPoints, max(0, php.ToInt(php.Mul(php.Div(armor, levelPoints), toLevelPoints))))
 	return armorPoints, toLevelPoints - armorPoints
 }
 
@@ -229,8 +232,9 @@ func (c *Ctx) userProfileStructure(p *Model) *php.Arr {
 	return php.Assoc(
 		"Id", uid,
 		"SocialId", php.ToString(uid),
-		"Money", p.Get("money"),
-		"RealMoney", p.Get("real_money"),
+		// never negative: the game server reads these as unsigned numbers
+		"Money", max(0, php.ToInt(p.Get("money"))),
+		"RealMoney", max(0, php.ToInt(p.Get("real_money"))),
 		"ReactionRate", p.Get("reaction_rate"),
 		"Rating", p.Get("rating"),
 		"WeaponRecordList", wl,
@@ -259,6 +263,7 @@ func (c *Ctx) wormStructure(t *Model) *php.Arr {
 		"Experience", mate.Get("experience"),
 		"Level", level,
 		"Hat", mate.Get("hat"),
+		"Artifact", php.ToInt(mate.Get("artifact")),
 	)
 }
 
@@ -268,8 +273,8 @@ func (c *Ctx) generateBots(worm *Model) *php.Arr {
 	owner := must(c.First(defUser, `where "users"."id" = ? limit 1`, worm.Get("owner_id")))
 	profile := must(c.userProfile(owner))
 	level := worm.Get("level")
-	stuff := c.Values(`select "id" from "wormix_weapons" where "id" > ? and "required_level" <= ? and "required_rating" <= ? and "hide_in_shop" = ? and "price" != ?`,
-		int64(stuffStartIndex), level, profile.Get("rating"), int64(0), int64(0))
+	stuff := c.Values(`select "id" from "wormix_weapons" where "id" > ? and "id" < ? and "required_level" <= ? and "required_rating" <= ? and "hide_in_shop" = ? and "price" != ?`,
+		int64(stuffStartIndex), int64(artifactStart), level, profile.Get("rating"), int64(0), int64(0))
 	races := c.Values(`select "race_id" from "wormix_races" where "required_level" <= ?`, level)
 	bi := must(c.userBattleInfo(owner))
 	lvl := php.IntArg(level)

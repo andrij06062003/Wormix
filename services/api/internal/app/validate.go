@@ -52,12 +52,17 @@ var sizeRules = map[string]bool{"between": true, "max": true, "min": true, "size
 // R is one "attribute => rules" entry.
 type R struct{ Attr, Rules string }
 
+// Closure is a closure validation rule (runs after the string rules of its attribute):
+// it returns the failure message, or "" when the value passes.
+type Closure func(v any) string
+
 // M is one custom "attribute.rule => message" entry.
 type M struct{ Key, Msg string }
 
 type rule struct {
 	name   string
 	params []string
+	fn     func(v any) string
 }
 
 type attrRules struct {
@@ -98,12 +103,18 @@ func parseRules(s string) []rule {
 
 // Validate runs a FormRequest validation over $request->all(); on failure it panics
 // with a *ValidationError (rendered as Laravel's 422 JSON).
-func (c *Ctx) Validate(rules []R, messages ...M) {
+func (c *Ctx) Validate(rules []R, messages ...M) { c.ValidateWith(rules, nil, messages...) }
+
+// ValidateWith is Validate with closure rules keyed by attribute.
+func (c *Ctx) ValidateWith(rules []R, closures map[string]Closure, messages ...M) {
 	v := &validator{c: c, data: c.req.all(), implicit: map[string]bool{}, messages: messages,
 		errs: php.NewArr(), failed: map[string]map[string]bool{}}
 	var wild []attrRules
 	for _, r := range rules {
 		rs := parseRules(r.Rules)
+		if fn := closures[r.Attr]; fn != nil {
+			rs = append(rs, rule{name: "closure", fn: fn})
+		}
 		if strings.Contains(r.Attr, "*") {
 			for _, a := range v.expand(r.Attr) {
 				v.implicit[a] = true
@@ -321,6 +332,12 @@ func (v *validator) validateAttribute(attr string, r rule) {
 		return
 	}
 	if (r.name == "exists" || r.name == "unique") && v.errs.Has(attr) {
+		return
+	}
+	if r.fn != nil {
+		if msg := r.fn(val); msg != "" {
+			v.addMessage(attr, r.name, msg)
+		}
 		return
 	}
 	if !v.passes(attr, val, r) {
@@ -632,6 +649,14 @@ func (v *validator) addFailure(attr string, r rule) {
 	case "mimes":
 		msg = strings.ReplaceAll(msg, ":values", strings.Join(r.params, ", "))
 	}
+	v.addMessage(attr, r.name, msg)
+}
+
+func (v *validator) addMessage(attr, ruleName, msg string) {
+	if v.failed[attr] == nil {
+		v.failed[attr] = map[string]bool{}
+	}
+	v.failed[attr][ruleName] = true
 	list, _ := v.errs.Val(attr).(*php.Arr)
 	if list == nil {
 		list = php.NewArr()

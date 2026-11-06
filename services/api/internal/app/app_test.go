@@ -19,9 +19,10 @@ import (
 	"github.com/andrij06062003/Wormix/services/api/internal/db"
 )
 
-// testdata/ref-phaseA.sqlite was created and used by the PHP API (wormix-api:ref):
+// testdata/ref-phaseA.sqlite was created and used by the PHP API (wormix-api:refdev, with artifacts):
 // 5 accounts, game logins, purchases, a battle, an achievement session.
 // testdata/ref-phaseA.json holds the passwords/tokens/keys the PHP API handed out.
+// testdata/ref-preartifacts.sqlite was built by the PHP API before the artifacts migration (wormix-api:ref).
 
 type refVars struct {
 	Users map[string]struct {
@@ -35,9 +36,11 @@ type refVars struct {
 	} `json:"users"`
 }
 
-func copyFixture(t *testing.T) string {
+func copyFixture(t *testing.T) string { return copyNamedFixture(t, "ref-phaseA.sqlite") }
+
+func copyNamedFixture(t *testing.T, name string) string {
 	t.Helper()
-	src, err := os.ReadFile("testdata/ref-phaseA.sqlite")
+	src, err := os.ReadFile("testdata/" + name)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -141,30 +144,23 @@ func TestMigrateRefDBIsNoop(t *testing.T) {
 	}
 }
 
-func TestMigrateAppliesMissing(t *testing.T) {
-	p := copyFixture(t)
-	d := openDB(t, p)
-	for _, q := range []string{
-		`drop table wormix_users_achievements`,
-		`alter table wormix_user_profiles drop column invested_award_points`,
-		`delete from migrations where migration = '2026_11_05_120000_create_wormix_users_achievements_table'`,
-	} {
-		if _, err := d.Exec(q); err != nil {
-			t.Fatal(err)
-		}
+func TestMigrateUpgradesPreArtifactsDB(t *testing.T) {
+	d := openDB(t, copyNamedFixture(t, "ref-preartifacts.sqlite"))
+	created, err := d.Migrate(context.Background())
+	if err != nil || created {
+		t.Fatalf("migrate: created=%v err=%v", created, err)
 	}
-	if _, err := d.Migrate(context.Background()); err != nil {
-		t.Fatal(err)
+	var batch, artifacts, col int
+	d.QueryRow(`select batch from migrations where migration = '2026_11_06_120000_add_wormix_artifacts'`).Scan(&batch)
+	d.QueryRow(`select count(*) from wormix_weapons where id > 2000 and infinity = 1 and created_at is not null`).Scan(&artifacts)
+	d.QueryRow(`select count(*) from pragma_table_info('wormix_worms_data') where name = 'artifact'`).Scan(&col)
+	if batch != 2 || artifacts != 35 || col != 1 {
+		t.Fatalf("batch=%d artifacts=%d column=%d", batch, artifacts, col)
 	}
-	var batch int
-	d.QueryRow(`select batch from migrations where migration = '2026_11_05_120000_create_wormix_users_achievements_table'`).Scan(&batch)
-	if batch != 2 {
-		t.Fatalf("batch %d, want 2", batch)
-	}
-	var cnt int
-	d.QueryRow(`select count(*) from pragma_table_info('wormix_user_profiles') where name = 'invested_award_points'`).Scan(&cnt)
-	if cnt != 1 {
-		t.Fatal("column not re-added")
+	// Same schema as a DB created by the current PHP API.
+	ref := openDB(t, copyFixture(t))
+	if a, b := schemaOf(t, ref.DB), schemaOf(t, d.DB); !reflect.DeepEqual(a, b) {
+		t.Fatalf("schema differs:\nref %q\ngo  %q", a, b)
 	}
 }
 

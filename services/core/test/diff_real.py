@@ -60,7 +60,7 @@ class R:
         start = self.p
         self.take(16)
         for _ in range(self.u16()):
-            self.take(22); self.utf()
+            self.take(22); self.utf(); self.take(2)   # + Artifact (artifacts port)
         self.take(8 * self.u16())
         self.take(2 * self.u16())
         self.take(4); self.utf()

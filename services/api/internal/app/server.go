@@ -22,6 +22,7 @@ import (
 type App struct {
 	DB        *db.DB
 	PhotosDir string // user photos (were resources/images/users)
+	Config    Config
 	routes    []route
 }
 
@@ -72,7 +73,7 @@ type route struct {
 
 // New builds the app with all routes registered.
 func NewApp(d *db.DB, photosDir string) *App {
-	a := &App{DB: d, PhotosDir: photosDir}
+	a := &App{DB: d, PhotosDir: photosDir, Config: LoadConfig()}
 	a.registerRoutes()
 	return a
 }

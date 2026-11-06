@@ -15,5 +15,16 @@ c.execute("insert into wormix_users_weapons (owner_id, weapon_id, count, expire_
           (int(time.time()) - 100, day(0), day(0)))
 c.execute("update wormix_worms_data set hat = 1003 where owner_id = 1")
 c.execute("update wormix_users_battle_info set battles_count = 0, last_battle_time = ? where user_id = 5", (int(time.time()),))
+# Artifacts (only when the DB has the artifacts migration): dave wears an expired one, carol one she
+# doesn't own, frank one he owns for good; frank's balances are negative (must show as 0).
+cols = [r[1] for r in c.execute("pragma table_info(wormix_worms_data)")]
+if "artifact" in cols:
+    c.execute("insert into wormix_users_weapons (owner_id, weapon_id, count, expire_at, created_at, updated_at) values (4, 2003, -1, ?, ?, ?)",
+              (int(time.time()) - 50, day(0), day(0)))
+    c.execute("insert into wormix_users_weapons (owner_id, weapon_id, count, expire_at, created_at, updated_at) values (5, 2001, -1, -1, ?, ?)", (day(0), day(0)))
+    c.execute("update wormix_worms_data set artifact = 2003 where owner_id = 4")
+    c.execute("update wormix_worms_data set artifact = 2005 where owner_id = 3")
+    c.execute("update wormix_worms_data set artifact = 2001 where owner_id = 5")
+    c.execute("update wormix_user_profiles set money = -10, real_money = -5 where user_id = 5")
 c.commit()
 print("tweaked")

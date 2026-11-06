@@ -153,13 +153,16 @@ def ok(data):
 
 # ---- canned answers -----------------------------------------------------------------------------------------
 
-def worm(owner, social, level=1, hat=0):
-    return {"OwnerId": owner, "SocialOwnerId": social, "Armor": 3, "Attack": 4, "Level": level, "Experience": 25, "Hat": hat}
+def worm(owner, social, level=1, hat=0, artifact=None):
+    w = {"OwnerId": owner, "SocialOwnerId": social, "Armor": 3, "Attack": 4, "Level": level, "Experience": 25, "Hat": hat}
+    if artifact is not None:   # the artifacts port added it; older API answers don't have it
+        w["Artifact"] = artifact
+    return w
 
 
 def profile(uid, social=None, money=450, rating=0):
     return {"Id": uid, "SocialId": social if social is not None else str(uid), "Money": money, "RealMoney": 7,
-            "Rating": rating, "WormsGroup": [worm(uid, str(uid), 2, 5), worm(uid, str(uid))],
+            "Rating": rating, "WormsGroup": [worm(uid, str(uid), 2, 5, 2001), worm(uid, str(uid))],
             "WeaponRecordList": [{"Id": 1, "Count": -1}, {"Id": 7, "Count": 3}], "Stuff": [1, 2, 300],
             "ReactionRate": 12, "Recipes": [4, 5]}
 
@@ -266,6 +269,8 @@ def main():
              ("string from bool", {"SocialId": True}), ("string from object", {"SocialId": {}}),
              ("ushort from bool", {"Stuff": [True]}), ("ushort from float", {"Recipes": [1.5, 2.5]}),
              ("worm hat from string", {"WormsGroup": [worm(10, "10", hat="-4")]}),
+             ("worm artifact from string", {"WormsGroup": [worm(10, "10", artifact="2005")]}),
+             ("worm artifact null", {"WormsGroup": [worm(10, "10", artifact=None) | {"Artifact": None}]}),
              ("worm null social", {"WormsGroup": [{"OwnerId": 10}]}),
              ("weapon count from string", {"WeaponRecordList": [{"Id": 1, "Count": "9"}]}),
              ("case-insensitive members", {"money": 5, "MONEY": 6, "socialid": "x"})]
@@ -301,7 +306,8 @@ def main():
     case("bad header", [b"\x00\x00\x10\x00\x00\x00\x00"], login=False)
     case("too long", [hdr(16, 2 * 1024 * 1024)], login=False)
     case("unknown command", [msg(999, b"xyz")], login=False)
-    case("two commands in one packet", [msg(16) + msg(2, u32(5) + u32(1))], login=False)
+    # no trailing ping: collect() stops at the first pong, which here is the first reply
+    case("two commands in one packet", [msg(16) + msg(2, u32(5) + u32(1))], login=False, ping=False)
     case("truncated NeedMoney", [msg(2, b"\x00\x00")], login=False)
     case("ping and need money", [msg(2, u32(5) + u32(1))], login=False)
     case("no login: commands still go to the API without a key", [msg(11, u32(1))], login=False,

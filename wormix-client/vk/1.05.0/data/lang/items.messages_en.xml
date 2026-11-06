@@ -679,4 +679,41 @@
     <message name="HAT.BOSS_ENGINEER" value="Engineer's helmet"/>
     <message name="HAT.PSYCHO" value="Black raven"/>
 
+    <!-- Artifacts (ported from 1.25.0) -->
+    <message name="ARTIFACT.WOODEN_SHIELD" value="Wooden shield"/>
+    <message name="ARTIFACT.TRAINING_SHIELD" value="Training shield"/>
+    <message name="ARTIFACT.BROKEN_SWORD" value="Broken sword"/>
+    <message name="ARTIFACT.WHINGER" value="Short sword"/>
+    <message name="ARTIFACT.TALISMAN" value="Dreamcatcher"/>
+    <message name="ARTIFACT.SKULL_STAFF" value="Skull staff"/>
+    <message name="ARTIFACT.SHIELD_ARCHDEMON" value="Archdemon's shield"/>
+    <message name="ARTIFACT.METAL_SHIELD" value="Iron shield"/>
+    <message name="ARTIFACT.JEDI_SWORD" value="Light sword"/>
+    <message name="ARTIFACT.TOTEM_FIRE" value="Fire totem"/>
+    <message name="ARTIFACT.TOTEM_POISON" value="Poison totem"/>
+    <message name="ARTIFACT.SAW" value="Saw"/>
+    <message name="ARTIFACT.PIRATE_HOOK" value="Pirate hook"/>
+    <message name="ARTIFACT.PALADIN_SWORD" value="Paladin's sword"/>
+    <message name="ARTIFACT.ROBO_SHIELD" value="Robo-shield"/>
+    <message name="ARTIFACT.JARL_SPEAR" value="Jarl's spear"/>
+    <message name="ARTIFACT.JARL_STONE_HAMMER" value="Stone hammer"/>
+    <message name="ARTIFACT.ARCHBOT_TOTEM" value="Archbot's rod"/>
+    <message name="ARTIFACT.ICE_SHARD" value="Ice fang"/>
+    <message name="ARTIFACT.WATER_SWORD" value="Sword of the deep"/>
+    <message name="ARTIFACT.VAMPIRIC_SWORD" value="Vampiric sword"/>
+    <message name="ARTIFACT.MORGENSHTERN" value="Morning star"/>
+    <message name="ARTIFACT.FIERY_DAGGER" value="Fiery dagger"/>
+    <message name="ARTIFACT.DEATH_TORCH" value="Staff of death"/>
+    <message name="ARTIFACT.EMPEROR" value="Emperor's sceptre"/>
+    <message name="ARTIFACT.SCIENTIST" value="Strange device"/>
+    <message name="ARTIFACT.SYMBIOTE" value="Bioblade"/>
+    <message name="ARTIFACT.SHOVEL_SAPPER" value="Sapper's shovel"/>
+    <message name="ARTIFACT.GNAWED_BONE" value="Gnawed bone"/>
+    <message name="ARTIFACT.PROVOKER_SHIELD" value="Provoker's shield"/>
+    <message name="ARTIFACT.GRAVITY_MASTER_SHIELD" value="Gravity master's shield"/>
+    <message name="ARTIFACT.TANK_SHIELD" value="Tank plate"/>
+    <message name="ARTIFACT.ARMY_KNIFE" value="Army knife"/>
+    <message name="ARTIFACT.SOLAR_SICKLE" value="Solar sickle"/>
+    <message name="ARTIFACT.MIRROR_SHIELD" value="Mirror shield"/>
+
 </dictionary>

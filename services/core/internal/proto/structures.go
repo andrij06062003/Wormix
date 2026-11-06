@@ -94,10 +94,13 @@ type Worm struct {
 	Level         uint32
 	Experience    uint32
 	Hat           int16
+	// Artifact is the equipped artifact (item id 2001+), 0 = none. Not in the original 1.05.0 protocol:
+	// added for the artifacts port, read by the patched client right after SocialOwnerId.
+	Artifact int16
 }
 
 func (w *Worm) size() int64 {
-	return 4 + 4 + 4 + 4 + 4 + 2 + 2 + strLen(w.SocialOwnerID, "WormStructure.SocialOwnerId")
+	return 4 + 4 + 4 + 4 + 4 + 2 + 2 + strLen(w.SocialOwnerID, "WormStructure.SocialOwnerId") + 2
 }
 
 func (w *Worm) write(wr *wire.Writer) {
@@ -108,11 +111,12 @@ func (w *Worm) write(wr *wire.Writer) {
 	wr.U32(w.Experience)
 	wr.U16(uint16(w.Hat))
 	wr.UTF(str(w.SocialOwnerID, "WormStructure.SocialOwnerId"))
+	wr.U16(uint16(w.Artifact))
 }
 
 func decodeWorm(v *jsonx.Value) Worm {
 	var w Worm
-	v.Struct("WormStructure").Members([]string{"OwnerId", "SocialOwnerId", "Armor", "Attack", "Level", "Experience", "Hat"},
+	v.Struct("WormStructure").Members([]string{"OwnerId", "SocialOwnerId", "Armor", "Attack", "Level", "Experience", "Hat", "Artifact"},
 		func(f int, x *jsonx.Value) {
 			switch f {
 			case 0:
@@ -129,6 +133,8 @@ func decodeWorm(v *jsonx.Value) Worm {
 				w.Experience = x.Uint32()
 			case 6:
 				w.Hat = x.Int16()
+			case 7:
+				w.Artifact = x.Int16()
 			}
 		})
 	return w

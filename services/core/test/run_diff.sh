@@ -1,6 +1,6 @@
 #!/bin/sh
 # Differential tests: the same client sessions against the reference core (wormix-core:ref, C#) and the Go
-# core (wormix-core:go), each with fresh backends; the transcripts must be identical.
+# core (wormix-core:go; REF_CORE_IMAGE / API_IMAGE override the references), each with fresh backends; the transcripts must be identical.
 #   1. fake: deterministic, scripted API answers incl. edge cases (diff_fake.py + fakeapi.py)
 #   2. real: realistic flows against a fresh reference API (diff_real.py)
 # Run where the images exist, from the repository root: sh services/core/test/run_diff.sh [fake|real]
@@ -29,7 +29,7 @@ run() {   # run <mode> <tag> <core image>
 status=0
 for mode in fake real; do
   [ "$which" = all ] || [ "$which" = "$mode" ] || continue
-  run "$mode" ref wormix-core:ref &
+  run "$mode" ref "${REF_CORE_IMAGE:-wormix-core:ref}" &
   run "$mode" go wormix-core:go &
   wait
   echo "== $mode: $(grep -c '^==' "$OUT/$mode-ref.txt") cases (ref), $(grep -c '^==' "$OUT/$mode-go.txt") cases (go)"

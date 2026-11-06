@@ -22,6 +22,7 @@ import (
 //   - Wager battle (Arena > PvP): WagerBattleRequest puts the player in a queue per wager amount; the next
 //     player asking for the same wager is matched with them and both get WagerBattleRequestResult.
 //     WagerCancelBattle leaves the queue.
+//   - Teams (parties) for 2v2, see party.go: BattleRequest with a mode byte invites a player into your team.
 //   - 2v2 wager battle: the same WagerBattleRequest with a mode byte (2v2Mode) before the MD5 puts the player in
 //     a 2v2 queue per wager. When four are waiting they are split into two teams and all four get
 //     WagerBattleRequestResult with the four players appended (see sendWagerResult).
@@ -49,6 +50,7 @@ const (
 const (
 	wagerErrError          = 1
 	wagerErrNotEnoughMoney = 3
+	wagerErrTeammate       = 10 // 2v2: the teammate declined, is busy or looks for another wager (client patch)
 )
 
 // wagers offered in the client's Arena > PvP tab.
@@ -57,7 +59,16 @@ var wagers = []int32{15, 50, 300}
 // ChallengeTimeout is how long a challenge waits for an answer.
 var ChallengeTimeout = 60 * time.Second
 
+// BattleOffer kinds (a byte after battleId; nothing for a plain challenge).
+const (
+	offerChallenge  = 0
+	offerTeamInvite = 1 // join my team for 2v2
+	offerTeamCall   = 2 // your teammate is looking for a 2v2 battle (wager in seed): join
+	offerTeamLeft   = 3 // your teammate left the team
+)
+
 type challenge struct {
+	kind        int
 	battleID    uint32
 	from, to    Player
 	host        string
@@ -174,6 +185,10 @@ func onBattleRequest(from Player, r *wire.Reader) {
 	mapID := r.U32()
 	seed := int32(r.U32())
 	enemyID := r.UTFStrict()
+	kind := offerChallenge
+	if r.Remaining() == 1 && r.U8() == 1 {
+		kind = offerTeamInvite // mode byte added by the 2v2 client patch
+	}
 
 	toID, ok := jsonx.ParseNetUint32(strings.TrimFunc(enemyID, isNetWhiteSpace))
 	if !ok || toID == 0 || toID == from.UserID() {
@@ -194,14 +209,19 @@ func onBattleRequest(from Player, r *wire.Reader) {
 			sendRequestResult(from, reqBusy, nil, nil, 0)
 			return nil
 		}
-		c := &challenge{battleID: newBattleID(), from: from, to: to, host: host, port: port, mapID: mapID, seed: seed, created: time.Now()}
+		c := &challenge{kind: kind, battleID: newBattleID(), from: from, to: to, host: host, port: port, mapID: mapID, seed: seed, created: time.Now()}
 		challenges = append(challenges, c)
 		return c
 	}()
 	if c == nil {
 		return
 	}
+	sendOffer(c)
+}
 
+// sendOffer loads both profiles and sends the offer to c.to (or fails the request).
+func sendOffer(c *challenge) {
+	from, to := c.from, c.to
 	fromProfile, err := getProfile(from.Token())
 	var toProfile proto.UserProfile
 	if err == nil {
@@ -212,7 +232,11 @@ func onBattleRequest(from Player, r *wire.Reader) {
 		lobbyMu.Lock()
 		removeChallenge(c)
 		lobbyMu.Unlock()
-		sendRequestResult(from, reqEnemyIDNotFound, nil, nil, 0)
+		if c.kind == offerTeamCall {
+			failTeamCall(c)
+		} else {
+			sendRequestResult(from, reqEnemyIDNotFound, nil, nil, 0)
+		}
 		return
 	}
 
@@ -224,16 +248,23 @@ func onBattleRequest(from Player, r *wire.Reader) {
 	c.fromProfile, c.toProfile = fromProfile, toProfile
 	lobbyMu.Unlock()
 
-	lobbyLog("%d challenges %d (battle %d)", from.UserID(), to.UserID(), c.battleID)
-	to.SendMessage(message(cmdBattleOffer, false, func(w *wire.Writer) {
+	lobbyLog("%d sends %d an offer of kind %d (%d)", from.UserID(), to.UserID(), c.kind, c.battleID)
+	to.SendMessage(offerMessage(c, &fromProfile, &toProfile))
+}
+
+func offerMessage(c *challenge, fromProfile, toProfile *proto.UserProfile) []byte {
+	return message(cmdBattleOffer, false, func(w *wire.Writer) {
 		w.UTF(c.host)
 		w.I32(c.port)
 		w.U32(c.mapID)
 		w.I32(c.seed)
-		writeProfile(w, &fromProfile) // enemy (for the one receiving the offer)
-		writeProfile(w, &toProfile)   // their own
+		writeProfile(w, fromProfile) // enemy (for the one receiving the offer)
+		writeProfile(w, toProfile)   // their own
 		w.U32(c.battleID)
-	}))
+		if c.kind != offerChallenge {
+			w.U8(byte(c.kind))
+		}
+	})
 }
 
 func onBattleOfferResult(to Player, r *wire.Reader) {
@@ -251,6 +282,14 @@ func onBattleOfferResult(to Player, r *wire.Reader) {
 	fromProfile, toProfile := c.fromProfile, c.toProfile
 	lobbyMu.Unlock()
 
+	switch c.kind {
+	case offerTeamInvite:
+		onTeamInviteAnswer(c, res)
+		return
+	case offerTeamCall:
+		onTeamCallAnswer(c, res)
+		return
+	}
 	if res != reqAgree {
 		lobbyLog("%d declined %d (result %d)", to.UserID(), c.from.UserID(), res)
 		answer := reqDisagree
@@ -287,7 +326,7 @@ func onCancelBattle(from Player) {
 	}
 	lobbyMu.Unlock()
 	for _, c := range cancelled {
-		lobbyLog("%d cancelled the challenge to %d", from.UserID(), c.to.UserID())
+		lobbyLog("%d cancelled the offer to %d", from.UserID(), c.to.UserID())
 		sendCancel(c)
 	}
 }
@@ -507,6 +546,12 @@ func onWagerCancel(s Player) {
 	if len(queue) < before {
 		lobbyLog("%d left the wager queue", s.UserID())
 	}
+	for _, c := range slices.Clone(challenges) {
+		if c.from == s && c.kind == offerTeamCall {
+			removeChallenge(c)
+			sendCancel(c)
+		}
+	}
 }
 
 // ---- Cleanup -----------------------------------------------------------------------------------------------
@@ -538,8 +583,16 @@ func OnMainDisconnected(s Player) {
 	for _, c := range slices.Clone(challenges) {
 		if c.to == s {
 			removeChallenge(c)
-			sendRequestResult(c.from, reqNotOnline, nil, nil, 0)
+			if c.kind == offerTeamCall {
+				failTeamCallLocked(c)
+			} else {
+				sendRequestResult(c.from, reqNotOnline, nil, nil, 0)
+			}
 		}
+	}
+	if old := leaveTeam(s.UserID()); old != nil {
+		teamBroken(old)
+		sendTeamLeft(old, s.UserID())
 	}
 }
 
@@ -551,9 +604,13 @@ func lobbyTick() {
 	for _, c := range slices.Clone(challenges) {
 		if now.Sub(c.created) > ChallengeTimeout {
 			removeChallenge(c)
-			lobbyLog("challenge %d -> %d not answered", c.from.UserID(), c.to.UserID())
+			lobbyLog("offer %d -> %d not answered", c.from.UserID(), c.to.UserID())
 			sendCancel(c)
-			sendRequestResult(c.from, reqDisagree, nil, nil, 0)
+			if c.kind == offerTeamCall {
+				failTeamCallLocked(c)
+			} else {
+				sendRequestResult(c.from, reqDisagree, nil, nil, 0)
+			}
 		}
 	}
 }
@@ -562,6 +619,7 @@ func lobbyTick() {
 
 func onTeamWagerRequest(me *wagerTicket) {
 	s := me.session
+	var call *challenge
 	group := func() []*wagerTicket {
 		lobbyMu.Lock()
 		defer lobbyMu.Unlock()
@@ -570,26 +628,44 @@ func onTeamWagerRequest(me *wagerTicket) {
 			sendWagerError(s, wagerErrError)
 			return nil
 		}
-		g := []*wagerTicket{}
-		for _, t := range queue {
-			if t.mode == modeTeam && t.wager == me.wager && t.session.UserID() != s.UserID() &&
-				Find(t.session.UserID()) == t.session {
-				g = append(g, t)
-				if len(g) == teamBattleSize-1 {
-					break
-				}
+		queue = append(queue, me)
+		// A call from the teammate is answered by asking for the battle: close it.
+		for _, c := range slices.Clone(challenges) {
+			if c.to == s && c.kind == offerTeamCall {
+				removeChallenge(c)
+				sendCancel(c)
 			}
 		}
-		if len(g) < teamBattleSize-1 {
-			queue = append(queue, me)
-			lobbyLog("%d waits for a 2v2 %d wager battle (%d of %d)", s.UserID(), me.wager, len(g)+1, teamBattleSize)
+		if partner := teamPartner(s.UserID()); partner != nil {
+			pt := queuedTeamTicket(partner)
+			switch {
+			case pt == nil:
+				// Call the teammate; the battle is looked for once they've joined.
+				c := &challenge{kind: offerTeamCall, battleID: newBattleID(), from: s, to: partner, host: me.host,
+					port: me.port, seed: me.wager, created: time.Now()}
+				challenges = append(challenges, c)
+				call = c
+				lobbyLog("%d waits for teammate %d for a 2v2 %d wager battle", s.UserID(), partner.UserID(), me.wager)
+				return nil
+			case pt.wager != me.wager:
+				queue = slices.DeleteFunc(queue, func(t *wagerTicket) bool { return t == me })
+				sendWagerError(s, wagerErrTeammate)
+				return nil
+			}
+		}
+		g := matchTeams(me.wager)
+		if g == nil {
+			lobbyLog("%d waits for a 2v2 %d wager battle", s.UserID(), me.wager)
 			return nil
 		}
 		queue = slices.DeleteFunc(queue, func(t *wagerTicket) bool { return slices.Contains(g, t) })
-		g = append(g, me)
 		matching = append(matching, g...)
 		return g
 	}()
+	if call != nil {
+		sendOffer(call)
+		return
+	}
 	if group == nil {
 		return
 	}
@@ -601,7 +677,8 @@ func onTeamWagerRequest(me *wagerTicket) {
 	startTeamWagerBattle(group)
 }
 
-// startTeamWagerBattle starts a 2v2 battle for four matched tickets (the first waited longest).
+// startTeamWagerBattle starts a 2v2 battle for four matched tickets in turn order (teams alternate; the
+// first one's map is used).
 func startTeamWagerBattle(group []*wagerTicket) {
 	battleID := newBattleID()
 	wager := group[0].wager
@@ -648,9 +725,7 @@ func startTeamWagerBattle(group []*wagerTicket) {
 	}
 	lobbyMu.Unlock()
 
-	// Random teams; teams alternate in the turn order (A1, B1, A2, B2) and a random team starts.
-	idx := rand.Perm(len(group))
-	order := []int{idx[0], idx[2], idx[1], idx[3]}
+	order := []int{0, 1, 2, 3}
 	seats := make([]teamSeat, len(order))
 	players := make([]*player, len(order))
 	for i, gi := range order {

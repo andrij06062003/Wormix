@@ -218,6 +218,7 @@
     </message>
     <message name="PVP_SERVER_PROFILACTIC_WORK" value="Technical works are carried out on the pvp server "/>
     <message name="ENEMY_TURN_MSG" value="waiting for the enemy move "/>
+    <message name="TEAMMATE_TURN_MSG" value="waiting for your teammate's move"/>
     <message name="PVP_BATTLE_STUCK" value="The fight was cancelled by the server, as there was no opponent activity for a long time "/>
     <message name="PVP_BATTLE_UNSYNC" value="The fight was cancelled cause of desync errors"/>
 

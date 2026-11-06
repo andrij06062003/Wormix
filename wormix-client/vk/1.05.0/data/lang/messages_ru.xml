@@ -237,6 +237,7 @@
     </message>
     <message name="PVP_SERVER_PROFILACTIC_WORK" value="На pvp-сервері тривають профілактичні роботи"/>
     <message name="ENEMY_TURN_MSG" value="очікування ходу суперника"/>
+    <message name="TEAMMATE_TURN_MSG" value="очікування ходу напарника"/>
 
     <!-- Вы какое-то время оставались неактивны на сайте -->
     <message name="PVP_BATTLE_STUCK"

@@ -101,7 +101,6 @@ write_env() {
             echo "APP_KEY=${APP_KEY:-}"
             echo "APP_ENV=${APP_ENV:-${CD_ENV:-production}}"
             echo "CD_ENV=${CD_ENV:-}"
-            echo "API_DIR=./wormix-api"
             echo "CLIENT_DIR=./wormix-client"
         } > "$1/.env"
     )

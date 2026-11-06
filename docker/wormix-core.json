@@ -24,10 +24,5 @@
     }
   },
 
-  "redis": {
-    "host": "redis",
-    "port": 6379
-  },
-
   "ApiUrl": "http://api:8000/api/internal/"
 }

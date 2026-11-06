@@ -1,4 +1,4 @@
-# wormix-relay
+# Wormix server
 
 Runs the original **Wormix 1.05.0** Flash client in a modern browser (Chrome, Edge, Firefox) with
 [Ruffle](https://ruffle.rs), against your own server. No Flash Player needed.
@@ -8,13 +8,14 @@ The rest of this file is about running everything on one Windows PC.
 
 This folder is the **game host** plus the scripts that start everything:
 
+All three server parts are written in Go (one module each, tied together by `go.work`):
+
 | Part | Folder | Port |
 |---|---|---|
-| Redis (Garnet) | – | 6379 |
-| API (accounts, money, items, database) | `../wormix-api` | 8000 |
-| Game server | `wormix-core` (from [n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core), with PvP added here) | 49197, 49198, 49199 |
-| **Game host** (this project) | `.` | **32700** |
-| Game files | `../wormix-client` | served by the game host |
+| API (accounts, money, items, SQLite database) | `services/api` | 8000 |
+| Game server: main, PvP, achievements (originally ported from [n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core)) | `services/core` | 49197, 49198, 49199 |
+| **Game host** | `services/relay` | **32700** |
+| Game files | `wormix-client` | served by the game host |
 
 The game host does four things on one address, so players only ever need `http://<server>:32700`:
 
@@ -26,34 +27,21 @@ The game host does four things on one address, so players only ever need `http:/
    The host also reassembles complete game messages before passing them on: wormix-core writes each message
    header in pieces, and the game's network code drops a reply whose header arrives split
    (that froze battles on "Инициализация карты").
-4. **Answers achievements** (`Achievements.cs`). The game sends them as HTTP POSTs to
+4. **Answers achievements** (`services/relay/achievements.go`). The game sends them as HTTP POSTs to
    `<server>:49199/wormix_achieve/`, not over a socket; `play.html` rewrites that URL to the host, which
    decodes the binary commands and stores progress through the API (`/api/internal/achievements/`).
    Level rewards (fuzzes, rubies, reaction) and the award items for every 1000 points are granted on the server.
    `tests/achievements/ach_smoke.py` tests it end to end.
 
-## Folder layout
-
-```
-D:\Vibecode\
-  wormix-api\      your API (github.com/andrij06062003/Wormix_Test)
-  wormix-client\   game files (not in git, see below)
-  wormix-relay\    this folder
-```
-
 ## First-time setup (Windows)
 
-1. Install the tools:
-   ```
-   winget install PHP.PHP.8.3
-   winget install Microsoft.DotNet.SDK.8
-   dotnet tool install --global garnet-server
-   ```
-   plus [Composer](https://getcomposer.org/download/).
-2. Set up the API: `powershell -ExecutionPolicy Bypass -File ..\wormix-api\setup.ps1 -NoServe`
-3. Game files: from your Wormix client archive, copy the files in `public\` (not its subfolders) and
-   `public\vk\1.05.0\` into `..\wormix-client\`, keeping the `vk\1.05.0\` path. They are Pragmatix's
-   files and are not part of this repository.
+1. Install Go: `winget install GoLang.Go`. That's the only tool needed; `start.ps1` builds the three parts.
+2. The game files are in `wormix-client\` (the root files of the client archive's `public\` plus
+   `public\vk\1.05.0\`). They are Pragmatix's files.
+
+The database and uploaded photos go to `data\` (`-DataDir` to change). To keep the accounts of an older
+PHP setup, copy its `wormix-api\database\database.sqlite` to `data\database.sqlite` before the first start:
+the Go API reads the same database, passwords and logins.
 
 ## Play
 
@@ -76,7 +64,8 @@ powershell -ExecutionPolicy Bypass -File .\stop.ps1
 
 ## Settings
 
-`appsettings.json` (or command-line, e.g. `--Urls http://0.0.0.0:32700`):
+Game host: `services/relay/appsettings.json`, environment variables with the same names, or command line
+(e.g. `--Urls http://0.0.0.0:32700`), in that order of precedence (lowest first):
 
 | Setting | Default | Meaning |
 |---|---|---|
@@ -87,7 +76,10 @@ powershell -ExecutionPolicy Bypass -File .\stop.ps1
 | `AllowedPorts` | 49197, 49198, 49199, 49297–49300 | Game server ports the relay may connect to |
 | `LogApi` | `false` | Print every API request (passwords are hidden) |
 
-`configs/wormix-core.json` is the wormix-core config matching the ports built into the 1.05.0 client
+API: `DB_DATABASE` (default `/data/database.sqlite`), `PHOTOS_DIR` (default `photos` next to the database),
+`LISTEN_ADDR` (default `0.0.0.0:8000`).
+
+`configs/wormix-core.json` is the game server config matching the ports built into the 1.05.0 client
 (main 49197, PvP 49198, achievements 49199; from the preloader's built-in server list).
 
 ## Playing against other players
@@ -99,5 +91,5 @@ There are no VK friends any more, so PvP works with game ids (shown under the ga
 - **Arena > PvP (wager battles)**: pick a wager and wait; the next player choosing the same wager is your
   opponent. The winner gets the wager back plus 80%, a draw returns it, and the rating changes.
 
-The PvP server (`wormix-core/wormix-core/Pvp/`) relays the moves between the two games and decides each turn
+The PvP server (`services/core/internal/pvp/`) relays the moves between the two games and decides each turn
 and the winner. `tests/pvp/run.sh` tests it end to end with two simulated players in a throwaway Docker stack.

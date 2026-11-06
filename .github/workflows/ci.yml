@@ -29,13 +29,29 @@ jobs:
         with:
           persist-credentials: false
       - name: Shell scripts
-        run: shellcheck --shell=dash --severity=warning sandbox/deployer.sh docker/api-entrypoint.sh && shellcheck --severity=warning sandbox/entrypoint.sh sandbox/manage.sh
+        run: shellcheck --shell=dash --severity=warning sandbox/deployer.sh && shellcheck --severity=warning sandbox/entrypoint.sh sandbox/manage.sh
       - name: Compose files
         run: |
           docker compose config --quiet
           cp sandbox/prod.env.example sandbox/prod.env
           cp sandbox/dev.env.example sandbox/dev.env
           docker compose -f sandbox/docker-compose.yml config --quiet
+
+  go:
+    name: Go vet and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: gofmt, vet, test (race) for every service
+        run: |
+          docker run --rm -v "$PWD:/src" -w /src golang:1.27 sh -ec '
+            test -z "$(gofmt -l services)" || { gofmt -l services; exit 1; }
+            for s in api core relay; do
+              (cd services/$s && go vet ./... && go test -race ./...)
+            done'
 
   stack:
     name: Build and smoke test

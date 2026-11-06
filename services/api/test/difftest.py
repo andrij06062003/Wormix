@@ -33,8 +33,8 @@ def r(x, v):
 NO_EXPECT = os.environ.get("DIFF_NO_EXPECT") == "1"  # dev mode: only compare ref vs go
 
 
-def step(name, method, path, mode="exact", capture=None, expect=None, **kw):
-    """mode: exact | shape | status | raw"""
+def step(name, method, path, mode="exact", capture=None, expect=None, go_json=None, **kw):
+    """mode: exact | shape | status | raw | go (an intended change: only the Go answer is checked, against go_json)"""
     global count
     count += 1
     res = {}
@@ -46,7 +46,10 @@ def step(name, method, path, mode="exact", capture=None, expect=None, **kw):
             capture(v, res[side][3])
     (sa, ca, ba, ja), (sb, cb, bb, jb) = res["ref"], res["go"]
     problems = []
-    if sa != sb:
+    if mode == "go":
+        if sb != 200 or jb != go_json:
+            problems.append(f"go answered {sb} {jb!r}, want 200 {go_json!r}")
+    elif sa != sb:
         problems.append(f"status ref={sa} go={sb}")
     if expect is not None and sa != expect and not NO_EXPECT:
         problems.append(f"ref status {sa} != expected {expect}")
@@ -55,7 +58,7 @@ def step(name, method, path, mode="exact", capture=None, expect=None, **kw):
             problems.append(f"body differs ({len(ba)} vs {len(bb)} bytes)")
         if ca.split(";")[0] != cb.split(";")[0]:
             problems.append(f"content-type ref={ca} go={cb}")
-    elif mode != "status":
+    elif mode not in ("status", "go"):
         if ("json" in ca) != ("json" in cb):
             problems.append(f"content-type ref={ca} go={cb}")
         if ja is None and jb is None:
@@ -195,10 +198,19 @@ step("vk: getProfiles users", "POST", "/api/", form={"method": "getProfiles", "u
 step("vk: getProfiles bots", "POST", "/api/", form={"method": "getProfiles", "uids": "[-1,-2,3]"}, mode="shape")
 step("vk: getProfiles no uids", "POST", "/api/", form={"method": "getProfiles"}, mode="status", expect=500)
 step("vk: getUserBalance json", "POST", "/api", json_body={"method": "getUserBalance"})
-step("vk: unknown method", "POST", "/api", form={"method": "wall.post"})
+# Intended change from the PHP API (which answered VK methods it doesn't know with an empty body, so the
+# client waited for an answer forever): they are refused at once, as if the player had cancelled.
+VK_DENIED = {"error": {"error_code": 10007, "error_msg": "Operation denied by user"}}
+for vk_method in ("wall.post", "notes.add", "photos.getUploadServer", "wall.getPhotoUploadServer", "video.save"):
+    step(f"vk: {vk_method} refused", "POST", "/api", mode="go", go_json=VK_DENIED, form={"method": vk_method})
+step("vk: getAppFriends (again, for friends.get)", "POST", "/api/", form={"method": "getAppFriends"},
+     capture=lambda v, j: v.__setitem__("app_friends", j))
+# friends.get (the "send a gift to a friend" list) answers like getAppFriends: every registered player.
+step("vk: friends.get = everyone", "POST", "/api/", mode="go", go_json=V["go"]["app_friends"], form={"method": "friends.get"})
 step("vk: no method", "POST", "/api", form={"x": "1"}, expect=422)
 step("vk: method array", "POST", "/api", json_body={"method": [1]}, expect=422)
-step("vk: query method", "POST", "/api?method=getUserSettings", form={})
+# The method is read from the body only (as in PHP), so this is an unknown method: refused.
+step("vk: query method", "POST", "/api?method=getUserSettings", mode="go", go_json=VK_DENIED, form={})
 
 # ------------------------------------------------------------------ game login (internal)
 for login in ["eve", "dave", "carol", "frank"]:

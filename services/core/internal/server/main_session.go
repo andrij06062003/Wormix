@@ -319,6 +319,7 @@ func (s *mainSession) login(req proto.Login) {
 		s.mu.Unlock()
 		s.userID.Store(req.ID)
 		pvp.Register(s)
+		account.PutOnlineFirst(func(id uint32) bool { return id != req.ID && pvp.Find(id) != nil })
 		log.Printf("[main %s] user %d logged in", s.short(), req.ID)
 		account.Emit(s.out)
 	case "LoginError":

@@ -1,6 +1,8 @@
 package proto
 
 import (
+	"math"
+
 	"github.com/andrij06062003/Wormix/services/core/internal/jsonx"
 	"github.com/andrij06062003/Wormix/services/core/internal/wire"
 )
@@ -137,6 +139,28 @@ func (e *EnterAccount) write(w *wire.Writer) {
 
 // Emit writes the EnterAccount message (fixed buffer + MD5).
 func (e *EnterAccount) Emit(out Out) { emitFixed(out, CmdEnterAccount, e.size(), true, e.write) }
+
+// PutOnlineFirst moves the players that are online to the front of the friends list and sets OnlineFriends to
+// their number. The client lights the green "online" lamp on the first OnlineFriends friends of the list (in
+// this order), so this is how it learns who is online. It is a snapshot taken at login, as in the original game.
+func (e *EnterAccount) PutOnlineFirst(isOnline func(userID uint32) bool) {
+	online := make([]UserProfile, 0, len(e.UserProfileStructures))
+	offline := make([]UserProfile, 0, len(e.UserProfileStructures))
+	for _, p := range e.UserProfileStructures {
+		if p.ID != 0 && isOnline(p.ID) {
+			online = append(online, p)
+		} else {
+			offline = append(offline, p)
+		}
+	}
+	if len(online) > math.MaxInt16 {
+		online, offline = online[:math.MaxInt16], append(online[math.MaxInt16:], offline...)
+	}
+	e.OnlineFriends = int16(len(online))
+	if e.UserProfileStructures != nil {
+		e.UserProfileStructures = append(online, offline...)
+	}
+}
 
 // ---- LoginError --------------------------------------------------------------------------------------------
 

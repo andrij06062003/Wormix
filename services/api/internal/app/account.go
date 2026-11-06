@@ -319,7 +319,7 @@ func (c *Ctx) vkAPI() Resp {
 	switch m, _ := c.Post("method").(string); m {
 	case "getUserSettings":
 		return jsonResp(200, php.Assoc("response", int64(2371351)))
-	case "getAppFriends":
+	case "getAppFriends", "friends.get": // friends.get: the "send a gift to a friend" list; everyone is a friend
 		ids := php.NewArr()
 		for _, id := range c.Values(`select "id" from "users"`) {
 			ids.Append(id)
@@ -330,7 +330,11 @@ func (c *Ctx) vkAPI() Resp {
 	case "getUserBalance":
 		return jsonResp(200, php.Assoc("response", int64(1000)))
 	}
-	return Resp{Status: 200, Raw: []byte{}, ContentType: "text/html; charset=UTF-8"}
+	// Everything else is a VK feature that isn't here (wall posts, notes, photo/video uploads...). The PHP API
+	// answered with an empty body, which the client can't parse, so it never called back and the game sat on
+	// "Saving..." forever. Refuse at once instead, the way VK reports a player pressing "Cancel" (10007): the
+	// client then carries on.
+	return jsonResp(200, php.Assoc("error", php.Assoc("error_code", int64(10007), "error_msg", "Operation denied by user")))
 }
 
 func (c *Ctx) vkProfile(userID, first, last, nickname, photo any) *php.Arr {

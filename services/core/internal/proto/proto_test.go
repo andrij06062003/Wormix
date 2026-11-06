@@ -2,6 +2,7 @@ package proto
 
 import (
 	"encoding/hex"
+	"fmt"
 	"reflect"
 	"strings"
 	"testing"
@@ -423,5 +424,22 @@ func TestClientMessages(t *testing.T) {
 	// Truncated commands throw EndOfStream (the C# server closed the connection).
 	if exc := csx.Catch(func() { ReadDistributePoints(wire.NewReader([]byte{0, 0, 0, 1})) }); exc == nil || exc.Kind != csx.EndOfStream {
 		t.Errorf("truncated: %v", exc)
+	}
+}
+
+func TestPutOnlineFirst(t *testing.T) {
+	e := EnterAccount{UserProfileStructures: []UserProfile{sampleProfile(5), sampleProfile(6), sampleProfile(7), sampleProfile(8)}}
+	e.PutOnlineFirst(func(id uint32) bool { return id == 6 || id == 8 })
+	var ids []uint32
+	for _, p := range e.UserProfileStructures {
+		ids = append(ids, p.ID)
+	}
+	if fmt.Sprint(ids) != "[6 8 5 7]" || e.OnlineFriends != 2 {
+		t.Fatalf("got %v, %d online", ids, e.OnlineFriends)
+	}
+	var none EnterAccount // a null list (the API sent none) stays null
+	none.PutOnlineFirst(func(uint32) bool { return true })
+	if none.UserProfileStructures != nil || none.OnlineFriends != 0 {
+		t.Fatal("null list changed")
 	}
 }

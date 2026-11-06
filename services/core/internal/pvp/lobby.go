@@ -22,6 +22,9 @@ import (
 //   - Wager battle (Arena > PvP): WagerBattleRequest puts the player in a queue per wager amount; the next
 //     player asking for the same wager is matched with them and both get WagerBattleRequestResult.
 //     WagerCancelBattle leaves the queue.
+//   - 2v2 wager battle: the same WagerBattleRequest with a mode byte (2v2Mode) before the MD5 puts the player in
+//     a 2v2 queue per wager. When four are waiting they are split into two teams and all four get
+//     WagerBattleRequestResult with the four players appended (see sendWagerResult).
 
 const (
 	cmdBattleRequest       = 1002 // client -> server
@@ -66,9 +69,19 @@ type challenge struct {
 	created     time.Time
 }
 
+// WagerBattleRequest modes (a byte after mapId; clients before the 2v2 patch send none).
+const (
+	modeDuel = 0
+	modeTeam = 1 // 2v2
+)
+
+// teamBattleSize is how many players a 2v2 battle takes.
+const teamBattleSize = 4
+
 type wagerTicket struct {
 	session   Player
 	wager     int32
+	mode      int
 	host      string
 	port      int32
 	mapID     uint32
@@ -306,6 +319,15 @@ func onWagerRequest(s Player, body []byte) {
 	port := int32(r.U32())
 	wager := int32(r.U32())
 	mapID := r.U32()
+	// What's left is the MD5 (16 bytes; tests may leave it out), with the mode byte before it if there is one.
+	mode := modeDuel
+	if r.Remaining()%16 == 1 {
+		mode = int(r.U8())
+	}
+	if mode != modeDuel && mode != modeTeam {
+		sendWagerError(s, wagerErrError)
+		return
+	}
 
 	if !slices.Contains(wagers, wager) {
 		sendWagerError(s, wagerErrError)
@@ -322,7 +344,11 @@ func onWagerRequest(s Player, body []byte) {
 		return
 	}
 
-	me := &wagerTicket{session: s, wager: wager, host: host, port: port, mapID: mapID}
+	me := &wagerTicket{session: s, wager: wager, mode: mode, host: host, port: port, mapID: mapID}
+	if mode == modeTeam {
+		onTeamWagerRequest(me)
+		return
+	}
 	waiting := func() *wagerTicket {
 		lobbyMu.Lock()
 		defer lobbyMu.Unlock()
@@ -333,7 +359,7 @@ func onWagerRequest(s Player, body []byte) {
 		}
 		var w *wagerTicket
 		for _, t := range queue {
-			if t.wager == wager && t.session.UserID() != s.UserID() && Find(t.session.UserID()) == t.session {
+			if t.mode == modeDuel && t.wager == wager && t.session.UserID() != s.UserID() && Find(t.session.UserID()) == t.session {
 				w = t
 				break
 			}
@@ -342,7 +368,7 @@ func onWagerRequest(s Player, body []byte) {
 			queue = append(queue, me)
 			n := 0
 			for _, t := range queue {
-				if t.wager == wager {
+				if t.mode == modeDuel && t.wager == wager {
 					n++
 				}
 			}
@@ -432,7 +458,15 @@ func requeue(t *wagerTicket) {
 	}
 }
 
-func sendWagerResult(to *wagerTicket, me, enemy *proto.UserProfile, firstPlayerID uint32, seed int32, battleID uint32, reagents []int32, mapOwner *wagerTicket) {
+// teamSeat is one player of a 2v2 battle in WagerBattleRequestResult.
+type teamSeat struct {
+	team    int
+	profile *proto.UserProfile
+}
+
+// sendWagerResult: for 2v2, seats lists all four players in turn order, appended after the reagents as
+// u8 count, then per player u8 team and the profile. A 1v1 result has nothing appended, as before.
+func sendWagerResult(to *wagerTicket, me, enemy *proto.UserProfile, firstPlayerID uint32, seed int32, battleID uint32, reagents []int32, mapOwner *wagerTicket, seats ...teamSeat) {
 	to.session.SendMessage(message(cmdWagerResult, true, func(w *wire.Writer) {
 		w.UTF(mapOwner.host)
 		w.I32(mapOwner.port)
@@ -445,6 +479,13 @@ func sendWagerResult(to *wagerTicket, me, enemy *proto.UserProfile, firstPlayerI
 		w.U16(uint16(len(reagents)))
 		for _, r := range reagents {
 			w.U8(byte(r))
+		}
+		if len(seats) > 0 {
+			w.U8(byte(len(seats)))
+			for _, st := range seats {
+				w.U8(byte(st.team))
+				writeProfile(w, st.profile)
+			}
 		}
 	}))
 }
@@ -514,5 +555,118 @@ func lobbyTick() {
 			sendCancel(c)
 			sendRequestResult(c.from, reqDisagree, nil, nil, 0)
 		}
+	}
+}
+
+// ---- 2v2 wager battles -------------------------------------------------------------------------------------
+
+func onTeamWagerRequest(me *wagerTicket) {
+	s := me.session
+	group := func() []*wagerTicket {
+		lobbyMu.Lock()
+		defer lobbyMu.Unlock()
+		dropEverything(s)
+		if isInBattle(s.UserID()) {
+			sendWagerError(s, wagerErrError)
+			return nil
+		}
+		g := []*wagerTicket{}
+		for _, t := range queue {
+			if t.mode == modeTeam && t.wager == me.wager && t.session.UserID() != s.UserID() &&
+				Find(t.session.UserID()) == t.session {
+				g = append(g, t)
+				if len(g) == teamBattleSize-1 {
+					break
+				}
+			}
+		}
+		if len(g) < teamBattleSize-1 {
+			queue = append(queue, me)
+			lobbyLog("%d waits for a 2v2 %d wager battle (%d of %d)", s.UserID(), me.wager, len(g)+1, teamBattleSize)
+			return nil
+		}
+		queue = slices.DeleteFunc(queue, func(t *wagerTicket) bool { return slices.Contains(g, t) })
+		g = append(g, me)
+		matching = append(matching, g...)
+		return g
+	}()
+	if group == nil {
+		return
+	}
+	defer func() {
+		lobbyMu.Lock()
+		matching = slices.DeleteFunc(matching, func(t *wagerTicket) bool { return slices.Contains(group, t) })
+		lobbyMu.Unlock()
+	}()
+	startTeamWagerBattle(group)
+}
+
+// startTeamWagerBattle starts a 2v2 battle for four matched tickets (the first waited longest).
+func startTeamWagerBattle(group []*wagerTicket) {
+	battleID := newBattleID()
+	wager := group[0].wager
+	mapOwner := group[0]
+
+	// Take the wager from all four, with the same reagents for everyone. Whoever can't pay any more is told so;
+	// the ones who already paid get their wager back and go back to the queue.
+	profiles := make([]proto.UserProfile, len(group))
+	var reagents []int32
+	for i, t := range group {
+		p, got, err := startBattle(t.session.Token(), battleID, wager, reagents)
+		if err != nil {
+			lobbyLog("can't start battle %d for %d: %v", battleID, t.session.UserID(), err)
+			for _, paid := range group[:i] {
+				tryEndBattle(paid.session.Token(), paid.session.UserID(), battleID, 0)
+			}
+			sendWagerError(t.session, wagerErrorCode(err))
+			for j, other := range group {
+				if j != i {
+					requeue(other)
+				}
+			}
+			return
+		}
+		profiles[i] = p
+		if i == 0 {
+			reagents = got
+		}
+	}
+
+	// Someone pressed Cancel while we were talking to the API: give everyone their wager back.
+	lobbyMu.Lock()
+	cancelled := slices.ContainsFunc(group, func(t *wagerTicket) bool { return t.cancelled })
+	if cancelled {
+		lobbyLog("battle %d cancelled before it started", battleID)
+		for _, t := range group {
+			tryEndBattle(t.session.Token(), t.session.UserID(), battleID, 0)
+			if !t.cancelled {
+				queue = append(queue, t)
+			}
+		}
+		lobbyMu.Unlock()
+		return
+	}
+	lobbyMu.Unlock()
+
+	// Random teams; teams alternate in the turn order (A1, B1, A2, B2) and a random team starts.
+	idx := rand.Perm(len(group))
+	order := []int{idx[0], idx[2], idx[1], idx[3]}
+	seats := make([]teamSeat, len(order))
+	players := make([]*player, len(order))
+	for i, gi := range order {
+		team := i%2 + 1
+		t := group[gi]
+		seats[i] = teamSeat{team, &profiles[gi]}
+		players[i] = &player{userID: t.session.UserID(), firstTurn: i == 0, team: team, token: t.session.Token()}
+	}
+	seed := int32(rand.IntN(1000))
+	createTeamBattle(battleID, wager, players)
+	lobbyLog("2v2 wager %d: %d+%d vs %d+%d, battle %d", wager, players[0].userID, players[2].userID,
+		players[1].userID, players[3].userID, battleID)
+
+	for i, gi := range order {
+		// The first enemy in the turn order stands in as "the" enemy for code that knows only one.
+		enemy := seats[(i+1)%len(seats)].profile
+		sendWagerResult(group[gi], &profiles[gi], enemy, players[0].userID, seed, battleID, reagents, mapOwner, seats...)
 	}
 }

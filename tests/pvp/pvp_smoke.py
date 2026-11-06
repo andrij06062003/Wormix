@@ -6,7 +6,8 @@ Runs against a real API + wormix-core (see tests/pvp/run.sh). Covers:
   2. wager battle: matchmaking queue, wager taken, chat relay, win paid out (+80%) and rating changed;
   3. surrender (PvpDropPlayer);
   4. a player who disconnects and doesn't come back loses (reconnect timeout);
-  5. decline and cancel of a challenge.
+  5. decline and cancel of a challenge;
+  6. 2v2 wager battle: four players matched into two teams, turns in the client's order, a team win paid out.
 Exits non-zero on the first failure.
 """
 import hashlib
@@ -262,6 +263,54 @@ def wager_match(a, b, wager):
     return battle_id, (a if first == a.id else b), results
 
 
+def play_turn_multi(active, others, battle_id, turn, eliminated=(), state=1234):
+    """Like play_turn, with every other player watching and answering."""
+    first_num = 1 if turn == 1 else 2
+    active.pvp.send(action(battle_id, turn, first_num, 1))
+    for p in others:
+        got = Reader(p.pvp.expect(1007))
+        got.u32(); got.u32()
+        assert got.u16() == turn and got.u16() == first_num and got.secure_ok(), f"action not relayed to {p.name}"
+    active.pvp.send(end_turn(battle_id, turn, first_num + 1, 1, list(eliminated), state))
+    for p in others:
+        assert Reader(p.pvp.expect(1014)).u16() == turn, f"end turn not relayed to {p.name}"
+    for p in others:
+        p.pvp.send(end_turn_response(battle_id, turn, first_num + 1, list(eliminated), state))
+
+
+def team_wager_match(players, wager):
+    """All four ask for a 2v2 wager battle. Returns (battle id, players in turn order, team by id, money by id)."""
+    req = utf("wormixtest.ru") + struct.pack(">iiI", PVP_PORT, wager, 5) + bytes([1])   # mode 1: 2v2
+    for p in players:
+        p.main.send(msg(2005, req, secure=True))
+        time.sleep(0.3)
+    seen = None
+    money = {}
+    for p in players:
+        r = Reader(p.main.expect(2006, 20))
+        assert r.secure_ok(), "2v2 wager result hash"
+        r.utf(); r.s32(); r.u32()
+        enemy, me = r.profile(), r.profile()
+        first, seed, battle_id = r.u32(), r.s32(), r.u32()
+        reagents = [r.u8() for _ in range(r.u16())]
+        seats = []
+        for _ in range(r.u8()):
+            team = r.u8()
+            seats.append((r.profile()["id"], team))
+        assert me["id"] == p.id and len(seats) == 4, seats
+        assert seats[0][0] == first, "first player is the first seat"
+        assert [t for _, t in seats] == [1, 2, 1, 2], f"teams must alternate: {seats}"
+        my_team = dict(seats)[p.id]
+        assert dict(seats)[enemy["id"]] != my_team, "the enemy profile is from the other team"
+        if seen is None:
+            seen = (battle_id, seats, reagents)
+        assert seen == (battle_id, seats, reagents), "all four must get the same battle"
+        money[p.id] = me["money"]
+    battle_id, seats, _ = seen
+    by_id = {p.id: p for p in players}
+    return battle_id, [by_id[i] for i, _ in seats], dict(seats), money
+
+
 def step(name):
     print(f"\n== {name}", flush=True)
 
@@ -385,6 +434,48 @@ def main():
     assert cancel.u32() == a.id, "cancel forwarded"
     a.main.send(msg(1002, utf("wormixtest.ru") + struct.pack(">iIi", PVP_PORT, 3, 1) + utf("999999")))
     assert Reader(a.main.expect(2003)).s16() == 4, "offline player"
+
+    step("2v2 wager battle (15): four players, two teams")
+    c, d = Player("C"), Player("D")
+    four = [a, b, c, d]
+    before = {p.id: p.fresh_profile() for p in four}
+    battle, order, teams, money = team_wager_match(four, 15)
+    for p in four:
+        assert money[p.id] == before[p.id]["money"] - 15, f"wager not taken from {p.name}"
+    print("turn order:", [(p.name, teams[p.id]) for p in order])
+    for seat, p in enumerate(order):
+        num = p.pvp_login(battle, seat == 0, order[(seat + 1) % 4])
+        assert num == seat + 1, f"{p.name}: player number {num}, want {seat + 1}"
+
+    step("2v2 turn 1: moves go to all three others, then StartTurn for the second seat")
+    play_turn_multi(order[0], order[1:], battle, 1)
+    for p in four:
+        expect_start_turn(p, battle, 2, order[1].id)
+
+    step("2v2 chat reaches everyone")
+    order[1].pvp.send(msg(17, struct.pack(">I", order[1].id) + utf("go team") + struct.pack(">I", battle)))
+    for p in (order[0], order[2], order[3]):
+        assert Reader(p.pvp.expect(17)).u32() == order[1].id
+
+    step("2v2 turn 2: seat 2 kills seat 1; the client keeps its index, so seat 4 moves next")
+    play_turn_multi(order[1], [order[0], order[2], order[3]], battle, 2, eliminated=[order[0].id])
+    for p in four:
+        expect_start_turn(p, battle, 3, order[3].id)
+
+    step("2v2 turn 3: seat 4 kills seat 3: their team wins")
+    play_turn_multi(order[3], order[:3], battle, 3, eliminated=[order[2].id])
+    winners = {order[1].id, order[3].id}
+    for p in four:
+        desync, results = expect_end_battle(p, battle)
+        assert not desync and results == {q.id: (0 if q.id in winners else 1) for q in four}, results
+    for p in four:
+        p.pvp.close()
+    time.sleep(2)
+    for p in four:
+        got = p.fresh_profile()["money"]
+        want = before[p.id]["money"] + (12 if p.id in winners else -15)
+        assert got == want, f"{p.name}: money {got}, want {want}"
+    c.main.close(); d.main.close()
 
     step("no-show: B never comes back, A wins after the reconnect timeout (about 45 s)")
     battle = challenge(a, b)

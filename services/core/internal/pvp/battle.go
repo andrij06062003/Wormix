@@ -61,24 +61,24 @@ var (
 	EndTurnResendInterval = 5 * time.Second
 )
 
-// player is one player of a battle. Fields other than the first three are guarded by the battle's lock.
+// player is one player of a battle. Fields other than the first four are guarded by the battle's lock.
 type player struct {
 	userID    uint32
 	firstTurn bool
+	team      int    // players of the same team fight together (1v1: each player is its own team)
 	token     string // main-server session token, for recording the result in the API
 
+	seat           int // place in the turn order (0 moves first)
 	session        Conn
 	everConnected  bool
 	disconnectedAt *time.Time
-	left           bool // ended the battle on their side (surrender etc.): don't wait for them any more
+	left           bool     // ended the battle on their side (surrender etc.): don't wait for them any more
+	out            bool     // all their worms are dead: they only watch now
+	end            *turnEnd // their EndTurnResponse for the current turn (when not the active player)
 }
 
-func (p *player) num() byte {
-	if p.firstTurn {
-		return 1
-	}
-	return 2
-}
+// num is the player number the client puts in its commands: its place in the turn order, from 1.
+func (p *player) num() byte { return byte(p.seat + 1) }
 
 func (p *player) connected() bool { return p.session != nil }
 
@@ -92,29 +92,34 @@ type turnEnd struct {
 	state      int32
 }
 
-// Battle is a battle between two players on the PvP server.
+// Battle is a battle on the PvP server: two players (1v1), or two teams of two (2v2).
 //
-// The game simulation runs in both clients; the server relays the active player's moves to the other player
-// and referees the turns:
-//  1. the active player sends moves (Action) and finally EndTurn: both are forwarded to the other player;
-//  2. the other player replays them and answers EndTurnResponse;
-//  3. when both agree on who is eliminated, the server either ends the battle (EndBattle) or starts the
-//     next turn for the other player (StartTurn to both).
+// The game simulation runs in every client; the server relays the active player's moves to the others and
+// referees the turns:
+//  1. the active player sends moves (Action) and finally EndTurn: both are forwarded to the other players;
+//  2. the other players replay them and answer EndTurnResponse;
+//  3. when all agree on who is eliminated, the server either ends the battle (EndBattle) or starts the
+//     next turn (StartTurn to all).
 //
-// It also handles reconnects (resending what a player missed), surrender, disconnects and inactivity.
+// Turns go round the squads still in the game in the order the client's GameMaster keeps them (see
+// tryFinishTurn). A battle ends when only one team has worms left.
+//
+// It also handles reconnects (resending what a player missed), surrender, disconnects and inactivity. A
+// player who leaves before their worms are all dead loses the battle for their team: the other games can't
+// go on without them.
 type Battle struct {
 	ID      uint32
 	Wager   int32
-	players [2]*player
+	players []*player // in the order they were given (EndBattle lists them in this order)
 	created time.Time
 
 	mu             sync.Mutex
 	turn           int
-	active         int // index of the player whose turn it is
+	order          []*player // squads still in the game, in turn order
+	active         int       // index in order of the player whose turn it is
 	turnCommands   []turnCommand
 	lastCommandNum uint16
 	activeEnd      *turnEnd
-	passiveEnd     *turnEnd
 	activeEndAt    time.Time
 	lastEndTurn    time.Time
 	lastActivity   time.Time
@@ -126,23 +131,32 @@ type Battle struct {
 	over atomic.Bool
 }
 
-func newBattle(id uint32, wager int32, first, second *player) *Battle {
+// newBattle: players in any order, order is the turn order (the same players).
+func newBattle(id uint32, wager int32, players, order []*player) *Battle {
 	now := time.Now()
-	b := &Battle{ID: id, Wager: wager, players: [2]*player{first, second}, created: now, turn: 1, lastActivity: now,
-		results: map[uint32]int{}}
-	if !first.firstTurn {
-		b.active = 1
+	b := &Battle{ID: id, Wager: wager, players: players, order: slices.Clone(order), created: now, turn: 1,
+		lastActivity: now, results: map[uint32]int{}}
+	for i, p := range order {
+		p.seat = i
 	}
 	return b
+}
+
+// newDuel is a 1v1 battle: the player with firstTurn moves first.
+func newDuel(id uint32, wager int32, first, second *player) *Battle {
+	first.team, second.team = 1, 2
+	order := []*player{first, second}
+	if !first.firstTurn {
+		order = []*player{second, first}
+	}
+	return newBattle(id, wager, []*player{first, second}, order)
 }
 
 // Over reports whether the battle has ended.
 func (b *Battle) Over() bool { return b.over.Load() }
 
 // HasPlayer reports whether the user plays in this battle.
-func (b *Battle) HasPlayer(userID uint32) bool {
-	return b.players[0].userID == userID || b.players[1].userID == userID
-}
+func (b *Battle) HasPlayer(userID uint32) bool { return b.playerByID(userID) != nil }
 
 func (b *Battle) playerOf(c Conn) *player {
 	for _, p := range b.players {
@@ -162,15 +176,52 @@ func (b *Battle) playerByID(userID uint32) *player {
 	return nil
 }
 
-func (b *Battle) other(p *player) *player {
-	if b.players[0] == p {
-		return b.players[1]
+func (b *Battle) activePlayer() *player { return b.order[b.active] }
+
+// sendOthers sends to every player but p who is still in the battle.
+func (b *Battle) sendOthers(p *player, msg []byte) {
+	for _, x := range b.players {
+		if x != p && !x.left {
+			send(x, msg)
+		}
 	}
-	return b.players[0]
 }
 
-func (b *Battle) activePlayer() *player  { return b.players[b.active] }
-func (b *Battle) passivePlayer() *player { return b.players[1-b.active] }
+// responders are the players whose EndTurnResponse the turn waits for: everyone but the active player who
+// still has worms and hasn't left.
+func (b *Battle) responders() []*player {
+	var out []*player
+	act := b.activePlayer()
+	for _, x := range b.players {
+		if x != act && !x.left && !x.out {
+			out = append(out, x)
+		}
+	}
+	return out
+}
+
+// teamLoses: results where p's team loses and everyone else wins.
+func (b *Battle) teamLoses(p *player) []result {
+	res := make([]result, 0, len(b.players))
+	for _, x := range b.players {
+		r := 1
+		if x.team == p.team {
+			r = -1
+		}
+		res = append(res, result{x.userID, r})
+	}
+	return res
+}
+
+// opponentConnected reports whether some player of another team is still here.
+func (b *Battle) opponentConnected(team int) bool {
+	for _, x := range b.players {
+		if x.team != team && !x.left && x.connected() {
+			return true
+		}
+	}
+	return false
+}
 
 func (b *Battle) logf(format string, args ...any) {
 	logf("[PvP %d] %s", b.ID, fmt.Sprintf(format, args...))
@@ -211,9 +262,9 @@ func (b *Battle) Login(c Conn, userID uint32) bool {
 		return true
 	}
 	if reconnect {
-		send(b.other(p), systemMessage(sysReconnected, p.userID))
+		b.sendOthers(p, systemMessage(sysReconnected, p.userID))
 	}
-	if p == b.passivePlayer() {
+	if p != b.activePlayer() {
 		b.resendTurnCommands(p, 0) // moves the active player made before this player connected
 	}
 	return true
@@ -233,18 +284,18 @@ func (b *Battle) Reconnect(c Conn, userID uint32, turnNum int, lastCommandNum ui
 		b.sendEndBattle(p)
 		return true
 	}
-	send(b.other(p), systemMessage(sysReconnected, p.userID))
+	b.sendOthers(p, systemMessage(sysReconnected, p.userID))
 
 	switch {
 	case turnNum < b.turn && b.lastStartTurn != nil:
 		send(p, b.lastStartTurn) // missed the start of the current turn
-	case p == b.passivePlayer():
+	case p != b.activePlayer():
 		if turnNum == b.turn {
 			b.resendTurnCommands(p, int(lastCommandNum))
-		} else if turnNum == b.turn+1 && b.activeEnd != nil && b.passiveEnd == nil {
+		} else if turnNum == b.turn+1 && b.activeEnd != nil && p.end == nil {
 			// It already answered EndTurn but the answer was lost with the connection.
 			// Both had the same moves, so go with the active player's view.
-			b.passiveEnd = b.activeEnd
+			p.end = b.activeEnd
 			b.tryFinishTurn()
 		}
 	case b.activeEnd == nil && (turnNum == b.turn || turnNum == b.turn+1):
@@ -296,7 +347,7 @@ func (b *Battle) OnDisconnected(c Conn) {
 	now := time.Now()
 	p.disconnectedAt = &now
 	b.logf("%d disconnected", p.userID)
-	send(b.other(p), systemMessage(sysDisconnected, p.userID))
+	b.sendOthers(p, systemMessage(sysDisconnected, p.userID))
 }
 
 // ---- Messages during the battle ----------------------------------------------------------------------------
@@ -332,7 +383,7 @@ func (b *Battle) OnMessage(c Conn, cmd uint32, body []byte) {
 		b.onDropPlayer(p, body)
 	case CmdChat:
 		if len(body) <= 1024 {
-			send(b.other(p), message(CmdChat, false, func(w *wire.Writer) { w.Bytes(body) }))
+			b.sendOthers(p, message(CmdChat, false, func(w *wire.Writer) { w.Bytes(body) }))
 		}
 	default:
 		b.logf("unexpected command %d from %d", cmd, p.userID)
@@ -383,7 +434,7 @@ func (b *Battle) store(num uint16, msg []byte) {
 	if num > b.lastCommandNum {
 		b.lastCommandNum = num
 	}
-	send(b.passivePlayer(), msg)
+	b.sendOthers(b.activePlayer(), msg)
 }
 
 func (b *Battle) onEndTurnResponse(p *player, body []byte) {
@@ -394,10 +445,10 @@ func (b *Battle) onEndTurnResponse(p *player, body []byte) {
 	r.U32()
 	eliminated := r.U32Array()
 	state := int32(r.U32())
-	if b.Over() || p != b.passivePlayer() || int(turn) != b.turn || b.passiveEnd != nil {
+	if b.Over() || p == b.activePlayer() || int(turn) != b.turn || p.end != nil {
 		return
 	}
-	b.passiveEnd = &turnEnd{eliminated, state}
+	p.end = &turnEnd{eliminated, state}
 	b.tryFinishTurn()
 }
 
@@ -406,7 +457,7 @@ func (b *Battle) onRetryRequest(p *player, body []byte) {
 	r := wire.NewReader(body)
 	have := r.U16()
 	turn := r.U16()
-	if !b.Over() && p == b.passivePlayer() && int(turn) == b.turn {
+	if !b.Over() && p != b.activePlayer() && int(turn) == b.turn {
 		b.resendTurnCommands(p, int(have))
 	}
 }
@@ -429,19 +480,24 @@ func (b *Battle) onDropPlayer(p *player, body []byte) {
 		return
 	}
 	p.left = true
-	other := b.other(p)
 	if typ == dropDesync {
 		b.logf("%d reports desync: draw", p.userID)
-		b.finish([]result{{p.userID, 0}, {other.userID, 0}}, true)
+		b.finish(b.all(0), true)
 		return
 	}
-	b.logf("%d left the battle (type %d): %d wins", p.userID, typ, other.userID)
+	if p.out {
+		// Their worms are all dead already: they stop watching, the others play on.
+		b.logf("%d left the battle (type %d) after being eliminated", p.userID, typ)
+		b.tryFinishTurn()
+		return
+	}
+	b.logf("%d left the battle (type %d): team %d loses", p.userID, typ, p.team)
 	sys := sysSurrendered
 	if typ == dropIAmCheater {
 		sys = sysCheater
 	}
-	send(other, systemMessage(sys, p.userID))
-	b.finish([]result{{p.userID, -1}, {other.userID, 1}}, false)
+	b.sendOthers(p, systemMessage(sys, p.userID))
+	b.finish(b.teamLoses(p), false)
 }
 
 func sameSet(a, b []uint32) bool {
@@ -468,38 +524,61 @@ func joinIDs(l []uint32) string {
 }
 
 func (b *Battle) all(r int) []result {
-	return []result{{b.players[0].userID, r}, {b.players[1].userID, r}}
+	res := make([]result, len(b.players))
+	for i, p := range b.players {
+		res[i] = result{p.userID, r}
+	}
+	return res
 }
 
 func (b *Battle) tryFinishTurn() {
-	a, p := b.activeEnd, b.passiveEnd
-	if a == nil || p == nil {
+	a := b.activeEnd
+	if a == nil || b.Over() {
 		return
 	}
-	if !sameSet(a.eliminated, p.eliminated) {
-		b.logf("desync at turn %d: eliminated [%s] vs [%s]", b.turn, joinIDs(a.eliminated), joinIDs(p.eliminated))
-		b.finish(b.all(0), true)
-		return
-	}
-	if a.state != p.state {
-		b.logf("state hash differs at turn %d (%d vs %d); continuing", b.turn, a.state, p.state)
-	}
-	var out []*player
-	for _, x := range b.players {
-		if slices.Contains(a.eliminated, x.userID) {
-			out = append(out, x)
+	resp := b.responders()
+	for _, p := range resp {
+		if p.end == nil {
+			return
 		}
 	}
-	switch len(out) {
-	case 2:
+	for _, p := range resp {
+		if !sameSet(a.eliminated, p.end.eliminated) {
+			b.logf("desync at turn %d: eliminated [%s] vs [%s] (%d)", b.turn, joinIDs(a.eliminated),
+				joinIDs(p.end.eliminated), p.userID)
+			b.finish(b.all(0), true)
+			return
+		}
+		if a.state != p.end.state {
+			b.logf("state hash differs at turn %d (%d vs %d); continuing", b.turn, a.state, p.end.state)
+		}
+	}
+
+	// Drop the eliminated squads the way the client's GameMaster does: it removes them from its list and keeps
+	// the index of the squad that just moved, then moves on to the next index.
+	for i := 0; i < len(b.order); i++ {
+		if slices.Contains(a.eliminated, b.order[i].userID) {
+			b.order[i].out = true
+			b.order = slices.Delete(b.order, i, i+1)
+			i--
+		}
+	}
+	var teams []int
+	for _, x := range b.order {
+		if !slices.Contains(teams, x.team) {
+			teams = append(teams, x.team)
+		}
+	}
+	switch len(teams) {
+	case 0:
 		b.finish(b.all(0), false)
 		return
 	case 1:
-		res := make([]result, 0, 2)
+		res := make([]result, 0, len(b.players))
 		for _, x := range b.players {
-			r := 1
-			if x == out[0] {
-				r = -1
+			r := -1
+			if x.team == teams[0] {
+				r = 1
 			}
 			res = append(res, result{x.userID, r})
 		}
@@ -507,12 +586,15 @@ func (b *Battle) tryFinishTurn() {
 		return
 	}
 
-	// Next turn: the other player.
+	// Next turn.
 	b.turn++
-	b.active = 1 - b.active
+	b.active = (b.active + 1) % len(b.order)
 	b.turnCommands = nil
 	b.lastCommandNum = 0
-	b.activeEnd, b.passiveEnd = nil, nil
+	b.activeEnd = nil
+	for _, x := range b.players {
+		x.end = nil
+	}
 	b.lastActivity = time.Now()
 	activeID := b.activePlayer().userID
 	b.lastStartTurn = message(CmdStartTurn, true, func(w *wire.Writer) {
@@ -523,7 +605,9 @@ func (b *Battle) tryFinishTurn() {
 		w.U16(0) // dropped players
 	})
 	for _, x := range b.players {
-		send(x, b.lastStartTurn)
+		if !x.left {
+			send(x, b.lastStartTurn)
+		}
 	}
 }
 
@@ -541,46 +625,72 @@ func (b *Battle) tick(keepFinished time.Duration) bool {
 	// Someone never showed up, or didn't come back after a disconnect.
 	var gone []*player
 	for _, p := range b.players {
-		if (!p.everConnected && now.Sub(b.created) > NoShowTimeout) ||
-			(p.disconnectedAt != nil && now.Sub(*p.disconnectedAt) > ReconnectTimeout) {
+		if !p.left && ((!p.everConnected && now.Sub(b.created) > NoShowTimeout) ||
+			(p.disconnectedAt != nil && now.Sub(*p.disconnectedAt) > ReconnectTimeout)) {
+			if p.out {
+				// Eliminated already: nobody waits for them.
+				b.logf("%d (eliminated) didn't come back", p.userID)
+				p.left = true
+				b.tryFinishTurn()
+				continue
+			}
 			gone = append(gone, p)
 		}
 	}
-	if len(gone) == 2 {
-		b.logf("both players gone: cancelled")
+	if b.Over() {
+		return false
+	}
+	var goneTeams []int
+	for _, p := range gone {
+		if !slices.Contains(goneTeams, p.team) {
+			goneTeams = append(goneTeams, p.team)
+		}
+	}
+	if len(goneTeams) > 1 {
+		b.logf("players of both sides gone: cancelled")
 		b.finish(b.all(0), false)
 		return false
 	}
-	// One is gone; the other wins if it's here (if it's away too, wait for it to come back or time out).
-	if len(gone) == 1 && b.other(gone[0]).connected() {
-		other := b.other(gone[0])
-		b.logf("%d didn't come back: %d wins", gone[0].userID, other.userID)
-		send(other, systemMessage(sysDroppedByReconnectionTimeout, gone[0].userID))
-		b.finish([]result{{gone[0].userID, -1}, {other.userID, 1}}, false)
+	// One side lost a player; the other side wins if it's here (if it's away too, wait for it to come back or
+	// time out).
+	if len(gone) > 0 && b.opponentConnected(gone[0].team) {
+		b.logf("%d didn't come back: team %d loses", gone[0].userID, gone[0].team)
+		b.sendOthers(gone[0], systemMessage(sysDroppedByReconnectionTimeout, gone[0].userID))
+		b.finish(b.teamLoses(gone[0]), false)
 		return false
 	}
 
 	if b.activeEnd == nil {
 		// The active player stopped playing (connected, but nothing for a long time).
-		if b.activePlayer().connected() && now.Sub(b.lastActivity) > TurnTimeout {
-			act, pas := b.activePlayer(), b.passivePlayer()
-			b.logf("%d inactive: %d wins", act.userID, pas.userID)
-			send(pas, systemMessage(sysDroppedByCommandTimeout, act.userID))
-			b.finish([]result{{act.userID, -1}, {pas.userID, 1}}, false)
+		if act := b.activePlayer(); act.connected() && now.Sub(b.lastActivity) > TurnTimeout {
+			b.logf("%d inactive: team %d loses", act.userID, act.team)
+			b.sendOthers(act, systemMessage(sysDroppedByCommandTimeout, act.userID))
+			b.finish(b.teamLoses(act), false)
 		}
-	} else if b.passiveEnd == nil && b.passivePlayer().connected() {
-		if now.Sub(b.activeEndAt) > ResponseTimeout {
-			act, pas := b.activePlayer(), b.passivePlayer()
-			b.logf("%d never confirmed the turn: %d wins", pas.userID, act.userID)
-			send(act, systemMessage(sysDroppedByResponseTimeout, pas.userID))
-			b.finish([]result{{pas.userID, -1}, {act.userID, 1}}, false)
-		} else if now.Sub(b.lastEndTurn) > EndTurnResendInterval {
-			// The client ignores EndTurn until it's ready to replay the turn (e.g. still building the map on
-			// turn 1), so repeat it. A client that already has it ignores the copy; one that misses moves asks
-			// for them (RetryRequestClient).
-			b.lastEndTurn = now
-			if n := len(b.turnCommands); n > 0 {
-				send(b.passivePlayer(), b.turnCommands[n-1].msg)
+		return false
+	}
+	var waiting []*player
+	for _, p := range b.responders() {
+		if p.end == nil && p.connected() {
+			waiting = append(waiting, p)
+		}
+	}
+	if len(waiting) == 0 {
+		return false
+	}
+	if now.Sub(b.activeEndAt) > ResponseTimeout {
+		pas := waiting[0]
+		b.logf("%d never confirmed the turn: team %d loses", pas.userID, pas.team)
+		b.sendOthers(pas, systemMessage(sysDroppedByResponseTimeout, pas.userID))
+		b.finish(b.teamLoses(pas), false)
+	} else if now.Sub(b.lastEndTurn) > EndTurnResendInterval {
+		// The client ignores EndTurn until it's ready to replay the turn (e.g. still building the map on
+		// turn 1), so repeat it. A client that already has it ignores the copy; one that misses moves asks
+		// for them (RetryRequestClient).
+		b.lastEndTurn = now
+		if n := len(b.turnCommands); n > 0 {
+			for _, p := range waiting {
+				send(p, b.turnCommands[n-1].msg)
 			}
 		}
 	}

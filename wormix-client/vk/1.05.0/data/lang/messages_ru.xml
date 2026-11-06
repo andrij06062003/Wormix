@@ -88,6 +88,12 @@
     <message name="PVP_WAGER_AVAILABLE_FOR" value="Буде доступно з {level} рівня"/>
     <message name="PVP_WAGER_AVAILABLE_FOR_TEAM" value="Потрібно щонайменше 2 бійці"/>
     <message name="PVP_WAGER_BTN" value="Подати заявку"/>
+    <message name="PVP_MODE_TITLE" value="Бій на ставку"/>
+    <message name="PVP_MODE_TEXT">
+        <![CDATA[Оберіть режим бою:<br/>1 на 1 — проти одного гравця;<br/>2 на 2 — ви з напарником проти двох гравців.<br/>Напарник і суперники — гравці, які обрали ту саму ставку.]]>
+    </message>
+    <message name="PVP_MODE_1V1" value="1 на 1"/>
+    <message name="PVP_MODE_2V2" value="2 на 2"/>
     <message name="MISSION_BTN" value="Виконати"/>
     <message name="BOSS_BTN" value="Виконати"/>
     <message name="ARENA_BUY_BATTLE" value="Ви можете купити ще 1 бій"/>

@@ -128,3 +128,48 @@ Rebuild on top of the patches above:
         java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
             client-patches/no-vk/${c##*.}.as && mv Wormix.new.swf Wormix.swf
     done
+
+## `pvp-2v2/`: 2v2 wager battles (four real players in one battle)
+
+Arena > PvP: pressing a wager cell's button asks for the mode, "1 на 1" (OK) or "2 на 2" (the cancel
+button; closing the window with X asks for nothing). For 2v2 the server waits until four players asked
+for the same wager, splits them into two teams at random and starts one battle for all four.
+
+The game engine already handled any number of squads and teams (missions use them): the `GameMaster` gives
+turns to the squads in list order, drops a squad whose worms are all dead, and the PvP result
+determinator waits for the server once a single team is left. Only the PvP set-up knew just two players.
+
+- Protocol (both additions are invisible to 1v1 battles and older clients):
+  - `WagerBattleRequest` (2005): a mode byte after `mapId` (1 = 2v2), sent only for 2v2.
+  - `WagerBattleRequestResult` (2006): for 2v2, after the reagents, `u8 count` and per player
+    `u8 team` (1 or 2) + `UserProfileStructure` (with its u16 length), in turn order. Teams alternate
+    (A, B, A, B). `enemyProfile` is the next player in turn order (always an opponent).
+- `BattleStartInfo`: `teamProfiles` / `teamIds` (turn order; this player is `Application.userProfile`),
+  `isTeamBattle()`.
+- `BattleRequestController`: `wagerRequest(wager, team)`; sends the mode, builds `teamProfiles`.
+- `PvpGameRules`: a squad per player in turn order with its team id.
+- `GameRulesUtil`: places the worms of all four players (per-team spawn areas on maps that have them,
+  otherwise the shared positions; positions are reused a bit higher up if a map runs out).
+- `BattleStartDataLoader`: loads names/avatars of all four teams.
+- `BattleController`: chat messages show who wrote them.
+- `PvpCell` + `WagerBattleRequest*`: the mode choice and the mode byte. Texts: `PVP_MODE_*` in
+  `data/lang/messages_{ru,en}.xml` (with fallbacks in the code).
+
+Server side (services/core/internal/pvp): the battle relays each move to all other players, waits for
+every player who still has worms to confirm the turn, and follows the client's turn order (an eliminated
+squad is removed and the index kept, as `GameMaster` does). A player who leaves (surrender, timeout) before
+all their worms are dead loses the battle for the whole team; one who is already out may leave freely.
+Winners and losers are paid per player as in 1v1.
+
+Rebuild on top of the patches above:
+
+    for c in pvp.messages.wager.WagerBattleRequest serialization.wager.WagerBattleRequestBinarySerializer \
+             pvp.messages.wager.WagerBattleRequestResult serialization.wager.WagerBattleRequestResultBinarySerializer \
+             model.battle.BattleStartInfo game.rules.GameRulesUtil game.rules.PvpGameRules \
+             loader.BattleStartDataLoader controller.BattleController pvp.controllers.BattleRequestController \
+             gui.menu.arena.pvp.PvpCell; do
+        java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
+            client-patches/pvp-2v2/${c##*.}.as && mv Wormix.new.swf Wormix.swf
+    done
+
+`pvp-2v2/BattleRequestController.as` already contains the `BattleRequestController.as` fix above.

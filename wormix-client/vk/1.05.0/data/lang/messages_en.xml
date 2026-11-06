@@ -86,6 +86,12 @@
     <message name="PVP_WAGER_AVAILABLE_FOR" value="Will be available from {level} level "/>
     <message name="PVP_WAGER_AVAILABLE_FOR_TEAM" value="You need at least 2 fighters"/>
     <message name="PVP_WAGER_BTN" value="Sign for battle!"/>
+    <message name="PVP_MODE_TITLE" value="Wager battle"/>
+    <message name="PVP_MODE_TEXT">
+        <![CDATA[Choose the battle mode:<br/>1 vs 1 — against one player;<br/>2 vs 2 — you and a teammate against two players.<br/>Teammates and opponents are players who chose the same wager.]]>
+    </message>
+    <message name="PVP_MODE_1V1" value="1 vs 1"/>
+    <message name="PVP_MODE_2V2" value="2 vs 2"/>
     <message name="MISSION_BTN" value="Start!"/>
     <message name="BOSS_BTN" value="Start!"/>
     <message name="ARENA_BUY_BATTLE" value="You can buy one more fight"/>

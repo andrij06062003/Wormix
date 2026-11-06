@@ -2,6 +2,8 @@ package pvp
 
 import (
 	"context"
+	"fmt"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -35,12 +37,28 @@ func init() {
 func newBattleID() uint32 { return uint32(nextID.Add(1)) }
 
 func createBattle(id uint32, wager int32, first, second *player) *Battle {
-	b := newBattle(id, wager, first, second)
-	battlesMu.Lock()
-	battles[id] = b
-	battlesMu.Unlock()
+	b := newDuel(id, wager, first, second)
+	addBattle(b)
 	logf("[PvP %d] created: %d vs %d, wager %d", id, first.userID, second.userID, wager)
 	return b
+}
+
+// createTeamBattle creates a 2v2 battle; order is the turn order, each player's team set.
+func createTeamBattle(id uint32, wager int32, order []*player) *Battle {
+	b := newBattle(id, wager, order, order)
+	addBattle(b)
+	ids := make([]string, len(order))
+	for i, p := range order {
+		ids[i] = fmt.Sprintf("%d(team %d)", p.userID, p.team)
+	}
+	logf("[PvP %d] created: %s, wager %d", id, strings.Join(ids, ", "), wager)
+	return b
+}
+
+func addBattle(b *Battle) {
+	battlesMu.Lock()
+	battles[b.ID] = b
+	battlesMu.Unlock()
 }
 
 func findBattle(id uint32) *Battle {

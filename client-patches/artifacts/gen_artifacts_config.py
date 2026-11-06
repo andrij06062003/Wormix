@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Writes the artifacts list (wormix-api/resources/game/artifacts.json, the server's copy) into
+"""Writes the artifacts list (services/api/internal/assets/game/artifacts.json, the server's copy) into
 ConfigsConverter.as, between the ARTIFACTS-BEGIN / ARTIFACTS-END markers, so client and server
 always ship the same artifacts. Run from the repo root, then rebuild Wormix.swf (see README.md).
 
@@ -11,7 +11,7 @@ import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-SRC = ROOT / "wormix-api/resources/game/artifacts.json"
+SRC = ROOT / "services/api/internal/assets/game/artifacts.json"
 DST = pathlib.Path(__file__).resolve().parent / "ConfigsConverter.as"
 
 

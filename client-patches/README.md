@@ -90,7 +90,7 @@ so the shop's stuff tab, buying and the wardrobe list them with no new screens.
   click on the one you wear takes it off. Saving sends `SelectStuff` for the hat, then for the artifact
   (`2000` = take it off).
 - `CharGraphics.setHat` ignores artifacts (they are not drawn on the head; drawing them in the hand is a later stage).
-- Data: `ConfigsConverter.ARTIFACTS` is generated from `wormix-api/resources/game/artifacts.json`
+- Data: `ConfigsConverter.ARTIFACTS` is generated from `services/api/internal/assets/game/artifacts.json`
   (the server's copy) by `gen_artifacts_config.py`. Graphics: `data/common/objects/artifacts.swf` from a
   1.25.0 client (github.com/lightcool697/wormix.github.io, `vk/1.25.0/data/common/objects/artifacts.swf`),
   listed in resconfig.xml. Names: `ARTIFACT.*` in `items.messages_*.xml`.
@@ -104,4 +104,27 @@ Rebuild on top of the patches above (one `-replace` per class, in this order):
              gui.house.wardrobe.WardrobeRoom; do
         java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
             client-patches/artifacts/${c##*.}.as && mv Wormix.new.swf Wormix.swf
+    done
+
+## `no-vk/`: no VK posts, notes or notifications
+
+The game was made for VK: after a battle it offered "Create note" (a VK note) and "Share" (a VK status),
+and buying a hat, an expensive weapon, an award, a new race etc. asked "Share on the wall?". None of that
+exists here; the note waited on "Збереження..." for an answer that never came.
+
+- `PostController`: the wall poster, activity poster and notifier taken from the VK controller are set
+  to null, so every share/notify prompt and post is skipped (the code already checks each for null).
+  `askAndNotify` now calls its callback when there is nothing to ask, so the level-up dialog after a
+  won friend battle still appears.
+- `AbstractGameOverDialog`: the "Create note" and "Share" buttons are hidden; only OK is left, centred
+  (as in hot seat).
+
+The API also refuses every VK method it doesn't implement with VK's "denied by user" error (10007)
+instead of an empty answer, so anything left (photo studio upload, video upload) gives up at once.
+
+Rebuild on top of the patches above:
+
+    for c in social.common.post.PostController gui.window.gameover.AbstractGameOverDialog; do
+        java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
+            client-patches/no-vk/${c##*.}.as && mv Wormix.new.swf Wormix.swf
     done

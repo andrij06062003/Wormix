@@ -52,7 +52,8 @@ package ru.pragmatix.wormix.gui.menu.arena.pvp
       }
       
       // Patch (2v2): ask 1v1 or 2v2. OK is 1v1, the cancel button 2v2; closing the window (X) asks for nothing.
-      // The window says "cancel" for both the cancel button and X, so a press on the cancel button is noted.
+      // The window says "cancel" for both the cancel button and X, so a click on the cancel button is noted
+      // first (a click is press and release on the button; a higher priority runs before the window closes).
       private function chooseMode() : void
       {
          var self:PvpCell = this;
@@ -66,14 +67,10 @@ package ru.pragmatix.wormix.gui.menu.arena.pvp
          var cancelClip:DisplayObject = box.getChildByName("cancel");
          if(Boolean(cancelClip))
          {
-            cancelClip.addEventListener(MouseEvent.MOUSE_DOWN,function(e:MouseEvent):void
+            cancelClip.addEventListener(MouseEvent.CLICK,function(e:MouseEvent):void
             {
                team = true;
-            });
-            cancelClip.addEventListener(MouseEvent.ROLL_OUT,function(e:MouseEvent):void
-            {
-               team = false;
-            });
+            },false,100);
          }
          box.addEventListener(UIEvent.WINDOW_CANCEL,function(e:Event):void
          {

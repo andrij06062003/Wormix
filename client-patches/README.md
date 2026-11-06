@@ -132,7 +132,7 @@ Rebuild on top of the patches above:
 ## `pvp-2v2/`: 2v2 wager battles (four real players in one battle)
 
 Arena > PvP: pressing a wager cell's button asks for the mode, "1 на 1" (OK) or "2 на 2" (the cancel
-button; closing the window with X asks for nothing). For 2v2 the server waits until four players asked
+button; closing the window with X asks for nothing: only a full click on the cancel button counts). For 2v2 the server waits until four players asked
 for the same wager, splits them into two teams at random and starts one battle for all four.
 
 The game engine already handled any number of squads and teams (missions use them): the `GameMaster` gives
@@ -152,6 +152,8 @@ determinator waits for the server once a single team is left. Only the PvP set-u
   otherwise the shared positions; positions are reused a bit higher up if a map runs out).
 - `BattleStartDataLoader`: loads names/avatars of all four teams.
 - `BattleController`: chat messages show who wrote them.
+- `GameInterface`: during a teammate's turn the bar says "очікування ходу напарника" (`TEAMMATE_TURN_MSG`)
+  instead of the opponent's turn.
 - `PvpCell` + `WagerBattleRequest*`: the mode choice and the mode byte. Texts: `PVP_MODE_*` in
   `data/lang/messages_{ru,en}.xml` (with fallbacks in the code).
 
@@ -167,7 +169,7 @@ Rebuild on top of the patches above:
              pvp.messages.wager.WagerBattleRequestResult serialization.wager.WagerBattleRequestResultBinarySerializer \
              model.battle.BattleStartInfo game.rules.GameRulesUtil game.rules.PvpGameRules \
              loader.BattleStartDataLoader controller.BattleController pvp.controllers.BattleRequestController \
-             gui.menu.arena.pvp.PvpCell; do
+             gui.menu.arena.pvp.PvpCell gui.GameInterface; do
         java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
             client-patches/pvp-2v2/${c##*.}.as && mv Wormix.new.swf Wormix.swf
     done

@@ -175,3 +175,40 @@ Rebuild on top of the patches above:
     done
 
 `pvp-2v2/BattleRequestController.as` already contains the `BattleRequestController.as` fix above.
+
+## `pvp-party/`: teams for 2v2 (play with a friend on your side)
+
+Calling a friend to battle (friends list, avatar menu or "call by id") first asks: **1 на 1** (the old
+battle challenge) or **У команду** (invite them into your 2v2 team). The friend gets "X invites you into
+their team" and accepts or declines. A team is two players. It lasts until one of you logs out or joins
+another team; the other is then told. The Arena 2v2 window shows your teammate.
+
+When you pick 2v2 and your teammate isn't searching yet, they get "your teammate is looking for a 2v2 battle
+with wager N, join?". Joining puts them in the queue too. The pair is matched only once both are queued for
+the same wager, and always on the same side, against another team or two single players. If the teammate
+declines, doesn't answer within 60 s, can't afford the wager or leaves, the search stops with "your
+teammate didn't join".
+
+- Protocol (nothing changes for older clients or plain challenges):
+  - `BattleRequest` (1002): a mode byte at the end, 1 = team invite.
+  - `BattleOffer` (2002): a kind byte at the end: 1 team invite, 2 teammate call (the wager in `seed`),
+    3 the teammate left. Answers are the usual `BattleOfferResult`.
+  - `WagerBattleRequestError` (2008) code 10: the teammate didn't join.
+- `BattleRequestController`: the 1v1/team choice, team invites, `teammate`, `findWager`, error 10 text.
+- `BattleOfferController`: the invite/call/left windows.
+- `PvpCell`: the 2v2 window names the teammate.
+- `BattleRequest*`, `BattleOffer*`: the mode/kind bytes. Texts: `TEAM_*`, `PVP_MODE_TEAMMATE`.
+
+Server side: `services/core/internal/pvp/party.go`.
+
+Rebuild on top of the patches above:
+
+    for c in pvp.messages.client.BattleRequest serialization.client.BattleRequestBinarySerializer \
+             pvp.messages.server.BattleOffer serialization.server.BattleOfferBinarySerializer \
+             pvp.controllers.BattleRequestController pvp.controllers.BattleOfferController \
+             gui.menu.arena.pvp.PvpCell; do
+        java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
+            client-patches/pvp-party/${c##*.}.as && mv Wormix.new.swf Wormix.swf
+    done
+
+`pvp-party/BattleRequestController.as` and `pvp-party/PvpCell.as` include the `pvp-2v2/` changes.

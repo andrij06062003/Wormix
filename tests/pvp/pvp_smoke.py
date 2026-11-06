@@ -7,7 +7,8 @@ Runs against a real API + wormix-core (see tests/pvp/run.sh). Covers:
   3. surrender (PvpDropPlayer);
   4. a player who disconnects and doesn't come back loses (reconnect timeout);
   5. decline and cancel of a challenge;
-  6. 2v2 wager battle: four players matched into two teams, turns in the client's order, a team win paid out.
+  6. 2v2 wager battle: four players matched into two teams, turns in the client's order, a team win paid out;
+  7. teams for 2v2: invite, teammate call (declined, then joined), the pair matched on one side, team ends on logout.
 Exits non-zero on the first failure.
 """
 import hashlib
@@ -311,6 +312,17 @@ def team_wager_match(players, wager):
     return battle_id, [by_id[i] for i, _ in seats], dict(seats), money
 
 
+def read_offer(p):
+    """Returns (enemy id, seed, battle id, kind) of a BattleOffer."""
+    r = Reader(p.main.expect(2002))
+    r.utf(); r.s32(); r.u32()
+    seed = r.s32()
+    enemy, _ = r.profile(), r.profile()
+    battle_id = r.u32()
+    kind = r.u8() if r.p < len(r.d) else 0
+    return enemy["id"], seed, battle_id, kind
+
+
 def step(name):
     print(f"\n== {name}", flush=True)
 
@@ -476,6 +488,62 @@ def main():
         want = before[p.id]["money"] + (12 if p.id in winners else -15)
         assert got == want, f"{p.name}: money {got}, want {want}"
     c.main.close(); d.main.close()
+
+    step("team: E invites F into a 2v2 team, F accepts")
+    e, f, g, h = Player("E"), Player("F"), Player("G"), Player("H")
+    e.main.send(msg(1002, utf("wormixtest.ru") + struct.pack(">iIi", PVP_PORT, 3, 1) + utf(str(f.id)) + bytes([1])))
+    who, _, invite, kind = read_offer(f)
+    assert (who, kind) == (e.id, 1), (who, kind)
+    f.main.send(msg(1003, struct.pack(">hII", 0, e.id, invite)))
+    assert Reader(e.main.expect(2003)).s16() == 0, "team invite accepted"
+
+    team_req = utf("wormixtest.ru") + struct.pack(">iiI", PVP_PORT, 15, 5) + bytes([1])
+    step("team: E looks for a 2v2 battle, F is called and declines: E stops waiting")
+    e.main.send(msg(2005, team_req, secure=True))
+    who, wager, call, kind = read_offer(f)
+    assert (who, wager, kind) == (e.id, 15, 2), (who, wager, kind)
+    f.main.send(msg(1003, struct.pack(">hII", 1, e.id, call)))
+    assert Reader(e.main.expect(2008)).s16() == 10, "teammate declined"
+
+    step("team: E looks again, F joins; two single players G and H make the other side")
+    e.main.send(msg(2005, team_req, secure=True))
+    _, _, call, kind = read_offer(f)
+    assert kind == 2
+    g.main.send(msg(2005, team_req, secure=True))
+    h.main.send(msg(2005, team_req, secure=True))
+    time.sleep(0.5)
+    for p in (e, g, h):
+        p.main.nothing(2006, 0.5)   # not before F has joined
+    f.main.send(msg(1003, struct.pack(">hII", 0, e.id, call)))
+    f.main.send(msg(2005, team_req, secure=True))
+    sides = None
+    for p in (e, f, g, h):
+        r = Reader(p.main.expect(2006, 20))
+        r.utf(); r.s32(); r.u32(); r.profile(); r.profile(); r.u32(); r.s32(); battle = r.u32()
+        [r.u8() for _ in range(r.u16())]
+        n = r.u8()
+        seats = {}
+        for _ in range(n):
+            t = r.u8()
+            seats[r.profile()["id"]] = t
+        sides = sides or seats
+        assert seats == sides
+    assert sides[e.id] == sides[f.id] and sides[g.id] == sides[h.id] and sides[e.id] != sides[g.id], sides
+    print("sides:", {p.name: sides[p.id] for p in (e, f, g, h)})
+    for p in (e, f, g, h):
+        p.pvp_login(battle, False, e)
+    g.pvp.send(msg(1006, struct.pack(">IIi", g.id, battle, 1), secure=True))
+    _, results = expect_end_battle(e, battle)
+    assert results[e.id] == 0 and results[f.id] == 0 and results[g.id] == 1 and results[h.id] == 1, results
+    for p in (e, f, g, h):
+        p.pvp.close()
+
+    step("team: E logs out, F is told the team is over")
+    e.main.close()
+    who, _, _, kind = read_offer(f)
+    assert (who, kind) == (e.id, 3), (who, kind)
+    for p in (f, g, h):
+        p.main.close()
 
     step("no-show: B never comes back, A wins after the reconnect timeout (about 45 s)")
     battle = challenge(a, b)

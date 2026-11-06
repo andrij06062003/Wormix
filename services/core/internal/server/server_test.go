@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/binary"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net"
 	"net/http"
@@ -102,8 +103,14 @@ func (f *fakeAPI) handler(w http.ResponseWriter, r *http.Request) {
 	case "login":
 		var req struct{ Id int }
 		json.Unmarshal(body, &req)
+		others := []any{} // like the API: every other player, ordered by id
+		for id := 1; id <= 4; id++ {
+			if id != req.Id {
+				others = append(others, profile(id))
+			}
+		}
 		out = map[string]any{"type": "EnterAccount", "data": map[string]any{"UserProfileStructure": profile(req.Id),
-			"UserProfileStructures": []any{}, "DailyBonusStructure": map[string]any{}, "Reagents": []any{},
+			"UserProfileStructures": others, "DailyBonusStructure": map[string]any{}, "Reagents": []any{},
 			"SessionKey": strings.Repeat("x", 0) + itoa(req.Id) + ".k"}}
 	case "pvp/profile":
 		out = map[string]any{"data": profile(idOf(r))}
@@ -319,4 +326,60 @@ func TestEndToEnd(t *testing.T) {
 	for _, c := range []*client{b, pa, bad} {
 		c.c.Close()
 	}
+}
+
+// friendsInLogin reads the friends list (ids, in order) and OnlineFriends from an EnterAccount body.
+func friendsInLogin(t *testing.T, b []byte) (ids []uint32, online uint16) {
+	t.Helper()
+	r := wire.NewReader(b)
+	r.BytesLenient(int(r.U16())) // own profile
+	for n := r.U16(); n > 0; n-- {
+		p := wire.NewReader(r.BytesLenient(int(r.U16())))
+		ids = append(ids, p.U32())
+	}
+	r.BytesLenient(int(r.U16())) // daily bonus
+	return ids, r.U16()
+}
+
+func TestOnlineFriendsFirst(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc((&fakeAPI{}).handler))
+	defer srv.Close()
+	api.BaseURL = srv.URL + "/api/internal/"
+	mainSrv := New("main", "127.0.0.1:0")
+	if err := mainSrv.Start(); err != nil {
+		t.Fatal(err)
+	}
+	defer mainSrv.Close()
+	login := func(id uint32) (*client, []uint32, uint16) {
+		c := dial(t, mainSrv.ListenAddr())
+		c.send(proto.CmdLogin, body(func(w *wire.Writer) { w.U32(id); w.U32(0); w.UTF("KEY"); w.U16(0); w.U8(1) }), false)
+		ids, online := friendsInLogin(t, c.expect(proto.CmdEnterAccount))
+		return c, ids, online
+	}
+	check := func(who string, ids []uint32, online uint16, wantIDs []uint32, wantOnline uint16) {
+		t.Helper()
+		if fmt.Sprint(ids) != fmt.Sprint(wantIDs) || online != wantOnline {
+			t.Fatalf("%s: friends %v, %d online; want %v, %d online", who, ids, online, wantIDs, wantOnline)
+		}
+	}
+
+	c3, ids, online := login(3)
+	check("first player", ids, online, []uint32{1, 2, 4}, 0)
+	c1, ids, online := login(1)
+	check("with 3 online", ids, online, []uint32{3, 2, 4}, 1)
+	_, ids, online = login(4)
+	check("with 1 and 3 online", ids, online, []uint32{1, 3, 2}, 2)
+
+	// Someone who left is offline again.
+	c3.c.Close()
+	c1.c.Close()
+	deadline := time.Now().Add(5 * time.Second)
+	for pvp.Find(3) != nil || pvp.Find(1) != nil {
+		if time.Now().After(deadline) {
+			t.Fatal("players 1 and 3 still online after disconnecting")
+		}
+		time.Sleep(20 * time.Millisecond)
+	}
+	_, ids, online = login(2)
+	check("after 1 and 3 left", ids, online, []uint32{4, 1, 3}, 1)
 }

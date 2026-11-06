@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs the PvP end-to-end test against a throwaway stack (redis, api, core) in its own compose project.
+# Runs the PvP end-to-end test against a throwaway stack (api, core) in its own compose project.
 # Nothing is published on the host, so it doesn't touch a running server.
 #
 #   tests/pvp/run.sh          # build, test, remove everything
@@ -12,7 +12,7 @@ compose() { docker compose -f docker-compose.yml "$@"; }
 cleanup() { [ "${KEEP:-}" = 1 ] || compose down -v --remove-orphans >/dev/null 2>&1 || true; }
 trap cleanup EXIT
 
-compose up -d --build redis api core
+compose up -d --build api core
 network="${COMPOSE_PROJECT_NAME}_default"
 
 set +e

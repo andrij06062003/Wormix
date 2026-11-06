@@ -1,4 +1,4 @@
-# Wormix 1.05.0 server, published through a Cloudflare Tunnel.
+# Wormix 1.05.0 server (Go: services/api, services/core, services/relay), published through a Cloudflare Tunnel.
 #
 #   cp .env.example .env      # then fill in CLOUDFLARE_TUNNEL_TOKEN
 #   docker compose up -d --build
@@ -13,18 +13,11 @@
 name: wormix
 
 services:
-  redis:
-    image: redis:7.4.10-alpine
-    restart: unless-stopped
-    command: ["redis-server", "--save", "", "--appendonly", "no"]   # only live sessions, nothing to keep
-
   api:
     image: wormix-api:${IMAGE_TAG:-local}
     build:
       context: .
-      dockerfile: docker/api.Dockerfile
-      additional_contexts:
-        api: ${API_DIR:-./wormix-api}
+      dockerfile: services/api/Dockerfile
     restart: unless-stopped
     environment:
       APP_KEY: ${APP_KEY:-}            # optional; otherwise generated once and kept in the volume
@@ -35,17 +28,16 @@ services:
     image: wormix-core:${IMAGE_TAG:-local}
     build:
       context: .
-      dockerfile: docker/core.Dockerfile
+      dockerfile: services/core/Dockerfile
     restart: unless-stopped
-    stdin_open: true                   # wormix-core waits on Console.ReadLine() to stay alive
-    tty: true
     depends_on:
-      - redis
       - api
 
   relay:
     image: wormix-relay:${IMAGE_TAG:-local}
-    build: .
+    build:
+      context: .
+      dockerfile: services/relay/Dockerfile
     restart: unless-stopped
     volumes:
       - ${CLIENT_DIR:-./wormix-client}:/client:ro   # game files

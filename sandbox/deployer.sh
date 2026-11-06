@@ -99,7 +99,6 @@ write_env() {
             echo "CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN:-}"
             [ -n "${CLOUDFLARE_TUNNEL_TOKEN:-}" ] && echo "COMPOSE_PROFILES=tunnel"
             echo "APP_KEY=${APP_KEY:-}"
-            echo "API_DIR=./wormix-api"
             echo "CLIENT_DIR=./wormix-client"
         } > "$1/.env"
     )

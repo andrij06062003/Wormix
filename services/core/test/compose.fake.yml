@@ -1,0 +1,16 @@
+# Core under test against the recording fake API (fakeapi.py). TEST_DIR is this directory as seen by the
+# Docker daemon. Used by run_diff.sh.
+services:
+  redis:
+    image: redis:7.4.10-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+  fakeapi:
+    image: python:3.12-alpine
+    command: ["python", "-u", "/t/fakeapi.py"]
+    volumes: ["${TEST_DIR}:/t:ro"]
+  core:
+    image: ${CORE_IMAGE:-wormix-core:go}
+    stdin_open: true
+    tty: true
+    volumes: ["${TEST_DIR}/fake-config.json:/app/config.json:ro"]
+    depends_on: [redis, fakeapi]

@@ -6,6 +6,5 @@ obj/
 .pids
 *.md
 docker/data/
-wormix-api/
 wormix-client/
 sandbox/

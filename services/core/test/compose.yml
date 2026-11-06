@@ -1,0 +1,15 @@
+# Throwaway test stack: reference API (+ redis for the C# core) and a core image to test.
+#   CORE_IMAGE=wormix-core:go  docker compose -p coretest-go  -f services/core/test/compose.yml up -d
+#   CORE_IMAGE=wormix-core:ref docker compose -p coretest-ref -f services/core/test/compose.yml up -d
+# Nothing is published on the host; tests run in a container on the project's network (see run.sh).
+services:
+  redis:
+    image: redis:7.4.10-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+  api:
+    image: ${API_IMAGE:-wormix-api:ref}
+  core:
+    image: ${CORE_IMAGE:-wormix-core:go}
+    stdin_open: true   # the C# reference core waits on the console
+    tty: true
+    depends_on: [redis, api]

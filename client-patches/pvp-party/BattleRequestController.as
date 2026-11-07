@@ -16,6 +16,7 @@ package ru.pragmatix.wormix.pvp.controllers
    import ru.pragmatix.wormix.game.mission.ScenarioData;
    import ru.pragmatix.wormix.gui.Messages;
    import ru.pragmatix.wormix.gui.menu.SelectMapMenu;
+   import ru.pragmatix.wormix.gui.menu.arena.pvp.PvpCell;
    import ru.pragmatix.wormix.gui.window.Message;
    import ru.pragmatix.wormix.gui.window.WaitForBattleDialog;
    import ru.pragmatix.wormix.loader.BattleStartDataLoader;
@@ -297,8 +298,8 @@ package ru.pragmatix.wormix.pvp.controllers
             battle();
          });
          box.setOkBtnText(text("PVP_MODE_1V1","1 на 1"));
-         box.setCancelBtnText(text("TEAM_INVITE_BTN","У команду"));
-         var cancelClip:DisplayObject = box.getChildByName("cancel");
+         box.setCancelBtnText(text("TEAM_INVITE_BTN","Разом"));
+         var cancelClip:DisplayObject = PvpCell.findCancelClip(box.getContainerAsContainer());
          if(Boolean(cancelClip))
          {
             cancelClip.addEventListener(MouseEvent.CLICK,function(e:MouseEvent):void

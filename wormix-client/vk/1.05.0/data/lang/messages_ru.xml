@@ -97,12 +97,12 @@
     <message name="TEAM_TITLE" value="Команда 2 на 2"/>
     <message name="TEAM_OR_BATTLE" value="{name}: бій 1 на 1 чи запросити до вашої команди для боїв 2 на 2?"/>
     <message name="TEAM_ALREADY" value="Ви вже в одній команді."/>
-    <message name="TEAM_INVITE_BTN" value="У команду"/>
+    <message name="TEAM_INVITE_BTN" value="Разом"/>
     <message name="TEAM_INVITE" value="{name} запрошує вас до своєї команди для боїв 2 на 2. У бою ви будете на одному боці."/>
     <message name="TEAM_CALL" value="Ваш напарник {name} шукає бій 2 на 2 зі ставкою {wager}. Приєднатися?"/>
     <message name="TEAM_ACCEPT" value="Прийняти"/>
-    <message name="TEAM_JOIN" value="Приєднатися"/>
-    <message name="TEAM_DECLINE" value="Відмовитись"/>
+    <message name="TEAM_JOIN" value="Прийняти"/>
+    <message name="TEAM_DECLINE" value="Відмова"/>
     <message name="TEAM_JOINED" value="{name} тепер ваш напарник. Оберіть «2 на 2» на арені — ви гратимете разом."/>
     <message name="TEAM_DECLINED" value="{name} не прийняв запрошення до команди."/>
     <message name="TEAM_LEFT" value="{name} більше не у вашій команді."/>

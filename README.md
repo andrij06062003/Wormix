@@ -90,6 +90,11 @@ There are no VK friends any more, so PvP works with game ids (shown under the ga
   Every registered player appears in the friends list.
 - **Arena > PvP (wager battles)**: pick a wager and wait; the next player choosing the same wager is your
   opponent. The winner gets the wager back plus 80%, a draw returns it, and the rating changes.
+- **2 на 2**: in the same window press "2 на 2"; four players on the same wager are matched into two teams.
+  To play with a friend on your side, call them from the friends list and press "Разом" first.
+- Every player brings their whole team: the worms you added to your team fight in 1v1 and in 2v2.
+- Keep the game tab open during a battle: a tab that sleeps for more than 20 s counts as a cheat, and you lose
+  (in 2v2 your team loses).
 
 The PvP server (`services/core/internal/pvp/`) relays the moves between the two games and decides each turn
 and the winner. `tests/pvp/run.sh` tests it end to end with two simulated players in a throwaway Docker stack.

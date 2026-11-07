@@ -212,3 +212,22 @@ Rebuild on top of the patches above:
     done
 
 `pvp-party/BattleRequestController.as` and `pvp-party/PvpCell.as` include the `pvp-2v2/` changes.
+
+## `pvp-party/` fix: the 2v2 and team buttons did nothing
+
+Pressing "2 на 2" (Arena) or the team button (friend challenge) only closed the window: no request reached
+the server, so nobody could enter a 2v2 battle or form a team.
+
+Cause: both windows tell that button from X by a click listener on the cancel clip, found with
+`box.getChildByName("cancel")`. `MessageBox` moves its buttons into a container of their own
+(`putInContainer`), so the clip isn't a direct child of the window and the lookup returned null. No listener
+was added, and the window just closed.
+
+Fix: `PvpCell.findCancelClip` searches the whole window; `BattleRequestController` uses it too. The labels
+"У команду", "Приєднатися" and "Відмовитись" didn't fit the button and were cut off ("У", "Відмови"), so
+they are shorter now: "Разом", "Прийняти", "Відмова".
+
+These changes are in the `pvp-party/` sources, so the rebuild above already contains them.
+
+When testing with changed stats: the client treats a hit above 800 damage as a cheat, drops the player and
+keeps a "delayed ban" in the browser's stored Flash data, which closes the main connection on the next logins.

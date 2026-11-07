@@ -71,7 +71,7 @@ package ru.pragmatix.wormix.gui.menu.arena.pvp
          });
          box.setOkBtnText(text("PVP_MODE_1V1","1 на 1"));
          box.setCancelBtnText(text("PVP_MODE_2V2","2 на 2"));
-         var cancelClip:DisplayObject = box.getChildByName("cancel");
+         var cancelClip:DisplayObject = findCancelClip(box.getContainerAsContainer());
          if(Boolean(cancelClip))
          {
             cancelClip.addEventListener(MouseEvent.CLICK,function(e:MouseEvent):void
@@ -87,6 +87,32 @@ package ru.pragmatix.wormix.gui.menu.arena.pvp
             }
          });
          box.show();
+      }
+      
+      // The cancel button of a MessageBox. The window moves its buttons into a container of their own
+      // (putInContainer), so it isn't a direct child of the window and getChildByName can't find it.
+      public static function findCancelClip(parent:DisplayObjectContainer) : DisplayObject
+      {
+         var i:int = 0;
+         var child:DisplayObject = null;
+         var found:DisplayObject = null;
+         for(i = 0; i < parent.numChildren; i++)
+         {
+            child = parent.getChildAt(i);
+            if(child.name == "cancel")
+            {
+               return child;
+            }
+            if(child is DisplayObjectContainer)
+            {
+               found = findCancelClip(DisplayObjectContainer(child));
+               if(Boolean(found))
+               {
+                  return found;
+               }
+            }
+         }
+         return null;
       }
       
       // A message from the language file, or the fallback while a browser still has an older copy of the file.

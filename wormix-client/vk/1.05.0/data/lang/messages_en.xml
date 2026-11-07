@@ -95,7 +95,7 @@
     <message name="TEAM_TITLE" value="2 vs 2 team"/>
     <message name="TEAM_OR_BATTLE" value="{name}: a 1 vs 1 battle, or invite them into your team for 2 vs 2 battles?"/>
     <message name="TEAM_ALREADY" value="You are already in one team."/>
-    <message name="TEAM_INVITE_BTN" value="Into team"/>
+    <message name="TEAM_INVITE_BTN" value="Team"/>
     <message name="TEAM_INVITE" value="{name} invites you into their team for 2 vs 2 battles. You will fight on the same side."/>
     <message name="TEAM_CALL" value="Your teammate {name} is looking for a 2 vs 2 battle with a wager of {wager}. Join?"/>
     <message name="TEAM_ACCEPT" value="Accept"/>

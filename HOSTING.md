@@ -12,22 +12,18 @@ Works on Linux or Windows (Docker Desktop), on x86-64 or ARM64 (e.g. Raspberry P
 |---|---|---|
 | `cloudflared` | Cloudflare Tunnel: carries `https://<your hostname>` to `relay` | connects out to Cloudflare |
 | `relay` | Game host: page, game files, `/api/` forwarding, game connections | only through the tunnel |
-| `core` | Game server ([n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core)) | no |
-| `api` | Accounts, money, items, battles (SQLite database in a Docker volume) | `/api/` only, `/api/internal/` is blocked |
-| `redis` | Live sessions for the game server | no |
+| `core` | Game server: main, PvP and achievements (`services/core/`, Go; originally ported from [n30np14gu3/wormix-core](https://github.com/n30np14gu3/wormix-core)) | no |
+| `api` | Accounts, money, items, battles (`services/api/`, Go; SQLite database in a Docker volume) | `/api/` only, `/api/internal/` is blocked |
+
+The game host is `services/relay/`. All three are Go programs, each built by its own `services/*/Dockerfile`.
 
 ## 1. Get the files
 
-Three folders side by side:
-
 ```
-wormix/
-  wormix-relay/    git clone https://github.com/andrij06062003/Wormix.git wormix-relay
-  wormix-api/      git clone -b sqlite-setup-script https://github.com/andrij06062003/Wormix_Test.git wormix-api
-  wormix-client/   the game files (get them from the server owner; they are not in git)
+git clone https://github.com/andrij06062003/Wormix.git wormix-relay
 ```
 
-`wormix-client` must contain `preloader.swf` and `vk/1.05.0/preloader.swf`, `vk/1.05.0/Wormix.swf`,
+The repository contains the server and the game files (`wormix-client/`). `wormix-client` must contain `preloader.swf` and `vk/1.05.0/preloader.swf`, `vk/1.05.0/Wormix.swf`,
 `vk/1.05.0/data/...`: the root files of the client archive's `public/` folder plus `public/vk/1.05.0/`.
 
 ## 2. Create the Cloudflare Tunnel
@@ -47,7 +43,7 @@ You need a domain on Cloudflare (free plan is fine).
 ```bash
 cd wormix-relay
 cp .env.example .env
-# edit .env: paste the token into CLOUDFLARE_TUNNEL_TOKEN=
+# edit .env: paste the token into CLOUDFLARE_TUNNEL_TOKEN= (keep COMPOSE_PROFILES=tunnel: it starts cloudflared)
 docker compose up -d --build
 ```
 
@@ -57,7 +53,7 @@ The first build takes a few minutes. On first start the API creates the database
 Check it:
 
 ```bash
-docker compose ps                  # all five should be "running"
+docker compose ps                  # all four should be "running"
 docker compose logs -f api core    # Ctrl+C to stop watching
 ```
 
@@ -73,7 +69,7 @@ docker compose down                # stop everything (the database is kept)
 docker compose up -d --build       # start / apply updates
 ```
 
-Update after a `git pull` in `wormix-relay` or `wormix-api`: `docker compose up -d --build`.
+Update after a `git pull`: `docker compose up -d --build`.
 
 ## Back up the database
 
@@ -101,3 +97,9 @@ game loads.
 | Game loads but can't connect | `docker compose logs relay core`: look for "Can't reach core". |
 | Battle stuck on "Инициализация карты" | Make sure you run the current `relay` (it reassembles game messages). |
 | Want the game's own log | Open `https://<hostname>/?debug` and set `DebugLog=true` for `relay` (environment), then `docker compose logs -f relay`. |
+
+## Prod and dev with automatic deploys
+
+On the dedicated host the stack runs in two sandboxes, `wormix-prod` (follows `main`) and
+`wormix-dev` (follows `dev`), each redeploying itself when CI passes for a merge to its branch.
+See [sandbox/README.md](sandbox/README.md).

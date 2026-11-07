@@ -1,51 +1,38 @@
 #!/bin/bash
-set -e
+# Day-to-day commands for the two sandboxes. ENV is prod or dev.
+#   ./manage.sh up                    build the sandbox image and start both environments
+#   ./manage.sh status [ENV]          sandboxes, the Wormix containers inside, deployed commit
+#   ./manage.sh logs ENV [deployer|SERVICE] [docker compose logs options]
+#   ./manage.sh backup ENV            copy the database out (to backups/ENV/manual-...)
+#   ./manage.sh shell ENV             a shell inside the sandbox
+set -euo pipefail
+cd "$(dirname "${BASH_SOURCE[0]}")"
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$DIR"
+envs() { if [ -n "${1:-}" ]; then echo "$1"; else echo prod dev; fi; }
+check() { case "${1:-}" in prod|dev) ;; *) echo "ENV must be prod or dev" >&2; exit 1 ;; esac; }
+inner() { local e=$1; shift; docker exec "wormix-$e" sh -c 'cd /state/releases/$(cat /state/current) && docker compose "$@"' sh "$@"; }
 
-case "$1" in
-    start)
-        echo "Starting Wormix dedicated container..."
-        docker compose up -d
-        ;;
-    stop)
-        echo "Stopping Wormix dedicated container..."
-        docker compose down
-        ;;
-    restart)
-        echo "Restarting Wormix dedicated container..."
-        docker compose restart
-        ;;
+case "${1:-}" in
+    up) docker compose up -d --build ;;
     status)
-        echo "=== Host Container Status ==="
         docker compose ps
-        echo ""
-        echo "=== Internal Services Status ==="
-        docker exec wormix-sandbox docker compose -f /workspace/wormix-relay/docker-compose.yml ps 2>/dev/null || echo "Sandbox not running"
-        ;;
+        for e in $(envs "${2:-}"); do
+            echo; echo "== $e: deployed $(docker exec "wormix-$e" cat /state/current 2>/dev/null || echo nothing yet)"
+            inner "$e" ps 2>/dev/null || true
+        done ;;
     logs)
-        shift
-        if [ "$1" = "internal" ]; then
-            shift
-            docker exec -it wormix-sandbox docker compose -f /workspace/wormix-relay/docker-compose.yml logs "$@"
+        check "${2:-}"; e=$2; shift 2
+        if [ "${1:-deployer}" = deployer ]; then
+            [ $# -gt 0 ] && shift
+            docker compose logs "wormix-$e" "$@"
         else
-            docker compose logs "$@"
-        fi
-        ;;
+            inner "$e" logs "$@"
+        fi ;;
     backup)
-        BACKUP_DIR="./backups/backup-$(date +%F-%H%M%S)"
-        mkdir -p "$BACKUP_DIR"
-        echo "Backing up database to $BACKUP_DIR..."
-        docker exec wormix-sandbox docker compose -f /workspace/wormix-relay/docker-compose.yml cp api:/data "$BACKUP_DIR"
-        echo "Backup complete: $BACKUP_DIR"
-        ;;
-    exec)
-        shift
-        docker exec -it wormix-sandbox "$@"
-        ;;
-    *)
-        echo "Usage: $0 {start|stop|restart|status|logs|backup|exec}"
-        exit 1
-        ;;
+        check "${2:-}"
+        dir="/backups/manual-$(date +%Y%m%d-%H%M%S)"
+        docker exec "wormix-$2" sh -c "mkdir -p $dir && docker cp \$(docker ps -q --filter label=com.docker.compose.project=wormix --filter label=com.docker.compose.service=api):/data $dir/"
+        echo "backed up to backups/$2/${dir#/backups/}" ;;
+    shell) check "${2:-}"; docker exec -it "wormix-$2" bash ;;
+    *) sed -n '2,7p' "$0"; exit 1 ;;
 esac

@@ -1,0 +1,693 @@
+{
+  "_comment": "Achievement levels and award items, copied from the 1.05.0 client (config/AchievConfig.as, gui/house/achiev/AchievAwardConfig.as). Counters stats_first..stats_last are the statistics page (gui/house/achiev/Stats.as): stored, no rewards. Keep in sync with the client.",
+  "points_per_award": 1000,
+  "max_value": 65535,
+  "stats_first": 100,
+  "stats_last": 127,
+  "achievements": {
+    "0": {
+      "name": "BURNED_ENEMIES",
+      "levels": [
+        {
+          "max": 50,
+          "points": 50,
+          "award": "reaction",
+          "count": 3
+        },
+        {
+          "max": 200,
+          "points": 60,
+          "award": "reaction",
+          "count": 5
+        },
+        {
+          "max": 500,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        }
+      ]
+    },
+    "1": {
+      "name": "DESTROYED_SQUARE",
+      "levels": [
+        {
+          "max": 1000,
+          "points": 60,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 10000,
+          "points": 70,
+          "award": "reaction",
+          "count": 15
+        },
+        {
+          "max": 30000,
+          "points": 80,
+          "award": "ruby",
+          "count": 5
+        }
+      ]
+    },
+    "2": {
+      "name": "DROWNED_OPPONENTS",
+      "levels": [
+        {
+          "max": 50,
+          "points": 45,
+          "award": "reaction",
+          "count": 3
+        },
+        {
+          "max": 250,
+          "points": 60,
+          "award": "reaction",
+          "count": 5
+        },
+        {
+          "max": 600,
+          "points": 75,
+          "award": "reaction",
+          "count": 10
+        }
+      ]
+    },
+    "3": {
+      "name": "WAGER_WINNER",
+      "levels": [
+        {
+          "max": 50,
+          "points": 80,
+          "award": "reaction",
+          "count": 5
+        },
+        {
+          "max": 400,
+          "points": 90,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 1000,
+          "points": 100,
+          "award": "reaction",
+          "count": 20
+        }
+      ]
+    },
+    "4": {
+      "name": "DIPLOMAT",
+      "levels": [
+        {
+          "max": 5,
+          "points": 60,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 10,
+          "points": 70,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 15,
+          "points": 80,
+          "award": "fuzy",
+          "count": 200
+        }
+      ]
+    },
+    "5": {
+      "name": "WIND_KILLS",
+      "levels": [
+        {
+          "max": 20,
+          "points": 60,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 75,
+          "points": 65,
+          "award": "reaction",
+          "count": 5
+        },
+        {
+          "max": 200,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        }
+      ]
+    },
+    "6": {
+      "name": "MASSIVE_DAMAGE",
+      "levels": [
+        {
+          "max": 20,
+          "points": 60,
+          "award": "reaction",
+          "count": 3
+        },
+        {
+          "max": 100,
+          "points": 65,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 250,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        }
+      ]
+    },
+    "7": {
+      "name": "GRAVES_SANK",
+      "levels": [
+        {
+          "max": 25,
+          "points": 50,
+          "award": "fuzy",
+          "count": 50
+        },
+        {
+          "max": 80,
+          "points": 60,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 200,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        }
+      ]
+    },
+    "8": {
+      "name": "ONE_HP_WIN",
+      "levels": [
+        {
+          "max": 2,
+          "points": 70,
+          "award": "ruby",
+          "count": 1
+        },
+        {
+          "max": 4,
+          "points": 80,
+          "award": "ruby",
+          "count": 2
+        },
+        {
+          "max": 6,
+          "points": 90,
+          "award": "ruby",
+          "count": 3
+        }
+      ]
+    },
+    "9": {
+      "name": "IMMOBILE_KILLS",
+      "levels": [
+        {
+          "max": 20,
+          "points": 60,
+          "award": "fuzy",
+          "count": 120
+        },
+        {
+          "max": 50,
+          "points": 65,
+          "award": "reaction",
+          "count": 7
+        },
+        {
+          "max": 150,
+          "points": 70,
+          "award": "reaction",
+          "count": 15
+        }
+      ]
+    },
+    "10": {
+      "name": "ZERO_LOOSES_VICTORY",
+      "levels": [
+        {
+          "max": 50,
+          "points": 60,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 250,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 1000,
+          "points": 80,
+          "award": "reaction",
+          "count": 20
+        }
+      ]
+    },
+    "11": {
+      "name": "FLEW_MILES",
+      "levels": [
+        {
+          "max": 1500,
+          "points": 50,
+          "award": "fuzy",
+          "count": 40
+        },
+        {
+          "max": 3500,
+          "points": 60,
+          "award": "fuzy",
+          "count": 80
+        },
+        {
+          "max": 8000,
+          "points": 70,
+          "award": "fuzy",
+          "count": 120
+        }
+      ]
+    },
+    "12": {
+      "name": "DOUBLE_KILLLS",
+      "levels": [
+        {
+          "max": 20,
+          "points": 50,
+          "award": "reaction",
+          "count": 3
+        },
+        {
+          "max": 100,
+          "points": 60,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 250,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        }
+      ]
+    },
+    "13": {
+      "name": "MEDKIT_KILLS",
+      "levels": [
+        {
+          "max": 15,
+          "points": 60,
+          "award": "fuzy",
+          "count": 75
+        },
+        {
+          "max": 40,
+          "points": 70,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 75,
+          "points": 80,
+          "award": "ruby",
+          "count": 3
+        }
+      ]
+    },
+    "14": {
+      "name": "GATHERED_SUPPLIES",
+      "levels": [
+        {
+          "max": 100,
+          "points": 45,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 350,
+          "points": 55,
+          "award": "ruby",
+          "count": 3
+        },
+        {
+          "max": 800,
+          "points": 65,
+          "award": "reaction",
+          "count": 20
+        }
+      ]
+    },
+    "15": {
+      "name": "KAMIKAZE",
+      "levels": [
+        {
+          "max": 25,
+          "points": 45,
+          "award": "reaction",
+          "count": 3
+        },
+        {
+          "max": 100,
+          "points": 55,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 250,
+          "points": 65,
+          "award": "reaction",
+          "count": 10
+        }
+      ]
+    },
+    "16": {
+      "name": "ROPED_MILES",
+      "levels": [
+        {
+          "max": 200,
+          "points": 50,
+          "award": "fuzy",
+          "count": 40
+        },
+        {
+          "max": 800,
+          "points": 55,
+          "award": "fuzy",
+          "count": 80
+        },
+        {
+          "max": 2000,
+          "points": 60,
+          "award": "fuzy",
+          "count": 120
+        }
+      ]
+    },
+    "17": {
+      "name": "FUZZES_SPENT",
+      "levels": [
+        {
+          "max": 10000,
+          "points": 50,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 25000,
+          "points": 70,
+          "award": "reaction",
+          "count": 25
+        },
+        {
+          "max": 60000,
+          "points": 90,
+          "award": "reaction",
+          "count": 50
+        }
+      ]
+    },
+    "18": {
+      "name": "RUBIES_SPENT",
+      "levels": [
+        {
+          "max": 100,
+          "points": 80,
+          "award": "ruby",
+          "count": 5
+        },
+        {
+          "max": 300,
+          "points": 100,
+          "award": "reaction",
+          "count": 40
+        },
+        {
+          "max": 800,
+          "points": 150,
+          "award": "reaction",
+          "count": 80
+        }
+      ]
+    },
+    "19": {
+      "name": "PUMPED_REACTION",
+      "levels": [
+        {
+          "max": 100,
+          "points": 50,
+          "award": "fuzy",
+          "count": 50
+        },
+        {
+          "max": 250,
+          "points": 55,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 1000,
+          "points": 60,
+          "award": "fuzy",
+          "count": 200
+        }
+      ]
+    },
+    "20": {
+      "name": "RUBIES_FOUND",
+      "levels": [
+        {
+          "max": 10,
+          "points": 50,
+          "award": "reaction",
+          "count": 3
+        },
+        {
+          "max": 25,
+          "points": 60,
+          "award": "reaction",
+          "count": 6
+        },
+        {
+          "max": 50,
+          "points": 70,
+          "award": "reaction",
+          "count": 12
+        }
+      ]
+    },
+    "21": {
+      "name": "MADE_PHOTO",
+      "levels": [
+        {
+          "max": 10,
+          "points": 40,
+          "award": "fuzy",
+          "count": 40
+        },
+        {
+          "max": 25,
+          "points": 50,
+          "award": "fuzy",
+          "count": 80
+        },
+        {
+          "max": 100,
+          "points": 60,
+          "award": "fuzy",
+          "count": 120
+        }
+      ]
+    },
+    "22": {
+      "name": "MADE_VIDEO",
+      "levels": [
+        {
+          "max": 5,
+          "points": 40,
+          "award": "fuzy",
+          "count": 40
+        },
+        {
+          "max": 10,
+          "points": 50,
+          "award": "fuzy",
+          "count": 80
+        },
+        {
+          "max": 30,
+          "points": 60,
+          "award": "fuzy",
+          "count": 120
+        }
+      ]
+    },
+    "23": {
+      "name": "GAME_VISITS",
+      "levels": [
+        {
+          "max": 5,
+          "points": 100,
+          "award": "fuzy",
+          "count": 200
+        },
+        {
+          "max": 10,
+          "points": 150,
+          "award": "reaction",
+          "count": 20
+        },
+        {
+          "max": 20,
+          "points": 300,
+          "award": "ruby",
+          "count": 5
+        }
+      ]
+    },
+    "24": {
+      "name": "DROP_WATER",
+      "levels": [
+        {
+          "max": 30,
+          "points": 45,
+          "award": "fuzy",
+          "count": 50
+        },
+        {
+          "max": 80,
+          "points": 55,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 200,
+          "points": 65,
+          "award": "reaction",
+          "count": 10
+        }
+      ]
+    },
+    "25": {
+      "name": "KILL_WALKING_ZOMBIES",
+      "levels": [
+        {
+          "max": 15,
+          "points": 50,
+          "award": "reaction",
+          "count": 5
+        },
+        {
+          "max": 50,
+          "points": 60,
+          "award": "fuzy",
+          "count": 80
+        },
+        {
+          "max": 100,
+          "points": 70,
+          "award": "fuzy",
+          "count": 150
+        }
+      ]
+    },
+    "26": {
+      "name": "WEAR_HATS",
+      "levels": [
+        {
+          "max": 50,
+          "points": 60,
+          "award": "fuzy",
+          "count": 70
+        },
+        {
+          "max": 300,
+          "points": 70,
+          "award": "fuzy",
+          "count": 120
+        },
+        {
+          "max": 800,
+          "points": 80,
+          "award": "ruby",
+          "count": 3
+        }
+      ]
+    },
+    "27": {
+      "name": "PARTISAN",
+      "levels": [
+        {
+          "max": 5,
+          "points": 60,
+          "award": "fuzy",
+          "count": 80
+        },
+        {
+          "max": 20,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 50,
+          "points": 80,
+          "award": "ruby",
+          "count": 3
+        }
+      ]
+    },
+    "28": {
+      "name": "COLLECTOR",
+      "levels": [
+        {
+          "max": 25,
+          "points": 60,
+          "award": "fuzy",
+          "count": 70
+        },
+        {
+          "max": 70,
+          "points": 65,
+          "award": "fuzy",
+          "count": 120
+        },
+        {
+          "max": 150,
+          "points": 70,
+          "award": "ruby",
+          "count": 3
+        }
+      ]
+    }
+  },
+  "award_items": [
+    [
+      62,
+      63
+    ],
+    [
+      64,
+      68
+    ],
+    [
+      67,
+      1027
+    ],
+    [
+      1034
+    ]
+  ]
+}

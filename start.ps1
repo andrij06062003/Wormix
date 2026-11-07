@@ -3,8 +3,9 @@
 #   powershell -ExecutionPolicy Bypass -File .\start.ps1
 #
 # Each part runs in its own minimized window (restore one to see its log):
-#   Redis (Garnet) :6379  ->  API :8000  ->  wormix-core :49197  ->  game host :32700
+#   API :8000  ->  wormix-core :49197  ->  game host :32700
 # Parts that are already running are left alone. Stop everything with stop.ps1.
+# Needs only Go (winget install GoLang.Go); the three parts are built into .\bin\ on start.
 #
 # Options:
 #   -NoBrowser    don't open the game in the browser
@@ -15,10 +16,10 @@ param(
     [switch]$NoBrowser,
     [switch]$Lan,
     [switch]$GameLog,
-    # Sibling folders, by default next to this one.
-    [string]$ApiDir    = (Join-Path (Split-Path $PSScriptRoot) 'wormix-api'),
-    [string]$CoreDir   = (Join-Path (Split-Path $PSScriptRoot) 'wormix-core'),
-    [string]$ClientDir = (Join-Path (Split-Path $PSScriptRoot) 'wormix-client')
+    # Game files (part of this repository).
+    [string]$ClientDir = (Join-Path $PSScriptRoot 'wormix-client'),
+    # The API's database and uploaded photos.
+    [string]$DataDir   = (Join-Path $PSScriptRoot 'data')
 )
 
 $ErrorActionPreference = 'Stop'
@@ -54,58 +55,47 @@ function Start-Part([string]$name, [int]$port, [string]$exe, [string[]]$argument
         return
     }
     Step "Starting $name (port $port)"
-    $p = Start-Process -FilePath $exe -ArgumentList $arguments -WorkingDirectory $workDir -WindowStyle Minimized -PassThru
+    $opts = @{ FilePath = $exe; WorkingDirectory = $workDir; WindowStyle = 'Minimized'; PassThru = $true }
+    if ($arguments.Count -gt 0) { $opts.ArgumentList = $arguments }
+    $p = Start-Process @opts
     Add-Content -Path $pidFile -Value "$($p.Id) $name"
     Wait-Port $port $name
 }
 
 # --- Checks ---------------------------------------------------------------------------------
-foreach ($d in @($ApiDir, $CoreDir, $ClientDir)) {
-    if (-not (Test-Path $d)) { Fail "Folder not found: $d" }
-}
 if (-not (Test-Path (Join-Path $ClientDir 'vk\1.05.0\preloader.swf'))) {
     Fail "Game client not found in $ClientDir (expected vk\1.05.0\preloader.swf). See README.md."
 }
-if (-not (Test-Path (Join-Path $ApiDir 'database\database.sqlite'))) {
-    Fail "API is not set up yet. Run: powershell -ExecutionPolicy Bypass -File `"$ApiDir\setup.ps1`" -NoServe"
-}
+$go = Find-Exe 'go' @("$env:ProgramFiles\Go\bin\go.exe")
+if (-not $go) { Fail 'Go not found. Install it with: winget install GoLang.Go' }
 
-$php = Find-Exe 'php' @("$env:LOCALAPPDATA\Microsoft\WinGet\Packages\PHP.PHP.8.*\php.exe")
-if (-not $php) { Fail 'PHP not found. Install it with: winget install PHP.PHP.8.3' }
-$dotnet = Find-Exe 'dotnet' @("$env:ProgramFiles\dotnet\dotnet.exe")
-if (-not $dotnet) { Fail '.NET not found. Install it with: winget install Microsoft.DotNet.SDK.8' }
-$garnet = Find-Exe 'garnet-server' @("$env:USERPROFILE\.dotnet\tools\garnet-server.exe")
-if (-not $garnet) { Fail 'Garnet (Redis) not found. Install it with: dotnet tool install --global garnet-server' }
-
-# --- Build (incremental, a few seconds) ------------------------------------------------------
-$coreProject  = Join-Path $CoreDir 'wormix-core\wormix-core.csproj'
-$relayProject = Join-Path $PSScriptRoot 'wormix-relay.csproj'
-if (-not (Test-Port 49197)) {
-    Step 'Building wormix-core'
-    & $dotnet build $coreProject -c Release -nologo -v q | Out-Null
-    if ($LASTEXITCODE -ne 0) { Fail 'wormix-core build failed. Run the build yourself to see the error.' }
-}
-if (-not (Test-Port 32700)) {
-    Step 'Building game host'
-    & $dotnet build $relayProject -c Release -nologo -v q | Out-Null
-    if ($LASTEXITCODE -ne 0) { Fail 'Game host build failed. Run the build yourself to see the error.' }
+# --- Build (incremental, a few seconds after the first time) --------------------------------
+$bin = Join-Path $PSScriptRoot 'bin'
+foreach ($part in @(@('api', 8000), @('core', 49197), @('relay', 32700))) {
+    $name, $port = $part
+    if (Test-Port $port) { continue }
+    Step "Building $name"
+    $pkg = if ($name -eq 'core') { './cmd/wormix-core' } else { '.' }
+    Push-Location (Join-Path $PSScriptRoot "services\$name")
+    try { & $go build -o (Join-Path $bin "wormix-$name.exe") $pkg } finally { Pop-Location }
+    if ($LASTEXITCODE -ne 0) { Fail "$name build failed (see the error above)." }
 }
 
 # --- Start ----------------------------------------------------------------------------------
 $listen = if ($Lan) { '0.0.0.0' } else { '127.0.0.1' }
+New-Item -ItemType Directory -Force -Path $DataDir | Out-Null
 
-Start-Part 'Redis (Garnet)' 6379 $garnet @('--bind', '127.0.0.1', '--port', '6379') $PSScriptRoot
+$env:DB_DATABASE = Join-Path $DataDir 'database.sqlite'
+$env:LISTEN_ADDR = '127.0.0.1:8000'
+Start-Part 'API' 8000 (Join-Path $bin 'wormix-api.exe') @() $DataDir
 
-Start-Part 'API' 8000 $php @('artisan', 'serve', '--host=127.0.0.1', '--port=8000') $ApiDir
-
-$coreDll = Join-Path $CoreDir 'wormix-core\bin\Release\net8.0\wormix-core.dll'
 $coreConfig = Join-Path $PSScriptRoot 'configs\wormix-core.json'
-Start-Part 'wormix-core' 49197 $dotnet @("`"$coreDll`"", "`"$coreConfig`"") $CoreDir
+Start-Part 'wormix-core' 49197 (Join-Path $bin 'wormix-core.exe') @("`"$coreConfig`"") $PSScriptRoot
 
-$relayDll = Join-Path $PSScriptRoot 'bin\Release\net8.0\wormix-relay.dll'
-$relayArgs = @("`"$relayDll`"", '--Urls', "http://${listen}:32700", '--ClientRoot', "`"$ClientDir`"")
+$relayArgs = @('--Urls', "http://${listen}:32700", '--ClientRoot', "`"$ClientDir`"",
+               '--Target', '127.0.0.1', '--ApiUrl', 'http://127.0.0.1:8000')
 if ($GameLog) { $relayArgs += @('--DebugLog', 'true') }
-Start-Part 'Game host' 32700 $dotnet $relayArgs $PSScriptRoot
+Start-Part 'Game host' 32700 (Join-Path $bin 'wormix-relay.exe') $relayArgs $PSScriptRoot
 
 # --- Done -----------------------------------------------------------------------------------
 $url = 'http://127.0.0.1:32700/' + $(if ($GameLog) { '?debug' } else { '' })

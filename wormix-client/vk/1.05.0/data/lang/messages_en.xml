@@ -86,6 +86,27 @@
     <message name="PVP_WAGER_AVAILABLE_FOR" value="Will be available from {level} level "/>
     <message name="PVP_WAGER_AVAILABLE_FOR_TEAM" value="You need at least 2 fighters"/>
     <message name="PVP_WAGER_BTN" value="Sign for battle!"/>
+    <message name="PVP_MODE_TITLE" value="Wager battle"/>
+    <message name="PVP_MODE_TEXT">
+        <![CDATA[Choose the battle mode:<br/>1 vs 1 — against one player;<br/>2 vs 2 — you and a teammate against two players.<br/>Teammates and opponents are players who chose the same wager.]]>
+    </message>
+    <message name="PVP_MODE_1V1" value="1 vs 1"/>
+    <message name="PVP_MODE_2V2" value="2 vs 2"/>
+    <message name="TEAM_TITLE" value="2 vs 2 team"/>
+    <message name="TEAM_OR_BATTLE" value="{name}: a 1 vs 1 battle, or invite them into your team for 2 vs 2 battles?"/>
+    <message name="TEAM_ALREADY" value="You are already in one team."/>
+    <message name="TEAM_INVITE_BTN" value="Team"/>
+    <message name="TEAM_INVITE" value="{name} invites you into their team for 2 vs 2 battles. You will fight on the same side."/>
+    <message name="TEAM_CALL" value="Your teammate {name} is looking for a 2 vs 2 battle with a wager of {wager}. Join?"/>
+    <message name="TEAM_ACCEPT" value="Accept"/>
+    <message name="TEAM_JOIN" value="Join"/>
+    <message name="TEAM_DECLINE" value="Decline"/>
+    <message name="TEAM_JOINED" value='{name} is your teammate now. Choose "2 vs 2" in the arena to play together.'/>
+    <message name="TEAM_DECLINED" value="{name} declined the team invite."/>
+    <message name="TEAM_LEFT" value="{name} is no longer in your team."/>
+    <message name="TEAM_CANT_JOIN" value="You can't play with this wager."/>
+    <message name="TEAM_PARTNER_UNAVAILABLE" value="Your teammate didn't join the 2 vs 2 battle."/>
+    <message name="PVP_MODE_TEAMMATE" value="Your teammate: {name}. In a 2 vs 2 battle you play together."/>
     <message name="MISSION_BTN" value="Start!"/>
     <message name="BOSS_BTN" value="Start!"/>
     <message name="ARENA_BUY_BATTLE" value="You can buy one more fight"/>
@@ -212,6 +233,7 @@
     </message>
     <message name="PVP_SERVER_PROFILACTIC_WORK" value="Technical works are carried out on the pvp server "/>
     <message name="ENEMY_TURN_MSG" value="waiting for the enemy move "/>
+    <message name="TEAMMATE_TURN_MSG" value="waiting for your teammate's move"/>
     <message name="PVP_BATTLE_STUCK" value="The fight was cancelled by the server, as there was no opponent activity for a long time "/>
     <message name="PVP_BATTLE_UNSYNC" value="The fight was cancelled cause of desync errors"/>
 

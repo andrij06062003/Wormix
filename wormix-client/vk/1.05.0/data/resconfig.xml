@@ -1315,6 +1315,85 @@
 		<resource className="SafetyArea" width="90" height="14.5"/>
     </library>
 
+    <library path="common/objects/artifacts.swf" estimatedBytes="137497">
+        <!-- artifacts (ported from 1.25.0): Name = in the hand, NameIcon = shop/wardrobe icon -->
+        <resource className="ArchbotTotem"/>
+        <resource className="ArchbotTotemIcon"/>
+        <resource className="ArhiSword"/>
+        <resource className="ArhiSwordIcon"/>
+        <resource className="ArmyKnife"/>
+        <resource className="ArmyKnifeIcon"/>
+        <resource className="Blade"/>
+        <resource className="BladeIcon"/>
+        <resource className="BlazingAxe"/>
+        <resource className="BlazingAxeIcon"/>
+        <resource className="BrokenSword"/>
+        <resource className="ChromeShield"/>
+        <resource className="DeathTorch"/>
+        <resource className="DeathTorchIcon"/>
+        <resource className="EmperorScepter"/>
+        <resource className="EmperorScepterIcon"/>
+        <resource className="FieryDagger"/>
+        <resource className="FieryDaggerIcon"/>
+        <resource className="FrostShield"/>
+        <resource className="FrostShieldIcon"/>
+        <resource className="GnawedBone"/>
+        <resource className="GnawedBoneIcon"/>
+        <resource className="GravityMasterShield"/>
+        <resource className="HamMace"/>
+        <resource className="HamMaceIcon"/>
+        <resource className="Icepike"/>
+        <resource className="IcepikeIcon"/>
+        <resource className="JarlSpear"/>
+        <resource className="JarlSpearIcon"/>
+        <resource className="JarlStoneHammer"/>
+        <resource className="JarlStoneHammerIcon"/>
+        <resource className="Jawblade"/>
+        <resource className="JawbladeIcon"/>
+        <resource className="JediSword"/>
+        <resource className="JediSwordIcon"/>
+        <resource className="MetalShield"/>
+        <resource className="MirrorShield"/>
+        <resource className="Morgenshtern"/>
+        <resource className="MorgenshternIcon"/>
+        <resource className="PaladinSword"/>
+        <resource className="PaladinSwordIcon"/>
+        <resource className="PirateHook"/>
+        <resource className="PirateHookIcon"/>
+        <resource className="ProvokerShield"/>
+        <resource className="RoboShield"/>
+        <resource className="Saw"/>
+        <resource className="SawIcon"/>
+        <resource className="ScientistDevice"/>
+        <resource className="ScientistDeviceIcon"/>
+        <resource className="ShieldArchdemon"/>
+        <resource className="ShovelSapper"/>
+        <resource className="ShovelSapperIcon"/>
+        <resource className="SnakeStaff"/>
+        <resource className="SnakeStaffIcon"/>
+        <resource className="SolarSickle"/>
+        <resource className="SolarSickleIcon"/>
+        <resource className="StaffOfNecromancer"/>
+        <resource className="StaffOfNecromancerIcon"/>
+        <resource className="SwordGreenEyed"/>
+        <resource className="SwordGreenEyedIcon"/>
+        <resource className="SwordRedEyed"/>
+        <resource className="SwordRedEyedIcon"/>
+        <resource className="SymbioteSword"/>
+        <resource className="SymbioteSwordIcon"/>
+        <resource className="Talisman"/>
+        <resource className="TalismanIcon"/>
+        <resource className="TankShield"/>
+        <resource className="TotemFire"/>
+        <resource className="TotemFireIcon"/>
+        <resource className="TotemPoison"/>
+        <resource className="TotemPoisonIcon"/>
+        <resource className="TrainingShield"/>
+        <resource className="Whinger"/>
+        <resource className="WoodenShield"/>
+        <resource className="WoodenShieldIcon"/>
+    </library>
+
     <library path="common/objects/hats.swf" estimatedBytes="55392">
         <!-- worm hats-->
         <!-- NEW-->

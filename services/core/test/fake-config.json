@@ -1,0 +1,11 @@
+{
+  "local": false,
+  "servers": {
+    "policy": { "port": 843, "enabled": false },
+    "main": { "port": 49197, "enabled": true },
+    "pvp": { "port": 49198, "enabled": true },
+    "achievements": { "port": 49199, "enabled": true }
+  },
+  "redis": { "host": "redis", "port": 6379 },
+  "ApiUrl": "http://fakeapi:8000/api/internal/"
+}

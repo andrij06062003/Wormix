@@ -1,9 +1,10 @@
 bin/
 obj/
+**/bin/
+**/obj/
 .git/
 .pids
 *.md
 docker/data/
-wormix-api/
 wormix-client/
 sandbox/

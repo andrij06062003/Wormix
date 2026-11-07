@@ -1,57 +1,49 @@
 #!/bin/bash
-set -eo pipefail
+# Starts the sandbox's own Docker daemon, then the deployer as the main process.
+# The Wormix containers inside come back by themselves (restart: unless-stopped); the deployer
+# only touches them when a new commit on its branch has passed CI.
+set -euo pipefail
 
-echo "=================================================="
-echo " Starting Wormix Dedicated Sandbox (1 CPU, 2 GB) "
-echo "=================================================="
+log() { echo "$(date '+%Y-%m-%d %H:%M:%S') [${CD_ENV:-sandbox}] $*"; }
 
-# Start dockerd in background using dind's dockerd-entrypoint
-echo "[sandbox] Starting isolated Docker daemon..."
+log "starting the sandbox Docker daemon"
 dockerd-entrypoint.sh dockerd > /var/log/dockerd.log 2>&1 &
 DOCKERD_PID=$!
 
-# Wait for dockerd to be responsive
-echo "[sandbox] Waiting for internal Docker daemon to be ready..."
-RETRIES=30
-until docker info >/dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
+for _ in $(seq 1 60); do
+    docker info > /dev/null 2>&1 && break
     sleep 1
-    RETRIES=$((RETRIES - 1))
 done
-
-if [ $RETRIES -eq 0 ]; then
-    echo "[sandbox] ERROR: Docker daemon failed to start. Logs:"
+if ! docker info > /dev/null 2>&1; then
+    log "ERROR: the Docker daemon did not start:"
     cat /var/log/dockerd.log
     exit 1
 fi
+log "Docker daemon ready"
 
-echo "[sandbox] Internal Docker daemon is ready."
-
-# Graceful termination handler
-cleanup() {
-    echo "[sandbox] Caught shutdown signal. Stopping Wormix compose stack..."
-    if [ -d "/workspace/wormix-relay" ]; then
-        cd /workspace/wormix-relay && docker compose down || true
-    fi
-    echo "[sandbox] Stopping internal Docker daemon..."
-    kill -TERM "$DOCKERD_PID" 2>/dev/null || true
-    wait "$DOCKERD_PID" 2>/dev/null || true
-    echo "[sandbox] Dedicated sandbox stopped cleanly."
+DEPLOYER_PID=""
+stop() {
+    log "stopping"
+    [ -n "$DEPLOYER_PID" ] && kill -TERM "$DEPLOYER_PID" 2> /dev/null || true
+    # Stop the game cleanly (SQLite flushed) but keep containers, so a restart is quick.
+    docker ps -q --filter label=com.docker.compose.project=wormix | xargs -r docker stop -t 30 > /dev/null || true
+    kill -TERM "$DOCKERD_PID" 2> /dev/null || true
+    wait "$DOCKERD_PID" 2> /dev/null || true
     exit 0
 }
+trap stop TERM INT
 
-trap cleanup SIGTERM SIGINT
+# A deployer that came with a deployed release (self-update) wins over the one in the image.
+DEPLOYER=/usr/local/bin/wormix-deployer.sh
+[ -f "${CD_STATE:-/state}/deployer.sh" ] && DEPLOYER="${CD_STATE:-/state}/deployer.sh"
 
-cd /workspace/wormix-relay
-
-echo "[sandbox] Starting Wormix stack via Docker Compose..."
-docker compose up -d --build
-
-echo "[sandbox] Wormix services status:"
-docker compose ps
-
-echo "[sandbox] Streaming logs from Wormix services (Ctrl+C / SIGTERM to stop)..."
-docker compose logs -f &
-LOGS_PID=$!
-
-# Wait on background logs while trapping signals
-wait "$LOGS_PID"
+while :; do
+    sh "$DEPLOYER" &
+    DEPLOYER_PID=$!
+    wait "$DEPLOYER_PID" || true
+    log "deployer exited; restarting it in 30s"
+    sleep 30 &
+    wait $! || true
+    # A broken self-updated deployer falls back to the one in the image.
+    DEPLOYER=/usr/local/bin/wormix-deployer.sh
+done

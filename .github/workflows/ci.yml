@@ -1,0 +1,100 @@
+# CI for every pull request into dev/main and every push to them.
+# The sandboxes deploy a pushed commit only after this workflow passed for that push
+# (sandbox/deployer.sh, ci_state): dev -> wormix-dev, main -> wormix-prod.
+# Runs on GitHub-hosted runners only: the repo is public, so pull requests from forks must never
+# reach the deploy host.
+name: CI
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [main, dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Shell scripts
+        run: shellcheck --shell=dash --severity=warning sandbox/deployer.sh && shellcheck --severity=warning sandbox/entrypoint.sh sandbox/manage.sh
+      - name: Compose files
+        run: |
+          docker compose config --quiet
+          cp sandbox/prod.env.example sandbox/prod.env
+          cp sandbox/dev.env.example sandbox/dev.env
+          docker compose -f sandbox/docker-compose.yml config --quiet
+
+  go:
+    name: Go vet and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: gofmt, vet, test (race) for every service
+        run: |
+          docker run --rm -v "$PWD:/src" -w /src golang:1.27 sh -ec '
+            test -z "$(gofmt -l services)" || { gofmt -l services; exit 1; }
+            for s in api core relay; do
+              (cd services/$s && go vet ./... && go test -race ./...)
+            done'
+
+  stack:
+    name: Build and smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      IMAGE_TAG: ci
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build images
+        run: docker compose build --pull
+      - name: Start the stack (no tunnel)
+        run: docker compose up -d
+      - name: Game page and API answer through the relay
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS -o /dev/null http://127.0.0.1:32700/play.html; then
+              api=$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:32700/api/photos/0/health || true)
+              case $api in 000|502|503|504) ;; *) echo "relay ok, API answered $api"; exit 0 ;; esac
+            fi
+            sleep 3
+          done
+          echo "the stack did not come up"; exit 1
+      - name: Achievements work through the relay
+        run: python3 tests/achievements/ach_smoke.py http://127.0.0.1:32700
+      - name: No container restarted
+        run: |
+          sleep 10
+          docker compose ps -a
+          bad=$(docker compose ps -aq | xargs docker inspect -f '{{.Name}} {{.State.Running}} {{.RestartCount}}' | grep -v ' true 0$' || true)
+          [ -z "$bad" ] || { echo "not running or restarted: $bad"; exit 1; }
+      - name: Logs
+        if: always()
+        run: docker compose logs --tail 100
+
+  sandbox:
+    name: Sandbox image
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: docker build --pull -t wormix-sandbox:ci sandbox

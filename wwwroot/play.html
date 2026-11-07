@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,8 +7,13 @@
     <style>
         :root { --bg: #1d1d1d; --panel: #2a2a2a; --text: #e6e6e6; --muted: #9a9a9a; --accent: #f0a020; --error: #ff6b6b; }
         html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 15px system-ui, sans-serif; }
-        #game { width: 900px; max-width: 100%; height: 600px; margin: 20px auto 8px; }
+        #game { width: 900px; max-width: 100%; aspect-ratio: 3 / 2; margin: 20px auto 8px; }
         #game ruffle-player, #game ruffle-object, #game ruffle-embed { width: 100%; height: 100%; }
+        /* Full screen goes to this box (see startGame). The 3:2 game is shown at 16:10, a light stretch,
+           and the narrow strips left on a 16:9 screen show the page background. */
+        #game:fullscreen { width: 100vw; height: 100vh; max-width: none; margin: 0; aspect-ratio: auto;
+                           display: flex; align-items: center; justify-content: center; background: var(--bg); }
+        #game:fullscreen ruffle-player { width: min(100vw, 160vh); height: auto; aspect-ratio: 16 / 10; }
         #bar { text-align: center; color: var(--muted); font-size: 13px; }
         #bar button { background: none; border: 0; color: var(--accent); cursor: pointer; font: inherit; }
         #login { max-width: 320px; margin: 80px auto; padding: 24px; background: var(--panel); border-radius: 10px; }
@@ -30,19 +35,19 @@
 
 <form id="login" hidden>
     <h1>Wormix</h1>
-    <label for="name">Логин</label>
+    <label for="name">Логін</label>
     <input id="name" autocomplete="username" required minlength="3">
-    <label for="pass">Пароль (минимум 8 символов)</label>
+    <label for="pass">Пароль (щонайменше 8 символів)</label>
     <input id="pass" type="password" autocomplete="current-password" required minlength="8">
     <div class="buttons">
-        <button type="submit" class="primary" data-action="sign_in">Войти</button>
-        <button type="submit" class="secondary" data-action="sign_up">Регистрация</button>
+        <button type="submit" class="primary" data-action="sign_in">Увійти</button>
+        <button type="submit" class="secondary" data-action="sign_up">Реєстрація</button>
     </div>
     <div id="msg"></div>
 </form>
 
 <div id="game"></div>
-<div id="bar" hidden><span id="who"></span> · <button id="logout" type="button">Выйти</button></div>
+<div id="bar" hidden><span id="who"></span> · <button id="logout" type="button">Вийти</button></div>
 
 <script>
     // Everything (this page, the API at /api/ and the game connections) is served by the game host
@@ -96,8 +101,8 @@
             await startGame();
         } catch (err) {
             msg.textContent = action === 'sign_up'
-                ? 'Не удалось зарегистрироваться: ' + err.message + ' (логин может быть занят)'
-                : 'Неверный логин или пароль';
+                ? 'Не вдалося зареєструватися: ' + err.message + ' (можливо, логін уже зайнятий)'
+                : 'Неправильний логін або пароль';
         }
     });
 
@@ -119,13 +124,14 @@
         } catch (err) {
             store.clear();
             form.hidden = false;
-            msg.textContent = 'Сессия истекла, войдите снова';
+            msg.textContent = 'Сесія закінчилася, увійдіть знову';
             return;
         }
 
         form.hidden = true;
         document.getElementById('bar').hidden = false;
-        document.getElementById('who').textContent = s.login;
+        // The game id is what friends enter in "call by id" to challenge this player.
+        document.getElementById('who').textContent = s.login + ' · ID ' + s.id;
 
         const id = String(s.id);
         const flashvars = {
@@ -140,7 +146,12 @@
             autoplay: 'on',
             unmuteOverlay: 'hidden',
             allowScriptAccess: true,
-            letterbox: 'on',
+            // The game is 900x600 (3:2). Stretch it to fill the player instead of drawing black bars;
+            // the page decides the player's shape (3:2 normally, 16:10 in full screen).
+            // forceScale keeps the game from switching it back.
+            scale: 'exactFit',
+            forceScale: true,
+            letterbox: 'off',
             logLevel: 'warn',
             // Flash aborts scripts that run longer than 15 s. Building the destructible map is heavy
             // and slower in Ruffle than in the old Flash Player, so allow more time.
@@ -148,12 +159,15 @@
             // The 1.05.0 preloader has http://127.0.0.1:32700/vk/1.05.0/ built in as the place to load
             // the game from. Send those requests to wherever this page is served (any domain, http or https).
             urlRewriteRules: [
-                [new RegExp('^https?://(127\\.0\\.0\\.1|localhost):32700/(.*)$'), location.origin + '/$2']
+                [new RegExp('^https?://(127\\.0\\.0\\.1|localhost):32700/(.*)$'), location.origin + '/$2'],
+                // Achievements are plain HTTP to <game server>:49199/wormix_achieve/ (not a socket):
+                // the game host answers them itself (Achievements.cs).
+                [new RegExp('^https?://(wormixtest\\.ru|battle\\.wormixtest\\.ru|localhost|127\\.0\\.0\\.1):49199/(.*)$'), location.origin + '/$2']
             ],
             // Browsers can't open raw TCP sockets, so Ruffle sends the game's connections through
             // the game host (ws://<host>/<port>), which forwards them to wormix-core.
             // The game has wormixtest.ru built in; these entries send it to our own server instead.
-            // Ports built into the 1.05.0 preloader: 49197 main, 49298 PvP, 49198/49199 achievements/clans.
+            // Ports built into the 1.05.0 preloader: 49197 main, 49198 PvP, 49199 achievements.
             socketProxy: [49197, 49198, 49199, 49297, 49298, 49299, 49300].flatMap(port =>
                 ['wormixtest.ru', 'battle.wormixtest.ru', 'localhost', '127.0.0.1'].map(host => ({
                     host, port, proxyUrl: RELAY + '/' + port
@@ -180,7 +194,12 @@
         }
 
         const player = window.RufflePlayer.newest().createPlayer();
-        document.getElementById('game').appendChild(player);
+        const box = document.getElementById('game');
+        box.appendChild(player);
+        // Ruffle's "full screen" puts the player element itself in full screen, where it always fills
+        // the whole screen. Put the game box in full screen instead, so the CSS above sets the shape.
+        player.requestFullscreen = options => box.requestFullscreen(options);
+        player.webkitRequestFullscreen = options => box.webkitRequestFullscreen && box.webkitRequestFullscreen(options);
         player.ruffle().load({ url: 'vk/1.05.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.05.0/' })
             .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
     }

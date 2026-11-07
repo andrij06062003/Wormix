@@ -1,7 +1,11 @@
-# Wormix 1.05.0 server, published through a Cloudflare Tunnel.
+# Wormix 1.05.0 server (Go: services/api, services/core, services/relay), published through a Cloudflare Tunnel.
 #
 #   cp .env.example .env      # then fill in CLOUDFLARE_TUNNEL_TOKEN
 #   docker compose up -d --build
+#
+# cloudflared only starts with the "tunnel" profile (COMPOSE_PROFILES=tunnel in .env), so the stack
+# also runs locally without a tunnel token. IMAGE_TAG names the build (the CD deployer sets it to
+# the commit, so the previous release's images stay around for a rollback).
 #
 # Players open https://<your hostname>/ in a normal browser. See HOSTING.md.
 # Nothing is opened on the router: cloudflared connects out to Cloudflare.
@@ -9,36 +13,33 @@
 name: wormix
 
 services:
-  redis:
-    image: redis:7.4.10-alpine
-    restart: unless-stopped
-    command: ["redis-server", "--save", "", "--appendonly", "no"]   # only live sessions, nothing to keep
-
   api:
+    image: wormix-api:${IMAGE_TAG:-local}
     build:
       context: .
-      dockerfile: docker/api.Dockerfile
-      additional_contexts:
-        api: ${API_DIR:-./wormix-api}
+      dockerfile: services/api/Dockerfile
     restart: unless-stopped
     environment:
       APP_KEY: ${APP_KEY:-}            # optional; otherwise generated once and kept in the volume
+      APP_ENV: ${APP_ENV:-production}
+      CD_ENV: ${CD_ENV:-}
     volumes:
       - api-data:/data                 # database, app key, uploaded photos
 
   core:
+    image: wormix-core:${IMAGE_TAG:-local}
     build:
       context: .
-      dockerfile: docker/core.Dockerfile
+      dockerfile: services/core/Dockerfile
     restart: unless-stopped
-    stdin_open: true                   # wormix-core waits on Console.ReadLine() to stay alive
-    tty: true
     depends_on:
-      - redis
       - api
 
   relay:
-    build: .
+    image: wormix-relay:${IMAGE_TAG:-local}
+    build:
+      context: .
+      dockerfile: services/relay/Dockerfile
     restart: unless-stopped
     volumes:
       - ${CLIENT_DIR:-./wormix-client}:/client:ro   # game files
@@ -51,9 +52,10 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:2026.10.3
     restart: unless-stopped
+    profiles: ["tunnel"]
     command: ["tunnel", "--no-autoupdate", "run"]
     environment:
-      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:?Set CLOUDFLARE_TUNNEL_TOKEN in .env (see HOSTING.md)}
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:-}
     depends_on:
       - relay
 

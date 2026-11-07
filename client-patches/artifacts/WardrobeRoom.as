@@ -243,6 +243,8 @@ package ru.pragmatix.wormix.gui.house.wardrobe
                cell.setSelected(item == this.chosenHat || item == this.chosenArtifact);
             }
          }
+         // Show the chosen artifact in the hand too (setHat redraws).
+         this.charIcon.setArtifact(Boolean(this.chosenArtifact) ? this.chosenArtifact.getRecord() as HatRecord : null);
          this.setHat(Boolean(this.chosenHat) ? this.chosenHat.getRecord() as HatRecord : null);
       }
       

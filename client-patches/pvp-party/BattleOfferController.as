@@ -162,8 +162,8 @@ package ru.pragmatix.wormix.pvp.controllers
          {
             self.answerTeamOffer(true,profile);
          });
-         this.teamBox.setOkBtnText(offer.kind == 1 ? text("TEAM_ACCEPT","Прийняти") : text("TEAM_JOIN","Приєднатися"));
-         this.teamBox.setCancelBtnText(text("TEAM_DECLINE","Відмовитись"));
+         this.teamBox.setOkBtnText(offer.kind == 1 ? text("TEAM_ACCEPT","Прийняти") : text("TEAM_JOIN","Прийняти"));
+         this.teamBox.setCancelBtnText(text("TEAM_DECLINE","Відмова"));
          this.teamBox.addEventListener(UIEvent.WINDOW_CANCEL,function(e:Event):void
          {
             self.answerTeamOffer(false,profile);

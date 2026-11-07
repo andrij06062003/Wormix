@@ -18,7 +18,9 @@ package ru.pragmatix.wormix.objects.graphics
       private var charRecord:RaceRecord;
       
       private var hat:HatRecord;
-      
+
+      private var artifact:HatRecord;
+
       protected var eyes:MovieClip;
       
       protected var leftHand:MovieClip;
@@ -50,6 +52,69 @@ package ru.pragmatix.wormix.objects.graphics
             return;
          }
          this.hat = hat;
+      }
+
+      // The artifact (1.25.0) is drawn in the "offHand" clip of the left hand (graphics of 1.25.0's
+      // charActions.swf). Races without hands (worm, bull) don't show it.
+      public function setArtifact(artifact:HatRecord) : void
+      {
+         this.artifact = Boolean(artifact) && artifact.isArtifact ? artifact : null;
+      }
+
+      public function getArtifact() : HatRecord
+      {
+         return this.artifact;
+      }
+
+      private function prepareArtifact(clip:MovieClip) : void
+      {
+         var offHand:MovieClip = null;
+         var hand:DisplayObject = null;
+         var artifactClip:MovieClip = null;
+         var variants:MovieClip = null;
+         var i:int = 0;
+         if(!this.leftHand || !(this.leftHand.getChildByName("offHand") is MovieClip))
+         {
+            return;
+         }
+         offHand = this.leftHand.getChildByName("offHand") as MovieClip;
+         hand = this.leftHand.getChildByName("hand");
+         if(Boolean(this.artifact))
+         {
+            artifactClip = getClipByName(this.artifact.getClipClassName());
+            // The clip has a variant for each race: keep ours only.
+            variants = artifactClip.getChildByName("hand") as MovieClip;
+            if(Boolean(variants))
+            {
+               i = 0;
+               while(i < variants.numChildren)
+               {
+                  variants.getChildAt(i).visible = variants.getChildAt(i).name == this.charRecord.configName;
+                  i++;
+               }
+            }
+         }
+         // Empty the slot (it holds a sample shield in the graphics), then put the artifact in.
+         while(offHand.numChildren > 0 && (!artifactClip || offHand.getChildAt(0) != artifactClip))
+         {
+            offHand.removeChildAt(0);
+         }
+         if(Boolean(artifactClip) && !offHand.contains(artifactClip))
+         {
+            offHand.addChild(artifactClip);
+         }
+         if(Boolean(hand))
+         {
+            hand.visible = !this.artifact || this.artifact.handVisible;
+            // handFront: the paw is drawn over the artifact (a sword's hilt), else behind it (a shield).
+            if(Boolean(this.artifact))
+            {
+               if(this.artifact.handFront == (this.leftHand.getChildIndex(hand) < this.leftHand.getChildIndex(offHand)))
+               {
+                  this.leftHand.swapChildren(hand,offHand);
+               }
+            }
+         }
       }
       
       public function setChar(ch:RaceRecord) : void
@@ -272,6 +337,10 @@ package ru.pragmatix.wormix.objects.graphics
             if(Boolean(this.charRecord.rightHand) && Boolean(clip.getChildByName(this.charRecord.rightHand)))
             {
                this.rightHand = clip.getChildByName(this.charRecord.rightHand) as MovieClip;
+            }
+            if(Boolean(this.charRecord.leftHand) && clip.getChildByName(this.charRecord.leftHand) == this.leftHand)
+            {
+               this.prepareArtifact(clip);
             }
             hatContainer = head.getChildByName(this.charRecord.hatClip) as MovieClip;
             if(Boolean(this.hat))

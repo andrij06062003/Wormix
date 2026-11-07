@@ -89,7 +89,7 @@ so the shop's stuff tab, buying and the wardrobe list them with no new screens.
 - `WardrobeRoom`: the hat and the artifact are both highlighted. A click on an artifact puts it on, a
   click on the one you wear takes it off. Saving sends `SelectStuff` for the hat, then for the artifact
   (`2000` = take it off).
-- `CharGraphics.setHat` ignores artifacts (they are not drawn on the head; drawing them in the hand is a later stage).
+- `CharGraphics.setHat` ignores artifacts (they are not drawn on the head).
 - Data: `ConfigsConverter.ARTIFACTS` is generated from `services/api/internal/assets/game/artifacts.json`
   (the server's copy) by `gen_artifacts_config.py`. Graphics: `data/common/objects/artifacts.swf` from a
   1.25.0 client (github.com/lightcool697/wormix.github.io, `vk/1.25.0/data/common/objects/artifacts.swf`),
@@ -101,6 +101,32 @@ Rebuild on top of the patches above (one `-replace` per class, in this order):
     for c in model.items.HatRecord model.items.ItemsStore messages.structures.WormStructure \
              serialization.structures.WormStructureBinarySerializer model.user.UserProfile \
              model.worm.BonusStats objects.graphics.CharGraphics loader.ConfigsConverter \
+             gui.house.wardrobe.WardrobeRoom; do
+        java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
+            client-patches/artifacts/${c##*.}.as && mv Wormix.new.swf Wormix.swf
+    done
+
+### Stage 2: the artifact in the hand
+
+1.05.0's race graphics have no place for an artifact. 1.25.0's `charActions.swf` has the same animations
+with an `offHand` clip in the left hand, so it is added as `data/common/objects/charActions125.swf`
+(graphics only, from `vk/1.25.0/data/common/objects/charActions.swf`) and resconfig.xml takes the race
+animations from it. Its four `Shocker<Race>` clips are gone in 1.25.0, so those (and `ShockerUnit`,
+`HotShield`) still come from 1.05.0's `charActions.swf`. Each library loads in its own domain, so the
+two files don't clash.
+
+- `CharGraphics.setArtifact`: before each animation the artifact's clip (`iconClassName` in
+  artifacts.json) goes into `leftHand.offHand`, keeping only our race's variant inside it, as 1.25.0
+  does. `handVisible` hides the paw, `handFront` puts the paw over the artifact (a hilt) or behind it
+  (a shield). With no artifact the slot is emptied (it holds a sample shield). The worm and the bull
+  have no hands, so they don't show an artifact (the same in 1.25.0).
+- `Worm` (battle), `UserHint.getCharIcon` (profile hints, team, boss panel, shop and race previews) and
+  `WardrobeRoom` pass the artifact on. In the shop, previewing an artifact puts it in the hand and keeps
+  the worm's own hat.
+
+Rebuild on top of stage 1:
+
+    for c in objects.graphics.CharGraphics objects.Worm gui.avatarmenu.UserHint \
              gui.house.wardrobe.WardrobeRoom; do
         java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf ru.pragmatix.wormix.$c \
             client-patches/artifacts/${c##*.}.as && mv Wormix.new.swf Wormix.swf

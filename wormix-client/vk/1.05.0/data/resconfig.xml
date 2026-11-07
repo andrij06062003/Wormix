@@ -619,7 +619,8 @@
         <resource className="BullRope" width="42" height="74"/>
     </library>
 
-    <library path="common/objects/charActions.swf" estimatedBytes="180060">
+    <!-- race animations from 1.25.0: the left hand has an "offHand" slot for the artifact -->
+    <library path="common/objects/charActions125.swf" estimatedBytes="629848">
         <!-- boxer -->
         <resource className="BoxerStay"/>
         <resource className="BoxerGo"/>
@@ -635,7 +636,6 @@
         <resource className="BoxerJetpack"/>
         <resource className="BoxerJetpackStay"/>
 
-        <resource className="ShockerBoxer"/>
         <resource className="BoxerHammerHit"/>
         <resource className="BoxerBat"/>
         <resource className="BoxerRope"/>
@@ -663,7 +663,6 @@
         <resource className="RabbitJetpack"/>
         <resource className="RabbitJetpackStay"/>
 
-        <resource className="ShockerRabbit"/>
         <resource className="RabbitHammerHit"/>
         <resource className="RabbitBat"/>
         <resource className="RabbitRope"/>
@@ -692,7 +691,6 @@
         <resource className="ZombieJetpack"/>
         <resource className="ZombieJetpackStay"/>
 
-        <resource className="ShockerZombie"/>
         <resource className="ZombieHammerHit"/>
         <resource className="ZombieBat"/>
         <resource className="ZombieRope"/>
@@ -720,7 +718,6 @@
         <resource className="DemonJetpack"/>
         <resource className="DemonJetpackStay"/>
 
-        <resource className="ShockerDemon"/>
         <resource className="DemonHammerHit"/>
         <resource className="DemonBat"/>
         <resource className="DemonRope"/>
@@ -759,6 +756,14 @@
         <resource className="CatClimbs"/>
         <resource className="CatFlying"/>
 
+    </library>
+
+    <library path="common/objects/charActions.swf" estimatedBytes="180060">
+        <!-- 1.05.0 graphics: the shocker and the hot shield (race animations are in charActions125.swf) -->
+        <resource className="ShockerBoxer"/>
+        <resource className="ShockerRabbit"/>
+        <resource className="ShockerZombie"/>
+        <resource className="ShockerDemon"/>
         <resource className="ShockerUnit"/>
         <resource className="HotShield"/>
     </library>

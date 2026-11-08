@@ -205,6 +205,26 @@ func TestSelectHat125(t *testing.T) {
 	}
 }
 
+// The weapon upgrades new in 1.25.0 (here the sheep's) can be made.
+func TestUpgradeSheep125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set real_money = 1000, recipes = '[]' where user_id = 1`)
+	d.Exec(`update wormix_worms_data set level = 30 where owner_id = 1`)
+	d.Exec(`delete from wormix_users_weapons where owner_id = 1 and weapon_id = 40`)
+	d.Exec(`insert into wormix_users_weapons (owner_id, weapon_id, count) values (1, 40, -1)`)
+	st, j := call(t, srv, "POST", "/api/internal/craft/upgrade_weapon", map[string]any{"RecipeId": 47}, h)
+	if st != 200 || fmt.Sprint(j["data"].(map[string]any)["Result"]) != "0" {
+		t.Fatalf("upgrade: %d %v", st, j)
+	}
+	var recipes string
+	d.QueryRow(`select recipes from wormix_user_profiles where user_id = 1`).Scan(&recipes)
+	if recipes != "[47]" {
+		t.Fatalf("recipes %s", recipes)
+	}
+}
+
 // The weapons new in the 1.25.0 shop (here the laser gun) can be bought.
 func TestBuyWeapon125(t *testing.T) {
 	srv, d, v := newServer(t)

@@ -1,6 +1,6 @@
 // Game host for running the Wormix Flash client in a modern browser with Ruffle.
 //
-//  1. Serves the client files (play.html, preloader.swf, vk/1.05.0/...) from "ClientRoot".
+//  1. Serves the client files (play.html, preloader.swf, vk/1.25.0/..., vk/storage/...) from "ClientRoot".
 //
 //  2. Relays the game's network connections: browsers can't open raw TCP sockets, so Ruffle sends
 //     them over a WebSocket (its "socketProxy" setting). Those are forwarded, byte for byte, to

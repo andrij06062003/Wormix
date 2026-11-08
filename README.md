@@ -1,8 +1,7 @@
 # Wormix server
 
 Runs the original **Wormix 1.25.0** Flash client in a modern browser (Chrome, Edge, Firefox) with
-[Ruffle](https://ruffle.rs), against your own server. No Flash Player needed. The older 1.05.0 client
-is still there: `play.html?v=105`.
+[Ruffle](https://ruffle.rs), against your own server. No Flash Player needed.
 
 **Hosting it for others (Docker + Cloudflare Tunnel): see [HOSTING.md](HOSTING.md).**
 The rest of this file is about running everything on one Windows PC.
@@ -38,7 +37,7 @@ The game host does four things on one address, so players only ever need `http:/
 
 1. Install Go: `winget install GoLang.Go`. That's the only tool needed; `start.ps1` builds the three parts.
 2. The game files are in `wormix-client\` (the root files of the client archive's `public\` plus
-   `public\vk\1.05.0\`). They are Pragmatix's files.
+   `vk\1.25.0\` and the maps and sounds in `vk\storage\`). They are Pragmatix's files.
 
 The database and uploaded photos go to `data\` (`-DataDir` to change). To keep the accounts of an older
 PHP setup, copy its `wormix-api\database\database.sqlite` to `data\database.sqlite` before the first start:
@@ -80,7 +79,7 @@ Game host: `services/relay/appsettings.json`, environment variables with the sam
 API: `DB_DATABASE` (default `/data/database.sqlite`), `PHOTOS_DIR` (default `photos` next to the database),
 `LISTEN_ADDR` (default `0.0.0.0:8000`).
 
-`configs/wormix-core.json` is the game server config matching the ports built into the 1.05.0 client
+`configs/wormix-core.json` is the game server config matching the ports built into the client
 (main 49197, PvP 49198, achievements 49199; from the preloader's built-in server list).
 
 ## Playing against other players

@@ -23,8 +23,8 @@ The game host is `services/relay/`. All three are Go programs, each built by its
 git clone https://github.com/andrij06062003/Wormix.git wormix-relay
 ```
 
-The repository contains the server and the game files (`wormix-client/`). `wormix-client` must contain `preloader.swf` and `vk/1.05.0/preloader.swf`, `vk/1.05.0/Wormix.swf`,
-`vk/1.05.0/data/...`: the root files of the client archive's `public/` folder plus `public/vk/1.05.0/`.
+The repository contains the server and the game files (`wormix-client/`). `wormix-client` must contain `vk/1.25.0/preloader.swf`, `vk/1.25.0/Wormix.swf`,
+`vk/1.25.0/data/...` and the maps and sounds in `vk/storage/` (see `wormix-client/README.md`).
 
 ## 2. Create the Cloudflare Tunnel
 
@@ -93,7 +93,7 @@ game loads.
 | Symptom | Check |
 |---|---|
 | Page doesn't open | `docker compose logs cloudflared`: token wrong? Public hostname service must be `http://relay:32700`. |
-| Login screen works, game stays at 0% | `wormix-client` folder missing or wrong layout (`docker compose exec relay ls /client/vk/1.05.0`). |
+| Login screen works, game stays at 0% | `wormix-client` folder missing or wrong layout (`docker compose exec relay ls /client/vk/1.25.0`). |
 | Game loads but can't connect | `docker compose logs relay core`: look for "Can't reach core". |
 | Battle stuck on "Инициализация карты" | Make sure you run the current `relay` (it reassembles game messages). |
 | Want the game's own log | Open `https://<hostname>/?debug` and set `DebugLog=true` for `relay` (environment), then `docker compose logs -f relay`. |

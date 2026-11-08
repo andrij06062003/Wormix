@@ -307,11 +307,12 @@ type ArenaLocked struct {
 // DecodeArenaLocked reads ArenaLocked from API JSON.
 func DecodeArenaLocked(v *jsonx.Value) ArenaLocked {
 	var r ArenaLocked
-	v.Struct("ArenaLocked").Members([]string{"Delay", "MissionId", "ErrorCode"}, func(f int, x *jsonx.Value) {
+	// The API names the mission "CurrentMission" (as in ArenaResult); "MissionId" is the C# field name.
+	v.Struct("ArenaLocked").Members([]string{"Delay", "MissionId", "ErrorCode", "CurrentMission"}, func(f int, x *jsonx.Value) {
 		switch f {
 		case 0:
 			r.Delay = x.Uint32()
-		case 1:
+		case 1, 3:
 			r.MissionID = x.Int16()
 		case 2:
 			r.ErrorCode = x.Byte()

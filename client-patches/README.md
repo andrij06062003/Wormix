@@ -231,3 +231,16 @@ These changes are in the `pvp-party/` sources, so the rebuild above already cont
 
 When testing with changed stats: the client treats a hit above 800 damage as a cheat, drops the player and
 keeps a "delayed ban" in the browser's stored Flash data, which closes the main connection on the next logins.
+
+## `missions/BattleRequestController.as`: a refused mission no longer hangs or disconnects
+
+The client counts the battles left itself. After a page reload its battle timer is unset, so it can think a
+battle is available when the server has none left. The server refused StartBattle, and the connection dropped
+("Гра втратила з'єднання із сервером"). Now the game server answers a refused StartBattle with ArenaLocked (the
+arena's delay). This patch waits for either StartBattleResult or ArenaLocked. On ArenaLocked it leaves the
+battle loading screen and opens the arena's Missions tab, which shows the "battles used up" timer.
+
+Built from `pvp-party/BattleRequestController.as`, on top of every patch above:
+
+    java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf \
+        ru.pragmatix.wormix.pvp.controllers.BattleRequestController client-patches/missions/BattleRequestController.as

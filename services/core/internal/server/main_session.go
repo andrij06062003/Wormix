@@ -128,6 +128,19 @@ func (s *mainSession) post(route string, body []byte) *jsonx.Value {
 	return api.Post(route, body, s.sid, s.tokenPtr())
 }
 
+// refuseBattle answers a refused StartBattle with ArenaLocked: the arena's delay when the battles are used up,
+// 0 otherwise. The client sets its battle timer from it and leaves the battle loading screen.
+func (s *mainSession) refuseBattle() {
+	locked := proto.ArenaLocked{ErrorCode: 1}
+	o := rootObject(s.post("game/get_arena", proto.GetArena{}.JSON()))
+	if o != nil {
+		if t := o.Get("type"); t != nil && t.ToString() == "ArenaLocked" {
+			locked = proto.DecodeArenaLocked(dataBangObj(o))
+		}
+	}
+	locked.Emit(s.out)
+}
+
 // rootObject is the answer's ToObject<JObject>(): nil for a JSON null, an error for a non-object.
 func rootObject(v *jsonx.Value) *jsonx.Obj {
 	switch v.Kind {
@@ -205,7 +218,14 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		}
 	case proto.CmdStartBattle:
 		req := proto.ReadStartBattle(r)
-		res := proto.DecodeStartBattleResult(dataBang(s.post("game/start_battle", req.JSON())))
+		v, refused := api.PostRefusable("game/start_battle", req.JSON(), s.sid, s.tokenPtr())
+		if refused {
+			// No battles left (the client counts them itself and can be wrong after a reload), or a mission
+			// it may not start: answer with the arena state instead of dropping the connection.
+			s.refuseBattle()
+			break
+		}
+		res := proto.DecodeStartBattleResult(dataBang(v))
 		res.Emit(s.out)
 	case proto.CmdBuyBattle:
 		s.shortReply("account/buy/battles", proto.ReadBuyBattle(r).JSON(), proto.CmdBuyBattleResult)

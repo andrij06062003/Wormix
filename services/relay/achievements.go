@@ -138,11 +138,8 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 		if rd.err != nil {
 			return rd.err
 		}
-		// The 1.25.0 client adds sendAchievements (bool) and signs the replies with its own salt.
-		key := achSecretKey
-		if len(rd.data) > 0 {
-			key = achSecretKey125
-		}
+		// Then sendAchievements (bool). Both clients send the same login and don't check the
+		// reply's hash: it is signed with the 1.05.0 salt. Later commands show the client's salt.
 		res, err := s.achCall(ctx, "login", struct {
 			ID      string `json:"id"`
 			AuthKey string `json:"auth_key"`
@@ -155,7 +152,7 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 			wr.utf(res.str("session_id"))
 			wr.u32(res.uint32("login_time"))
 			if res.err == nil {
-				writeCommand(output, cmdAchieveLoginSuccess, wr.Bytes(), key)
+				writeCommand(output, cmdAchieveLoginSuccess, wr.Bytes(), achSecretKey)
 			}
 		} else {
 			wr.i32(res.int32("code"))

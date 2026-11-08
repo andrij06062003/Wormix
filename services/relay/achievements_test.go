@@ -65,27 +65,6 @@ func reply(t *testing.T, out []byte, key string) (int, []byte) {
 	return id, body
 }
 
-func TestAchievementsLogin125(t *testing.T) {
-	s := achAPI(t)
-	for _, tc := range []struct {
-		extra []byte
-		key   string
-	}{{nil, achSecretKey}, {[]byte{1}, achSecretKey125}} {
-		var wr writer
-		for _, v := range []string{"app", "vk", "1", "auth"} {
-			wr.utf(v)
-		}
-		wr.Write(tc.extra)
-		var out bytes.Buffer
-		if err := s.handleAchievement(context.Background(), cmdAchieveLogin, wr.Bytes(), nil, &out); err != nil {
-			t.Fatal(err)
-		}
-		if id, _ := reply(t, out.Bytes(), tc.key); id != cmdAchieveLoginSuccess {
-			t.Fatalf("id %d", id)
-		}
-	}
-}
-
 func TestGetAchievements125(t *testing.T) {
 	s := achAPI(t)
 	sid := "s"

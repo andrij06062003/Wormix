@@ -271,3 +271,13 @@ which adds them (the patch files already have them). With the 1.25.0 classes dec
     done
 
 `Wormix.orig.swf` is the unpatched file (commit 5fe8ede).
+
+## `maps-125/`: only the maps we have, in the 1.25.0 client
+
+We only have the 1.05.0 map files (`play.html` sends the 1.25.0 map requests to them). The 1.25.0 client
+knows 34 newer maps (ids 80–114), and battles, missions and bosses pick a random map from its list,
+so they could stop with "error loading map". `MapList.as` (`config.§##r§`, the map list) leaves the
+maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` patches:
+
+    FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
+        client-patches/maps-125/MapList.as Wormix.swf Wormix.new.swf 'config.§##r§' && mv Wormix.new.swf Wormix.swf

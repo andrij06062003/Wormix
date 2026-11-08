@@ -203,3 +203,46 @@ func TestArenaResult125(t *testing.T) {
 		t.Fatalf("got %d %d %d %v %v %d", b, solo, coop, boss, super, heroic)
 	}
 }
+
+// EndBattle as the 1.25.0 client writes it (a resign with one item and two reagents).
+func TestReadEndBattle125(t *testing.T) {
+	var w wire.Writer
+	w.UTF("abcdefghijklmnop")
+	w.I32(-1) // result
+	w.UTF("abcde")
+	w.I32(2) // type
+	w.UTF("abc")
+	w.I32(0) // expBonus
+	w.UTF("ab")
+	w.I32(77) // battleId
+	w.I16(-1) // missionId
+	w.U16(1)
+	w.U16(8)
+	w.U32(5)
+	w.I32(-3)
+	w.I16(0)  // banType
+	w.UTF("") // banNote
+	w.U16(2)
+	w.U8(3)
+	w.U8(4)
+	b := append(w.B, wire.SecureWith(w.B, wire.SecretKey125)...)
+	e := ReadEndBattle125(wire.NewReader(b))
+	if e.Result != -1 || e.Type != 2 || e.BattleID != 77 || e.MissionID != -1 || len(e.Items) != 1 || e.Items[0].ID != 5 ||
+		e.Items[0].Count != -3 || e.BanType != 0 || fmt.Sprint(e.CollectedReagents) != "[3 4]" {
+		t.Fatalf("%+v", e)
+	}
+}
+
+func TestAssembleEquipRefused125(t *testing.T) {
+	var got []byte
+	EmitAssembleEquipRefused125(func(b []byte) { got = append(got, b...) }, 7)
+	cmd, n, err := wire.ReadHeader(bytes.NewReader(got))
+	if err != nil || cmd != CmdAssembleEquipResult125 || int(n) != len(got)-wire.HeaderSize {
+		t.Fatalf("header %d %d %v", cmd, n, err)
+	}
+	body := got[wire.HeaderSize:]
+	r := wire.NewReader(body)
+	if equip, family, result, key := r.U16(), r.U16(), r.U16(), r.UTF(); equip != 0 || family != 7 || result == 0 || key != "" || r.Remaining() != 16 {
+		t.Fatalf("got %d %d %d %q, %d left", equip, family, result, key, r.Remaining())
+	}
+}

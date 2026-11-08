@@ -163,3 +163,52 @@ func (r *ArenaResult) Emit125(out Out) {
 		w.U16(0)      // heroic missions
 	})
 }
+
+// ReadEndBattle125 reads the 1.25.0 EndBattle: like 1.05.0 (random strings between the first fields),
+// but item sizes are big-endian and there is no signature block.
+func ReadEndBattle125(r *wire.Reader) EndBattle {
+	var e EndBattle
+	r.UTF()
+	e.Result = int32(r.U32())
+	r.UTF()
+	e.Type = int32(r.U32())
+	r.UTF()
+	e.ExpBonus = int32(r.U32())
+	r.UTF()
+	e.BattleID = int32(r.U32())
+	e.MissionID = int32(int16(r.U16()))
+	n := int(r.U16())
+	e.Items = []Weapon{}
+	for i := 0; i < n; i++ {
+		r.U16() // size
+		var w Weapon
+		w.ID = r.U32()
+		w.Count = int32(r.U32())
+		e.Items = append(e.Items, w)
+	}
+	e.Signature = []byte{}
+	e.BanType = int16(r.U16())
+	e.BanNote = r.UTF()
+	rs := int(r.U16())
+	e.CollectedReagents = []int32{}
+	for i := 0; i < rs; i++ {
+		e.CollectedReagents = append(e.CollectedReagents, int32(r.U8()))
+	}
+	r.BytesLenient(16) // hash
+	return e
+}
+
+// CmdAssembleEquipResult125 answers AssembleEquip (1.25.0).
+const CmdAssembleEquipResult125 = 10099
+
+// EmitAssembleEquipRefused125 answers an AssembleEquip with a failure (equipment crafting isn't on the
+// server yet): the client closes its "Saving..." dialog instead of waiting. Fields: equipId, familyId,
+// result (0 is success), session key ("" skips the check), MD5.
+func EmitAssembleEquipRefused125(out Out, familyID int) {
+	emitFixed(out, CmdAssembleEquipResult125, 2+2+2+2, true, func(w *wire.Writer) {
+		w.I16(0)
+		w.I16(familyID)
+		w.I16(1)
+		w.UTF("")
+	})
+}

@@ -297,8 +297,16 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		req := proto.ReadPumpReactionRate(r)
 		proto.DecodePumpReactionTheHouseResult(dataBang(s.post("house/pump_reaction", req.JSON()))).Emit(s.out)
 	case proto.CmdEndBattle:
-		req := proto.ReadEndBattle(r)
+		var req proto.EndBattle
+		if s.v125.Load() {
+			req = proto.ReadEndBattle125(r)
+		} else {
+			req = proto.ReadEndBattle(r)
+		}
 		s.post("game/end_battle", req.JSON())
+	case proto.CmdAssembleEquip125:
+		familyID := int(int16(r.U16()))
+		proto.EmitAssembleEquipRefused125(s.out, familyID)
 	case proto.CmdUpgradeWeapon:
 		req := proto.ReadRecipe(r)
 		if d := dataOpt(s.post("craft/upgrade_weapon", req.JSON())); d != nil {

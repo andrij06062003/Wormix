@@ -288,3 +288,49 @@ func (r *ShopResult) Emit125(out Out) {
 		w.U16(0) // temporalStuff
 	})
 }
+
+// SelectStuff125 is one worm of the 1.25.0 SelectStuff: what it wears now (0 is nothing).
+type SelectStuff125 struct {
+	ProfileID uint32
+	HatID     int16
+	Artifact  int16
+}
+
+// ReadSelectStuff125 reads the 1.25.0 SelectStuff (25): a sized SelectStuffStructure (profile id, hat,
+// artifact) for each worm of the team.
+func ReadSelectStuff125(r *wire.Reader) []SelectStuff125 {
+	n := int(r.U16())
+	out := make([]SelectStuff125, 0, n)
+	for i := 0; i < n; i++ {
+		r.U16() // size
+		out = append(out, SelectStuff125{ProfileID: r.U32(), HatID: int16(r.U16()), Artifact: int16(r.U16())})
+	}
+	return out
+}
+
+// SelectStuffResult125 is one worm of the 1.25.0 SelectStuffResult: 0 (saved) or 1 for the hat and the
+// artifact.
+type SelectStuffResult125 struct {
+	ProfileID      uint32
+	ResultHat      int16
+	HatID          int16
+	ResultArtifact int16
+	Artifact       int16
+}
+
+// EmitSelectStuffResult125 writes the 1.25.0 SelectStuffResult: a sized SelectStuffResultStructure for
+// each worm, MD5.
+func EmitSelectStuffResult125(out Out, rs []SelectStuffResult125) {
+	const size = 4 + 2 + 2 + 2 + 2
+	emitFixed(out, CmdSelectStuffResult, uint32(2+(2+size)*len(rs)), true, func(w *wire.Writer) {
+		w.U16(uint16(len(rs)))
+		for _, x := range rs {
+			w.U16(size)
+			w.U32(x.ProfileID)
+			w.I16(int(x.ResultHat))
+			w.I16(int(x.HatID))
+			w.I16(int(x.ResultArtifact))
+			w.I16(int(x.Artifact))
+		}
+	})
+}

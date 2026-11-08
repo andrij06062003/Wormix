@@ -11,6 +11,7 @@ const (
 	CmdNeedMoney            = 2
 	CmdBuyShopItems         = 3
 	CmdGetArena             = 4
+	CmdGetArena125          = 708 // 1.25.0: empty body
 	CmdStartBattle          = 6
 	CmdBuyBattle            = 11
 	CmdAddToGroup           = 12

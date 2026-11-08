@@ -176,3 +176,31 @@ func TestChooseBonus125(t *testing.T) {
 		t.Fatalf("atomic bomb: result %s, want 0", r)
 	}
 }
+
+// The 1.25.0 wardrobe puts a hat on and takes it off (StuffId 0); the race stays.
+func TestSelectHat125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set real_money = 100 where user_id = 1`)
+	if st, j := call(t, srv, "POST", "/api/internal/account/buy/items", map[string]any{"ShopItems": []any{map[string]any{"Id": 1064, "Count": -1, "MoneyType": 0}}}, h); st != 200 {
+		t.Fatalf("buy: %d %v", st, j)
+	}
+	d.Exec(`update wormix_worms_data set hat = 2 where owner_id = 1`)
+	sel := func(id int) int64 {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/account/select_stuff", map[string]any{"StuffId": id}, h)
+		if st != 200 || fmt.Sprint(j["data"].(map[string]any)["Result"]) != "0" {
+			t.Fatalf("select %d: %d %v", id, st, j)
+		}
+		var hat int64
+		d.QueryRow(`select hat from wormix_worms_data where owner_id = 1`).Scan(&hat)
+		return hat
+	}
+	if hat := sel(1064); hat != hatByRaceAndHat(1064, 2) {
+		t.Fatalf("hat on: %d", hat)
+	}
+	if hat := sel(0); hat != 2 {
+		t.Fatalf("hat off: %d", hat)
+	}
+}

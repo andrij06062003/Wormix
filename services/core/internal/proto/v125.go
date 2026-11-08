@@ -197,3 +197,18 @@ func ReadEndBattle125(r *wire.Reader) EndBattle {
 	r.BytesLenient(16) // hash
 	return e
 }
+
+// CmdAssembleEquipResult125 answers AssembleEquip (1.25.0).
+const CmdAssembleEquipResult125 = 10099
+
+// EmitAssembleEquipRefused125 answers an AssembleEquip with a failure (equipment crafting isn't on the
+// server yet): the client closes its "Saving..." dialog instead of waiting. Fields: equipId, familyId,
+// result (0 is success), session key ("" skips the check), MD5.
+func EmitAssembleEquipRefused125(out Out, familyID int) {
+	emitFixed(out, CmdAssembleEquipResult125, 2+2+2+2, true, func(w *wire.Writer) {
+		w.I16(0)
+		w.I16(familyID)
+		w.I16(1)
+		w.UTF("")
+	})
+}

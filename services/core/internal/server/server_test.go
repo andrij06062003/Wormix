@@ -434,6 +434,11 @@ func TestStartBattleRefused(t *testing.T) {
 	if delay, code := start(5); delay != 0 || code != 1 {
 		t.Fatalf("refused mission: delay %d, error %d; want 0, 1", delay, code)
 	}
+	// The 1.25.0 client asks for the arena with cmd 708 and gets the 1.25.0 ArenaResult.
+	c.send(proto.CmdGetArena125, nil, false)
+	if b := c.expect(proto.CmdArenaResult); len(b) != 12 || binary.BigEndian.Uint32(b) != 3 || b[8] != 1 {
+		t.Fatalf("ArenaResult 1.25.0 %x", b)
+	}
 	c.send(proto.CmdPing, nil, false)
 	c.expect(proto.CmdPong)
 }

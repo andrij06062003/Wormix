@@ -190,3 +190,16 @@ func TestEnterAccount125(t *testing.T) {
 		t.Fatalf("%d bytes left", r.Remaining())
 	}
 }
+
+func TestArenaResult125(t *testing.T) {
+	var got []byte
+	(&ArenaResult{BattlesCount: 7, CurrentMission: 3, BossAvailable: true}).Emit125(func(b []byte) { got = append(got, b...) })
+	cmd, n, err := wire.ReadHeader(bytes.NewReader(got))
+	if err != nil || cmd != CmdArenaResult || int(n) != len(got)-wire.HeaderSize || n != 12 {
+		t.Fatalf("header %d %d %v", cmd, n, err)
+	}
+	r := wire.NewReader(got[wire.HeaderSize:])
+	if b, solo, coop, boss, super, heroic := r.U32(), r.U16(), r.U16(), r.Bool(), r.Bool(), r.U16(); b != 7 || solo != 3 || coop != 0 || !boss || super || heroic != 0 {
+		t.Fatalf("got %d %d %d %v %v %d", b, solo, coop, boss, super, heroic)
+	}
+}

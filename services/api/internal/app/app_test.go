@@ -365,3 +365,14 @@ func TestAccountUpdateRefusesGameData(t *testing.T) {
 		t.Fatalf("name: %d %v", st, j)
 	}
 }
+
+// The 1.25.0 client asks VK's getProfiles for "1,2" (VK's format), 1.05.0 for "[1,2]".
+func TestGetProfilesCommaSeparated(t *testing.T) {
+	srv, _, _ := newServer(t)
+	for _, uids := range []string{"[1,2]", "1,2", "1"} {
+		st, j := call(t, srv, "POST", "/api", map[string]any{"method": "getProfiles", "uids": uids}, nil)
+		if st != 200 || j["response"] == nil {
+			t.Fatalf("uids %q: %d %v", uids, st, j)
+		}
+	}
+}

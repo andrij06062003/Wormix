@@ -209,8 +209,11 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 			res.Emit(s.out)
 			log.Printf("[main %s] bought, %d items added", s.short(), len(res.Weapons))
 		}
-	case proto.CmdGetArena:
-		req := proto.ReadGetArena(r)
+	case proto.CmdGetArena, proto.CmdGetArena125:
+		req := proto.GetArena{}
+		if cmd == proto.CmdGetArena {
+			req = proto.ReadGetArena(r)
+		}
 		o := rootObject(s.post("game/get_arena", req.JSON()))
 		if o == nil {
 			csx.NullRef("API answer")
@@ -222,7 +225,11 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		switch typ {
 		case "ArenaResult":
 			res := proto.DecodeArenaResult(dataBangObj(o))
-			res.Emit(s.out)
+			if cmd == proto.CmdGetArena125 {
+				res.Emit125(s.out)
+			} else {
+				res.Emit(s.out)
+			}
 		case "ArenaLocked":
 			proto.DecodeArenaLocked(dataBangObj(o)).Emit(s.out)
 		default:

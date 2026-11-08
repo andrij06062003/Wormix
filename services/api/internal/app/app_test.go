@@ -334,3 +334,34 @@ func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 		t.Fatal("no purchase succeeded")
 	}
 }
+
+// Players can change their name, login and password, but not money, rubies, the worm or battles.
+func TestAccountUpdateRefusesGameData(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"Authorization": "Bearer " + alice.Token}
+	var money, real, battles int64
+	read := func() {
+		d.QueryRow(`select money, real_money from wormix_user_profiles where user_id = 1`).Scan(&money, &real)
+		d.QueryRow(`select battles_count from wormix_users_battle_info where user_id = 1`).Scan(&battles)
+	}
+	read()
+	m0, r0, b0 := money, real, battles
+	for _, body := range []map[string]any{
+		{"user_profile": map[string]any{"money": 100000, "real_money": 100000}},
+		{"worm_data": map[string]any{"level": 30, "armor": 0, "attack": 60, "race": 1}},
+		{"battle_info": map[string]any{"battles_count": 999}},
+		{"social_data": map[string]any{"first_name": "x"}, "user_profile": map[string]any{"real_money": 1}},
+	} {
+		if st, j := call(t, srv, "POST", "/api/account", body, h); st != 403 {
+			t.Fatalf("%v: %d %v, want 403", body, st, j)
+		}
+	}
+	read()
+	if money != m0 || real != r0 || battles != b0 {
+		t.Fatalf("changed: money %d→%d, rubies %d→%d, battles %d→%d", m0, money, r0, real, b0, battles)
+	}
+	if st, j := call(t, srv, "POST", "/api/account", map[string]any{"social_data": map[string]any{"first_name": "Alice"}}, h); st != 200 {
+		t.Fatalf("name: %d %v", st, j)
+	}
+}

@@ -2,6 +2,9 @@
 
 Fixes compiled into `wormix-client/vk/1.05.0/Wormix.swf`.
 
+After changing a `Wormix.swf` (either client), change `CLIENT_BUILD` in `wwwroot/play.html`. Cloudflare tells
+browsers to keep .swf files for 4 hours; the build number makes them fetch the new file at once.
+
 ## PointCrosshair.as
 
 Weapons aimed with a point crosshair (air strikes / fire rockets, homing

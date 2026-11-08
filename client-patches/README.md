@@ -45,6 +45,9 @@ maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` 
 
 ## `crosshair-125/`: the aiming arrow stuck on the map and the mouse cursor hidden, in the 1.25.0 client
 
+**Not in `Wormix.swf` now.** With it, players could not flip or use the air strike, atom bomb and girder
+(2026-11-08), so the file went back to the build without it. Test it in a battle before applying it again.
+
 `PointCrosshair.as` is
 `§!!=§.§'2§`: its ENTER_FRAME handler (`§#"l§`) puts the crosshair back after deactivation unless it stops
 when the crosshair is off (`§8"F§`), and `deactivate()` now removes the listeners and the crosshair (and

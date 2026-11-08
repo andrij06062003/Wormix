@@ -305,8 +305,17 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		}
 		s.post("game/end_battle", req.JSON())
 	case proto.CmdAssembleEquip125:
-		familyID := int(int16(r.U16()))
-		proto.EmitAssembleEquipRefused125(s.out, familyID)
+		req := proto.ReadAssembleEquip125(r)
+		equipID, result := 0, 1
+		if d := dataOpt(s.post("craft/assemble_equip", req.JSON())); d != nil && d.Kind == jsonx.Object {
+			if v := d.Obj.Get("EquipId"); v != nil {
+				equipID = int(v.Int32())
+			}
+			if v := d.Obj.Get("Result"); v != nil {
+				result = int(v.Int32())
+			}
+		}
+		proto.EmitAssembleEquipResult125(s.out, equipID, req.FamilyID, result)
 	case proto.CmdUpgradeWeapon:
 		req := proto.ReadRecipe(r)
 		if d := dataOpt(s.post("craft/upgrade_weapon", req.JSON())); d != nil {

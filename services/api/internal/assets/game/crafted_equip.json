@@ -1,0 +1,938 @@
+{
+ "_comment": "Crafted equipment of the 1.25.0 client (its craft config). An item's id is familyId + prefix. items: [id, count]; ids from 1000 are hats/artifacts the player must own (they are used up), lower ids are reagents. reagentPrices: ruby price x100 of one missing reagent.",
+ "reagentPrices": {
+  "50": 500
+ },
+ "families": [
+  {
+   "familyId": 1500,
+   "name": "HAT.CRAFT_SAMURAI_HELM",
+   "craft": {
+    "price": 800,
+    "realprice": 8,
+    "items": [
+     [
+      1011,
+      1
+     ],
+     [
+      50,
+      2
+     ]
+    ]
+   },
+   "remake": {
+    "price": 1600,
+    "realprice": 16,
+    "items": [
+     [
+      50,
+      3
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1510,
+   "name": "HAT.CRAFT_RESPIRATOR",
+   "craft": {
+    "price": 1200,
+    "realprice": 12,
+    "items": [
+     [
+      1030,
+      1
+     ],
+     [
+      1005,
+      1
+     ],
+     [
+      50,
+      5
+     ]
+    ]
+   },
+   "remake": {
+    "price": 4800,
+    "realprice": 48,
+    "items": [
+     [
+      50,
+      6
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "familyId": 1520,
+   "name": "HAT.CRAFT_PSYKER_HELM",
+   "craft": {
+    "price": 1800,
+    "realprice": 18,
+    "items": [
+     [
+      1075,
+      1
+     ],
+     [
+      1015,
+      1
+     ],
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "remake": {
+    "price": 6400,
+    "realprice": 64,
+    "items": [
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1530,
+   "name": "HAT.CRAFT_CHAMPION_HELM",
+   "craft": {
+    "price": 1000,
+    "realprice": 10,
+    "items": [
+     [
+      2014,
+      1
+     ],
+     [
+      1065,
+      1
+     ],
+     [
+      2005,
+      1
+     ],
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "remake": {
+    "price": 5800,
+    "realprice": 58,
+    "items": [
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1540,
+   "name": "HAT.CRAFT_SPEC_OPS",
+   "craft": {
+    "price": 0,
+    "realprice": 15,
+    "items": [
+     [
+      1066,
+      1
+     ],
+     [
+      1024,
+      1
+     ],
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "remake": {
+    "price": 7200,
+    "realprice": 72,
+    "items": [
+     [
+      50,
+      14
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1550,
+   "name": "HAT.STEAMPUNK_GLASSES",
+   "craft": {
+    "price": 1200,
+    "realprice": 12,
+    "items": [
+     [
+      1057,
+      1
+     ],
+     [
+      1091,
+      1
+     ],
+     [
+      50,
+      7
+     ]
+    ]
+   },
+   "remake": {
+    "price": 5200,
+    "realprice": 52,
+    "items": [
+     [
+      50,
+      7
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1560,
+   "name": "HAT.NORDIC_HELM",
+   "craft": {
+    "price": 1400,
+    "realprice": 14,
+    "items": [
+     [
+      1004,
+      1
+     ],
+     [
+      1064,
+      1
+     ],
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "remake": {
+    "price": 6800,
+    "realprice": 68,
+    "items": [
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1570,
+   "name": "HAT.FIRESHEEP_HAT",
+   "craft": {
+    "price": 2000,
+    "realprice": 20,
+    "items": [
+     [
+      1080,
+      1
+     ],
+     [
+      1000,
+      1
+     ],
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "remake": {
+    "price": 8600,
+    "realprice": 86,
+    "items": [
+     [
+      50,
+      14
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "familyId": 1580,
+   "name": "HAT.FIRE_MASK",
+   "craft": {
+    "price": 2200,
+    "realprice": 22,
+    "items": [
+     [
+      1074,
+      1
+     ],
+     [
+      1096,
+      1
+     ],
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "remake": {
+    "price": 8200,
+    "realprice": 82,
+    "items": [
+     [
+      50,
+      12
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1590,
+   "name": "HAT.VILE_MASK",
+   "craft": {
+    "price": 1600,
+    "realprice": 16,
+    "items": [
+     [
+      1055,
+      1
+     ],
+     [
+      1028,
+      1
+     ],
+     [
+      1040,
+      1
+     ],
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "remake": {
+    "price": 8400,
+    "realprice": 84,
+    "items": [
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1600,
+   "name": "HAT.GENERAL_CAP",
+   "craft": {
+    "price": 1800,
+    "realprice": 18,
+    "items": [
+     [
+      1052,
+      1
+     ],
+     [
+      1014,
+      1
+     ],
+     [
+      1135,
+      1
+     ],
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "remake": {
+    "price": 8600,
+    "realprice": 86,
+    "items": [
+     [
+      50,
+      12
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1610,
+   "name": "HAT.HELM_SAPPER",
+   "craft": {
+    "price": 1400,
+    "realprice": 14,
+    "items": [
+     [
+      1062,
+      1
+     ],
+     [
+      1038,
+      1
+     ],
+     [
+      2028,
+      1
+     ],
+     [
+      50,
+      5
+     ]
+    ]
+   },
+   "remake": {
+    "price": 6200,
+    "realprice": 62,
+    "items": [
+     [
+      50,
+      9
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1620,
+   "name": "HAT.RAVEN_MASK",
+   "craft": {
+    "price": 1400,
+    "realprice": 14,
+    "items": [
+     [
+      1061,
+      1
+     ],
+     [
+      1079,
+      1
+     ],
+     [
+      1103,
+      1
+     ],
+     [
+      50,
+      6
+     ]
+    ]
+   },
+   "remake": {
+    "price": 9400,
+    "realprice": 94,
+    "items": [
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1630,
+   "name": "HAT.FIEND_HELM",
+   "craft": {
+    "price": 1000,
+    "realprice": 10,
+    "items": [
+     [
+      1010,
+      1
+     ],
+     [
+      1012,
+      1
+     ],
+     [
+      50,
+      6
+     ]
+    ]
+   },
+   "remake": {
+    "price": 3400,
+    "realprice": 34,
+    "items": [
+     [
+      50,
+      6
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1640,
+   "name": "HAT.HELL_RACER_HELM",
+   "craft": {
+    "price": 1600,
+    "realprice": 16,
+    "items": [
+     [
+      1063,
+      1
+     ],
+     [
+      1042,
+      1
+     ],
+     [
+      50,
+      6
+     ]
+    ]
+   },
+   "remake": {
+    "price": 6400,
+    "realprice": 64,
+    "items": [
+     [
+      50,
+      6
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2500,
+   "name": "ARTIFACT.CRAFT_CHROME_SHIELD",
+   "craft": {
+    "price": 400,
+    "realprice": 4,
+    "items": [
+     [
+      2008,
+      1
+     ],
+     [
+      2001,
+      1
+     ],
+     [
+      2002,
+      1
+     ],
+     [
+      50,
+      4
+     ]
+    ]
+   },
+   "remake": {
+    "price": 2400,
+    "realprice": 24,
+    "items": [
+     [
+      50,
+      3
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2510,
+   "name": "ARTIFACT.CRAFT_BLADE",
+   "craft": {
+    "price": 600,
+    "realprice": 6,
+    "items": [
+     [
+      2003,
+      1
+     ],
+     [
+      2004,
+      1
+     ],
+     [
+      50,
+      4
+     ]
+    ]
+   },
+   "remake": {
+    "price": 2200,
+    "realprice": 22,
+    "items": [
+     [
+      50,
+      4
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 2520,
+   "name": "ARTIFACT.ARHI_SWORD",
+   "craft": {
+    "price": 1500,
+    "realprice": 15,
+    "items": [
+     [
+      2003,
+      1
+     ],
+     [
+      2010,
+      1
+     ],
+     [
+      2007,
+      1
+     ],
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "remake": {
+    "price": 4400,
+    "realprice": 44,
+    "items": [
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2530,
+   "name": "ARTIFACT.SNAKE_STAFF",
+   "craft": {
+    "price": 1800,
+    "realprice": 18,
+    "items": [
+     [
+      2006,
+      1
+     ],
+     [
+      2009,
+      1
+     ],
+     [
+      50,
+      7
+     ]
+    ]
+   },
+   "remake": {
+    "price": 3200,
+    "realprice": 32,
+    "items": [
+     [
+      50,
+      12
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2540,
+   "name": "ARTIFACT.JAWBLADE",
+   "craft": {
+    "price": 2000,
+    "realprice": 20,
+    "items": [
+     [
+      2021,
+      1
+     ],
+     [
+      2012,
+      1
+     ],
+     [
+      50,
+      9
+     ]
+    ]
+   },
+   "remake": {
+    "price": 7000,
+    "realprice": 70,
+    "items": [
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2550,
+   "name": "ARTIFACT.FROST_SHIELD",
+   "craft": {
+    "price": 1600,
+    "realprice": 16,
+    "items": [
+     [
+      2019,
+      1
+     ],
+     [
+      2015,
+      1
+     ],
+     [
+      50,
+      6
+     ]
+    ]
+   },
+   "remake": {
+    "price": 5200,
+    "realprice": 52,
+    "items": [
+     [
+      50,
+      8
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 2560,
+   "name": "ARTIFACT.BLAZING_AXE",
+   "craft": {
+    "price": 0,
+    "realprice": 24,
+    "items": [
+     [
+      2023,
+      1
+     ],
+     [
+      1088,
+      1
+     ],
+     [
+      50,
+      10
+     ]
+    ]
+   },
+   "remake": {
+    "price": 6600,
+    "realprice": 66,
+    "items": [
+     [
+      50,
+      12
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2570,
+   "name": "ARTIFACT.HAM_MACE",
+   "craft": {
+    "price": 1000,
+    "realprice": 10,
+    "items": [
+     [
+      2029,
+      1
+     ],
+     [
+      50,
+      4
+     ]
+    ]
+   },
+   "remake": {
+    "price": 2400,
+    "realprice": 24,
+    "items": [
+     [
+      50,
+      4
+     ]
+    ]
+   },
+   "prefixes": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ ]
+}

@@ -1,8 +1,23 @@
 package proto
 
 import (
+	"github.com/andrij06062003/Wormix/services/core/internal/jsonx"
 	"github.com/andrij06062003/Wormix/services/core/internal/wire"
 )
+
+// Crafted equipment (1.25.0): hats 1500..1699 and artifacts 2500..2999. The API packs a crafted hat
+// into WormStructure.Hat as craftedHatBase + race*craftedHatRace + (id - craftedHatStart).
+const (
+	craftedHatStart      = 1500
+	craftedHatBase       = 20000
+	craftedHatRace       = 200
+	craftedArtifactStart = 2500
+)
+
+// IsCrafted reports whether an item is crafted equipment, which the 1.05.0 client doesn't know.
+func IsCrafted(id int) bool {
+	return (id >= craftedHatStart && id < 2000) || (id >= craftedArtifactStart && id < 3000)
+}
 
 // The 1.25.0 client speaks the 1.05.0 protocol with changes: its messages are signed with another salt,
 // and some messages (Login, EnterAccount, ...) have a new layout. A session is a 1.25.0 one when its
@@ -49,6 +64,9 @@ func splitHat(hat int16) (race, hatID int) {
 	h := int(hat)
 	if h < 50 {
 		return h, 0
+	}
+	if h >= craftedHatBase {
+		return (h - craftedHatBase) / craftedHatRace, craftedHatStart + (h-craftedHatBase)%craftedHatRace
 	}
 	return (h - 1000) / 500, 1000 + h%500
 }
@@ -201,14 +219,29 @@ func ReadEndBattle125(r *wire.Reader) EndBattle {
 // CmdAssembleEquipResult125 answers AssembleEquip (1.25.0).
 const CmdAssembleEquipResult125 = 10099
 
-// EmitAssembleEquipRefused125 answers an AssembleEquip with a failure (equipment crafting isn't on the
-// server yet): the client closes its "Saving..." dialog instead of waiting. Fields: equipId, familyId,
-// result (0 is success), session key ("" skips the check), MD5.
-func EmitAssembleEquipRefused125(out Out, familyID int) {
+// AssembleEquip (1.25.0, cmd 99): make or remake the crafted equipment of a family.
+type AssembleEquip struct {
+	FamilyID  int
+	MoneyType int
+}
+
+// ReadAssembleEquip125 reads AssembleEquip: short familyId, short moneyType (0 rubies, 1 fuzy).
+func ReadAssembleEquip125(r *wire.Reader) AssembleEquip {
+	return AssembleEquip{FamilyID: int(int16(r.U16())), MoneyType: int(int16(r.U16()))}
+}
+
+// JSON is the API request body.
+func (a AssembleEquip) JSON() []byte {
+	return jsonx.NewObject().Int("FamilyId", int64(a.FamilyID)).Int("MoneyType", int64(a.MoneyType)).Bytes()
+}
+
+// EmitAssembleEquipResult125 writes AssembleEquipResult: equipId, familyId, result (0 is success),
+// session key ("" skips the client's check), MD5.
+func EmitAssembleEquipResult125(out Out, equipID, familyID, result int) {
 	emitFixed(out, CmdAssembleEquipResult125, 2+2+2+2, true, func(w *wire.Writer) {
-		w.I16(0)
+		w.I16(equipID)
 		w.I16(familyID)
-		w.I16(1)
+		w.I16(result)
 		w.UTF("")
 	})
 }

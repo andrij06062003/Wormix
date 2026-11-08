@@ -22,6 +22,14 @@ const (
 	searchKeysDay = 10
 )
 
+// Crafted hats (1.25.0) are items 1500..1699: race*500 + id doesn't fit them, so a worm's hat is
+// craftedHatBase + race*craftedHatRace + (id - craftedHatStart) for those (it stays under 32767).
+const (
+	craftedHatStart = 1500
+	craftedHatBase  = 20000
+	craftedHatRace  = 200
+)
+
 // phpRand is rand($min, $max) (bounds swapped like PHP when max < min).
 func phpRand(min, max int64) int64 {
 	if max < min {
@@ -35,6 +43,9 @@ func raceAndHat(hat int64) (race, hatID int64) {
 	if hat < raceLimit {
 		return hat, 0
 	}
+	if hat >= craftedHatBase {
+		return (hat - craftedHatBase) / craftedHatRace, craftedHatStart + (hat-craftedHatBase)%craftedHatRace
+	}
 	return php.ToInt(php.Div(hat-stuffStartIndex, int64(raceBase))), stuffStartIndex + hat%raceBase
 }
 
@@ -42,6 +53,9 @@ func raceAndHat(hat int64) (race, hatID int64) {
 func hatByRaceAndHat(hatID, raceID int64) int64 {
 	if hatID == 0 {
 		return raceID
+	}
+	if hatID >= craftedHatStart && hatID < artifactStart {
+		return craftedHatBase + raceID*craftedHatRace + hatID - craftedHatStart
 	}
 	return raceID*raceBase + hatID
 }

@@ -105,7 +105,10 @@ package §!!=§
       {
          if(this.§`#`§)
          {
-            Application.curScene.removeChild(this.§ #x§);
+            if(this.§ #x§.parent != null)
+            {
+               this.§ #x§.parent.removeChild(this.§ #x§);
+            }
             Mouse.show();
             this.§`#`§ = false;
          }

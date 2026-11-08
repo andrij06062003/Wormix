@@ -2,6 +2,9 @@
 
 Fixes compiled into `wormix-client/vk/1.05.0/Wormix.swf`.
 
+After changing a `Wormix.swf` (either client), change `CLIENT_BUILD` in `wwwroot/play.html`. Cloudflare tells
+browsers to keep .swf files for 4 hours; the build number makes them fetch the new file at once.
+
 ## PointCrosshair.as
 
 Weapons aimed with a point crosshair (air strikes / fire rockets, homing
@@ -287,7 +290,8 @@ maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` 
 The `PointCrosshair.as` fix above, for `wormix-client/vk/1.25.0/Wormix.swf`. `PointCrosshair.as` is
 `§!!=§.§'2§`: its ENTER_FRAME handler (`§#"l§`) puts the crosshair back after deactivation unless it stops
 when the crosshair is off (`§8"F§`), and `deactivate()` now removes the listeners and the crosshair (and
-calls `Mouse.show()`) even when the turn is already over. Compile it like the `no-vk-125/` patches:
+calls `Mouse.show()`) even when the turn is already over. Hiding the crosshair removes it from its parent
+(as the 1.05.0 patch does), not from the current scene, which threw when the arrow wasn't there. Compile it like the `no-vk-125/` patches:
 
     FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
         client-patches/crosshair-125/PointCrosshair.as Wormix.swf Wormix.new.swf "§!!=§.§'2§" && mv Wormix.new.swf Wormix.swf

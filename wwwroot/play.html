@@ -54,6 +54,8 @@
     // (wormix-relay) from one address, so the page works the same on any computer.
     const API = location.origin + '/api/';
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
+    // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
+    const CLIENT_BUILD = '2026-11-08.2';
 
     // Remembered login, per browser (convenience only).
     const store = {
@@ -157,6 +159,9 @@
             // and slower in Ruffle than in the old Flash Player, so allow more time.
             maxExecutionDuration: 120,
             urlRewriteRules: [
+                // Cloudflare tells browsers to keep .swf files for 4 hours, so a patched Wormix.swf would reach
+                // players hours later. Ask for it with the build number: change CLIENT_BUILD with every patch.
+                [new RegExp('^https?://[^/]+/vk/(1\\.05\\.0|1\\.25\\.0)/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/$1/Wormix.swf?b=' + CLIENT_BUILD],
                 // The 1.25.0 client loads maps and sounds from ../storage/, which it doesn't ship with.
                 // Use the 1.05.0 ones. Its preloader has http://127.0.0.1:32700/vk/1.25.0/ built in, and only
                 // the first matching rule applies, so these come before the 127.0.0.1:32700 one.

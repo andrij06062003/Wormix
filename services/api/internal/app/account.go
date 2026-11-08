@@ -6,6 +6,7 @@ import (
 	"math/rand/v2"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -344,7 +345,16 @@ func (c *Ctx) vkGetProfiles() Resp {
 	dec, _ := php.JSONDecode([]byte(php.ToString(raw)))
 	uids, ok := dec.(*php.Arr)
 	if !ok {
-		php.Fail("foreach() argument must be of type array|object, %s given", php.TypeName(dec))
+		// The 1.25.0 client sends the ids as VK does, "1,2,3", not as a JSON array.
+		uids = php.NewArr()
+		for _, part := range strings.Split(php.ToString(raw), ",") {
+			if id, err := strconv.ParseInt(strings.TrimSpace(part), 10, 64); err == nil {
+				uids.Append(id)
+			}
+		}
+		if uids.Len() == 0 {
+			php.Fail("foreach() argument must be of type array|object, %s given", php.TypeName(dec))
+		}
 	}
 	isBots := false
 	for _, uid := range uids.Values() {

@@ -156,18 +156,19 @@
             // Flash aborts scripts that run longer than 15 s. Building the destructible map is heavy
             // and slower in Ruffle than in the old Flash Player, so allow more time.
             maxExecutionDuration: 120,
-            // The 1.05.0 preloader has http://127.0.0.1:32700/vk/1.05.0/ built in as the place to load
-            // the game from. Send those requests to wherever this page is served (any domain, http or https).
             urlRewriteRules: [
+                // The 1.25.0 client loads maps and sounds from ../storage/, which it doesn't ship with.
+                // Use the 1.05.0 ones. Its preloader has http://127.0.0.1:32700/vk/1.25.0/ built in, and only
+                // the first matching rule applies, so these come before the 127.0.0.1:32700 one.
+                [new RegExp('^https?://[^/]+/vk/storage/levels/([^/?]+)/map[0-9]*\\.swf(\\?.*)?$'), location.origin + '/vk/1.05.0/data/levels/$1/map.swf'],
+                [new RegExp('^https?://[^/]+/vk/storage/sound/sounds\\.swf(\\?.*)?$'), location.origin + '/vk/1.05.0/data/common/sound/sound.swf'],
+                [new RegExp('^https?://[^/]+/vk/storage/sound/units/([^?]*)(\\?.*)?$'), location.origin + '/vk/1.05.0/data/common/sound/$1'],
+                // The 1.05.0 preloader has http://127.0.0.1:32700/vk/1.05.0/ built in as the place to load
+                // the game from. Send those requests to wherever this page is served (any domain, http or https).
                 [new RegExp('^https?://(127\\.0\\.0\\.1|localhost):32700/(.*)$'), location.origin + '/$2'],
                 // Achievements are plain HTTP to <game server>:49199/wormix_achieve/ (not a socket):
                 // the game host answers them itself (Achievements.cs).
                 [new RegExp('^https?://(wormixtest\\.ru|battle\\.wormixtest\\.ru|localhost|127\\.0\\.0\\.1):49199/(.*)$'), location.origin + '/$2'],
-                // The 1.25.0 client loads maps and sounds from ../storage/, which it doesn't ship with.
-                // Use the 1.05.0 ones.
-                [new RegExp('^(https?://[^/]+)/vk/storage/levels/([^/]+)/map[0-9]*\\.swf$'), '$1/vk/1.05.0/data/levels/$2/map.swf'],
-                [new RegExp('^(https?://[^/]+)/vk/storage/sound/sounds\\.swf$'), '$1/vk/1.05.0/data/common/sound/sound.swf'],
-                [new RegExp('^(https?://[^/]+)/vk/storage/sound/units/(.*)$'), '$1/vk/1.05.0/data/common/sound/$2']
             ],
             // Browsers can't open raw TCP sockets, so Ruffle sends the game's connections through
             // the game host (ws://<host>/<port>), which forwards them to wormix-core.

@@ -205,6 +205,24 @@ func TestSelectHat125(t *testing.T) {
 	}
 }
 
+// The weapons new in the 1.25.0 shop (here the laser gun) can be bought.
+func TestBuyWeapon125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set money = 5000 where user_id = 1`)
+	st, j := call(t, srv, "POST", "/api/internal/account/buy/items", map[string]any{"ShopItems": []any{map[string]any{"Id": 94, "Count": -1, "MoneyType": 1}}}, h)
+	if st != 200 || fmt.Sprint(j["data"].(map[string]any)["Result"]) != "0" {
+		t.Fatalf("buy: %d %v", st, j)
+	}
+	var money, count int64
+	d.QueryRow(`select money from wormix_user_profiles where user_id = 1`).Scan(&money)
+	d.QueryRow(`select count from wormix_users_weapons where owner_id = 1 and weapon_id = 94`).Scan(&count)
+	if money != 800 || count != -1 {
+		t.Fatalf("money %d, count %d", money, count)
+	}
+}
+
 // The 1.25.0 client leaves a friend of the team out of battles, and it stays so.
 func TestToggleTeammate125(t *testing.T) {
 	srv, d, v := newServer(t)

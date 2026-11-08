@@ -281,3 +281,13 @@ maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` 
 
     FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
         client-patches/maps-125/MapList.as Wormix.swf Wormix.new.swf 'config.§##r§' && mv Wormix.new.swf Wormix.swf
+
+## `crosshair-125/`: the aiming arrow stuck on the map and the mouse cursor hidden, in the 1.25.0 client
+
+The `PointCrosshair.as` fix above, for `wormix-client/vk/1.25.0/Wormix.swf`. `PointCrosshair.as` is
+`§!!=§.§'2§`: its ENTER_FRAME handler (`§#"l§`) puts the crosshair back after deactivation unless it stops
+when the crosshair is off (`§8"F§`), and `deactivate()` now removes the listeners and the crosshair (and
+calls `Mouse.show()`) even when the turn is already over. Compile it like the `no-vk-125/` patches:
+
+    FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
+        client-patches/crosshair-125/PointCrosshair.as Wormix.swf Wormix.new.swf "§!!=§.§'2§" && mv Wormix.new.swf Wormix.swf

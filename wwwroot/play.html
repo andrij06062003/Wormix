@@ -55,9 +55,7 @@
     const API = location.origin + '/api/';
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
     // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
-    const CLIENT_BUILD = '2026-11-08.6';
-    // play.html?next loads Wormix.next.swf: a patched client to try before it replaces Wormix.swf for everyone.
-    const CLIENT_FILE = new URLSearchParams(location.search).has('next') ? 'Wormix.next.swf' : 'Wormix.swf';
+    const CLIENT_BUILD = '2026-11-08.7';
 
     // Remembered login, per browser (convenience only).
     const store = {
@@ -163,7 +161,7 @@
             urlRewriteRules: [
                 // Cloudflare tells browsers to keep .swf files for 4 hours, so a patched Wormix.swf would reach
                 // players hours later. Ask for it with the build number: change CLIENT_BUILD with every patch.
-                [new RegExp('^https?://[^/]+/vk/1\\.25\\.0/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/1.25.0/' + CLIENT_FILE + '?b=' + CLIENT_BUILD],
+                [new RegExp('^https?://[^/]+/vk/1\\.25\\.0/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/1.25.0/Wormix.swf?b=' + CLIENT_BUILD],
                 // The client asks for map<N>.swf, a version of each map; we have one version (map.swf).
                 // Its preloader has http://127.0.0.1:32700/vk/1.25.0/ built in, and only the first matching
                 // rule applies, so this one comes before the 127.0.0.1:32700 one.

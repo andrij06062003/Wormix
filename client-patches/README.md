@@ -45,7 +45,7 @@ maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` 
 
 ## `crosshair-125/`: the aiming arrow stuck on the map and the mouse cursor hidden, in the 1.25.0 client
 
-**Only in `Wormix.next.swf`** (`play.html?next`), until it is tried in a battle. The first build (2026-11-08)
+In `Wormix.swf` again since 2026-11-08 (build 2026-11-08.7). The first build (2026-11-08)
 broke the air strike, atom bomb and girder: FFDec compiled `§%#6§.§5!W§.activate()` as a public name, but
 `activate`/`deactivate` there are IControlSet interface methods (namespace
 `ru.pragmatix.wormix.controls:IControlSet`), so the call threw. The patch now imports `§6k§.§%#6§` and names

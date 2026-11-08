@@ -232,3 +232,17 @@ func TestReadEndBattle125(t *testing.T) {
 		t.Fatalf("%+v", e)
 	}
 }
+
+func TestAssembleEquipRefused125(t *testing.T) {
+	var got []byte
+	EmitAssembleEquipRefused125(func(b []byte) { got = append(got, b...) }, 7)
+	cmd, n, err := wire.ReadHeader(bytes.NewReader(got))
+	if err != nil || cmd != CmdAssembleEquipResult125 || int(n) != len(got)-wire.HeaderSize {
+		t.Fatalf("header %d %d %v", cmd, n, err)
+	}
+	body := got[wire.HeaderSize:]
+	r := wire.NewReader(body)
+	if equip, family, result, key := r.U16(), r.U16(), r.U16(), r.UTF(); equip != 0 || family != 7 || result == 0 || key != "" || r.Remaining() != 16 {
+		t.Fatalf("got %d %d %d %q, %d left", equip, family, result, key, r.Remaining())
+	}
+}

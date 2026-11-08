@@ -304,6 +304,9 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 			req = proto.ReadEndBattle(r)
 		}
 		s.post("game/end_battle", req.JSON())
+	case proto.CmdAssembleEquip125:
+		familyID := int(int16(r.U16()))
+		proto.EmitAssembleEquipRefused125(s.out, familyID)
 	case proto.CmdUpgradeWeapon:
 		req := proto.ReadRecipe(r)
 		if d := dataOpt(s.post("craft/upgrade_weapon", req.JSON())); d != nil {

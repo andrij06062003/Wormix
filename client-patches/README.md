@@ -53,14 +53,3 @@ not from the current scene, which threw when the arrow wasn't there. Compile it 
 
     FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
         client-patches/crosshair-125/PointCrosshair.as Wormix.swf Wormix.new.swf "§!!=§.§'2§" && mv Wormix.new.swf Wormix.swf
-
-## `hint-125/`: the weapon description stays on screen after closing the arsenal
-
-The description (hint) of a weapon or item is added to the scene, not inside the cell it belongs to, and
-is removed when the cell sends ROLL_OUT. Choosing a weapon closes the arsenal under the mouse; Ruffle sends
-no ROLL_OUT then, so the description stayed. `Hintable.as` (`§7L§.§#$N§`) also listens for
-REMOVED_FROM_STAGE on the cell and then removes the hint (and cancels one still waiting to appear).
-Compile it like the `no-vk-125/` patches:
-
-    FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
-        client-patches/hint-125/Hintable.as Wormix.swf Wormix.new.swf '§7L§.§#$N§' && mv Wormix.new.swf Wormix.swf

@@ -107,6 +107,7 @@ var Migrations = []Migration{
 	{Name: "2026_11_08_210000_sell_wormix_ice_shard", SQL: []string{
 		`update "wormix_weapons" set "hide_in_shop" = 0 where "id" = 2019`,
 	}},
+	{Name: "2026_11_08_220000_add_wormix_teams_inactive", Fn: migrateTeamInactive},
 }
 
 func tableExists(ctx context.Context, q interface {

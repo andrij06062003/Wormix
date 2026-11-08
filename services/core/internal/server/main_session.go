@@ -333,6 +333,15 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 			}
 		}
 		proto.EmitAssembleEquipResult125(s.out, equipID, req.FamilyID, result)
+	case proto.CmdToggleTeamMember125:
+		req := proto.ReadToggleTeamMember125(r)
+		result := 1
+		if v, refused := api.PostRefusable("team/toggle", req.JSON(), s.sid, s.tokenPtr()); !refused {
+			if d := dataOpt(v); d != nil && proto.DecodeShortResult(0, d).Result == 0 {
+				result = 0
+			}
+		}
+		proto.EmitToggleTeamMemberResult125(s.out, result, req.ProfileID)
 	case proto.CmdUpgradeWeapon:
 		req := proto.ReadRecipe(r)
 		if d := dataOpt(s.post("craft/upgrade_weapon", req.JSON())); d != nil {

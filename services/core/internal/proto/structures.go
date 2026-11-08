@@ -97,6 +97,8 @@ type Worm struct {
 	// Artifact is the equipped artifact (item id 2001+), 0 = none. Not in the original 1.05.0 protocol:
 	// added for the artifacts port, read by the patched client right after SocialOwnerId.
 	Artifact int16
+	// Inactive: a friend the 1.25.0 client leaves out of battles (ToggleTeamMember). Not in 1.05.0.
+	Inactive bool
 }
 
 func (w *Worm) size() int64 {
@@ -135,7 +137,7 @@ func stuff105(stuff []uint16) []uint16 {
 
 func decodeWorm(v *jsonx.Value) Worm {
 	var w Worm
-	v.Struct("WormStructure").Members([]string{"OwnerId", "SocialOwnerId", "Armor", "Attack", "Level", "Experience", "Hat", "Artifact"},
+	v.Struct("WormStructure").Members([]string{"OwnerId", "SocialOwnerId", "Armor", "Attack", "Level", "Experience", "Hat", "Artifact", "Inactive"},
 		func(f int, x *jsonx.Value) {
 			switch f {
 			case 0:
@@ -154,6 +156,8 @@ func decodeWorm(v *jsonx.Value) Worm {
 				w.Hat = x.Int16()
 			case 7:
 				w.Artifact = x.Int16()
+			case 8:
+				w.Inactive = x.Bool()
 			}
 		})
 	return w

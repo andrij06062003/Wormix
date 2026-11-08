@@ -144,6 +144,8 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	d.Exec(`update wormix_weapons set hide_in_shop = 1 where id = 2019`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_210000_sell_wormix_ice_shard'`)
+	// wormix_users_teams.inactive (1.25.0) is in the reference DB already: only its migration row is new.
+	d.Exec(`delete from migrations where migration = '2026_11_08_220000_add_wormix_teams_inactive'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

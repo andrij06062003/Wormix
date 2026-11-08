@@ -95,8 +95,8 @@ func writeTeamMember125(w *wire.Writer, m *Worm) {
 	} else {
 		w.UTF("")
 	}
-	w.I16(0)     // teamMemberType: a friend or the player himself
-	w.Bool(true) // isActive: every worm of the team fights
+	w.I16(0)            // teamMemberType: a friend or the player himself
+	w.Bool(!m.Inactive) // isActive: fights in battles
 }
 
 // writeUserProfile125 is the 1.25.0 UserProfileStructure.
@@ -332,5 +332,32 @@ func EmitSelectStuffResult125(out Out, rs []SelectStuffResult125) {
 			w.I16(int(x.ResultArtifact))
 			w.I16(int(x.Artifact))
 		}
+	})
+}
+
+// CmdToggleTeamMemberResult125 answers ToggleTeamMember.
+const CmdToggleTeamMemberResult125 = 10106
+
+// ToggleTeamMember125 is ToggleTeamMember (106): a friend of the team takes part in battles or not.
+type ToggleTeamMember125 struct {
+	ProfileID int32
+	Active    bool
+}
+
+// ReadToggleTeamMember125 reads ToggleTeamMember: team member id, active.
+func ReadToggleTeamMember125(r *wire.Reader) ToggleTeamMember125 {
+	return ToggleTeamMember125{ProfileID: int32(r.U32()), Active: r.Bool()}
+}
+
+// JSON is the API request body.
+func (t ToggleTeamMember125) JSON() []byte {
+	return jsonx.NewObject().Int("ProfileId", int64(t.ProfileID)).Bool("Active", t.Active).Bytes()
+}
+
+// EmitToggleTeamMemberResult125 writes ToggleTeamMemberResult: result (0 is saved), team member id. Not signed.
+func EmitToggleTeamMemberResult125(out Out, result int, profileID int32) {
+	emitFixed(out, CmdToggleTeamMemberResult125, 2+4, false, func(w *wire.Writer) {
+		w.I16(result)
+		w.I32(profileID)
 	})
 }

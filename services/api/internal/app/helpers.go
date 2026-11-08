@@ -319,8 +319,9 @@ func (c *Ctx) generateBots(worm *Model) *php.Arr {
 		bots.Append(php.Assoc(
 			"Id", base+(i+1)*10,
 			"Rating", phpRand(0, php.IntArg(profile.Get("rating"))),
-			"Money", phpRand(0, php.IntArg(profile.Get("money"))),
-			"RealMoney", phpRand(0, php.IntArg(profile.Get("real_money"))),
+			// never negative (a negative balance would give rand(0, -n)): the game server reads these as unsigned
+			"Money", phpRand(0, max(0, php.IntArg(profile.Get("money")))),
+			"RealMoney", phpRand(0, max(0, php.IntArg(profile.Get("real_money")))),
 			"Recipes", php.NewArr(),
 			"SocialId", php.ToString(0-base+botBase-(i+1)*10),
 			"Stuff", st,

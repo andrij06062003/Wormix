@@ -270,6 +270,32 @@ func TestBuyWithNegativeOtherCurrency(t *testing.T) {
 	}
 }
 
+// The Missions tab's bots get money up to the player's: a negative balance must not give them negative money
+// (the game server reads it as unsigned and drops the connection).
+func TestArenaBotsWithNegativeBalance(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set money = -500, real_money = -5 where user_id = 1`)
+	d.Exec(`update wormix_users_battle_info set battles_count = 5 where user_id = 1`)
+	for i := 0; i < 20; i++ {
+		st, j := call(t, srv, "POST", "/api/internal/game/get_arena", map[string]any{"ReturnUsersProfiles": true}, h)
+		if st != 200 || j["type"] != "ArenaResult" {
+			t.Fatalf("get_arena: %d %v", st, j)
+		}
+		bots := j["data"].(map[string]any)["UserProfileStructures"].([]any)
+		if len(bots) == 0 {
+			t.Fatal("no bots")
+		}
+		for _, b := range bots {
+			bot := b.(map[string]any)
+			if bot["Money"].(float64) < 0 || bot["RealMoney"].(float64) < 0 {
+				t.Fatalf("bot with negative money: %v %v", bot["Money"], bot["RealMoney"])
+			}
+		}
+	}
+}
+
 // Concurrent purchases must stay atomic: every successful purchase is paid exactly once.
 func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 	srv, d, v := newServer(t)

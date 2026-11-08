@@ -128,6 +128,10 @@ type Battle struct {
 	overAt         time.Time
 	results        map[uint32]int // 1 won, 0 draw/cancelled, -1 lost
 
+	// v125: a battle of 1.25.0 clients (ex125.go). Players are told apart by their number (their place in
+	// players, which is also the turn order) instead of their id, and messages are signed with its salt.
+	v125 bool
+
 	over atomic.Bool
 }
 
@@ -233,6 +237,25 @@ func send(p *player, msg []byte) {
 	}
 }
 
+// msg is message, signed for the battle's clients.
+func (b *Battle) msg(cmd uint32, secure bool, body func(w *wire.Writer)) []byte {
+	if b.v125 {
+		return message125(cmd, secure, body)
+	}
+	return message(cmd, secure, body)
+}
+
+// sysMsg is a PvpSystemMessage about p.
+func (b *Battle) sysMsg(typ int, p *player) []byte {
+	if b.v125 {
+		return message125(CmdSystemMessage, false, func(w *wire.Writer) {
+			w.I16(typ)
+			w.U8(byte(p.seat))
+		})
+	}
+	return systemMessage(typ, p.userID)
+}
+
 func systemMessage(typ int, profileID uint32) []byte {
 	return message(CmdSystemMessage, false, func(w *wire.Writer) {
 		w.I16(typ)
@@ -262,7 +285,7 @@ func (b *Battle) Login(c Conn, userID uint32) bool {
 		return true
 	}
 	if reconnect {
-		b.sendOthers(p, systemMessage(sysReconnected, p.userID))
+		b.sendOthers(p, b.sysMsg(sysReconnected, p))
 	}
 	if p != b.activePlayer() {
 		b.resendTurnCommands(p, 0) // moves the active player made before this player connected
@@ -284,7 +307,7 @@ func (b *Battle) Reconnect(c Conn, userID uint32, turnNum int, lastCommandNum ui
 		b.sendEndBattle(p)
 		return true
 	}
-	b.sendOthers(p, systemMessage(sysReconnected, p.userID))
+	b.sendOthers(p, b.sysMsg(sysReconnected, p))
 
 	switch {
 	case turnNum < b.turn && b.lastStartTurn != nil:
@@ -305,7 +328,7 @@ func (b *Battle) Reconnect(c Conn, userID uint32, turnNum int, lastCommandNum ui
 		if minFrom := map[bool]int{true: 1, false: 2}[b.turn == 1]; minFrom > from {
 			from = minFrom
 		}
-		send(p, message(CmdRetryRequestServer, true, func(w *wire.Writer) {
+		send(p, b.msg(CmdRetryRequestServer, true, func(w *wire.Writer) {
 			w.U32(b.ID)
 			w.U16(2)
 			w.I16(from)
@@ -326,6 +349,15 @@ func (b *Battle) attach(p *player, c Conn) {
 	p.everConnected = true
 	p.disconnectedAt = nil
 	c.SetBattle(b)
+	if b.v125 {
+		// StartBattle: the 1.25.0 client starts the battle with it (it also answers a reconnect).
+		c.SendMessage(message125(cmdExStartBattle, false, func(w *wire.Writer) {
+			w.U32(b.ID)
+			w.UTF("")
+			w.U8(byte(p.seat))
+		}))
+		return
+	}
 	c.SendMessage(message(CmdLoginSuccess, false, func(w *wire.Writer) {
 		w.UTF("")
 		w.U8(p.num())
@@ -347,7 +379,7 @@ func (b *Battle) OnDisconnected(c Conn) {
 	now := time.Now()
 	p.disconnectedAt = &now
 	b.logf("%d disconnected", p.userID)
-	b.sendOthers(p, systemMessage(sysDisconnected, p.userID))
+	b.sendOthers(p, b.sysMsg(sysDisconnected, p))
 }
 
 // ---- Messages during the battle ----------------------------------------------------------------------------
@@ -382,9 +414,26 @@ func (b *Battle) OnMessage(c Conn, cmd uint32, body []byte) {
 	case CmdDropPlayer:
 		b.onDropPlayer(p, body)
 	case CmdChat:
-		if len(body) <= 1024 {
-			b.sendOthers(p, message(CmdChat, false, func(w *wire.Writer) { w.Bytes(body) }))
+		if len(body) > 1024 {
+			break
 		}
+		msg := message(CmdChat, false, func(w *wire.Writer) { w.Bytes(body) })
+		if b.v125 {
+			// playerNum u8, message utf, battleId u32, isTeamMsg bool, MD5
+			r := wire.NewReader(body)
+			r.U8()
+			r.UTFStrict()
+			r.U32()
+			if r.Bool() {
+				for _, x := range b.players {
+					if x != p && !x.left && x.team == p.team {
+						send(x, msg)
+					}
+				}
+				break
+			}
+		}
+		b.sendOthers(p, msg)
 	default:
 		b.logf("unexpected command %d from %d", cmd, p.userID)
 	}
@@ -404,13 +453,14 @@ func (b *Battle) onAction(p *player, body []byte) {
 }
 
 func (b *Battle) onEndTurn(p *player, body []byte) {
-	// turnNum u16, commandNum u16, battleId i32, playerNum u8, eliminated u32[], battleState i32
+	// turnNum u16, commandNum u16, battleId i32, playerNum u8, eliminated, (1.25.0: collected reagents, items,)
+	// battleState i32, ...
 	r := wire.NewReader(body)
 	turn := r.U16()
 	num := r.U16()
 	r.U32()
 	r.U8()
-	eliminated := r.U32Array()
+	eliminated := b.readEliminated(r)
 	state := int32(r.U32())
 	if b.Over() || p != b.activePlayer() || int(turn) != b.turn || b.activeEnd != nil {
 		return
@@ -420,6 +470,30 @@ func (b *Battle) onEndTurn(p *player, body []byte) {
 	b.activeEndAt = time.Now()
 	b.lastEndTurn = b.activeEndAt
 	b.tryFinishTurn()
+}
+
+// readEliminated reads the squads a turn eliminated, as player ids: 1.05.0 sends ids (u32[]), 1.25.0 player
+// numbers (u8[]) followed by the reagents and items the turn collected (skipped).
+func (b *Battle) readEliminated(r *wire.Reader) []uint32 {
+	if !b.v125 {
+		return r.U32Array()
+	}
+	n := int(r.U16())
+	ids := make([]uint32, 0, n)
+	for i := 0; i < n; i++ {
+		if num := int(r.U8()); num < len(b.players) {
+			ids = append(ids, b.players[num].userID)
+		}
+	}
+	for n = int(r.U16()); n > 0; n-- { // collected reagents
+		r.U8()
+	}
+	for n = int(r.U16()); n > 0; n-- { // items: size u16 + WeaponStructure
+		for size := int(r.U16()); size > 0; size-- {
+			r.U8()
+		}
+	}
+	return ids
 }
 
 func (b *Battle) store(num uint16, msg []byte) {
@@ -438,12 +512,12 @@ func (b *Battle) store(num uint16, msg []byte) {
 }
 
 func (b *Battle) onEndTurnResponse(p *player, body []byte) {
-	// turnNum u16, commandNum u16, battleId i32, eliminated u32[], battleState i32
+	// turnNum u16, commandNum u16, battleId i32, eliminated, (1.25.0: collected reagents, items,) battleState i32
 	r := wire.NewReader(body)
 	turn := r.U16()
 	r.U16()
 	r.U32()
-	eliminated := r.U32Array()
+	eliminated := b.readEliminated(r)
 	state := int32(r.U32())
 	if b.Over() || p == b.activePlayer() || int(turn) != b.turn || p.end != nil {
 		return
@@ -471,11 +545,18 @@ func (b *Battle) resendTurnCommands(p *player, after int) {
 }
 
 func (b *Battle) onDropPlayer(p *player, body []byte) {
-	// playerId u32, battleId u32, type i32
+	// playerId u32, battleId u32, type i32 (1.25.0: playerNum u8, battleId u32, type i16)
 	r := wire.NewReader(body)
-	r.U32()
-	r.U32()
-	typ := int32(r.U32())
+	var typ int32
+	if b.v125 {
+		r.U8()
+		r.U32()
+		typ = int32(int16(r.U16()))
+	} else {
+		r.U32()
+		r.U32()
+		typ = int32(r.U32())
+	}
 	if b.Over() {
 		return
 	}
@@ -496,7 +577,7 @@ func (b *Battle) onDropPlayer(p *player, body []byte) {
 	if typ == dropIAmCheater {
 		sys = sysCheater
 	}
-	b.sendOthers(p, systemMessage(sys, p.userID))
+	b.sendOthers(p, b.sysMsg(sys, p))
 	b.finish(b.teamLoses(p), false)
 }
 
@@ -596,10 +677,14 @@ func (b *Battle) tryFinishTurn() {
 		x.end = nil
 	}
 	b.lastActivity = time.Now()
-	activeID := b.activePlayer().userID
-	b.lastStartTurn = message(CmdStartTurn, true, func(w *wire.Writer) {
+	act := b.activePlayer()
+	b.lastStartTurn = b.msg(CmdStartTurn, true, func(w *wire.Writer) {
 		w.U32(b.ID)
-		w.U32(activeID)
+		if b.v125 {
+			w.U8(byte(act.seat))
+		} else {
+			w.U32(act.userID)
+		}
 		w.U16(uint16(b.turn))
 		w.U16(0)
 		w.U16(0) // dropped players
@@ -655,7 +740,7 @@ func (b *Battle) tick(keepFinished time.Duration) bool {
 	// time out).
 	if len(gone) > 0 && b.opponentConnected(gone[0].team) {
 		b.logf("%d didn't come back: team %d loses", gone[0].userID, gone[0].team)
-		b.sendOthers(gone[0], systemMessage(sysDroppedByReconnectionTimeout, gone[0].userID))
+		b.sendOthers(gone[0], b.sysMsg(sysDroppedByReconnectionTimeout, gone[0]))
 		b.finish(b.teamLoses(gone[0]), false)
 		return false
 	}
@@ -664,7 +749,7 @@ func (b *Battle) tick(keepFinished time.Duration) bool {
 		// The active player stopped playing (connected, but nothing for a long time).
 		if act := b.activePlayer(); act.connected() && now.Sub(b.lastActivity) > TurnTimeout {
 			b.logf("%d inactive: team %d loses", act.userID, act.team)
-			b.sendOthers(act, systemMessage(sysDroppedByCommandTimeout, act.userID))
+			b.sendOthers(act, b.sysMsg(sysDroppedByCommandTimeout, act))
 			b.finish(b.teamLoses(act), false)
 		}
 		return false
@@ -681,7 +766,7 @@ func (b *Battle) tick(keepFinished time.Duration) bool {
 	if now.Sub(b.activeEndAt) > ResponseTimeout {
 		pas := waiting[0]
 		b.logf("%d never confirmed the turn: team %d loses", pas.userID, pas.team)
-		b.sendOthers(pas, systemMessage(sysDroppedByResponseTimeout, pas.userID))
+		b.sendOthers(pas, b.sysMsg(sysDroppedByResponseTimeout, pas))
 		b.finish(b.teamLoses(pas), false)
 	} else if now.Sub(b.lastEndTurn) > EndTurnResendInterval {
 		// The client ignores EndTurn until it's ready to replay the turn (e.g. still building the map on
@@ -718,7 +803,22 @@ func (b *Battle) finish(results []result, desync bool) {
 	}
 	b.logf("over: %s%s", strings.Join(parts, ", "), suffix)
 
-	b.endBattle = message(CmdEndBattle, true, func(w *wire.Writer) {
+	if b.v125 {
+		b.endBattle = b.endBattle125(desync)
+	} else {
+		b.endBattle = b.endBattle105(desync)
+	}
+	for _, p := range b.players {
+		if !p.left {
+			b.sendEndBattle(p)
+		}
+	}
+	b.settle()
+}
+
+// endBattle105 is the 1.05.0 PvpEndBattle.
+func (b *Battle) endBattle105(desync bool) []byte {
+	return message(CmdEndBattle, true, func(w *wire.Writer) {
 		if desync {
 			w.U8(1)
 		} else {
@@ -750,25 +850,48 @@ func (b *Battle) finish(results []result, desync bool) {
 			w.U16(0)
 		}
 	})
-	for _, p := range b.players {
-		if !p.left {
-			b.sendEndBattle(p)
-		}
-	}
+}
 
-	// Pay out (wager, rating) in the API, off the battle's lock.
-	type settle struct {
+// endBattle125 is the 1.25.0 PvpEndBattle: player numbers and their results (0 won, 1 lost, 2 draw), and
+// whether the result is confirmed (not a desync).
+func (b *Battle) endBattle125(desync bool) []byte {
+	return message125(CmdEndBattle, true, func(w *wire.Writer) {
+		w.U32(b.ID)
+		w.U16(uint16(b.turn))
+		w.U16(b.lastCommandNum)
+		w.U16(uint16(len(b.players)))
+		for _, p := range b.players {
+			w.U8(byte(p.seat))
+		}
+		w.U16(uint16(len(b.players)))
+		for _, p := range b.players {
+			switch b.results[p.userID] {
+			case 1:
+				w.U8(0)
+			case 0:
+				w.U8(2)
+			default:
+				w.U8(1)
+			}
+		}
+		w.Bool(!desync)
+	})
+}
+
+// settle pays out the result (wager, rating) in the API, off the battle's lock.
+func (b *Battle) settle() {
+	type payout struct {
 		userID uint32
 		token  string
 		result int
 	}
-	var todo []settle
+	var todo []payout
 	for _, p := range b.players {
 		token := p.token
 		if s := Find(p.userID); s != nil && s.Token() != "" {
 			token = s.Token()
 		}
-		todo = append(todo, settle{p.userID, token, b.results[p.userID]})
+		todo = append(todo, payout{p.userID, token, b.results[p.userID]})
 	}
 	id := b.ID
 	go func() {

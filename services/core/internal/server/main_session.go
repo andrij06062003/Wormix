@@ -78,6 +78,9 @@ type mainSession struct {
 
 func newMainSession(c *conn) *mainSession { return &mainSession{conn: c} }
 
+// V125 reports whether the player uses the 1.25.0 client (pvp needs it to find a battle for it).
+func (s *mainSession) V125() bool { return s.v125.Load() }
+
 // UserID implements pvp.Player.
 func (s *mainSession) UserID() uint32 { return s.userID.Load() }
 

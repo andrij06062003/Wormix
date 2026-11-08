@@ -161,15 +161,13 @@
             urlRewriteRules: [
                 // Cloudflare tells browsers to keep .swf files for 4 hours, so a patched Wormix.swf would reach
                 // players hours later. Ask for it with the build number: change CLIENT_BUILD with every patch.
-                [new RegExp('^https?://[^/]+/vk/(1\\.05\\.0|1\\.25\\.0)/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/$1/Wormix.swf?b=' + CLIENT_BUILD],
-                // The 1.25.0 client loads maps and sounds from ../storage/, which it doesn't ship with.
-                // Use the 1.05.0 ones. Its preloader has http://127.0.0.1:32700/vk/1.25.0/ built in, and only
-                // the first matching rule applies, so these come before the 127.0.0.1:32700 one.
-                [new RegExp('^https?://[^/]+/vk/storage/levels/([^/?]+)/map[0-9]*\\.swf(\\?.*)?$'), location.origin + '/vk/1.05.0/data/levels/$1/map.swf'],
-                [new RegExp('^https?://[^/]+/vk/storage/sound/sounds\\.swf(\\?.*)?$'), location.origin + '/vk/1.05.0/data/common/sound/sound.swf'],
-                [new RegExp('^https?://[^/]+/vk/storage/sound/units/([^?]*)(\\?.*)?$'), location.origin + '/vk/1.05.0/data/common/sound/$1'],
-                // The 1.05.0 preloader has http://127.0.0.1:32700/vk/1.05.0/ built in as the place to load
-                // the game from. Send those requests to wherever this page is served (any domain, http or https).
+                [new RegExp('^https?://[^/]+/vk/1\\.25\\.0/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/1.25.0/Wormix.swf?b=' + CLIENT_BUILD],
+                // The client asks for map<N>.swf, a version of each map; we have one version (map.swf).
+                // Its preloader has http://127.0.0.1:32700/vk/1.25.0/ built in, and only the first matching
+                // rule applies, so this one comes before the 127.0.0.1:32700 one.
+                [new RegExp('^https?://[^/]+/vk/storage/levels/([^/?]+)/map[0-9]*\\.swf(\\?.*)?$'), location.origin + '/vk/storage/levels/$1/map.swf'],
+                // The preloader has http://127.0.0.1:32700/vk/1.25.0/ built in as the place to load the game
+                // from. Send those requests to wherever this page is served (any domain, http or https).
                 [new RegExp('^https?://(127\\.0\\.0\\.1|localhost):32700/(.*)$'), location.origin + '/$2'],
                 // Achievements are plain HTTP to <game server>:49199/wormix_achieve/ (not a socket):
                 // the game host answers them itself (Achievements.cs).
@@ -178,8 +176,7 @@
             // Browsers can't open raw TCP sockets, so Ruffle sends the game's connections through
             // the game host (ws://<host>/<port>), which forwards them to wormix-core.
             // The game has wormixtest.ru built in; these entries send it to our own server instead.
-            // Ports built into the 1.05.0 preloader: 49197 main, 49198 PvP, 49199 achievements.
-            // The 1.25.0 one also has 49196.
+            // Ports built into the preloader: 49196, 49197 main, 49198 PvP, 49199 achievements.
             socketProxy: [49196, 49197, 49198, 49199, 49297, 49298, 49299, 49300].flatMap(port =>
                 ['wormixtest.ru', 'battle.wormixtest.ru', 'localhost', '127.0.0.1'].map(host => ({
                     host, port, proxyUrl: RELAY + '/' + port
@@ -212,9 +209,7 @@
         // the whole screen. Put the game box in full screen instead, so the CSS above sets the shape.
         player.requestFullscreen = options => box.requestFullscreen(options);
         player.webkitRequestFullscreen = options => box.webkitRequestFullscreen && box.webkitRequestFullscreen(options);
-        // The 1.25.0 client is the default; play.html?v=105 starts the old 1.05.0 one.
-        const version = new URLSearchParams(location.search).get('v') === '105' ? '1.05.0' : '1.25.0';
-        player.ruffle().load({ url: 'vk/' + version + '/preloader.swf?v=1', parameters: flashvars, base: 'vk/' + version + '/' })
+        player.ruffle().load({ url: 'vk/1.25.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.25.0/' })
             .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
     }
 

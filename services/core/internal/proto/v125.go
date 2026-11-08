@@ -163,3 +163,37 @@ func (r *ArenaResult) Emit125(out Out) {
 		w.U16(0)      // heroic missions
 	})
 }
+
+// ReadEndBattle125 reads the 1.25.0 EndBattle: like 1.05.0 (random strings between the first fields),
+// but item sizes are big-endian and there is no signature block.
+func ReadEndBattle125(r *wire.Reader) EndBattle {
+	var e EndBattle
+	r.UTF()
+	e.Result = int32(r.U32())
+	r.UTF()
+	e.Type = int32(r.U32())
+	r.UTF()
+	e.ExpBonus = int32(r.U32())
+	r.UTF()
+	e.BattleID = int32(r.U32())
+	e.MissionID = int32(int16(r.U16()))
+	n := int(r.U16())
+	e.Items = []Weapon{}
+	for i := 0; i < n; i++ {
+		r.U16() // size
+		var w Weapon
+		w.ID = r.U32()
+		w.Count = int32(r.U32())
+		e.Items = append(e.Items, w)
+	}
+	e.Signature = []byte{}
+	e.BanType = int16(r.U16())
+	e.BanNote = r.UTF()
+	rs := int(r.U16())
+	e.CollectedReagents = []int32{}
+	for i := 0; i < rs; i++ {
+		e.CollectedReagents = append(e.CollectedReagents, int32(r.U8()))
+	}
+	r.BytesLenient(16) // hash
+	return e
+}

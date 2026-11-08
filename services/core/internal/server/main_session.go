@@ -297,7 +297,12 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		req := proto.ReadPumpReactionRate(r)
 		proto.DecodePumpReactionTheHouseResult(dataBang(s.post("house/pump_reaction", req.JSON()))).Emit(s.out)
 	case proto.CmdEndBattle:
-		req := proto.ReadEndBattle(r)
+		var req proto.EndBattle
+		if s.v125.Load() {
+			req = proto.ReadEndBattle125(r)
+		} else {
+			req = proto.ReadEndBattle(r)
+		}
 		s.post("game/end_battle", req.JSON())
 	case proto.CmdUpgradeWeapon:
 		req := proto.ReadRecipe(r)

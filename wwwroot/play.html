@@ -162,13 +162,19 @@
                 [new RegExp('^https?://(127\\.0\\.0\\.1|localhost):32700/(.*)$'), location.origin + '/$2'],
                 // Achievements are plain HTTP to <game server>:49199/wormix_achieve/ (not a socket):
                 // the game host answers them itself (Achievements.cs).
-                [new RegExp('^https?://(wormixtest\\.ru|battle\\.wormixtest\\.ru|localhost|127\\.0\\.0\\.1):49199/(.*)$'), location.origin + '/$2']
+                [new RegExp('^https?://(wormixtest\\.ru|battle\\.wormixtest\\.ru|localhost|127\\.0\\.0\\.1):49199/(.*)$'), location.origin + '/$2'],
+                // The 1.25.0 client loads maps and sounds from ../storage/, which it doesn't ship with.
+                // Use the 1.05.0 ones.
+                [new RegExp('^(https?://[^/]+)/vk/storage/levels/([^/]+)/map[0-9]*\\.swf$'), '$1/vk/1.05.0/data/levels/$2/map.swf'],
+                [new RegExp('^(https?://[^/]+)/vk/storage/sound/sounds\\.swf$'), '$1/vk/1.05.0/data/common/sound/sound.swf'],
+                [new RegExp('^(https?://[^/]+)/vk/storage/sound/units/(.*)$'), '$1/vk/1.05.0/data/common/sound/$2']
             ],
             // Browsers can't open raw TCP sockets, so Ruffle sends the game's connections through
             // the game host (ws://<host>/<port>), which forwards them to wormix-core.
             // The game has wormixtest.ru built in; these entries send it to our own server instead.
             // Ports built into the 1.05.0 preloader: 49197 main, 49198 PvP, 49199 achievements.
-            socketProxy: [49197, 49198, 49199, 49297, 49298, 49299, 49300].flatMap(port =>
+            // The 1.25.0 one also has 49196.
+            socketProxy: [49196, 49197, 49198, 49199, 49297, 49298, 49299, 49300].flatMap(port =>
                 ['wormixtest.ru', 'battle.wormixtest.ru', 'localhost', '127.0.0.1'].map(host => ({
                     host, port, proxyUrl: RELAY + '/' + port
                 })))
@@ -200,7 +206,9 @@
         // the whole screen. Put the game box in full screen instead, so the CSS above sets the shape.
         player.requestFullscreen = options => box.requestFullscreen(options);
         player.webkitRequestFullscreen = options => box.webkitRequestFullscreen && box.webkitRequestFullscreen(options);
-        player.ruffle().load({ url: 'vk/1.05.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.05.0/' })
+        // play.html?v=125 starts the 1.25.0 client (work in progress); 1.05.0 is the default.
+        const version = new URLSearchParams(location.search).get('v') === '125' ? '1.25.0' : '1.05.0';
+        player.ruffle().load({ url: 'vk/' + version + '/preloader.swf?v=1', parameters: flashvars, base: 'vk/' + version + '/' })
             .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
     }
 

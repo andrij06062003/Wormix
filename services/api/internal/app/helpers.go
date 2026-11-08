@@ -278,6 +278,7 @@ func (c *Ctx) wormStructure(t *Model) *php.Arr {
 		"Level", level,
 		"Hat", mate.Get("hat"),
 		"Artifact", php.ToInt(mate.Get("artifact")),
+		"Inactive", php.ToBool(t.Get("inactive")),
 	)
 }
 

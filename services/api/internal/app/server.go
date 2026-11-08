@@ -131,6 +131,7 @@ func (a *App) registerRoutes() {
 		{"team/add", (*Ctx).addTeammate},
 		{"team/remove", (*Ctx).deleteTeammate},
 		{"team/reorder", (*Ctx).reorderTeam},
+		{"team/toggle", (*Ctx).toggleTeammate},
 		{"house/search", (*Ctx).searchTheHouse},
 		{"house/pump_reaction", (*Ctx).pumpReaction},
 		{"house/pump_reactions", (*Ctx).pumpReactions},

@@ -136,6 +136,14 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	d.Exec(`delete from wormix_weapons where id > 1061 and id < 1500`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_200000_add_wormix_hats_125'`)
+	// And the Ice Shard sold in the shop.
+	var iceHidden int
+	d.QueryRow(`select hide_in_shop from wormix_weapons where id = 2019`).Scan(&iceHidden)
+	if iceHidden != 0 {
+		t.Errorf("Ice Shard hidden in the shop")
+	}
+	d.Exec(`update wormix_weapons set hide_in_shop = 1 where id = 2019`)
+	d.Exec(`delete from migrations where migration = '2026_11_08_210000_sell_wormix_ice_shard'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

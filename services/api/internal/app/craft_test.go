@@ -134,6 +134,10 @@ func TestBuyHat125(t *testing.T) {
 	if n != 1 || real != 100-42 {
 		t.Fatalf("after buying 1064: owned %d, rubies %d", n, real)
 	}
+	// The Ice Shard is sold in the 1.25.0 shop.
+	if r := buy(2019); r != "0" {
+		t.Fatalf("buy 2019: result %s, want 0", r)
+	}
 	// A boss hat is hidden in the shop.
 	if r := buy(1096); r != "1" {
 		t.Fatalf("buy 1096: result %s, want 1", r)

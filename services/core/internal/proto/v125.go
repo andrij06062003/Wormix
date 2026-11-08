@@ -253,3 +253,29 @@ func EmitAssembleEquipResult125(out Out, equipID, familyID, result int) {
 		w.UTF("")
 	})
 }
+
+// Frame125 is Frame with the 1.25.0 salt: a complete message, signed when secure.
+func Frame125(cmd uint32, body []byte, secure bool) []byte {
+	if !secure {
+		return Frame(cmd, body, false)
+	}
+	out := Header(cmd, uint32(len(body)+16))
+	out = append(out, body...)
+	return append(out, wire.SecureWith(body, wire.SecretKey125)...)
+}
+
+// WritePvpProfile125 writes a 1.25.0 PvpProfileStructure with its size in front, as BattleCreated and
+// CallToBattle carry them: the UserProfileStructure, then the player's names (JSON, worm id -> name), social
+// network, player number (its place in the battle, from 0), team, daily rating and backpack.
+func WritePvpProfile125(w *wire.Writer, p *UserProfile, names string, socialNet, playerNum, team byte) {
+	var b wire.Writer
+	writeUserProfile125(&b, p)
+	b.UTF(names)
+	b.U8(socialNet)
+	b.U8(playerNum)
+	b.U8(team)
+	b.I32(0) // dailyRating
+	b.U16(0) // backpackConf
+	w.U16(uint16(len(b.B)))
+	w.Bytes(b.B)
+}

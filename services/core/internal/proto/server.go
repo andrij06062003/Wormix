@@ -236,18 +236,20 @@ func (r *ShopResult) size() uint32 {
 
 // Emit writes the reply (fixed buffer + MD5).
 func (r *ShopResult) Emit(out Out) {
-	emitFixed(out, CmdShopResult, r.size(), true, func(w *wire.Writer) {
-		w.U16(uint16(r.Result))
-		w.U16(uint16(len(r.Weapons)))
-		for _, x := range r.Weapons {
-			w.U16(weaponSize)
-			x.write(w)
-		}
-		w.U16(uint16(len(r.Stuff)))
-		for _, s := range r.Stuff {
-			w.U16(uint16(s))
-		}
-	})
+	emitFixed(out, CmdShopResult, r.size(), true, r.write)
+}
+
+func (r *ShopResult) write(w *wire.Writer) {
+	w.U16(uint16(r.Result))
+	w.U16(uint16(len(r.Weapons)))
+	for _, x := range r.Weapons {
+		w.U16(weaponSize)
+		x.write(w)
+	}
+	w.U16(uint16(len(r.Stuff)))
+	for _, s := range r.Stuff {
+		w.U16(uint16(s))
+	}
 }
 
 // ---- Arena -------------------------------------------------------------------------------------------------

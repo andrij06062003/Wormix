@@ -329,3 +329,31 @@ func TestNewHatsHiddenFrom105(t *testing.T) {
 		t.Fatalf("known hat %d", hat)
 	}
 }
+
+// The 1.25.0 client reads the temporal stuff after the stuff; without it a purchase never finishes.
+func TestShopResult125(t *testing.T) {
+	var got []byte
+	res := ShopResult{Result: 0, Weapons: []Weapon{{1061, -1}}, Stuff: []int16{3}}
+	res.Emit125(func(b []byte) { got = append(got, b...) })
+	cmd, n, err := wire.ReadHeader(bytes.NewReader(got))
+	if err != nil || cmd != CmdShopResult || int(n) != len(got)-wire.HeaderSize {
+		t.Fatalf("header %d %d %v", cmd, n, err)
+	}
+	body := got[wire.HeaderSize:]
+	if !wire.IsSecure(body) {
+		t.Fatal("not signed")
+	}
+	r := wire.NewReader(body[:len(body)-16])
+	if r.U16() != 0 || r.U16() != 1 || r.U16() != weaponSize {
+		t.Fatalf("% x", body)
+	}
+	if id, count := r.U32(), int32(r.U32()); id != 1061 || count != -1 {
+		t.Fatalf("weapon %d %d", id, count)
+	}
+	if r.U16() != 1 || r.U16() != 3 || r.U16() != 0 {
+		t.Fatalf("stuff and temporal stuff: % x", body)
+	}
+	if r.Remaining() != 0 {
+		t.Fatalf("%d bytes left", r.Remaining())
+	}
+}

@@ -279,3 +279,12 @@ func WritePvpProfile125(w *wire.Writer, p *UserProfile, names string, socialNet,
 	w.U16(uint16(len(b.B)))
 	w.Bytes(b.B)
 }
+
+// Emit125 writes the 1.25.0 ShopResult: the 1.05.0 one, then the temporal stuff bought (items that
+// expire; none), MD5.
+func (r *ShopResult) Emit125(out Out) {
+	emitFixed(out, CmdShopResult, r.size()+2, true, func(w *wire.Writer) {
+		r.write(w)
+		w.U16(0) // temporalStuff
+	})
+}

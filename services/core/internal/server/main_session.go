@@ -215,7 +215,11 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 			} else {
 				log.Printf("[main %s] purchase refused by the API", s.short())
 			}
-			res.Emit(s.out)
+			if s.v125.Load() {
+				res.Emit125(s.out)
+			} else {
+				res.Emit(s.out)
+			}
 			log.Printf("[main %s] bought, %d items added", s.short(), len(res.Weapons))
 		}
 	case proto.CmdGetArena, proto.CmdGetArena125:

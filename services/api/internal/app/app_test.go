@@ -119,6 +119,14 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	if a, b := schemaOf(t, ref.DB), schemaOf(t, d.DB); !reflect.DeepEqual(a, b) {
 		t.Fatalf("schema differs:\nref %q\ngo  %q", a, b)
 	}
+	// The crafted equipment (1.25.0) came after the PHP API: check it, then leave it out of the comparison.
+	var crafted int
+	d.QueryRow(`select count(*) from wormix_weapons where ((id > 1500 and id < 2000) or id > 2500) and hide_in_shop = 1 and infinity = 1`).Scan(&crafted)
+	if crafted != 128 {
+		t.Errorf("crafted equipment rows %d, want 128", crafted)
+	}
+	d.Exec(`delete from wormix_weapons where (id > 1500 and id < 2000) or id > 2500`)
+	d.Exec(`delete from migrations where migration = '2026_11_08_120000_add_wormix_crafted_equip'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

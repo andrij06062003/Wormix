@@ -110,11 +110,11 @@ func (w *Worm) write(wr *wire.Writer) {
 	wr.U32(w.Level)
 	wr.U32(w.Experience)
 	hat, artifact := w.Hat, w.Artifact
-	if hat >= craftedHatBase { // crafted hats (1.25.0) are unknown to the 1.05.0 client: no hat
-		race, _ := splitHat(hat)
+	// Crafted hats and the newer hats (1.25.0) are unknown to the 1.05.0 client: no hat.
+	if race, id := splitHat(hat); id != 0 && Unknown105(id) {
 		hat = int16(race)
 	}
-	if IsCrafted(int(artifact)) {
+	if Unknown105(int(artifact)) {
 		artifact = 0
 	}
 	wr.U16(uint16(hat))
@@ -122,11 +122,11 @@ func (w *Worm) write(wr *wire.Writer) {
 	wr.U16(uint16(artifact))
 }
 
-// stuff105 is the stuff the 1.05.0 client knows: without the 1.25.0 crafted equipment.
+// stuff105 is the stuff the 1.05.0 client knows: without the 1.25.0 crafted equipment and hats.
 func stuff105(stuff []uint16) []uint16 {
 	out := stuff[:0:0]
 	for _, s := range stuff {
-		if !IsCrafted(int(s)) {
+		if !Unknown105(int(s)) {
 			out = append(out, s)
 		}
 	}

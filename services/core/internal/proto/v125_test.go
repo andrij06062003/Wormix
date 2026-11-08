@@ -288,3 +288,44 @@ func TestCraftedHiddenFrom105(t *testing.T) {
 		t.Fatalf("stuff: %d items", n)
 	}
 }
+
+// The 1.25.0 hats after 1061 are unknown to the 1.05.0 client too: the worm shows the race only and
+// the hat is left out of the stuff.
+func TestNewHatsHiddenFrom105(t *testing.T) {
+	social := "s"
+	p := UserProfile{ID: 1, SocialID: &social, Stuff: []uint16{1061, 1064, 2001}, Recipes: []uint16{},
+		WeaponRecordList: []Weapon{}, WormsGroup: []Worm{{OwnerID: 1, SocialOwnerID: &social, Hat: 1*500 + 1064}}}
+	var w wire.Writer
+	p.Write(&w)
+	if int(p.Size()) != len(w.B) {
+		t.Fatalf("size %d, wrote %d", p.Size(), len(w.B))
+	}
+	r := wire.NewReader(w.B)
+	for range 4 {
+		r.U32()
+	}
+	r.U16() // one worm
+	for range 5 {
+		r.U32()
+	}
+	if hat := r.U16(); hat != 1 {
+		t.Fatalf("hat %d, want the race only (1)", hat)
+	}
+	r.UTF()
+	r.U16() // artifact
+	r.U16() // no weapons
+	if n := r.U16(); n != 2 || r.U16() != 1061 || r.U16() != 2001 {
+		t.Fatalf("stuff: %d items", n)
+	}
+
+	// A hat the 1.05.0 client knows stays.
+	var k wire.Writer
+	(&Worm{OwnerID: 1, SocialOwnerID: &social, Hat: 2*500 + 1061}).write(&k)
+	kr := wire.NewReader(k.B)
+	for range 5 {
+		kr.U32()
+	}
+	if hat := kr.U16(); hat != 2*500+1061 {
+		t.Fatalf("known hat %d", hat)
+	}
+}

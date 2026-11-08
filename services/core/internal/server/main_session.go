@@ -205,7 +205,13 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 	case proto.CmdBuyShopItems:
 		req := proto.ReadBuyShopItems(r)
 		if len(req.ShopItems) != 0 {
-			res := proto.DecodeShopResult(dataBang(s.post("account/buy/items", req.JSON())))
+			// An item the API refuses (unknown, or not for sale) is a failed purchase, not a dropped session.
+			res := proto.ShopResult{Result: 1, Weapons: []proto.Weapon{}, Stuff: []int16{}}
+			if v, refused := api.PostRefusable("account/buy/items", req.JSON(), s.sid, s.tokenPtr()); !refused {
+				res = proto.DecodeShopResult(dataBang(v))
+			} else {
+				log.Printf("[main %s] purchase refused by the API", s.short())
+			}
 			res.Emit(s.out)
 			log.Printf("[main %s] bought, %d items added", s.short(), len(res.Weapons))
 		}

@@ -19,6 +19,14 @@ func IsCrafted(id int) bool {
 	return (id >= craftedHatStart && id < 2000) || (id >= craftedArtifactStart && id < 3000)
 }
 
+// lastHat105 is the last hat of the 1.05.0 client; the 1.25.0 one has more (1062..1499).
+const lastHat105 = 1061
+
+// Unknown105 reports whether an item is unknown to the 1.05.0 client: crafted equipment or a newer hat.
+func Unknown105(id int) bool {
+	return IsCrafted(id) || (id > lastHat105 && id < craftedHatStart)
+}
+
 // The 1.25.0 client speaks the 1.05.0 protocol with changes: its messages are signed with another salt,
 // and some messages (Login, EnterAccount, ...) have a new layout. A session is a 1.25.0 one when its
 // Login is signed with the 1.25.0 salt (the 1.05.0 Login isn't signed at all).

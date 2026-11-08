@@ -107,3 +107,33 @@ func reagentsJSON(id, n int) string {
 	}
 	return s + "]"
 }
+
+// The 1.25.0 client's shop sells hats the 1.05.0 one didn't have, some of them craft ingredients:
+// Gladiator helmet (1064) is one of the Nordic helm's.
+func TestBuyHat125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set money = 0, real_money = 100 where user_id = 1`)
+	buy := func(id int64) string {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/account/buy/items", map[string]any{"ShopItems": []any{map[string]any{"Id": id, "Count": -1, "MoneyType": 0}}}, h)
+		if st != 200 {
+			t.Fatalf("buy %d: %d %v", id, st, j)
+		}
+		return fmt.Sprint(j["data"].(map[string]any)["Result"])
+	}
+	if r := buy(1064); r != "0" {
+		t.Fatalf("buy 1064: result %s, want 0", r)
+	}
+	var n, real int64
+	d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 1 and weapon_id = 1064`).Scan(&n)
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
+	if n != 1 || real != 100-42 {
+		t.Fatalf("after buying 1064: owned %d, rubies %d", n, real)
+	}
+	// A boss hat is hidden in the shop.
+	if r := buy(1096); r != "1" {
+		t.Fatalf("buy 1096: result %s, want 1", r)
+	}
+}

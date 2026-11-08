@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Wormix 1.05.0</title>
+    <title>Wormix</title>
     <style>
         :root { --bg: #1d1d1d; --panel: #2a2a2a; --text: #e6e6e6; --muted: #9a9a9a; --accent: #f0a020; --error: #ff6b6b; }
         html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 15px system-ui, sans-serif; }
@@ -207,8 +207,8 @@
         // the whole screen. Put the game box in full screen instead, so the CSS above sets the shape.
         player.requestFullscreen = options => box.requestFullscreen(options);
         player.webkitRequestFullscreen = options => box.webkitRequestFullscreen && box.webkitRequestFullscreen(options);
-        // play.html?v=125 starts the 1.25.0 client (work in progress); 1.05.0 is the default.
-        const version = new URLSearchParams(location.search).get('v') === '125' ? '1.25.0' : '1.05.0';
+        // The 1.25.0 client is the default; play.html?v=105 starts the old 1.05.0 one.
+        const version = new URLSearchParams(location.search).get('v') === '105' ? '1.05.0' : '1.25.0';
         player.ruffle().load({ url: 'vk/' + version + '/preloader.swf?v=1', parameters: flashvars, base: 'vk/' + version + '/' })
             .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
     }

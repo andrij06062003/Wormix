@@ -1,7 +1,8 @@
 # Wormix server
 
-Runs the original **Wormix 1.05.0** Flash client in a modern browser (Chrome, Edge, Firefox) with
-[Ruffle](https://ruffle.rs), against your own server. No Flash Player needed.
+Runs the original **Wormix 1.25.0** Flash client in a modern browser (Chrome, Edge, Firefox) with
+[Ruffle](https://ruffle.rs), against your own server. No Flash Player needed. The older 1.05.0 client
+is still there: `play.html?v=105`.
 
 **Hosting it for others (Docker + Cloudflare Tunnel): see [HOSTING.md](HOSTING.md).**
 The rest of this file is about running everything on one Windows PC.

@@ -343,19 +343,27 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		}
 		proto.EmitToggleTeamMemberResult125(s.out, result, req.ProfileID)
 	case proto.CmdUpgradeWeapon:
-		req := proto.ReadRecipe(r)
-		if d := dataOpt(s.post("craft/upgrade_weapon", req.JSON())); d != nil {
-			proto.DecodeWeaponRecipeResult(proto.CmdUpgradeWeaponResult, d).Emit(s.out)
-		}
+		s.weaponRecipe("craft/upgrade_weapon", proto.CmdUpgradeWeaponResult, proto.ReadRecipe(r))
 	case proto.CmdDowngradeWeapon:
-		req := proto.ReadRecipe(r)
-		if d := dataOpt(s.post("craft/downgrade_weapon", req.JSON())); d != nil {
-			proto.DecodeWeaponRecipeResult(proto.CmdDowngradeWeaponResult, d).Emit(s.out)
-		}
+		s.weaponRecipe("craft/downgrade_weapon", proto.CmdDowngradeWeaponResult, proto.ReadRecipe(r))
 	default:
 		if !pvp.HandleLobby(s, cmd, body) {
 			log.Printf("[main %s] unknown command %d", s.short(), cmd)
 		}
+	}
+}
+
+// weaponRecipe upgrades or downgrades a weapon. A recipe the API refuses (one it doesn't know) is answered
+// as failed (Result 1), not by dropping the session.
+func (s *mainSession) weaponRecipe(route string, cmd uint32, req proto.IntField) {
+	v, refused := api.PostRefusable(route, req.JSON(), s.sid, s.tokenPtr())
+	if refused {
+		log.Printf("[main %s] recipe %d refused by the API", s.short(), req.Value)
+		proto.WeaponRecipeResult{Cmd: cmd, RecipeID: int16(req.Value), Result: 1}.Emit(s.out)
+		return
+	}
+	if d := dataOpt(v); d != nil {
+		proto.DecodeWeaponRecipeResult(cmd, d).Emit(s.out)
 	}
 }
 

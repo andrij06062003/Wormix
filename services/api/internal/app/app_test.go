@@ -154,6 +154,31 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	d.Exec(`delete from wormix_weapons where id in (81, 82, 83, 94, 95, 96, 105, 107, 109)`)
 	d.Exec(`delete from migrations where migration = '2026_11_09_120000_add_wormix_weapons_125'`)
+	// And the weapon upgrades of the 1.25.0 client: 52 new recipes, and its costs for the old ones.
+	var recipes, sheep int
+	d.QueryRow(`select count(*) from wormix_craft`).Scan(&recipes)
+	d.QueryRow(`select count(*) from wormix_craft where id in (47, 48) and prev_upgrade_id = 40 and required_level = 12`).Scan(&sheep)
+	if recipes != 89 || sheep != 2 {
+		t.Errorf("1.25.0 recipes %d (sheep %d), want 89 (2)", recipes, sheep)
+	}
+	var reagents string
+	d.QueryRow(`select reagents from wormix_craft where id = 3`).Scan(&reagents)
+	if reagents != "[[0,40],[21,15],[41,12]]" {
+		t.Errorf("recipe 3 reagents %s", reagents)
+	}
+	d.Exec(`delete from wormix_craft where id > 37`)
+	rr, err := ref.Query(`select id, reagents, required_level from wormix_craft`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rr.Next() {
+		var id, lvl int64
+		var rg string
+		rr.Scan(&id, &rg, &lvl)
+		d.Exec(`update wormix_craft set reagents = ?, required_level = ? where id = ?`, rg, lvl, id)
+	}
+	rr.Close()
+	d.Exec(`delete from migrations where migration = '2026_11_09_130000_add_wormix_recipes_125'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

@@ -15,16 +15,19 @@ const (
 	// Artifacts (from 1.25.0) are items 2001..2999; selecting artifactStart takes the artifact off.
 	artifactStart = 2000
 	artifactEnd   = 3000
-	// Crafted hats (1.25.0) are items 1500..1699: race*500 + id doesn't fit them, so a worm's hat is
-	// craftedHatBase + race*craftedHatRace + (id - craftedHatStart) for those (it stays under 32767).
-	craftedHatStart = 1500
-	craftedHatBase  = 20000
-	craftedHatRace  = 200
 	botBase       = -1000
 
 	missionsDelay = 120
 	missionsMax   = 5
 	searchKeysDay = 10
+)
+
+// Crafted hats (1.25.0) are items 1500..1699: race*500 + id doesn't fit them, so a worm's hat is
+// craftedHatBase + race*craftedHatRace + (id - craftedHatStart) for those (it stays under 32767).
+const (
+	craftedHatStart = 1500
+	craftedHatBase  = 20000
+	craftedHatRace  = 200
 )
 
 // phpRand is rand($min, $max) (bounds swapped like PHP when max < min).

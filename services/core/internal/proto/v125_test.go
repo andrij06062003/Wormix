@@ -388,3 +388,23 @@ func TestSelectStuff125(t *testing.T) {
 		t.Fatalf("% x", body)
 	}
 }
+
+func TestToggleTeamMember125(t *testing.T) {
+	var w wire.Writer
+	w.U32(42)
+	w.Bool(false)
+	req := ReadToggleTeamMember125(wire.NewReader(w.B))
+	if req.ProfileID != 42 || req.Active || string(req.JSON()) != `{"ProfileId":42,"Active":false}` {
+		t.Fatalf("read %+v, JSON %s", req, req.JSON())
+	}
+	var got []byte
+	EmitToggleTeamMemberResult125(func(b []byte) { got = append(got, b...) }, 0, 42)
+	cmd, n, err := wire.ReadHeader(bytes.NewReader(got))
+	if err != nil || cmd != CmdToggleTeamMemberResult125 || n != 6 {
+		t.Fatalf("header %d %d %v", cmd, n, err)
+	}
+	r := wire.NewReader(got[wire.HeaderSize:])
+	if r.U16() != 0 || r.U32() != 42 {
+		t.Fatalf("% x", got)
+	}
+}

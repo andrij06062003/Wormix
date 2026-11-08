@@ -204,3 +204,33 @@ func TestSelectHat125(t *testing.T) {
 		t.Fatalf("hat off: %d", hat)
 	}
 }
+
+// The 1.25.0 client leaves a friend of the team out of battles, and it stays so.
+func TestToggleTeammate125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`insert into wormix_users_teams (user_id, teammate_id, "order") values (1, 2, 1)`)
+	toggle := func(id int, active bool) string {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/team/toggle", map[string]any{"ProfileId": id, "Active": active}, h)
+		if st != 200 {
+			t.Fatalf("toggle %d: %d %v", id, st, j)
+		}
+		return fmt.Sprint(j["data"].(map[string]any)["Result"])
+	}
+	inactive := func() int {
+		var n int
+		d.QueryRow(`select inactive from wormix_users_teams where user_id = 1 and teammate_id = 2`).Scan(&n)
+		return n
+	}
+	if r := toggle(2, false); r != "0" || inactive() != 1 {
+		t.Fatalf("off: result %s, inactive %d", r, inactive())
+	}
+	if r := toggle(2, true); r != "0" || inactive() != 0 {
+		t.Fatalf("on: result %s, inactive %d", r, inactive())
+	}
+	if r := toggle(3, false); r != "1" {
+		t.Fatalf("not in the team: result %s", r)
+	}
+}

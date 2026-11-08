@@ -13,6 +13,7 @@ const (
 	CmdGetArena             = 4
 	CmdGetArena125          = 708 // 1.25.0: empty body
 	CmdAssembleEquip125     = 99  // 1.25.0: crafted equipment
+	CmdToggleTeamMember125  = 106 // 1.25.0: a friend of the team in battles or not
 	CmdStartBattle          = 6
 	CmdBuyBattle            = 11
 	CmdAddToGroup           = 12

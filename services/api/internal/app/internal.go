@@ -312,6 +312,21 @@ func (c *Ctx) deleteTeammate() Resp {
 	return dataResult("Result", int64(0))
 }
 
+// toggleTeammate is the 1.25.0 ToggleTeamMember: a friend of the team takes part in battles (Active) or not.
+// Result 1: not in the team.
+func (c *Ctx) toggleTeammate() Resp {
+	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"ProfileId", "required|integer"}, {"Active", "required|boolean"}})
+	inactive := int64(1)
+	if php.ToBool(c.JSON("Active")) {
+		inactive = 0
+	}
+	if c.Count(`select exists(select * from "wormix_users_teams" where "user_id" = ? and "teammate_id" = ?)`, c.UserID(), c.JSON("ProfileId")) == 0 {
+		return dataResult("Result", int64(1))
+	}
+	c.exec(`update "wormix_users_teams" set "inactive" = ?, "updated_at" = ? where "user_id" = ? and "teammate_id" = ?`, inactive, db.Now(), c.UserID(), c.JSON("ProfileId"))
+	return dataResult("Result", int64(0))
+}
+
 func (c *Ctx) reorderTeam() Resp {
 	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"ReorderedWormGroup", "required|array|max:4"}, {"ReorderedWormGroup.*", "integer|exists:users,id"}})
 	group := c.JSON("ReorderedWormGroup").(*php.Arr)

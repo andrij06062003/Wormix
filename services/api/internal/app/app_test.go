@@ -152,7 +152,7 @@ func TestMigrateUpgradesPreArtifactsDB(t *testing.T) {
 	}
 	var batch, artifacts, col int
 	d.QueryRow(`select batch from migrations where migration = '2026_11_06_120000_add_wormix_artifacts'`).Scan(&batch)
-	d.QueryRow(`select count(*) from wormix_weapons where id > 2000 and infinity = 1 and created_at is not null`).Scan(&artifacts)
+	d.QueryRow(`select count(*) from wormix_weapons where id > 2000 and id < 2500 and infinity = 1 and created_at is not null`).Scan(&artifacts)
 	d.QueryRow(`select count(*) from pragma_table_info('wormix_worms_data') where name = 'artifact'`).Scan(&col)
 	if batch != 2 || artifacts != 35 || col != 1 {
 		t.Fatalf("batch=%d artifacts=%d column=%d", batch, artifacts, col)

@@ -1,0 +1,109 @@
+package app
+
+import (
+	"fmt"
+	"testing"
+)
+
+func TestCraftedHatPacking(t *testing.T) {
+	for _, c := range [][2]int64{{2, 0}, {2, 1005}, {3, 1499}, {2, 1501}, {5, 1647}, {0, 1500}} {
+		race, hat := c[0], c[1]
+		packed := hatByRaceAndHat(hat, race)
+		if r, h := raceAndHat(packed); r != race || h != hat || packed > 32767 {
+			t.Fatalf("race %d hat %d: packed %d, back %d %d", race, hat, packed, r, h)
+		}
+	}
+}
+
+func TestAssembleEquip(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	assemble := func(family, moneyType int) (string, int64) {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/craft/assemble_equip", map[string]any{"FamilyId": family, "MoneyType": moneyType}, h)
+		if st != 200 {
+			t.Fatalf("assemble_equip: %d %v", st, j)
+		}
+		data := j["data"].(map[string]any)
+		return fmt.Sprint(data["Result"]), int64(data["EquipId"].(float64))
+	}
+	owns := func(id int64) bool {
+		var n int
+		d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 1 and weapon_id = ?`, id).Scan(&n)
+		return n > 0
+	}
+	money := func() (int64, int64) {
+		var m, r int64
+		d.QueryRow(`select money, real_money from wormix_user_profiles where user_id = 1`).Scan(&m, &r)
+		return m, r
+	}
+	defer func(r func(int64) int64) { craftRoll = r }(craftRoll)
+	craftRoll = func(int64) int64 { return 0 } // the first prefix
+
+	// Jawblade (2540): artifacts 2021 and 2012 and 9 badges, 2000 fuzy or 20 rubies.
+	d.Exec(`update wormix_user_profiles set money = 0, real_money = 1000, reagents = '[]' where user_id = 1`)
+	if r, _ := assemble(2540, 0); r != "1" {
+		t.Fatalf("without the items: result %s, want 1", r)
+	}
+	d.Exec(`insert into wormix_users_weapons (owner_id, weapon_id) values (1, 2021), (1, 2012)`)
+	d.Exec(`update wormix_worms_data set artifact = 2021 where owner_id = 1`)
+	if r, _ := assemble(2540, 1); r != "4" {
+		t.Fatalf("fuzy without badges: result %s, want 4", r)
+	}
+	r, id := assemble(2540, 0)
+	if r != "0" || id != 2541 || !owns(2541) || owns(2021) || owns(2012) {
+		t.Fatalf("craft: result %s id %d", r, id)
+	}
+	if _, real := money(); real != 1000-20-9*5 {
+		t.Fatalf("rubies %d, want %d (20 + 9 badges at 5)", real, 1000-20-45)
+	}
+	var artifact int64
+	d.QueryRow(`select artifact from wormix_worms_data where owner_id = 1`).Scan(&artifact)
+	if artifact != 2541 {
+		t.Fatalf("worn artifact %d, want 2541", artifact)
+	}
+
+	// Remake: 70 rubies + 10 badges (the player has 4), the old one is replaced.
+	d.Exec(`update wormix_user_profiles set real_money = 1000, reagents = ? where user_id = 1`, reagentsJSON(50, 4))
+	craftRoll = func(n int64) int64 { return n - 1 } // the best prefix
+	r, id = assemble(2540, 0)
+	if r != "0" || id != 2546 || owns(2541) || !owns(2546) {
+		t.Fatalf("remake: result %s id %d", r, id)
+	}
+	if _, real := money(); real != 1000-70-6*5 {
+		t.Fatalf("rubies after remake %d, want %d", real, 1000-70-30)
+	}
+	if r, _ := assemble(2540, 0); r != "1" {
+		t.Fatalf("remake of the best: result %s, want 1", r)
+	}
+
+	// Samurai helm (1500), a hat: hat 1011 and 2 badges, paid with fuzy.
+	d.Exec(`insert into wormix_users_weapons (owner_id, weapon_id) values (1, 1011)`)
+	d.Exec(`update wormix_user_profiles set money = 800, reagents = ? where user_id = 1`, reagentsJSON(50, 2))
+	r, id = assemble(1500, 1)
+	if m, _ := money(); r != "0" || id != 1505 || m != 0 || owns(1011) {
+		t.Fatalf("hat: result %s id %d money %d", r, id, m)
+	}
+	var hat int64
+	d.QueryRow(`select hat from wormix_worms_data where owner_id = 1`).Scan(&hat)
+	if _, h := raceAndHat(hat); h != 1505 {
+		t.Fatalf("worn hat %d (%d), want 1505", h, hat)
+	}
+}
+
+// reagentsJSON is a reagents column with count n of reagent id.
+func reagentsJSON(id, n int) string {
+	s := "["
+	for i := 0; i <= id; i++ {
+		if i > 0 {
+			s += ","
+		}
+		if i == id {
+			s += fmt.Sprint(n)
+		} else {
+			s += "0"
+		}
+	}
+	return s + "]"
+}

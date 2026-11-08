@@ -135,6 +135,7 @@ func (a *App) registerRoutes() {
 		{"house/pump_reaction", (*Ctx).pumpReaction},
 		{"house/pump_reactions", (*Ctx).pumpReactions},
 		{"craft/upgrade_weapon", (*Ctx).upgradeWeapon},
+		{"craft/assemble_equip", (*Ctx).assembleEquip},
 		{"craft/downgrade_weapon", (*Ctx).downgradeWeapon},
 		{"pvp/profile", (*Ctx).pvpProfile},
 		{"pvp/start_battle", (*Ctx).pvpStartBattle},

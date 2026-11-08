@@ -109,9 +109,28 @@ func (w *Worm) write(wr *wire.Writer) {
 	wr.U32(w.Attack)
 	wr.U32(w.Level)
 	wr.U32(w.Experience)
-	wr.U16(uint16(w.Hat))
+	hat, artifact := w.Hat, w.Artifact
+	if hat >= craftedHatBase { // crafted hats (1.25.0) are unknown to the 1.05.0 client: no hat
+		race, _ := splitHat(hat)
+		hat = int16(race)
+	}
+	if IsCrafted(int(artifact)) {
+		artifact = 0
+	}
+	wr.U16(uint16(hat))
 	wr.UTF(str(w.SocialOwnerID, "WormStructure.SocialOwnerId"))
-	wr.U16(uint16(w.Artifact))
+	wr.U16(uint16(artifact))
+}
+
+// stuff105 is the stuff the 1.05.0 client knows: without the 1.25.0 crafted equipment.
+func stuff105(stuff []uint16) []uint16 {
+	out := stuff[:0:0]
+	for _, s := range stuff {
+		if !IsCrafted(int(s)) {
+			out = append(out, s)
+		}
+	}
+	return out
 }
 
 func decodeWorm(v *jsonx.Value) Worm {
@@ -168,7 +187,7 @@ func (p *UserProfile) Size() uint32 {
 		n += p.WormsGroup[i].size()
 	}
 	n += 2 + weaponSize*int64(len(notNil(p.WeaponRecordList, "WeaponRecordList")))
-	n += 2 + 2*int64(len(notNil(p.Stuff, "Stuff")))
+	n += 2 + 2*int64(len(stuff105(notNil(p.Stuff, "Stuff"))))
 	n += 4
 	n += 2 + strLen(p.SocialID, "SocialId")
 	n += 2 + 2*int64(len(notNil(p.Recipes, "Recipes")))
@@ -189,8 +208,9 @@ func (p *UserProfile) Write(wr *wire.Writer) {
 	for _, w := range p.WeaponRecordList {
 		w.write(wr)
 	}
-	wr.U16(uint16(len(notNil(p.Stuff, "Stuff"))))
-	for _, s := range p.Stuff {
+	stuff := stuff105(notNil(p.Stuff, "Stuff"))
+	wr.U16(uint16(len(stuff)))
+	for _, s := range stuff {
 		wr.U16(s)
 	}
 	wr.U32(uint32(p.ReactionRate))

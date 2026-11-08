@@ -117,6 +117,9 @@ func tickAll() {
 	if exc := csx.Catch(lobbyTick); exc != nil {
 		logf("[Lobby] tick error: %v", exc)
 	}
+	if exc := csx.Catch(exTick); exc != nil {
+		logf("[PvP] 1.25.0 lobby tick error: %v", exc)
+	}
 }
 
 func isEndOfStream(r any) bool {
@@ -141,6 +144,9 @@ func HandlePvp(c Conn, cmd uint32, body []byte) (handled bool) {
 			panic(r)
 		}
 	}()
+	if handleEx(c, cmd, body) {
+		return true
+	}
 	switch cmd {
 	case CmdPing:
 		c.SendMessage(message(CmdPong, false, func(*wire.Writer) {}))
@@ -193,20 +199,25 @@ func reconnect(c Conn, body []byte) {
 func loginOrReconnect(c Conn, userID uint32, authKey string, battleID uint32, join func(*Battle) bool) {
 	// The player must be logged in to the main server with the same key (the PvP connection carries no other proof).
 	main := Find(userID)
+	loginError := sendLoginError
+	if main != nil && is125(main) {
+		loginError = func(c Conn, code int32) { sendLoginError125(c, int(code)) }
+	}
 	if main == nil || authKey == "" || main.AuthKey() != authKey {
 		logf("[PvP %d] login of %d refused: not logged in to the main server with this key", battleID, userID)
-		sendLoginError(c, loginErrIncorrectKey)
+		loginError(c, loginErrIncorrectKey)
 		return
 	}
 	b := findBattle(battleID)
 	if b == nil || !join(b) {
 		logf("[PvP %d] login of %d refused: no such battle for this player", battleID, userID)
-		sendLoginError(c, loginErrInternalError)
+		loginError(c, loginErrInternalError)
 	}
 }
 
 // OnPvpDisconnected is called when a PvP-server connection closes.
 func OnPvpDisconnected(c Conn) {
+	exCancel(c, exDisconnected)
 	if b := c.Battle(); b != nil {
 		b.OnDisconnected(c)
 	}

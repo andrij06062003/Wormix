@@ -196,7 +196,7 @@ func onBattleRequest(from Player, r *wire.Reader) {
 		return
 	}
 	to := Find(toID)
-	if to == nil {
+	if to == nil || is125(to) != is125(from) { // the 1.05.0 and 1.25.0 battles don't mix
 		sendRequestResult(from, reqNotOnline, nil, nil, 0)
 		return
 	}

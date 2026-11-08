@@ -2,6 +2,8 @@ package proto
 
 import (
 	"bytes"
+	"encoding/hex"
+	"fmt"
 	"testing"
 
 	"github.com/andrij06062003/Wormix/services/core/internal/wire"
@@ -18,6 +20,24 @@ func login125Body(id uint32, key string) []byte {
 	w.U16(1) // params
 	w.UTF("p")
 	return append(w.B, wire.SecureWith(w.B, wire.SecretKey125)...)
+}
+
+// A Login sent by the real 1.25.0 client (user 8 with 8 friends), captured from the browser.
+const capturedLogin125 = "000000080000000000403632356463356434306262616564363465616432303961616233343534396561616563343266333234353937643631383737303137333935313338306232393101190000000800000005000000070000000400000008000000060000000200000003000000010100020003666c760003333230050e1641751c690112393151f0c696a0"
+
+func TestCapturedLogin125(t *testing.T) {
+	body, _ := hex.DecodeString(capturedLogin125)
+	if !IsLogin125(body) {
+		t.Fatal("the real client's login not recognized")
+	}
+	r := wire.NewReader(body)
+	l := ReadLogin125(r)
+	if l.ID != 8 || len(l.AuthKey) != 64 || l.SocialCode != 1 {
+		t.Fatalf("login %+v", l)
+	}
+	if want := []uint32{5, 7, 4, 8, 6, 2, 3, 1}; fmt.Sprint(l.IDs) != fmt.Sprint(want) {
+		t.Fatalf("friend ids %v, want %v", l.IDs, want)
+	}
 }
 
 func TestLogin125(t *testing.T) {

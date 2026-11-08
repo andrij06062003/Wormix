@@ -22,7 +22,7 @@ func ReadLogin125(r *wire.Reader) Login {
 	n := int(r.U16())
 	l.IDs = []uint32{}
 	for i := 0; i < n; i++ {
-		l.IDs = append(l.IDs, r.U32LE()) // little-endian, as ReadLogin
+		l.IDs = append(l.IDs, r.U32()) // big-endian (1.05.0 sends them little-endian)
 	}
 	l.SocialCode = uint32(r.U8())
 	return l

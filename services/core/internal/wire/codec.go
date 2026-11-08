@@ -20,8 +20,9 @@ func Secure(payload []byte) []byte {
 	return h.Sum(nil)
 }
 
-// SecretKey125 is the salt of the 1.25.0 client (the same MD5 suffix, another key).
-const SecretKey125 = "qlLZmjqXfZiKcJVj"
+// SecretKey125 is the salt of the 1.25.0 client (the same MD5 suffix, another key). The client's code
+// has "qlLZmjqXfZiKcJVj" too, but replaces it with this one when it starts.
+const SecretKey125 = "Uzg4IbZnpskiY73hqnjkPsnRY03H"
 
 // SecureWith is Secure with another salt.
 func SecureWith(payload []byte, key string) []byte {

@@ -100,6 +100,7 @@ var Migrations = []Migration{
 		`alter table "wormix_user_profiles" add column "invested_award_points" integer not null default '0'`,
 	}},
 	{Name: "2026_11_06_120000_add_wormix_artifacts", Fn: migrateArtifacts},
+	{Name: "2026_11_08_120000_add_wormix_crafted_equip", Fn: migrateCraftedEquip},
 }
 
 func tableExists(ctx context.Context, q interface {

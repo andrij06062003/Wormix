@@ -233,9 +233,9 @@ func TestReadEndBattle125(t *testing.T) {
 	}
 }
 
-func TestAssembleEquipRefused125(t *testing.T) {
+func TestAssembleEquipResult125(t *testing.T) {
 	var got []byte
-	EmitAssembleEquipRefused125(func(b []byte) { got = append(got, b...) }, 7)
+	EmitAssembleEquipResult125(func(b []byte) { got = append(got, b...) }, 0, 7, 1)
 	cmd, n, err := wire.ReadHeader(bytes.NewReader(got))
 	if err != nil || cmd != CmdAssembleEquipResult125 || int(n) != len(got)-wire.HeaderSize {
 		t.Fatalf("header %d %d %v", cmd, n, err)
@@ -244,5 +244,47 @@ func TestAssembleEquipRefused125(t *testing.T) {
 	r := wire.NewReader(body)
 	if equip, family, result, key := r.U16(), r.U16(), r.U16(), r.UTF(); equip != 0 || family != 7 || result == 0 || key != "" || r.Remaining() != 16 {
 		t.Fatalf("got %d %d %d %q, %d left", equip, family, result, key, r.Remaining())
+	}
+}
+
+func TestSplitCraftedHat(t *testing.T) {
+	for _, c := range [][3]int{{2005, 2, 1005}, {3, 3, 0}, {20000 + 2*200 + 1, 2, 1501}, {20000 + 5*200 + 147, 5, 1647}} {
+		if r, h := splitHat(int16(c[0])); r != c[1] || h != c[2] {
+			t.Fatalf("splitHat(%d) = %d %d, want %d %d", c[0], r, h, c[1], c[2])
+		}
+	}
+}
+
+// The 1.05.0 client gets no crafted equipment: not in the stuff, not worn.
+func TestCraftedHiddenFrom105(t *testing.T) {
+	social := "s"
+	p := UserProfile{ID: 1, SocialID: &social, Stuff: []uint16{1005, 1501, 2001, 2546}, Recipes: []uint16{},
+		WeaponRecordList: []Weapon{}, WormsGroup: []Worm{{OwnerID: 1, SocialOwnerID: &social, Hat: 20000 + 2*200 + 1, Artifact: 2546}}}
+	var w wire.Writer
+	p.Write(&w)
+	if int(p.Size()) != len(w.B) {
+		t.Fatalf("size %d, wrote %d", p.Size(), len(w.B))
+	}
+	r := wire.NewReader(w.B)
+	r.U32()
+	r.U32()
+	r.U32()
+	r.U32()
+	r.U16() // one worm
+	r.U32()
+	r.U32()
+	r.U32()
+	r.U32()
+	r.U32()
+	if hat := r.U16(); hat != 2 {
+		t.Fatalf("hat %d, want the race only (2)", hat)
+	}
+	r.UTF()
+	if a := r.U16(); a != 0 {
+		t.Fatalf("artifact %d, want 0", a)
+	}
+	r.U16() // no weapons
+	if n := r.U16(); n != 2 || r.U16() != 1005 || r.U16() != 2001 {
+		t.Fatalf("stuff: %d items", n)
 	}
 }

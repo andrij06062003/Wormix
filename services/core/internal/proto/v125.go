@@ -156,7 +156,7 @@ func (e *EnterAccount) Emit125(out Out, serverTime int32) {
 func (r *ArenaResult) Emit125(out Out) {
 	emitFixed(out, CmdArenaResult, 4+2+2+1+1+2, false, func(w *wire.Writer) {
 		w.U32(uint32(r.BattlesCount))
-		w.I16(int16(r.CurrentMission))
+		w.I16(int(r.CurrentMission))
 		w.I16(0) // curCooperativeMissionId
 		w.Bool(r.BossAvailable)
 		w.Bool(false) // superBossAvaliable

@@ -103,6 +103,10 @@ var Migrations = []Migration{
 	{Name: "2026_11_08_120000_add_wormix_crafted_equip", Fn: migrateCraftedEquip},
 	{Name: "2026_11_08_180000_grant_owner_account", Fn: migrateGrantOwner},
 	{Name: "2026_11_08_200000_add_wormix_hats_125", Fn: migrateHats125},
+	// The 1.25.0 shop sells the Ice Shard, hidden in 1.05.0's.
+	{Name: "2026_11_08_210000_sell_wormix_ice_shard", SQL: []string{
+		`update "wormix_weapons" set "hide_in_shop" = 0 where "id" = 2019`,
+	}},
 }
 
 func tableExists(ctx context.Context, q interface {

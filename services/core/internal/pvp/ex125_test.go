@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"sync"
 	"testing"
@@ -83,13 +84,15 @@ func (c *msgBox) last(cmd uint32) []byte {
 	return nil
 }
 
-// fakeAPI125 answers the PvP routes for any player. It stays up for the whole package: results are recorded
-// in the background after a test may have ended.
-var fakeAPI125 sync.Once
+// TestMain starts the fake API before any test: battles record their results in the background, after
+// their test may have ended, so api.BaseURL must not change while tests run.
+func TestMain(m *testing.M) {
+	startFakeAPI125()
+	os.Exit(m.Run())
+}
 
 func withAPI125(t *testing.T, ids ...uint32) map[uint32]*player125 {
 	t.Helper()
-	fakeAPI125.Do(startFakeAPI125)
 	ps := map[uint32]*player125{}
 	for _, id := range ids {
 		ps[id] = &player125{id: id, box: &msgBox{}}
@@ -106,6 +109,7 @@ func withAPI125(t *testing.T, ids ...uint32) map[uint32]*player125 {
 	return ps
 }
 
+// startFakeAPI125 answers the PvP routes for any player.
 func startFakeAPI125() {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		io.ReadAll(r.Body)

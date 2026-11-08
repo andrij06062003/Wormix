@@ -182,16 +182,23 @@ func (c *Ctx) enterAccount(u *Model, sessionKey string) *php.Arr {
 // ---- InternalAccountController ----
 
 func (c *Ctx) selectStuff() Resp {
-	c.ValidateWith([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"StuffId", "required|integer|min:1000"}},
+	c.ValidateWith([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"StuffId", "required|integer|min:0"}},
 		map[string]Closure{"StuffId": func(v any) string {
-			// an item id, or artifactStart (no item) to take the artifact off
-			if php.ToInt(v) != artifactStart && c.Count(`select exists(select * from "wormix_weapons" where "wormix_weapons"."id" = ?)`, v) == 0 {
+			// an item id, artifactStart (no item) to take the artifact off, or 0 to take the hat off (1.25.0)
+			if id := php.ToInt(v); id != artifactStart && id != 0 && c.Count(`select exists(select * from "wormix_weapons" where "wormix_weapons"."id" = ?)`, v) == 0 {
 				return "Unknown item."
 			}
 			return ""
 		}})
 	if id := php.ToInt(c.JSON("StuffId")); id >= artifactStart && id < artifactEnd {
 		return c.selectArtifact(id)
+	}
+	if php.ToInt(c.JSON("StuffId")) == 0 {
+		worm := must(c.First(defWorm, `where "owner_id" = ?`, c.UserID()))
+		race, _ := raceAndHat(php.IntArg(worm.Get("hat")))
+		worm.Set("hat", hatByRaceAndHat(0, race))
+		c.saveWorm(worm)
+		return dataResult("Result", int64(0), "StuffId", int64(0))
 	}
 	uw := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ?`, c.UserID(), c.JSON("StuffId"))
 	if uw == nil {

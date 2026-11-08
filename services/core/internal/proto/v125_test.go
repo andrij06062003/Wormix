@@ -357,3 +357,34 @@ func TestShopResult125(t *testing.T) {
 		t.Fatalf("%d bytes left", r.Remaining())
 	}
 }
+
+// The 1.25.0 wardrobe sends the hat and artifact of each worm and gets a result for each.
+func TestSelectStuff125(t *testing.T) {
+	var w wire.Writer
+	w.U16(2)
+	for _, x := range [][3]int{{7, 1064, 0}, {9, 0, 2019}} {
+		w.U16(8)
+		w.U32(uint32(x[0]))
+		w.I16(x[1])
+		w.I16(x[2])
+	}
+	got := ReadSelectStuff125(wire.NewReader(w.B))
+	if len(got) != 2 || got[0] != (SelectStuff125{7, 1064, 0}) || got[1] != (SelectStuff125{9, 0, 2019}) {
+		t.Fatalf("read %v", got)
+	}
+
+	var msg []byte
+	EmitSelectStuffResult125(func(b []byte) { msg = append(msg, b...) }, []SelectStuffResult125{{7, 0, 1064, 1, 0}})
+	cmd, n, err := wire.ReadHeader(bytes.NewReader(msg))
+	if err != nil || cmd != CmdSelectStuffResult || int(n) != len(msg)-wire.HeaderSize {
+		t.Fatalf("header %d %d %v", cmd, n, err)
+	}
+	body := msg[wire.HeaderSize:]
+	if !wire.IsSecure(body) {
+		t.Fatal("not signed")
+	}
+	r := wire.NewReader(body[:len(body)-16])
+	if r.U16() != 1 || r.U16() != 12 || r.U32() != 7 || r.U16() != 0 || r.U16() != 1064 || r.U16() != 1 || r.U16() != 0 || r.Remaining() != 0 {
+		t.Fatalf("% x", body)
+	}
+}

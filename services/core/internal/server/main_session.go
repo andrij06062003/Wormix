@@ -274,6 +274,10 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 	case proto.CmdReorderGroup:
 		s.shortReply("team/reorder", proto.ReadReorderGroup(r).JSON(), proto.CmdReorderGroupResult)
 	case proto.CmdSelectStuff:
+		if s.v125.Load() {
+			s.selectStuff125(r)
+			break
+		}
 		req := proto.ReadSelectStuff(r)
 		proto.DecodeSelectStuffResult(dataBang(s.post("account/select_stuff", req.JSON()))).Emit(s.out)
 	case proto.CmdChangeRace:
@@ -344,6 +348,43 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 			log.Printf("[main %s] unknown command %d", s.short(), cmd)
 		}
 	}
+}
+
+// selectStuff125 is the 1.25.0 wardrobe's SelectStuff: the hat and artifact of each worm of the team.
+// Only the player's own worm keeps its things on the server; a friend's worm is answered as saved, as the
+// client shows it (it isn't kept).
+func (s *mainSession) selectStuff125(r *wire.Reader) {
+	worms := proto.ReadSelectStuff125(r)
+	res := make([]proto.SelectStuffResult125, 0, len(worms))
+	for _, x := range worms {
+		out := proto.SelectStuffResult125{ProfileID: x.ProfileID, HatID: x.HatID, Artifact: x.Artifact}
+		if x.ProfileID == s.userID.Load() {
+			out.ResultHat = s.selectOne(int64(x.HatID))
+			artifact := int64(x.Artifact)
+			if artifact == 0 {
+				artifact = noArtifact
+			}
+			out.ResultArtifact = s.selectOne(artifact)
+		}
+		res = append(res, out)
+	}
+	proto.EmitSelectStuffResult125(s.out, res)
+}
+
+// noArtifact is the StuffId that takes the artifact off.
+const noArtifact = 2000
+
+// selectOne puts on an item (0 takes the hat off): 0 if saved, 1 if not.
+func (s *mainSession) selectOne(id int64) int16 {
+	v, refused := api.PostRefusable("account/select_stuff", proto.IntField{Name: "StuffId", Value: id}.JSON(), s.sid, s.tokenPtr())
+	if refused {
+		log.Printf("[main %s] select %d refused by the API", s.short(), id)
+		return 1
+	}
+	if d := dataOpt(v); d == nil || proto.DecodeSelectStuffResult(d).Result != 0 {
+		return 1
+	}
+	return 0
 }
 
 func dataBangObj(o *jsonx.Obj) *jsonx.Value {

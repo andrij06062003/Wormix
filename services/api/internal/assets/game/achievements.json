@@ -1,5 +1,5 @@
 {
-  "_comment": "Achievement levels and award items, copied from the 1.05.0 client (config/AchievConfig.as, gui/house/achiev/AchievAwardConfig.as). Counters stats_first..stats_last are the statistics page (gui/house/achiev/Stats.as): stored, no rewards. Keep in sync with the client.",
+  "_comment": "Achievement levels and award items, copied from the 1.05.0 client (config/AchievConfig.as, gui/house/achiev/AchievAwardConfig.as). Counters stats_first..stats_last are the statistics page (gui/house/achiev/Stats.as): stored, no rewards. The award items add the 1.25.0 client's (config/achievements: 78 in the third tier, 2022 and the atomic bomb 77 in the fourth). Keep in sync with the client.",
   "points_per_award": 1000,
   "max_value": 65535,
   "stats_first": 100,
@@ -684,10 +684,13 @@
     ],
     [
       67,
-      1027
+      1027,
+      78
     ],
     [
-      1034
+      2022,
+      1034,
+      77
     ]
   ]
 }

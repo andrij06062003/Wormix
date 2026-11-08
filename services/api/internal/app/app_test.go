@@ -128,6 +128,14 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	d.Exec(`delete from wormix_weapons where (id > 1500 and id < 2000) or id > 2500`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_120000_add_wormix_crafted_equip'`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_180000_grant_owner_account'`)
+	// So did the hats of the 1.25.0 client (1062+).
+	var hats125 int
+	d.QueryRow(`select count(*) from wormix_weapons where id > 1061 and id < 1500 and infinity = 1`).Scan(&hats125)
+	if hats125 != 79 {
+		t.Errorf("1.25.0 hat rows %d, want 79", hats125)
+	}
+	d.Exec(`delete from wormix_weapons where id > 1061 and id < 1500`)
+	d.Exec(`delete from migrations where migration = '2026_11_08_200000_add_wormix_hats_125'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

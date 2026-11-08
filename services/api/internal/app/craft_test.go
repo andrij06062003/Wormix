@@ -3,6 +3,8 @@ package app
 import (
 	"fmt"
 	"testing"
+
+	"github.com/andrij06062003/Wormix/services/api/internal/php"
 )
 
 func TestCraftedHatPacking(t *testing.T) {
@@ -106,4 +108,67 @@ func reagentsJSON(id, n int) string {
 		}
 	}
 	return s + "]"
+}
+
+// The 1.25.0 client's shop sells hats the 1.05.0 one didn't have, some of them craft ingredients:
+// Gladiator helmet (1064) is one of the Nordic helm's.
+func TestBuyHat125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set money = 0, real_money = 100 where user_id = 1`)
+	buy := func(id int64) string {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/account/buy/items", map[string]any{"ShopItems": []any{map[string]any{"Id": id, "Count": -1, "MoneyType": 0}}}, h)
+		if st != 200 {
+			t.Fatalf("buy %d: %d %v", id, st, j)
+		}
+		return fmt.Sprint(j["data"].(map[string]any)["Result"])
+	}
+	if r := buy(1064); r != "0" {
+		t.Fatalf("buy 1064: result %s, want 0", r)
+	}
+	var n, real int64
+	d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 1 and weapon_id = 1064`).Scan(&n)
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
+	if n != 1 || real != 100-42 {
+		t.Fatalf("after buying 1064: owned %d, rubies %d", n, real)
+	}
+	// A boss hat is hidden in the shop.
+	if r := buy(1096); r != "1" {
+		t.Fatalf("buy 1096: result %s, want 1", r)
+	}
+}
+
+// The 1.25.0 client's award tiers have more items: the atomic bomb (77) is in the fourth.
+func TestChooseBonus125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	choose := func(item int) string {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/achievements/choose_bonus", map[string]any{"session_id": alice.AchSession, "item_id": item}, map[string]string{"X-TCP-SESSION": "achievements"})
+		if st != 200 {
+			t.Fatalf("choose_bonus %d: %d %v", item, st, j)
+		}
+		return fmt.Sprint(j["result"])
+	}
+	// Every achievement at its top level: plenty of award points.
+	cfg := achievementsConfig()
+	for _, id := range cfg.achievements.Keys() {
+		levels := cfg.levels(id)
+		top := levels[len(levels)-1].(*php.Arr).Val("max")
+		d.Exec(`insert into wormix_users_achievements (user_id, achievement_id, value) values (1, ?, ?)
+			on conflict (user_id, achievement_id) do update set value = excluded.value`, id, top)
+	}
+	d.Exec(`delete from wormix_users_weapons where owner_id = 1 and weapon_id in (77, 78, 2022)`)
+	d.Exec(`update wormix_user_profiles set invested_award_points = 2 where user_id = 1`)
+	if r := choose(77); r != "2" {
+		t.Fatalf("atomic bomb before the fourth tier: result %s, want 2", r)
+	}
+	if r := choose(78); r != "0" {
+		t.Fatalf("third tier 78: result %s, want 0", r)
+	}
+	if r := choose(77); r != "0" {
+		t.Fatalf("atomic bomb: result %s, want 0", r)
+	}
 }

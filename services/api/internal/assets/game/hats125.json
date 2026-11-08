@@ -1,0 +1,621 @@
+{
+ "_comment": "Hats of the 1.25.0 client that the 1.05.0 one doesn't have (1062+), from its hat config: inserted into wormix_weapons by the 2026_11_08_200000_add_wormix_hats_125 migration.",
+ "hats": [
+  {
+   "id": 1062,
+   "name": "HAT.RED_RACING_HELMET",
+   "realprice": 56,
+   "requiredLevel": 1,
+   "requiredRating": 0
+  },
+  {
+   "id": 1063,
+   "name": "HAT.PURPLE_RACING_HELMET",
+   "price": 5700,
+   "realprice": 57,
+   "requiredLevel": 24,
+   "requiredRating": 1000
+  },
+  {
+   "id": 1064,
+   "name": "HAT.GLADIATOR_HELMET",
+   "price": 4200,
+   "realprice": 42,
+   "requiredLevel": 18,
+   "requiredRating": 200
+  },
+  {
+   "id": 1065,
+   "name": "HAT.NIMBUS",
+   "price": 4000,
+   "realprice": 40,
+   "requiredLevel": 16,
+   "requiredRating": 150
+  },
+  {
+   "id": 1066,
+   "name": "HAT.HERO_MASK",
+   "price": 7600,
+   "realprice": 76,
+   "requiredLevel": 28,
+   "requiredRating": 6500
+  },
+  {
+   "id": 1067,
+   "name": "HAT.BOSS_DARK_KNIGHT",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1068,
+   "name": "HAT.BOSS_PALADIN",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1069,
+   "name": "HAT.BOSS_HACKER",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1072,
+   "name": "HAT.BOSS_THIEF",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1073,
+   "name": "HAT.BOSS_PHANTOM",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1074,
+   "name": "HAT.LAVA_JAW",
+   "price": 7200,
+   "requiredLevel": 28
+  },
+  {
+   "id": 1075,
+   "name": "HAT.PSI_BIOTIC",
+   "price": 6400,
+   "requiredLevel": 26
+  },
+  {
+   "id": 1076,
+   "name": "HAT.BOSS_PSI_TELEPATHIST",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1077,
+   "name": "HAT.GREEN_IROQUOIS",
+   "price": 2900,
+   "realprice": 29,
+   "requiredLevel": 14,
+   "requiredRating": 300
+  },
+  {
+   "id": 1078,
+   "name": "HAT.COLORED_IROQUOIS",
+   "price": 3400,
+   "realprice": 34,
+   "requiredLevel": 15,
+   "requiredRating": 500
+  },
+  {
+   "id": 1079,
+   "name": "HAT.MASK_SCREAM",
+   "realprice": 80,
+   "requiredLevel": 1
+  },
+  {
+   "id": 1080,
+   "name": "HAT.DEMON_HAT",
+   "price": 7400,
+   "realprice": 74,
+   "requiredLevel": 28,
+   "requiredRating": 5500
+  },
+  {
+   "id": 1081,
+   "name": "HAT.WOLF_MASTER",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1082,
+   "name": "HAT.WOLF_ACE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1083,
+   "name": "HAT.WOLF_ELITE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1084,
+   "name": "HAT.NIGHT_VISION",
+   "price": 4500,
+   "realprice": 45,
+   "requiredLevel": 20,
+   "requiredRating": 350
+  },
+  {
+   "id": 1085,
+   "name": "HAT.MONK_MASTER",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1086,
+   "name": "HAT.MONK_ACE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1087,
+   "name": "HAT.MONK_ELITE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1088,
+   "name": "HAT.KNIGHT_MASTER",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1089,
+   "name": "HAT.KNIGHT_ACE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1090,
+   "name": "HAT.KNIGHT_ELITE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1091,
+   "name": "HAT.ILLUSIONIST",
+   "price": 3600,
+   "requiredLevel": 1
+  },
+  {
+   "id": 1092,
+   "name": "HAT.HOCKEY_PLAYER_MASTER",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1093,
+   "name": "HAT.HOCKEY_PLAYER_ACE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1094,
+   "name": "HAT.HOCKEY_PLAYER_ELITE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1095,
+   "name": "HAT.DARK_CULTIST",
+   "realprice": 46,
+   "requiredLevel": 1
+  },
+  {
+   "id": 1096,
+   "name": "HAT.ASSASIN_BOSS",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1097,
+   "name": "HAT.COSMONAUT",
+   "price": 2000,
+   "realprice": 20,
+   "requiredLevel": 10,
+   "requiredRating": 40
+  },
+  {
+   "id": 1098,
+   "name": "HAT.AVIATOR",
+   "price": 2600,
+   "realprice": 26,
+   "requiredLevel": 13,
+   "requiredRating": 200
+  },
+  {
+   "id": 1099,
+   "name": "HAT.ASSASIN_MASTER",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1100,
+   "name": "HAT.ASSASIN_ACE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1101,
+   "name": "HAT.ASSASIN_ELITE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1102,
+   "name": "HAT.MONK",
+   "price": 1600,
+   "realprice": 16,
+   "requiredLevel": 8,
+   "requiredRating": 30
+  },
+  {
+   "id": 1103,
+   "name": "HAT.CHEMIST_BOSS",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1104,
+   "name": "HAT.HALLOWEEN1",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1105,
+   "name": "HAT.HALLOWEEN2",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1106,
+   "name": "HAT.PUMPKIN_ORANGE",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1107,
+   "name": "HAT.PUMPKIN_RED",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1108,
+   "name": "HAT.PUMPKIN_GREEN",
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1109,
+   "name": "HAT.PUMPKIN_ORANGE",
+   "price": 1,
+   "realprice": 1,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1110,
+   "name": "HAT.PUMPKIN_RED",
+   "price": 1,
+   "realprice": 1,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1111,
+   "name": "HAT.BLUE_YETI",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1112,
+   "name": "HAT.WHITE_YETI",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1113,
+   "name": "HAT.BLACK_YETI",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1114,
+   "name": "HAT.WINTER_HAT",
+   "price": 99999,
+   "realprice": 99999,
+   "hideInShop": true
+  },
+  {
+   "id": 1115,
+   "name": "HAT.GIFT_HAT",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1116,
+   "name": "HAT.PHARAOH",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1117,
+   "name": "HAT.EAGLE_HAT",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1118,
+   "name": "HAT.CHRISTMAS_HELMET",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1119,
+   "name": "HAT.BOX_HAT",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1120,
+   "name": "HAT.CYBORG",
+   "price": 99999,
+   "realprice": 99999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1121,
+   "name": "HAT.MINION",
+   "price": 8000,
+   "requiredLevel": 28
+  },
+  {
+   "id": 1122,
+   "name": "HAT.KAMIKADZE",
+   "price": 4400,
+   "realprice": 44,
+   "requiredLevel": 18,
+   "requiredRating": 1500
+  },
+  {
+   "id": 1123,
+   "name": "HAT.JARL",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1124,
+   "name": "HAT.JARL",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1125,
+   "name": "HAT.JARL",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1126,
+   "name": "HAT.JARL",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1127,
+   "name": "HAT.JARL",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1128,
+   "name": "HAT.BOSS_ARCHBOT",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1129,
+   "name": "HAT.NIGHT",
+   "price": 5200,
+   "realprice": 52,
+   "requiredLevel": 22,
+   "requiredRating": 3000
+  },
+  {
+   "id": 1130,
+   "name": "HAT.DOCTOR_MASK",
+   "price": 4600,
+   "realprice": 46,
+   "requiredLevel": 20,
+   "requiredRating": 700
+  },
+  {
+   "id": 1131,
+   "name": "HAT.ELECTRIC",
+   "price": 3500,
+   "realprice": 35,
+   "requiredLevel": 15,
+   "requiredRating": 400
+  },
+  {
+   "id": 1132,
+   "name": "HAT.PAN",
+   "price": 2800,
+   "realprice": 28,
+   "requiredLevel": 14,
+   "requiredRating": 100
+  },
+  {
+   "id": 1133,
+   "name": "HAT.ARCHIVIST",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1134,
+   "name": "HAT.ENCHANTER",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1135,
+   "name": "HAT.EMPEROR",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1136,
+   "name": "HAT.SCIENTIST",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1137,
+   "name": "HAT.SYMBIOTE",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1138,
+   "name": "HAT.MOOSE_HELM",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1139,
+   "name": "HAT.ROBOCHIKEN",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1140,
+   "name": "HAT.GRAVITY_MASTER",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1141,
+   "name": "HAT.BLACK_BANDAGE",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  },
+  {
+   "id": 1142,
+   "name": "HAT.SOLAR_PRIEST_HAT",
+   "price": 9999,
+   "realprice": 9999,
+   "requiredLevel": 1,
+   "hideInShop": true
+  }
+ ]
+}

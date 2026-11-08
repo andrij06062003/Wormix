@@ -45,8 +45,12 @@ maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` 
 
 ## `crosshair-125/`: the aiming arrow stuck on the map and the mouse cursor hidden, in the 1.25.0 client
 
-**Not in `Wormix.swf` now.** With it, players could not flip or use the air strike, atom bomb and girder
-(2026-11-08), so the file went back to the build without it. Test it in a battle before applying it again.
+In `Wormix.swf` again since 2026-11-08 (build 2026-11-08.7). The first build (2026-11-08)
+broke the air strike, atom bomb and girder: FFDec compiled `§%#6§.§5!W§.activate()` as a public name, but
+`activate`/`deactivate` there are IControlSet interface methods (namespace
+`ru.pragmatix.wormix.controls:IControlSet`), so the call threw. The patch now imports `§6k§.§%#6§` and names
+the interface's namespace (`ics::activate()`). Check the P-code of a rebuilt class
+(`-format script:pcode -export script`) against the original for such names.
 
 `PointCrosshair.as` is
 `§!!=§.§'2§`: its ENTER_FRAME handler (`§#"l§`) puts the crosshair back after deactivation unless it stops

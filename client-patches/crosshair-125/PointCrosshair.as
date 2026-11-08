@@ -7,6 +7,8 @@ package §!!=§
    import §5"U§.§;"M§;
    import §6!O§.§;$#§;
    import §6k§.§%§;
+   import §6k§.§%#6§;
+   import §6k§.§^B§;
    import §;"S§.§,$6§;
    import §@#n§.§[q§;
    import §[#b§.§+#c§;
@@ -26,6 +28,10 @@ package §!!=§
    
    public class §'2§ extends §`$9§
    {
+      
+      // The control set's activate()/deactivate() are interface methods (IControlSet). FFDec's compiler emits them
+      // as public names, which don't find them: name the interface's namespace, as the original code does.
+      namespace ics = "ru.pragmatix.wormix.controls:IControlSet";
       
       private var log:§[$Q§ = new §[$Q§(§'2§);
       
@@ -125,7 +131,7 @@ package §!!=§
                this.§-!+§();
                Application.curScene.addEventListener(Event.ENTER_FRAME,this.§#"l§,false,int.MIN_VALUE);
                Application.curScene.addEventListener(MouseEvent.CLICK,this.§&#5§,false);
-               §%#6§.§5!W§.activate();
+               §%#6§.§5!W§.ics::activate();
             }
             if(param1.direction == §+!`§.LEFT)
             {
@@ -201,7 +207,7 @@ package §!!=§
             this.§8"F§ = false;
             if(§-"d§.§`"R§.§!!Q§.§-$J§())
             {
-               §%#6§.§5!W§.deactivate();
+               §%#6§.§5!W§.ics::deactivate();
             }
             Application.curScene.removeEventListener(Event.ENTER_FRAME,this.§#"l§);
             Application.curScene.removeEventListener(MouseEvent.CLICK,this.§&#5§,false);

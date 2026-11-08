@@ -244,3 +244,30 @@ Built from `pvp-party/BattleRequestController.as`, on top of every patch above:
 
     java -jar ffdec-cli.jar -replace Wormix.swf Wormix.new.swf \
         ru.pragmatix.wormix.pvp.controllers.BattleRequestController client-patches/missions/BattleRequestController.as
+
+## `no-vk-125/`: no VK posts, notifications or share buttons in the 1.25.0 client
+
+The same as `no-vk/`, for `wormix-client/vk/1.25.0/Wormix.swf`. That client is obfuscated, so the
+classes have names like `§1Q§.§##5§`; the file names below say what they are.
+
+- `Poster.as` (`§1Q§.§##5§`, the base of the post controller): the activity poster, wall poster and
+  notifier taken from the VK controller are set to null, so every post and notification is skipped.
+- `PostController.as` (`ru.pragmatix.wormix.social.common.post.§'i§`): "ask and notify" calls its
+  callback when there is nothing to ask, so what waits for it (the level-up dialog after a friend battle) goes on.
+- The "Share" buttons are hidden: `LevelUpDialog.as` (`§+!U§.LevelUpDialog`), `CraftEquipCompleteDialog.as`
+  (`§=#A§.CraftEquipCompleteDialog`), `AchievShare.as` (an achievement, `§%9§.§1!S§`) and `BonusDialog.as`
+  (a bonus, `§"!+§.§>#x§`).
+
+FFDec's decompiler leaves out some imports of the obfuscated classes, so compile with `fiximports.py`,
+which adds them (the patch files already have them). With the 1.25.0 classes decompiled to `src125/scripts`
+(`java -jar ffdec-cli.jar -export script src125 Wormix.orig.swf`):
+
+    cp Wormix.orig.swf Wormix.swf
+    for p in '§1Q§.§##5§:Poster' "ru.pragmatix.wormix.social.common.post.§'i§:PostController" \
+             '§+!U§.LevelUpDialog:LevelUpDialog' '§=#A§.CraftEquipCompleteDialog:CraftEquipCompleteDialog' \
+             '§%9§.§1!S§:AchievShare' '§"!+§.§>#x§:BonusDialog'; do
+        FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
+            client-patches/no-vk-125/${p##*:}.as Wormix.swf Wormix.new.swf "${p%%:*}" && mv Wormix.new.swf Wormix.swf
+    done
+
+`Wormix.orig.swf` is the unpatched file (commit 5fe8ede).

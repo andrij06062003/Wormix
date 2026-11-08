@@ -72,6 +72,8 @@ type mainSession struct {
 	authKey       string
 	token         *string // the API session key ("{userId}.{key}"), nil before login
 	wipeRequested bool
+	// v125: the player uses the 1.25.0 client (its Login was signed with the 1.25.0 salt).
+	v125 atomic.Bool
 }
 
 func newMainSession(c *conn) *mainSession { return &mainSession{conn: c} }
@@ -122,7 +124,12 @@ func (s *mainSession) stop() {
 	}
 }
 
-func (s *mainSession) out(b []byte) { s.write(b) }
+func (s *mainSession) out(b []byte) {
+	if s.v125.Load() {
+		b = proto.Resign125(b)
+	}
+	s.write(b)
+}
 
 func (s *mainSession) post(route string, body []byte) *jsonx.Value {
 	return api.Post(route, body, s.sid, s.tokenPtr())
@@ -186,6 +193,11 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 	r := wire.NewReader(body)
 	switch cmd {
 	case proto.CmdLogin:
+		if proto.IsLogin125(body) {
+			s.v125.Store(true)
+			s.login(proto.ReadLogin125(r))
+			break
+		}
 		s.login(proto.ReadLogin(r))
 	case proto.CmdNeedMoney:
 		proto.ReadNeedMoney(r)
@@ -340,6 +352,11 @@ func (s *mainSession) login(req proto.Login) {
 		s.userID.Store(req.ID)
 		pvp.Register(s)
 		account.PutOnlineFirst(func(id uint32) bool { return id != req.ID && pvp.Find(id) != nil })
+		if s.v125.Load() {
+			log.Printf("[main %s] user %d logged in (1.25.0 client)", s.short(), req.ID)
+			account.Emit125(s.write, int32(time.Now().Unix()))
+			break
+		}
 		log.Printf("[main %s] user %d logged in", s.short(), req.ID)
 		account.Emit(s.out)
 	case "LoginError":

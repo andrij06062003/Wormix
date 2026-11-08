@@ -171,18 +171,16 @@ func (c *Ctx) getAccountInfo() Resp {
 }
 
 func (c *Ctx) updateAccount() Resp {
+	// Players change only their name, login and password here. Money, rubies, rating, the worm and
+	// battles change only through the game.
+	for _, key := range []string{"user_profile", "worm_data", "battle_info"} {
+		if c.JSON(key) != nil {
+			return jsonResp(403, php.Assoc("message", "Game data can't be changed here"))
+		}
+	}
 	c.Validate([]R{
 		{"social_data.first_name", "string|max:100"},
 		{"social_data.last_name", "string|max:100"},
-		{"user_profile.money", "integer|min:0"},
-		{"user_profile.real_money", "integer|min:0"},
-		{"user_profile.rating", "integer|min:0"},
-		{"user_profile.reaction_rate", "integer|min:0"},
-		{"worm_data.level", "integer|min:1|max:30"},
-		{"worm_data.armor", "integer|min:0|max:60"},
-		{"worm_data.attack", "integer|min:0|max:60"},
-		{"worm_data.race", "integer|exists:wormix_races,race_id"},
-		{"battle_info.battles_count", "integer|min:0|max:999"},
 		{"user.login", "string|max:100"},
 		{"user.password", "nullable|string|min:8"},
 		{"user.password_confirmation", "nullable|string|min:8|required_unless:user.password,null|same:user.password"},
@@ -192,29 +190,6 @@ func (c *Ctx) updateAccount() Resp {
 		sd := must(c.userSocial(u))
 		sd.Fill(c.JSON("social_data"), "first_name", "last_name", "nickname")
 		c.Save(sd)
-	}
-	if c.JSON("user_profile") != nil {
-		p := must(c.userProfile(u))
-		p.Fill(c.JSON("user_profile"), "money", "real_money", "rating", "reaction_rate")
-		c.Save(p)
-	}
-	if c.JSON("worm_data") != nil {
-		wd := must(c.userWorm(u))
-		_, hatID := raceAndHat(php.IntArg(wd.Get("hat")))
-		race := c.JSON("worm_data.race")
-		wd.Fill(c.JSON("worm_data"), "level", "armor", "attack")
-		armor, attack := stripData(
-			php.ToInt(php.Div(php.Add(wd.Get("armor"), wd.Get("attack")), int64(2))),
-			php.IntArg(wd.Get("level")), php.IntArg(wd.Get("armor")), php.IntArg(wd.Get("attack")))
-		wd.Set("armor", armor)
-		wd.Set("attack", attack)
-		wd.Set("experience", int64(0))
-		if race == nil {
-			php.Fail("getHatByRaceAndHatIds(): Argument #2 ($raceId) must be of type int, null given")
-		}
-		wd.Set("hat", hatByRaceAndHat(hatID, php.IntArg(race)))
-		c.saveWorm(wd)
-		return jsonResp(200, php.Assoc("worm_data", wd.ToArray()))
 	}
 	if c.JSON("user") != nil {
 		if login := c.JSON("user.login"); login != nil {
@@ -231,11 +206,6 @@ func (c *Ctx) updateAccount() Resp {
 		if u.IsDirty("login", "password") {
 			c.Save(u)
 		}
-	}
-	if bc := c.JSON("battle_info.battles_count"); bc != nil {
-		bi := must(c.userBattleInfo(u))
-		bi.Set("battles_count", bc)
-		c.Save(bi)
 	}
 	return jsonResp(200, php.Assoc("success", true))
 }

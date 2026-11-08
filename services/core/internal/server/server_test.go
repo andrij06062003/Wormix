@@ -11,6 +11,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -382,4 +383,57 @@ func TestOnlineFriendsFirst(t *testing.T) {
 	}
 	_, ids, online = login(2)
 	check("after 1 and 3 left", ids, online, []uint32{4, 1, 3}, 1)
+}
+
+// A StartBattle the API refuses (no battles left, a mission the player may not start) is answered with
+// ArenaLocked, and the connection stays open.
+func TestStartBattleRefused(t *testing.T) {
+	fa := &fakeAPI{}
+	var arenaLocked atomic.Bool
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch strings.TrimPrefix(r.URL.Path, "/api/internal/") {
+		case "game/start_battle":
+			w.WriteHeader(http.StatusUnprocessableEntity)
+			io.WriteString(w, `{"message":"Not enough battles"}`)
+		case "game/get_arena":
+			if arenaLocked.Load() {
+				io.WriteString(w, `{"type":"ArenaLocked","data":{"Delay":119000,"CurrentMission":0,"ErrorCode":0}}`)
+			} else {
+				io.WriteString(w, `{"type":"ArenaResult","data":{"UserProfileStructures":[],"BattlesCount":3,"CurrentMission":0,"BossAvailable":true}}`)
+			}
+		default:
+			fa.handler(w, r)
+		}
+	}))
+	defer srv.Close()
+	api.BaseURL = srv.URL + "/api/internal/"
+	mainSrv := New("main", "127.0.0.1:0")
+	if err := mainSrv.Start(); err != nil {
+		t.Fatal(err)
+	}
+	defer mainSrv.Close()
+	c := dial(t, mainSrv.ListenAddr())
+	defer c.c.Close()
+	c.send(proto.CmdLogin, body(func(w *wire.Writer) { w.U32(7); w.U32(0); w.UTF("KEY"); w.U16(0); w.U8(1) }), false)
+	c.expect(proto.CmdEnterAccount)
+
+	start := func(missionID int16) (delay uint32, errorCode byte) {
+		t.Helper()
+		c.send(proto.CmdStartBattle, body(func(w *wire.Writer) { w.U16(uint16(missionID)) }), false)
+		b := c.expect(proto.CmdArenaLocked)
+		if len(b) != 7 {
+			t.Fatalf("ArenaLocked %x", b)
+		}
+		return binary.BigEndian.Uint32(b), b[6]
+	}
+	arenaLocked.Store(true)
+	if delay, _ := start(0); delay != 119000 {
+		t.Fatalf("no battles left: delay %d, want the arena's 119000", delay)
+	}
+	arenaLocked.Store(false)
+	if delay, code := start(5); delay != 0 || code != 1 {
+		t.Fatalf("refused mission: delay %d, error %d; want 0, 1", delay, code)
+	}
+	c.send(proto.CmdPing, nil, false)
+	c.expect(proto.CmdPong)
 }

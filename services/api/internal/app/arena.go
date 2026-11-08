@@ -28,7 +28,8 @@ func (c *Ctx) getArena() Resp {
 	if php.StrictEq(bi.Get("battles_count"), int64(0)) {
 		return jsonResp(200, php.Assoc("type", "ArenaLocked", "data", php.Assoc(
 			"Delay", php.Mul(php.Sub(int64(missionsDelay), php.Sub(time.Now().Unix(), bi.Get("last_battle_time"))), int64(1000)),
-			"CurrentMission", bi.Get("mission_id"),
+			// The last completed mission, as in ArenaResult (the client keeps it as lastCompletedMissionId).
+			"CurrentMission", bi.Get("last_mission_id"),
 			"ErrorCode", int64(0),
 		)))
 	}

@@ -99,6 +99,29 @@ func Post(route string, body []byte, sessionID string, token *string) *jsonx.Val
 	return v
 }
 
+// PostRefusable is Post for a command the API may refuse (a 4xx answer such as StartBattle's "Not enough
+// battles"): it returns refused=true instead of throwing, so the session can answer instead of dropping.
+func PostRefusable(route string, body []byte, sessionID string, token *string) (v *jsonx.Value, refused bool) {
+	if isNullOrWhiteSpace(token) {
+		token = nil
+	}
+	status, data, err := post(mainClient, BaseURL+route, body, sessionID, token)
+	if err != nil {
+		csx.Throw(csx.Generic, "HTTP request to %s failed: %v", route, err)
+	}
+	if status >= 400 && status < 500 {
+		return nil, true
+	}
+	if status != http.StatusOK {
+		csx.Throw(csx.Generic, "Http Request Error [%d] from %s", status, route)
+	}
+	v, err = jsonx.Parse(data)
+	if err != nil {
+		csx.Throw(csx.Generic, "bad JSON from %s: %v", route, err)
+	}
+	return v, false
+}
+
 // PostPvP is PvpApi.Post: a call acting as one player, identified by the session token only. Returns a
 // *StatusError for non-200 answers.
 func PostPvP(route string, token string, body []byte) (*jsonx.Obj, error) {

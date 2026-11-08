@@ -20,6 +20,25 @@ func Secure(payload []byte) []byte {
 	return h.Sum(nil)
 }
 
+// SecretKey125 is the salt of the 1.25.0 client (the same MD5 suffix, another key).
+const SecretKey125 = "qlLZmjqXfZiKcJVj"
+
+// SecureWith is Secure with another salt.
+func SecureWith(payload []byte, key string) []byte {
+	h := md5.New()
+	h.Write(payload)
+	h.Write([]byte(key))
+	return h.Sum(nil)
+}
+
+// IsSecureWith reports whether body ends with a valid MD5 suffix for this salt.
+func IsSecureWith(body []byte, key string) bool {
+	if len(body) < 16 {
+		return false
+	}
+	return string(SecureWith(body[:len(body)-16], key)) == string(body[len(body)-16:])
+}
+
 // IsSecure reports whether body ends with a valid MD5 suffix.
 func IsSecure(body []byte) bool {
 	if len(body) < 16 {

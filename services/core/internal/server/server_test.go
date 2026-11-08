@@ -437,3 +437,34 @@ func TestStartBattleRefused(t *testing.T) {
 	c.send(proto.CmdPing, nil, false)
 	c.expect(proto.CmdPong)
 }
+
+// A Login signed with the 1.25.0 salt starts a 1.25.0 session: its replies are signed with that salt.
+func TestLogin125Session(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc((&fakeAPI{}).handler))
+	defer srv.Close()
+	api.BaseURL = srv.URL + "/api/internal/"
+	mainSrv := New("main", "127.0.0.1:0")
+	if err := mainSrv.Start(); err != nil {
+		t.Fatal(err)
+	}
+	defer mainSrv.Close()
+	c := dial(t, mainSrv.ListenAddr())
+	defer c.c.Close()
+	login := body(func(w *wire.Writer) {
+		w.U32(8)
+		w.U32(0)
+		w.UTF("KEY")
+		w.U32(1250)
+		w.U16(0)
+		w.U8(1)
+		w.U16(0)
+	})
+	c.send(proto.CmdLogin, append(login, wire.SecureWith(login, wire.SecretKey125)...), false)
+	if b := c.expect(proto.CmdEnterAccount); !wire.IsSecureWith(b, wire.SecretKey125) {
+		t.Fatal("EnterAccount not signed with the 1.25.0 salt")
+	}
+	c.send(proto.CmdBuyBattle, body(func(w *wire.Writer) { w.U32(1) }), false)
+	c.expect(proto.CmdBuyBattleResult)
+	c.send(proto.CmdPing, nil, false)
+	c.expect(proto.CmdPong)
+}

@@ -26,7 +26,9 @@ import (
 )
 
 const (
-	achSecretKey     = "ygfA69i3Uz6bDO8" // SecuritySettings.SECRET_KEY in the 1.05.0 client
+	// SecuritySettings.SECRET_KEY: the 1.05.0 client's salt, then the 1.25.0 one's.
+	achSecretKey     = "ygfA69i3Uz6bDO8"
+	achSecretKey125  = "Uzg4IbZnpskiY73hqnjkPsnRY03H"
 	achSessionHeader = "X-PRAGMATIX-CORP-SID"
 )
 
@@ -41,6 +43,7 @@ const (
 	cmdGetAchievements      = 3002
 	cmdIncreaseAchievements = 3003
 	cmdChooseBonusItem      = 3005
+	cmdBuyResetBonusItems   = 3010 // 1.25.0
 	// Server -> client
 	cmdPong                      = 10017
 	cmdAchieveLoginSuccess       = 13001
@@ -48,6 +51,7 @@ const (
 	cmdGetAchievementsResult     = 13003
 	cmdIncreaseAchievementResult = 13004
 	cmdChooseBonusItemResult     = 13006
+	cmdBuyResetBonusItemsResult  = 13010
 )
 
 // Error kinds, each answered differently (see serveAchievements).
@@ -123,7 +127,7 @@ func writeText(w http.ResponseWriter, text string) {
 func (s *server) handleAchievement(ctx context.Context, id int, body []byte, session *string, output *bytes.Buffer) error {
 	switch id {
 	case cmdPing:
-		writeCommand(output, cmdPong, nil, false)
+		writeCommand(output, cmdPong, nil, "")
 
 	case cmdAchieveLogin:
 		rd := reader{data: body}
@@ -133,6 +137,11 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 		authKey := rd.utf()
 		if rd.err != nil {
 			return rd.err
+		}
+		// The 1.25.0 client adds sendAchievements (bool) and signs the replies with its own salt.
+		key := achSecretKey
+		if len(rd.data) > 0 {
+			key = achSecretKey125
 		}
 		res, err := s.achCall(ctx, "login", struct {
 			ID      string `json:"id"`
@@ -146,22 +155,23 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 			wr.utf(res.str("session_id"))
 			wr.u32(res.uint32("login_time"))
 			if res.err == nil {
-				writeCommand(output, cmdAchieveLoginSuccess, wr.Bytes(), true)
+				writeCommand(output, cmdAchieveLoginSuccess, wr.Bytes(), key)
 			}
 		} else {
 			wr.i32(res.int32("code"))
 			if res.err == nil {
-				writeCommand(output, cmdAchieveLoginError, wr.Bytes(), false)
+				writeCommand(output, cmdAchieveLoginError, wr.Bytes(), "")
 			}
 		}
 		return res.err
 
 	case cmdGetAchievements:
-		if err := checkSecure(body); err != nil {
+		key, err := checkSecure(body)
+		if err != nil {
 			return err
 		}
-		rd := reader{data: body}
-		profileID := rd.utf()
+		rd := reader{data: body[:len(body)-16]}
+		profileID := rd.utf() // 1.25.0: then investedAwardPoints (byte)
 		if rd.err != nil {
 			return rd.err
 		}
@@ -176,17 +186,21 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 		wr.utf(res.str("profile_id"))
 		wr.byteArray(res.ints("indexes"))
 		wr.u16Array(res.ints("values"))
+		if key == achSecretKey125 {
+			wr.byteArray(nil) // boolAchievements
+		}
 		wr.u8(res.int32("invested"))
 		if res.err == nil {
-			writeCommand(output, cmdGetAchievementsResult, wr.Bytes(), true)
+			writeCommand(output, cmdGetAchievementsResult, wr.Bytes(), key)
 		}
 		return res.err
 
 	case cmdIncreaseAchievements:
-		if err := checkSecure(body); err != nil {
+		key, err := checkSecure(body)
+		if err != nil {
 			return err
 		}
-		rd := reader{data: body}
+		rd := reader{data: body[:len(body)-16]}
 		bodySession := rd.utf()
 		indexes := make([]int, rd.u16())
 		for i := range indexes {
@@ -195,6 +209,12 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 		rises := make([]int, rd.u16())
 		for i := range rises {
 			rises[i] = rd.i16()
+		}
+		if key == achSecretKey125 {
+			// 1.25.0: boolAchievements (ints), not kept
+			for range rd.u16() {
+				rd.i32()
+			}
 		}
 		timeScale := rd.u32()
 		if rd.err != nil {
@@ -218,18 +238,22 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 		wr.u16Array(res.ints("values"))
 		wr.byteArray(res.ints("threshold_indexes"))
 		wr.u16Array(res.ints("threshold_old_values"))
+		if key == achSecretKey125 {
+			wr.u16(0) // boolAchievements (ints)
+		}
 		wr.u32(res.uint32("time_sequence"))
 		wr.u8(res.int32("invested"))
 		if res.err == nil {
-			writeCommand(output, cmdIncreaseAchievementResult, wr.Bytes(), true)
+			writeCommand(output, cmdIncreaseAchievementResult, wr.Bytes(), key)
 		}
 		return res.err
 
 	case cmdChooseBonusItem:
-		if err := checkSecure(body); err != nil {
+		key, err := checkSecure(body)
+		if err != nil {
 			return err
 		}
-		rd := reader{data: body}
+		rd := reader{data: body[:len(body)-16]}
 		itemID := rd.i32()
 		if rd.err != nil {
 			return rd.err
@@ -245,9 +269,25 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 		wr.i16(res.int32("result"))
 		wr.i32(res.int32("item_id"))
 		if res.err == nil {
-			writeCommand(output, cmdChooseBonusItemResult, wr.Bytes(), true)
+			writeCommand(output, cmdChooseBonusItemResult, wr.Bytes(), key)
 		}
 		return res.err
+
+	case cmdBuyResetBonusItems:
+		// 1.25.0: pay to choose the bonus items again. Not on the server: refused (result 1).
+		key, err := checkSecure(body)
+		if err != nil {
+			return err
+		}
+		rd := reader{data: body[:len(body)-16]}
+		requestNum := rd.i32()
+		if rd.err != nil {
+			return rd.err
+		}
+		var wr writer
+		wr.i16(1)
+		wr.i32(requestNum)
+		writeCommand(output, cmdBuyResetBonusItemsResult, wr.Bytes(), key)
 
 	default:
 		return fmt.Errorf("%w: unknown achievements command %d", errBadData, id)
@@ -415,10 +455,10 @@ func readHeader(data []byte) (id, length int, err error) {
 	return int(rawID & 0x7FFF), int(rawLength & 0x3FFFFFFF), nil
 }
 
-// writeCommand appends a command; secure ones get the MD5 trailer.
-func writeCommand(output *bytes.Buffer, id int, body []byte, secure bool) {
-	if secure {
-		h := achHash(body)
+// writeCommand writes a command; with a key (the client's salt) its body is signed.
+func writeCommand(output *bytes.Buffer, id int, body []byte, key string) {
+	if key != "" {
+		h := achHash(body, key)
 		body = append(body[:len(body):len(body)], h[:]...)
 	}
 	// Each sync bit is carried either in the flags byte or in the id/length field, picked at random.
@@ -446,19 +486,23 @@ func writeCommand(output *bytes.Buffer, id int, body []byte, secure bool) {
 	output.Write(body)
 }
 
-func achHash(data []byte) [16]byte {
-	return md5.Sum(append(data[:len(data):len(data)], achSecretKey...))
+func achHash(data []byte, key string) [16]byte {
+	return md5.Sum(append(data[:len(data):len(data)], key...))
 }
 
-func checkSecure(body []byte) error {
+// checkSecure checks a signed command's hash and returns the salt it was signed with: the 1.05.0 or
+// the 1.25.0 client's (its replies are signed with the same).
+func checkSecure(body []byte) (string, error) {
 	if len(body) < 16 {
-		return fmt.Errorf("%w: bad command hash", errBadData)
+		return "", fmt.Errorf("%w: bad command hash", errBadData)
 	}
-	h := achHash(body[:len(body)-16])
-	if !bytes.Equal(h[:], body[len(body)-16:]) {
-		return fmt.Errorf("%w: bad command hash", errBadData)
+	for _, key := range []string{achSecretKey, achSecretKey125} {
+		h := achHash(body[:len(body)-16], key)
+		if bytes.Equal(h[:], body[len(body)-16:]) {
+			return key, nil
+		}
 	}
-	return nil
+	return "", fmt.Errorf("%w: bad command hash", errBadData)
 }
 
 // reader reads big-endian values; the first short read sets err and later reads return 0.

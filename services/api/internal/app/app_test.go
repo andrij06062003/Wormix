@@ -127,6 +127,7 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	d.Exec(`delete from wormix_weapons where (id > 1500 and id < 2000) or id > 2500`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_120000_add_wormix_crafted_equip'`)
+	d.Exec(`delete from migrations where migration = '2026_11_08_180000_grant_owner_account'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

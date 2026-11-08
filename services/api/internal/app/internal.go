@@ -476,7 +476,9 @@ func (c *Ctx) buyItemsInner() Resp {
 		}
 	}
 	p := must(c.First(defProfile, `where "user_id" = ?`, c.UserID()))
-	if php.Lt(p.Get("money"), sum) || php.Lt(p.Get("real_money"), realSum) {
+	// Check only the currencies being spent: a negative balance in the other one (left by an old
+	// teammate payment bug, shown to the player as 0) must not block a purchase.
+	if (php.Gt(sum, int64(0)) && php.Lt(p.Get("money"), sum)) || (php.Gt(realSum, int64(0)) && php.Lt(p.Get("real_money"), realSum)) {
 		return jsonResp(200, php.Assoc("data", php.Assoc("Result", int64(3), "Weapons", php.NewArr(), "Stuff", php.NewArr())))
 	}
 	p.Set("money", php.Sub(p.Get("money"), sum))

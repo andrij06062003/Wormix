@@ -238,6 +238,38 @@ func TestRefDBCredentialsWork(t *testing.T) {
 	}
 }
 
+// A negative balance in one currency (left by an old bug, shown as 0) must not block buying with the other.
+func TestBuyWithNegativeOtherCurrency(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	buy := func(moneyType int) string {
+		st, j := call(t, srv, "POST", "/api/internal/account/buy/items",
+			map[string]any{"ShopItems": []any{map[string]any{"Id": 16, "Count": -1, "MoneyType": moneyType}}}, h)
+		if st != 200 {
+			t.Fatalf("buy: %d %v", st, j)
+		}
+		return fmt.Sprint(j["data"].(map[string]any)["Result"])
+	}
+	d.Exec(`update wormix_user_profiles set money = 1000, real_money = -5 where user_id = 1`)
+	if r := buy(1); r != "0" {
+		t.Fatalf("fuses with negative rubies: result %s, want 0", r)
+	}
+	var real int64
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
+	if real != -5 {
+		t.Fatalf("rubies changed to %d", real)
+	}
+	d.Exec(`update wormix_user_profiles set money = -5, real_money = 1000 where user_id = 1`)
+	if r := buy(0); r != "0" {
+		t.Fatalf("rubies with negative fuses: result %s, want 0", r)
+	}
+	d.Exec(`update wormix_user_profiles set money = 0, real_money = 1000 where user_id = 1`)
+	if r := buy(1); r != "3" {
+		t.Fatalf("fuses with no fuses: result %s, want 3", r)
+	}
+}
+
 // Concurrent purchases must stay atomic: every successful purchase is paid exactly once.
 func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 	srv, d, v := newServer(t)

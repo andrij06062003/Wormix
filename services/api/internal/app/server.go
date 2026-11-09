@@ -24,6 +24,7 @@ type App struct {
 	PhotosDir string // user photos (were resources/images/users)
 	Config    Config
 	routes    []route
+	presence  *presence // who has the game open (presence.go)
 }
 
 // Ctx is one request.
@@ -73,7 +74,7 @@ type route struct {
 
 // New builds the app with all routes registered.
 func NewApp(d *db.DB, photosDir string) *App {
-	a := &App{DB: d, PhotosDir: photosDir, Config: LoadConfig()}
+	a := &App{DB: d, PhotosDir: photosDir, Config: LoadConfig(), presence: newPresence()}
 	a.registerRoutes()
 	return a
 }

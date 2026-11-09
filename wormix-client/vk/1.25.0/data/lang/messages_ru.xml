@@ -140,7 +140,7 @@
     <message name="REPLACE_IN_GROUP" value="Заменить в команде"/>
     <message name="REMOVE_FROM_GROUP" value="Выгнать из команды"/>
     <message name="ADD_IN_GROUP" value="Добавить в команду"/>
-    <message name="USER_PAGE" value="Страница пользователя"/>
+    <message name="USER_PAGE" value="Профиль игрока"/>
     <message name="CALL_TO_BATTLE" value="Вызвать на бой"/>
     <message name="CALL_TO_LOCAL_BATTLE" value="Игра на 1-м компьютере"/>
     <message name="GROUP_ICON_QTIP" value="Моя команда"/>
@@ -836,7 +836,7 @@
     <message name="KAMIKAZE_ALREADY_ACTIVATED" value="Вы уже активировали взрывчатку!"/>
 
     <!-- return friends -->
-    <message name="RETURN_FRIEND_BTN_QTIP" value="Вернуть друга"/>
+    <message name="RETURN_FRIEND_BTN_QTIP" value="Чат с игроками"/>
     <message name="RETURN_FRIENDS_MENU_TITLE" value="Верни бойцов!"/>
     <message name="RETURN_FRIENDS_MENU_MSG" value="Некого возвращать, все твои друзья играют! Почёт тебе и уважение!"/>
     <message name="RETURN_FRIENDS_MENU_BTN" value="Вернуть в строй!"/>

@@ -7,7 +7,9 @@
     <style>
         :root { --bg: #1d1d1d; --panel: #2a2a2a; --text: #e6e6e6; --muted: #9a9a9a; --accent: #f0a020; --error: #ff6b6b; }
         html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 15px system-ui, sans-serif; }
-        #game { width: 900px; max-width: 100%; aspect-ratio: 3 / 2; margin: 20px auto 8px; }
+        /* container-type: the chat below is sized in cqw/cqh, so it scales with the game (and stays inside it in
+           full screen, where this box is what goes full screen). */
+        #game { position: relative; width: 900px; max-width: 100%; aspect-ratio: 3 / 2; margin: 20px auto 8px; container-type: size; }
         #game ruffle-player, #game ruffle-object, #game ruffle-embed { width: 100%; height: 100%; }
         /* Full screen goes to this box (see startGame). The 3:2 game is shown at 16:10, a light stretch,
            and the narrow strips left on a 16:9 screen show the page background. */
@@ -62,6 +64,62 @@
         #pfMsg { min-height: 18px; margin-top: 14px; font-size: 13px; text-align: center; }
         #pfMsg.err { color: var(--error); } #pfMsg.ok { color: #7bd17b; }
         #pfRestart { margin-top: 8px; padding: 10px; border-radius: 8px; background: rgba(240, 160, 32, .12); font-size: 13px; }
+        #pfOther { margin-top: 16px; }
+        #bar .badge { display: inline-block; min-width: 16px; padding: 0 4px; border-radius: 8px; background: #d9342b; color: #fff;
+                      font-size: 11px; font-weight: 700; line-height: 16px; text-align: center; }
+
+        /* The chat, drawn like the game's own windows (parchment in a wooden frame, a plaque with the title,
+           the round red close button and the green button), over the game. */
+        #chat { position: absolute; inset: 0; z-index: 9; display: grid; place-items: center; background: rgba(0, 0, 0, .35);
+                font: bold 1.55cqw/1.3 "Trebuchet MS", Arial, sans-serif; color: #6e4321; }
+        .gwin { position: relative; width: 74cqw; height: 74cqh; box-sizing: border-box; padding: 4.2cqw 1.6cqw 1.6cqw;
+                background: #f1dfb0; border: .45cqw solid #a77a43; border-radius: 1.6cqw;
+                box-shadow: inset 0 0 0 .35cqw #f8ecc8, inset 0 0 0 .7cqw #c99f62, 0 .8cqw 2cqw rgba(0, 0, 0, .45); }
+        .gtitle { position: absolute; left: 50%; top: -1.9cqw; transform: translateX(-50%); padding: .8cqw 4cqw; white-space: nowrap;
+                  background: linear-gradient(#fbefcc, #ecd5a0); border: .35cqw solid #a77a43; border-radius: .9cqw;
+                  box-shadow: 0 .3cqw 0 #8c6233; font-size: 2.1cqw; color: #5b3615; }
+        .gclose { position: absolute; right: -1.8cqw; top: -1.8cqw; width: 4.6cqw; height: 4.6cqw; padding: 0; border-radius: 50%;
+                  border: .35cqw solid #fff; background: radial-gradient(circle at 35% 30%, #f26b5b, #c4161c 70%); color: #fff;
+                  font: bold 2.4cqw/1 Arial, sans-serif; cursor: pointer; box-shadow: 0 .25cqw .5cqw rgba(0, 0, 0, .4); }
+        .gclose:hover { filter: brightness(1.1); }
+        .gbody { display: grid; grid-template-columns: 30% 1fr; gap: 1.2cqw; height: 100%; min-height: 0; }
+        .gpanel { background: #fbf3dc; border-radius: 1cqw; box-shadow: inset 0 0 0 .25cqw #e3c98f; min-height: 0; }
+        .gside { overflow-y: auto; padding: .8cqw; }
+        .gtab { display: flex; align-items: center; gap: .8cqw; padding: .6cqw .8cqw; border-radius: .8cqw; cursor: pointer; }
+        .gtab:hover { background: #f3e2b0; }
+        .gtab.on { background: #e9cf8f; box-shadow: inset 0 0 0 .2cqw #c99f62; }
+        .gtab img, .gmsg img { width: 3.6cqw; height: 3.6cqw; flex: none; border-radius: .6cqw; object-fit: cover; background: #e3c98f;
+                               border: .2cqw solid #c99f62; }
+        .gtab span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+        .gtab .gnew { flex: none; min-width: 1.8cqw; padding: 0 .4cqw; border-radius: 1cqw; background: #d9342b; color: #fff; font-size: 1.2cqw;
+                      line-height: 1.8cqw; text-align: center; }
+        .groom { display: grid; place-items: center; width: 3.6cqw; height: 3.6cqw; flex: none; border-radius: .6cqw; background: #7cc242;
+                 color: #fff; font-size: 2cqw; border: .2cqw solid #4e8f22; }
+        .gmain { display: grid; grid-template-rows: auto 1fr auto; gap: .8cqw; min-height: 0; }
+        .ghead { padding: .6cqw 1cqw; font-size: 1.8cqw; color: #5b3615; }
+        .glog { overflow-y: auto; padding: .8cqw 1cqw; }
+        .gempty { margin-top: 6cqh; text-align: center; color: #a98458; }
+        .gmsg { display: flex; gap: .8cqw; margin-bottom: .9cqw; }
+        .gmsg .gwho { cursor: pointer; color: #9b4a12; } .gmsg .gwho:hover { text-decoration: underline; }
+        .gmsg.mine .gwho { color: #3f7d16; cursor: default; text-decoration: none; }
+        .gmsg time { margin-left: .6cqw; color: #b39468; font-size: 1.15cqw; font-weight: normal; }
+        .gmsg p { margin: .2cqw 0 0; font-weight: normal; color: #4a2e14; overflow-wrap: anywhere; white-space: pre-wrap; }
+        .gsend { display: flex; gap: .8cqw; }
+        .gsend input { flex: 1; min-width: 0; padding: .8cqw 1cqw; border: .25cqw solid #c99f62; border-radius: .8cqw; background: #fffaf0;
+                       color: #4a2e14; font: inherit; font-weight: normal; outline: none; }
+        .gsend input:focus { border-color: #8c6233; }
+        .ggreen { padding: .7cqw 2.2cqw; border: .25cqw solid #e6ffd0; border-radius: .9cqw; cursor: pointer;
+                  background: linear-gradient(#8fdc3c, #3f9b12); color: #fff; font: inherit; font-size: 1.7cqw;
+                  text-shadow: 0 0 .25cqw #24600a, 0 .15cqw 0 #24600a; box-shadow: 0 .3cqw 0 #2c6c0c; }
+        .ggreen:hover { filter: brightness(1.07); } .ggreen:disabled { filter: grayscale(.6); cursor: default; }
+        .gerr { min-height: 1.6cqw; color: #c4161c; font-size: 1.2cqw; }
+        /* A private message while the chat is closed. */
+        #gtoast { position: absolute; left: 50%; top: 2cqh; z-index: 8; transform: translateX(-50%); max-width: 60cqw; display: flex;
+                  align-items: center; gap: 1cqw; padding: .8cqw 1.6cqw; cursor: pointer; background: #fbf3dc; border: .35cqw solid #a77a43;
+                  border-radius: 1.2cqw; box-shadow: 0 .5cqw 1.2cqw rgba(0, 0, 0, .4); font: bold 1.5cqw/1.3 "Trebuchet MS", Arial, sans-serif;
+                  color: #6e4321; }
+        #gtoast img { width: 3.4cqw; height: 3.4cqw; border-radius: .6cqw; object-fit: cover; }
+        #gtoast span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         @media (max-width: 440px) { .stats { grid-template-columns: repeat(2, 1fr); } #profile .two { grid-template-columns: 1fr; } }
     </style>
     <!-- Ruffle: open-source Flash Player emulator (https://ruffle.rs) -->
@@ -82,8 +140,28 @@
     <div id="msg"></div>
 </form>
 
-<div id="game"></div>
-<div id="bar" hidden><img id="barAva" alt=""><span id="who"></span> · <button id="profileBtn" type="button">Профіль</button> · <button id="logout" type="button">Вийти</button></div>
+<div id="game">
+<div id="chat" hidden>
+    <div class="gwin" role="dialog" aria-modal="true" aria-labelledby="gTitle">
+        <div class="gtitle" id="gTitle">Чат</div>
+        <button class="gclose" id="gClose" type="button" title="Закрыть (Esc)">✕</button>
+        <div class="gbody">
+            <div class="gpanel gside" id="gTabs"></div>
+            <div class="gmain">
+                <div class="gpanel ghead" id="gHead">Общий чат</div>
+                <div class="gpanel glog" id="gLog"></div>
+                <div>
+                    <form class="gsend" id="gForm">
+                        <input id="gText" maxlength="300" autocomplete="off" placeholder="Написать сообщение…" aria-label="Сообщение">
+                        <button class="ggreen" id="gSendBtn" type="submit">Отправить</button>
+                    </form>
+                    <div class="gerr" id="gErr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="gtoast" hidden></div>
 
 <div id="profile" hidden>
     <div class="card" role="dialog" aria-modal="true" aria-labelledby="pfTitle">
@@ -100,6 +178,10 @@
             <div><dt>Рубіни</dt><dd id="stRubies">–</dd></div>
         </dl>
 
+        <div id="pfOther" class="row" hidden>
+            <button id="pfWrite" class="pbtn primary" type="button">Написати повідомлення</button>
+        </div>
+        <div id="pfOwn">
         <section>
             <h3>Аватарка</h3>
             <div class="row">
@@ -142,6 +224,7 @@
             </form>
         </section>
 
+        </div>
         <div id="pfMsg"></div>
         <div id="pfRestart" hidden>
             <div class="row" style="margin-top:0; justify-content:space-between">
@@ -151,6 +234,8 @@
         </div>
     </div>
 </div>
+</div>
+<div id="bar" hidden><img id="barAva" alt=""><span id="who"></span> · <button id="profileBtn" type="button">Профіль</button> · <button id="chatBtn" type="button">Чат <span id="chatBadge" class="badge" hidden></span></button> · <button id="logout" type="button">Вийти</button></div>
 
 <script>
     // Everything (this page, the API at /api/ and the game connections) is served by the game host
@@ -158,7 +243,7 @@
     const API = location.origin + '/api/';
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
     // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
-    const CLIENT_BUILD = '2026-11-08.7';
+    const CLIENT_BUILD = '2026-11-09.1';
 
     // Remembered login, per browser (convenience only).
     const store = {
@@ -241,6 +326,7 @@
         // The game id is what friends enter in "call by id" to challenge this player.
         document.getElementById('who').textContent = s.login + ' · ID ' + s.id;
         document.getElementById('barAva').src = photoUrl(null);
+        startChat();
         loadAccount().then(showBarAccount).catch(() => { });
 
         const id = String(s.id);
@@ -324,6 +410,7 @@
     // --- Profile -------------------------------------------------------------------------------
     // Your avatar (cropped to a square here, then uploaded), the nickname other players see (once in 60 days,
     // the server checks it), the login and the password (both only with the current password).
+    // Another player's profile ("Страница пользователя" in the game) only shows it, with "write a message".
     const $ = id => document.getElementById(id);
     const profileBox = $('profile'), pfMsg = $('pfMsg');
     let account = null;     // GET /api/account
@@ -334,9 +421,10 @@
     const nickOf = a => [a.social_data?.first_name, a.social_data?.last_name].filter(Boolean).join(' ') || a.login;
     const dateUk = iso => new Date(iso).toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' });
 
-    async function loadAccount() {
+    async function loadAccount(id) {
         const s = store.get();
-        return (await api('account', { token: s.token, method: 'GET' })).data;
+        const path = id == null || String(id) === String(s.id) ? 'account' : 'account/info/' + encodeURIComponent(id);
+        return (await api(path, { token: s.token, method: 'GET' })).data;
     }
 
     function showBarAccount(a) {
@@ -346,29 +434,46 @@
 
     function say(text, kind = 'err') { pfMsg.textContent = text; pfMsg.className = text ? kind : ''; }
 
-    async function openProfile() {
+    let viewedId = null;    // the player whose profile is open (null: your own)
+
+    async function openProfile(id) {
+        const s = store.get();
+        if (!s) return;
+        const own = id == null || id === '' || String(id) === String(s.id);
+        viewedId = own ? null : String(id);
+        closeChat();
         profileBox.hidden = false;
         say('');
         cancelCrop();
-        $('pfRestart').hidden = !changed;
+        $('pfOwn').hidden = !own;
+        $('pfOther').hidden = own;
+        $('pfTitle').textContent = own ? 'Мій профіль' : 'Профіль гравця';
+        $('pfRestart').hidden = !(own && changed);
+        $('pfAva').src = photoUrl(null);
+        $('pfName').textContent = '…';
+        $('pfMeta').textContent = '';
+        for (const k of ['stLevel', 'stRating', 'stMoney', 'stRubies']) $(k).textContent = '–';
         $('pfClose').focus();
         try {
-            account = await loadAccount();
+            const a = await loadAccount(viewedId);
+            if (own) account = a;
+            fillProfile(a, own);
         } catch (err) {
-            return say('Не вдалося завантажити профіль: ' + err.message);
+            $('pfName').textContent = '';
+            say(err.status === 404 ? 'Гравця не знайдено' : 'Не вдалося завантажити профіль: ' + err.message);
         }
-        fillProfile();
     }
 
-    function fillProfile() {
-        const a = account, p = a.user_profile || {}, w = a.worm_data || {};
+    function fillProfile(a = account, own = true) {
+        const p = a.user_profile || {}, w = a.worm_data || {};
         $('pfAva').src = photoUrl(a.social_data?.photo);
         $('pfName').textContent = nickOf(a);
-        $('pfMeta').textContent = 'Логін ' + a.login + ' · ID ' + a.id;
+        $('pfMeta').textContent = (own ? 'Логін ' + a.login + ' · ' : '') + 'ID ' + a.id;
         $('stLevel').textContent = w.level ?? '–';
         $('stRating').textContent = p.rating ?? '–';
         $('stMoney').textContent = p.money ?? '–';
         $('stRubies').textContent = p.real_money ?? '–';
+        if (!own) return;
         $('pfNick').value = nickOf(a);
         $('pfLogin').value = a.login;
         const next = a.social_data?.next_name_change_at;
@@ -394,7 +499,8 @@
         $('pfRestart').hidden = false;
     }
 
-    $('profileBtn').addEventListener('click', openProfile);
+    $('profileBtn').addEventListener('click', () => openProfile());
+    $('pfWrite').addEventListener('click', () => { const id = viewedId; closeProfile(); openChat(id); });
     $('pfClose').addEventListener('click', closeProfile);
     profileBox.addEventListener('pointerdown', e => { if (e.target === profileBox) closeProfile(); });
     profileBox.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); closeProfile(); } });
@@ -543,6 +649,207 @@
                 : 'Не вдалося зберегти: ' + err.message);
         }
     });
+
+    // --- Chat ----------------------------------------------------------------------------------
+    // One room for everybody and private conversations (api/chat, services/api/internal/app/chat.go). The game
+    // opens it from the main menu's "bird with a letter" (it was "Верни бойцов", VK invitations). It is drawn
+    // like the game's windows and in its language. The page asks the server for new messages every few seconds:
+    // often while the chat is open, rarely while it is closed (for the unread counts and the notice).
+    const chatBox = $('chat');
+    const chat = { me: null, last: 0, msgs: [], users: {}, peer: null, unread: {}, started: false, timer: null, busy: false };
+    const peerKey = m => m.to == null ? null : String(m.from === chat.me ? m.to : m.from);
+    const userOf = id => chat.users[id] || { name: 'Игрок ' + id, photo: null };
+    const photoOf = u => u.photo || photoUrl(null);
+    const timeRu = iso => new Date(iso).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+
+    async function chatPoll() {
+        const s = store.get();
+        if (!s || chat.busy) return;
+        chat.busy = true;
+        try {
+            const r = await api('chat?after=' + chat.last, { token: s.token, method: 'GET' });
+            chat.me = r.me;
+            Object.assign(chat.users, r.users || {});
+            const fresh = (r.messages || []).filter(m => m.id > chat.last);
+            if (fresh.length) {
+                const first = chat.last === 0;
+                chat.last = fresh[fresh.length - 1].id;
+                chat.msgs.push(...fresh);
+                if (!first) for (const m of fresh) if (m.from !== chat.me) noteIncoming(m);
+                if (!chatBox.hidden) renderChat();
+            }
+        } catch { } finally {
+            chat.busy = false;
+        }
+    }
+
+    function chatSchedule() {
+        clearTimeout(chat.timer);
+        chat.timer = setTimeout(async () => { await chatPoll(); chatSchedule(); }, chatBox.hidden ? 10000 : 2500);
+    }
+
+    function startChat() {
+        if (chat.started) return;
+        chat.started = true;
+        chatPoll().then(chatSchedule);
+    }
+
+    // A new message: unread counts, and a notice over the game for a private one while the chat isn't showing it.
+    function noteIncoming(m) {
+        const key = peerKey(m);
+        if (!chatBox.hidden && chat.peer === key) return;
+        chat.unread[key ?? 'room'] = (chat.unread[key ?? 'room'] || 0) + 1;
+        updateBadge();
+        if (key !== null) {
+            const u = userOf(m.from), t = $('gtoast');
+            t.replaceChildren(Object.assign(document.createElement('img'), { src: photoOf(u), alt: '' }),
+                Object.assign(document.createElement('span'), { textContent: u.name + ': ' + m.text }));
+            t.onclick = () => { t.hidden = true; openChat(key); };
+            t.hidden = false;
+            clearTimeout(t.timer);
+            t.timer = setTimeout(() => t.hidden = true, 6000);
+        }
+    }
+
+    function updateBadge() {
+        // The room's messages count only while the chat is open on another tab; private ones always.
+        const n = Object.entries(chat.unread).reduce((a, [k, v]) => a + (k === 'room' ? 0 : v), 0);
+        $('chatBadge').hidden = !n;
+        $('chatBadge').textContent = n;
+    }
+
+    function openChat(peer) {
+        const s = store.get();
+        if (!s) return;
+        startChat();
+        closeProfile();
+        $('gtoast').hidden = true;
+        chat.peer = peer == null || peer === '' || String(peer) === String(s.id) ? null : String(peer);
+        chatBox.hidden = false;
+        $('gErr').textContent = '';
+        renderChat();
+        chatPoll().then(() => { renderChat(); chatSchedule(); });
+        $('gText').focus();
+    }
+
+    function closeChat() {
+        if (chatBox.hidden) return;
+        chatBox.hidden = true;
+        chatSchedule();
+        const p = document.querySelector('#game ruffle-player');
+        if (p) p.focus();
+    }
+
+    function renderChat() {
+        delete chat.unread[chat.peer ?? 'room'];
+        updateBadge();
+        // Tabs: the room, then the conversations, newest first (and the one just opened, even if empty).
+        const peers = [];
+        for (let i = chat.msgs.length - 1; i >= 0; i--) {
+            const k = peerKey(chat.msgs[i]);
+            if (k !== null && !peers.includes(k)) peers.push(k);
+        }
+        if (chat.peer !== null && !peers.includes(chat.peer)) peers.unshift(chat.peer);
+        const tabs = $('gTabs');
+        tabs.replaceChildren();
+        const tab = (key, icon, name) => {
+            const el = document.createElement('div');
+            el.className = 'gtab' + (chat.peer === key ? ' on' : '');
+            el.append(icon, Object.assign(document.createElement('span'), { textContent: name }));
+            const n = chat.unread[key ?? 'room'];
+            if (n) el.append(Object.assign(document.createElement('b'), { className: 'gnew', textContent: n }));
+            el.onclick = () => { chat.peer = key; $('gErr').textContent = ''; renderChat(); $('gText').focus(); };
+            tabs.append(el);
+        };
+        tab(null, Object.assign(document.createElement('b'), { className: 'groom', textContent: '☺' }), 'Общий чат');
+        for (const k of peers) {
+            const u = userOf(k);
+            tab(k, Object.assign(document.createElement('img'), { src: photoOf(u), alt: '' }), u.name);
+        }
+        $('gHead').textContent = chat.peer === null ? 'Общий чат' : 'Личные сообщения: ' + userOf(chat.peer).name;
+
+        const log = $('gLog');
+        const atBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 40;
+        log.replaceChildren();
+        const shown = chat.msgs.filter(m => peerKey(m) === chat.peer);
+        if (!shown.length) {
+            log.append(Object.assign(document.createElement('div'), { className: 'gempty',
+                textContent: chat.peer === null ? 'Здесь пока тихо. Напиши первым!' : 'Напиши игроку первое сообщение.' }));
+        }
+        for (const m of shown) {
+            const u = userOf(m.from), mine = m.from === chat.me;
+            const row = document.createElement('div');
+            row.className = 'gmsg' + (mine ? ' mine' : '');
+            const who = Object.assign(document.createElement('span'), { className: 'gwho', textContent: u.name });
+            const img = Object.assign(document.createElement('img'), { src: photoOf(u), alt: '' });
+            if (!mine) {
+                // A name or an avatar opens a private conversation with that player.
+                who.title = img.title = 'Написать лично';
+                who.onclick = img.onclick = () => { chat.peer = String(m.from); renderChat(); $('gText').focus(); };
+                img.style.cursor = 'pointer';
+            }
+            const body = document.createElement('div');
+            body.append(who, Object.assign(document.createElement('time'), { textContent: timeRu(m.at) }),
+                Object.assign(document.createElement('p'), { textContent: m.text }));
+            row.append(img, body);
+            log.append(row);
+        }
+        if (atBottom || shown.length) log.scrollTop = log.scrollHeight;
+    }
+
+    $('gForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const s = store.get(), text = $('gText').value.trim();
+        if (!s || !text) return;
+        const btn = $('gSendBtn');
+        btn.disabled = true;
+        try {
+            await api('chat', { body: { text, ...(chat.peer !== null ? { to: Number(chat.peer) } : {}) }, token: s.token });
+            $('gText').value = '';
+            $('gErr').textContent = '';
+            await chatPoll();
+            renderChat();
+        } catch (err) {
+            $('gErr').textContent = err.status === 429 ? 'Не так быстро: подожди несколько секунд' : 'Не удалось отправить: ' + err.message;
+        } finally {
+            btn.disabled = false;
+            $('gText').focus();
+        }
+    });
+    $('gClose').addEventListener('click', closeChat);
+    chatBox.addEventListener('pointerdown', e => { if (e.target === chatBox) closeChat(); });
+    chatBox.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); closeChat(); } });
+    $('chatBtn').addEventListener('click', () => chatBox.hidden ? openChat() : closeChat());
+
+    // --- Invitation ----------------------------------------------------------------------------
+    // "+" in an empty cell of the friends list (VK invitations before): copy the game's address and the
+    // player's id, to send to a friend however they like.
+    async function invite() {
+        const s = store.get();
+        if (!s) return;
+        const text = 'Заходи в Wormix: ' + location.origin + '/ (мой ID в игре: ' + s.id + ')';
+        let copied = false;
+        try { await navigator.clipboard.writeText(text); copied = true; } catch { }
+        const t = $('gtoast');
+        t.replaceChildren(Object.assign(document.createElement('span'), {
+            textContent: copied ? 'Ссылка на игру скопирована: отправь её другу!' : text }));
+        t.onclick = () => t.hidden = true;
+        t.hidden = false;
+        clearTimeout(t.timer);
+        t.timer = setTimeout(() => t.hidden = true, copied ? 4000 : 12000);
+    }
+
+    // --- Called by the game (ExternalInterface; client-patches/standalone-125) ----------------------
+    window.wormixChat = () => { setTimeout(() => openChat(), 0); };
+    window.wormixProfile = id => { setTimeout(() => openProfile(id), 0); };
+    window.wormixInvite = () => { invite(); };
+    // The game's full screen button (it called Ruffle's full screen, which Ruffle refused, and whose layout
+    // doesn't fit the page): the game's box goes full screen, as Ruffle's own menu item does.
+    window.wormixFullscreen = () => {
+        const box = $('game');
+        if (document.fullscreenElement) document.exitFullscreen().catch(() => { });
+        else (box.requestFullscreen ? box.requestFullscreen() : box.webkitRequestFullscreen()).catch?.(() => { });
+    };
 
     window.addEventListener('load', startGame);
 </script>

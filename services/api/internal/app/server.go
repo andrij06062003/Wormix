@@ -155,6 +155,9 @@ func (a *App) registerRoutes() {
 	a.add("POST", "api/account/update_photo", (*Ctx).updateAccountPhoto, "sanctum")
 	a.add("GET", "api/account/info/{user}", (*Ctx).getAccountInfo, "sanctum")
 	a.add("POST", "api/account/game", (*Ctx).startGame, "sanctum")
+	// The players' chat (chat.go).
+	a.add("GET", "api/chat", (*Ctx).chatList, "sanctum")
+	a.add("POST", "api/chat", (*Ctx).chatSend, "sanctum")
 }
 
 func (rt *route) match(segs []string) (map[string]string, bool) {

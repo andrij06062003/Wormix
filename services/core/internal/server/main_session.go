@@ -307,7 +307,14 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		proto.EmitSendWipeConfirmCodeResponse(s.out, 0)
 		s.wipeRequested = true
 	case proto.CmdBuyUnlockMission:
-		s.shortReply("account/buy/mission", proto.ReadBuyUnlockMission(r).JSON(), proto.CmdBuyUnlockMissionResult)
+		// A boss the API refuses (one it doesn't know) fails the unlock instead of dropping the session.
+		req := proto.ReadBuyUnlockMission(r)
+		if v, refused := api.PostRefusable("account/buy/mission", req.JSON(), s.sid, s.tokenPtr()); refused {
+			log.Printf("[main %s] unlock of mission %d refused by the API", s.short(), req.Value)
+			proto.ShortResult{Cmd: proto.CmdBuyUnlockMissionResult, Result: 1}.Emit(s.out)
+		} else if d := dataOpt(v); d != nil {
+			proto.DecodeShortResult(proto.CmdBuyUnlockMissionResult, d).Emit(s.out)
+		}
 	case proto.CmdSearchTheHouse:
 		req := proto.ReadSearchTheHouse(r)
 		proto.DecodeSearchTheHouseResult(dataBang(s.post("house/search", req.JSON()))).Emit(s.out)

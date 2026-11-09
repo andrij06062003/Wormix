@@ -38,14 +38,18 @@ which adds them (the patch files already have them). With the 1.25.0 classes dec
 We only have the 1.05.0 map files (`wormix-client/vk/storage/levels`). The 1.25.0 client
 knows 34 newer maps (ids 80–114), and battles, missions and bosses pick a random map from its list,
 so they could stop with "error loading map". `MapList.as` (`config.§##r§`, the map list) leaves the
-maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` patches:
+maps after id 79 out of the list it hands out. The bosses still ask for some of those maps by id ("error loading map (id = 96)"),
+so `§5"W§` (get a map by id) hands out one of our maps instead (`STAND_IN`: one with as many worm places as the
+boss level uses; all our maps and the boss maps are 2800x1400). The real files can't be found (not in the
+1.25.0 repo or other public copies); once one is added as `vk/storage/levels/<name>/map.swf`, take its id
+out of `STAND_IN`. Compile it like the `no-vk-125/` patches:
 
     FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
         client-patches/maps-125/MapList.as Wormix.swf Wormix.new.swf 'config.§##r§' && mv Wormix.new.swf Wormix.swf
 
 ## `crosshair-125/`: the aiming arrow stuck on the map and the mouse cursor hidden, in the 1.25.0 client
 
-**Only in `Wormix.next.swf`** (`play.html?next`), until it is tried in a battle. The first build (2026-11-08)
+In `Wormix.swf` again since 2026-11-08 (build 2026-11-08.7). The first build (2026-11-08)
 broke the air strike, atom bomb and girder: FFDec compiled `§%#6§.§5!W§.activate()` as a public name, but
 `activate`/`deactivate` there are IControlSet interface methods (namespace
 `ru.pragmatix.wormix.controls:IControlSet`), so the call threw. The patch now imports `§6k§.§%#6§` and names
@@ -60,3 +64,34 @@ not from the current scene, which threw when the arrow wasn't there. Compile it 
 
     FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
         client-patches/crosshair-125/PointCrosshair.as Wormix.swf Wormix.new.swf "§!!=§.§'2§" && mv Wormix.new.swf Wormix.swf
+
+## `standalone-125/`: the last VK buttons, the full screen button and the chat, in the 1.25.0 client
+
+In `Wormix.swf` since build 2026-11-09.1. Each patch calls a function of the game's page (`wwwroot/play.html`)
+through `ExternalInterface`:
+
+- `UserProfileHelper.as` (`ru.pragmatix.wormix.model.user.§7X§`): "Профиль игрока" in a friend's menu
+  (`§#!#§`) opened the player's VK page; it calls `wormixProfile(id)`, and the page shows the player's profile
+  with "write a message".
+- `ReturnFriendsDialog.as` (`§9"`§.§?#G§`, "Верни бойцов", VK invitations to friends who left): its button, the
+  bird with a letter next to the friends list, opens the chat (`show()` calls `wormixChat()`).
+- `FriendsList.as` (`§9"`§.§;!t§`): "+" in an empty cell invited VK friends; it calls `wormixInvite()`, and the
+  page copies the game's address and the player's id. The list also hides the main menu's VK group button
+  (`groupBtnContainer`, "В") and moves the news button into its place: the main menu (`ru.pragmatix.wormix.§@#8§`)
+  can't be recompiled (FFDec stops on its `super.activate()`, a method of an obfuscated namespace), and it
+  builds this list right after the button.
+- `ScreenController.as` (`ru.pragmatix.wormix.controller.§"$-§`): the full screen button (`§+!h§`) called
+  Ruffle's full screen, which Ruffle refuses without `allowFullscreen`, and the game's full screen layout is for the
+  screen's size while the page keeps the game at 900x600 (`forceScale`), which cut off the buttons on the right.
+  It calls `wormixFullscreen()`, and the page puts the game's box in full screen.
+
+`ReturnFriendsDialog.as` and `ScreenController.as` name the `IUIComponent` namespace (`iuc::`) for the calls
+FFDec would otherwise compile as public names (see `crosshair-125/`). The texts of the bird's tip and of the menu
+item are in `data/lang/messages_ru.xml` (`RETURN_FRIEND_BTN_QTIP`, `USER_PAGE`). Compile them like the
+`no-vk-125/` patches:
+
+    for p in 'ru.pragmatix.wormix.model.user.§7X§:UserProfileHelper' '§9"`§.§?#G§:ReturnFriendsDialog' \
+             '§9"`§.§;!t§:FriendsList' 'ru.pragmatix.wormix.controller.§"$-§:ScreenController'; do
+        FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
+            client-patches/standalone-125/${p##*:}.as Wormix.swf Wormix.new.swf "${p%%:*}" && mv Wormix.new.swf Wormix.swf
+    done

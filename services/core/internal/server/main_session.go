@@ -282,7 +282,13 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		proto.DecodeSelectStuffResult(dataBang(s.post("account/select_stuff", req.JSON()))).Emit(s.out)
 	case proto.CmdChangeRace:
 		req := proto.ReadChangeRace(r)
-		proto.DecodeShortResult(proto.CmdChangeRaceResult, dataBang(s.post("account/buy/race", req.JSON()))).Emit(s.out)
+		// A race the API refuses (one it doesn't know) fails the purchase instead of dropping the session.
+		if v, refused := api.PostRefusable("account/buy/race", req.JSON(), s.sid, s.tokenPtr()); refused {
+			log.Printf("[main %s] race %d refused by the API", s.short(), req.RaceID)
+			proto.ShortResult{Cmd: proto.CmdChangeRaceResult, Result: 1}.Emit(s.out)
+		} else {
+			proto.DecodeShortResult(proto.CmdChangeRaceResult, dataBang(v)).Emit(s.out)
+		}
 	case proto.CmdGetWhoPumpedReaction:
 		req := proto.ReadGetWhoPumpedReaction(r)
 		proto.DecodeWhoPumpedReactionResult(dataBang(s.post("info/pumped_reaction", req.JSON()))).Emit(s.out)
@@ -301,7 +307,14 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		proto.EmitSendWipeConfirmCodeResponse(s.out, 0)
 		s.wipeRequested = true
 	case proto.CmdBuyUnlockMission:
-		s.shortReply("account/buy/mission", proto.ReadBuyUnlockMission(r).JSON(), proto.CmdBuyUnlockMissionResult)
+		// A boss the API refuses (one it doesn't know) fails the unlock instead of dropping the session.
+		req := proto.ReadBuyUnlockMission(r)
+		if v, refused := api.PostRefusable("account/buy/mission", req.JSON(), s.sid, s.tokenPtr()); refused {
+			log.Printf("[main %s] unlock of mission %d refused by the API", s.short(), req.Value)
+			proto.ShortResult{Cmd: proto.CmdBuyUnlockMissionResult, Result: 1}.Emit(s.out)
+		} else if d := dataOpt(v); d != nil {
+			proto.DecodeShortResult(proto.CmdBuyUnlockMissionResult, d).Emit(s.out)
+		}
 	case proto.CmdSearchTheHouse:
 		req := proto.ReadSearchTheHouse(r)
 		proto.DecodeSearchTheHouseResult(dataBang(s.post("house/search", req.JSON()))).Emit(s.out)
@@ -343,19 +356,32 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		}
 		proto.EmitToggleTeamMemberResult125(s.out, result, req.ProfileID)
 	case proto.CmdUpgradeWeapon:
-		req := proto.ReadRecipe(r)
-		if d := dataOpt(s.post("craft/upgrade_weapon", req.JSON())); d != nil {
-			proto.DecodeWeaponRecipeResult(proto.CmdUpgradeWeaponResult, d).Emit(s.out)
-		}
+		s.weaponRecipe("craft/upgrade_weapon", proto.CmdUpgradeWeaponResult, proto.ReadRecipe(r))
 	case proto.CmdDowngradeWeapon:
-		req := proto.ReadRecipe(r)
-		if d := dataOpt(s.post("craft/downgrade_weapon", req.JSON())); d != nil {
-			proto.DecodeWeaponRecipeResult(proto.CmdDowngradeWeaponResult, d).Emit(s.out)
-		}
+		s.weaponRecipe("craft/downgrade_weapon", proto.CmdDowngradeWeaponResult, proto.ReadRecipe(r))
+	case proto.CmdGetFriendsForBoss125:
+		missions := proto.ReadGetFriendsForBoss125(r)
+		friends := pvp.BossFriends(s.UserID(), missions)
+		log.Printf("[main %s] %d friends for co-op boss %v", s.short(), len(friends), missions)
+		proto.EmitGetFriendsForBossResult125(s.out, friends)
 	default:
 		if !pvp.HandleLobby(s, cmd, body) {
 			log.Printf("[main %s] unknown command %d", s.short(), cmd)
 		}
+	}
+}
+
+// weaponRecipe upgrades or downgrades a weapon. A recipe the API refuses (one it doesn't know) is answered
+// as failed (Result 1), not by dropping the session.
+func (s *mainSession) weaponRecipe(route string, cmd uint32, req proto.IntField) {
+	v, refused := api.PostRefusable(route, req.JSON(), s.sid, s.tokenPtr())
+	if refused {
+		log.Printf("[main %s] recipe %d refused by the API", s.short(), req.Value)
+		proto.WeaponRecipeResult{Cmd: cmd, RecipeID: int16(req.Value), Result: 1}.Emit(s.out)
+		return
+	}
+	if d := dataOpt(v); d != nil {
+		proto.DecodeWeaponRecipeResult(cmd, d).Emit(s.out)
 	}
 }
 

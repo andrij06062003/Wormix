@@ -42,6 +42,8 @@ func (c *Ctx) getArena() Resp {
 		"BattlesCount", bi.Get("battles_count"),
 		"CurrentMission", bi.Get("last_mission_id"),
 		"BossAvailable", true,
+		// 1.25.0: the last co-op boss beaten (curCooperativeMissionId).
+		"CurrentCoopMission", bi.Get("last_coop_mission_id"),
 	)))
 }
 
@@ -250,6 +252,12 @@ func toArr(v any) *php.Arr {
 
 func (c *Ctx) processAwards(m *Model, double bool, p, w *Model) {
 	awards, _ := m.Arr("awards").(*php.Arr)
+	c.giveAwards(awards, double, p, w)
+}
+
+// giveAwards gives a mission's awards (wormix_missions.awards): the first set, or the second for a mission
+// beaten before (double) when there is one.
+func (c *Ctx) giveAwards(awards *php.Arr, double bool, p, w *Model) {
 	if awards == nil {
 		php.Fail("count(): Argument #1 ($value) must be of type Countable|array")
 	}
@@ -332,7 +340,11 @@ func (c *Ctx) pvpStartBattle() Resp {
 		{"Wager", "required|integer|min:0"},
 		{"Reagents", "nullable|array"},
 		{"Reagents.*", "integer"},
+		{"MissionId", "nullable|integer"},
 	})
+	if mid := c.JSON("MissionId"); mid != nil {
+		return c.coopStartBattle(php.ToInt(mid))
+	}
 	uid := c.UserID()
 	wager := php.ToInt(c.JSON("Wager"))
 	p := c.findOrFail(defProfile, uid)
@@ -377,6 +389,9 @@ func (c *Ctx) pvpEndBattle() Resp {
 	awards, _ := bi.Arr("awards").(*php.Arr)
 	if awards == nil {
 		awards = php.NewArr()
+	}
+	if php.ToInt(bi.Get("battle_type")) == battleTypeCoop {
+		return c.coopEndBattle(bi, result)
 	}
 	settled, ok := awards.Get("settled")
 	if !ok || settled == nil {

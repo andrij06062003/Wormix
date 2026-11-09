@@ -108,6 +108,29 @@ var Migrations = []Migration{
 		`update "wormix_weapons" set "hide_in_shop" = 0 where "id" = 2019`,
 	}},
 	{Name: "2026_11_08_220000_add_wormix_teams_inactive", Fn: migrateTeamInactive},
+	// The 1.25.0 shop sells weapons 1.05.0 doesn't have: without their rows the API refused every purchase of
+	// one (exists:wormix_weapons,id) and the client said "error saving data". Prices and levels from its config.
+	{Name: "2026_11_09_120000_add_wormix_weapons_125", SQL: []string{
+		`insert or ignore into "wormix_weapons" ("id", "name", "is_starter", "hide_in_shop", "price", "real_price", "infinity", "one_day", "required_friends", "required_level", "required_rating", "created_at", "updated_at") values (81, 'Газовая граната', 0, 0, 3000, 30, 1, 0, 0, 13, 0, datetime('now'), datetime('now')), (82, 'Блокиратор', 0, 0, 3600, 36, 1, 0, 0, 14, 0, datetime('now'), datetime('now')), (83, 'Паразит', 0, 0, 3200, 32, 1, 0, 0, 16, 0, datetime('now'), datetime('now')), (94, 'Лазерный луч', 0, 0, 4200, 42, 1, 0, 0, 20, 0, datetime('now'), datetime('now')), (95, 'Каменюк', 0, 0, 3400, 34, 1, 0, 0, 14, 0, datetime('now'), datetime('now')), (96, 'Вакуумная граната', 0, 0, 5200, 52, 1, 0, 0, 20, 0, datetime('now'), datetime('now')), (105, 'Ледяной дождь', 0, 0, 5400, 54, 1, 0, 0, 15, 0, datetime('now'), datetime('now')), (107, 'Заземлитель', 0, 0, 3700, 37, 1, 0, 0, 16, 0, datetime('now'), datetime('now')), (109, 'Гравимина', 0, 0, 2900, 29, 1, 0, 0, 11, 0, datetime('now'), datetime('now'))`,
+	}},
+	{Name: "2026_11_09_130000_add_wormix_recipes_125", Fn: migrateRecipes125},
+	{Name: "2026_11_09_140000_add_wormix_races_125", Fn: migrateRaces125},
+	{Name: "2026_11_09_150000_add_wormix_coop_progress", Fn: migrateCoopProgress},
+	{Name: "2026_11_09_160000_add_wormix_missions_125", Fn: migrateMissions125},
+	{Name: "2026_11_09_190000_add_wormix_training_125", Fn: migrateMissions125},
+	{Name: "2026_11_09_170000_add_users_name_changed_at", Fn: migrateNameChangedAt},
+	// The players' chat: the room (to_user_id null) and private messages.
+	{Name: "2026_11_09_180000_create_chat_messages_table", SQL: []string{
+		`create table if not exists "chat_messages" ("id" integer primary key autoincrement not null, "from_user_id" integer not null, "to_user_id" integer, "text" varchar not null, "created_at" datetime, foreign key("from_user_id") references "users"("id") on delete cascade, foreign key("to_user_id") references "users"("id") on delete cascade)`,
+		`create index if not exists "chat_messages_to_user_id_index" on "chat_messages" ("to_user_id")`,
+		`create index if not exists "chat_messages_from_user_id_index" on "chat_messages" ("from_user_id")`,
+	}},
+	// The 1.25.0 client's weapons that only come as awards (missions, bosses, events), hidden in the shop and
+	// not infinite: without their rows a boss's award left them out (the Assassin's nail grenades, 93).
+	{Name: "2026_11_10_120000_add_wormix_award_weapons_125", SQL: []string{
+		`insert or ignore into "wormix_weapons" ("id", "name", "is_starter", "hide_in_shop", "price", "real_price", "infinity", "one_day", "required_friends", "required_level", "required_rating", "created_at", "updated_at") values (84, 'Скверная тыква', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (85, 'Колдовской отвар', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (86, 'Душемет', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (87, 'Снежный ком', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (88, 'Глубокая заморозка', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (89, 'Бочка фейерверков', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (90, 'Подарочная коробка', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (91, 'Артиллерия', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (92, 'Липучая мина', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (93, 'Гвоздевая граната', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (99, 'Докторская сумка', 0, 1, 0, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (100, 'Зелье подводного дыхания', 0, 1, 0, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (101, 'Зелье алхимика', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (102, 'Горящая тыква', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (103, 'Зловонный арбуз', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (104, 'Марш зомби', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now'))`,
+	}},
+	{Name: "2026_11_10_130000_grant_owner_crafted_hats", Fn: migrateGrantOwnerHats},
 }
 
 func tableExists(ctx context.Context, q interface {

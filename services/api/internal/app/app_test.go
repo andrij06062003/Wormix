@@ -146,6 +146,88 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	d.Exec(`delete from migrations where migration = '2026_11_08_210000_sell_wormix_ice_shard'`)
 	// wormix_users_teams.inactive (1.25.0) is in the reference DB already: only its migration row is new.
 	d.Exec(`delete from migrations where migration = '2026_11_08_220000_add_wormix_teams_inactive'`)
+	// And the weapons of the 1.25.0 shop.
+	var weapons125 int
+	d.QueryRow(`select count(*) from wormix_weapons where id in (81, 82, 83, 94, 95, 96, 105, 107, 109) and hide_in_shop = 0 and infinity = 1 and price > 0 and real_price > 0`).Scan(&weapons125)
+	if weapons125 != 9 {
+		t.Errorf("1.25.0 weapon rows %d, want 9", weapons125)
+	}
+	d.Exec(`delete from wormix_weapons where id in (81, 82, 83, 94, 95, 96, 105, 107, 109)`)
+	d.Exec(`delete from migrations where migration = '2026_11_09_120000_add_wormix_weapons_125'`)
+	// And the 1.25.0 weapons that only come as awards (hidden, not infinite).
+	var award125 int
+	d.QueryRow(`select count(*) from wormix_weapons where id in (84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104) and hide_in_shop = 1 and infinity = 0`).Scan(&award125)
+	if award125 != 16 {
+		t.Errorf("1.25.0 award weapon rows %d, want 16", award125)
+	}
+	d.Exec(`delete from wormix_weapons where id in (84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104)`)
+	d.Exec(`delete from migrations where migration = '2026_11_10_120000_add_wormix_award_weapons_125'`)
+	// The owner's grant changes no game data (and there is no such account here).
+	d.Exec(`delete from migrations where migration = '2026_11_10_130000_grant_owner_crafted_hats'`)
+	// And the weapon upgrades of the 1.25.0 client: 52 new recipes, and its costs for the old ones.
+	var recipes, sheep int
+	d.QueryRow(`select count(*) from wormix_craft`).Scan(&recipes)
+	d.QueryRow(`select count(*) from wormix_craft where id in (47, 48) and prev_upgrade_id = 40 and required_level = 12`).Scan(&sheep)
+	if recipes != 89 || sheep != 2 {
+		t.Errorf("1.25.0 recipes %d (sheep %d), want 89 (2)", recipes, sheep)
+	}
+	var reagents string
+	d.QueryRow(`select reagents from wormix_craft where id = 3`).Scan(&reagents)
+	if reagents != "[[0,40],[21,15],[41,12]]" {
+		t.Errorf("recipe 3 reagents %s", reagents)
+	}
+	d.Exec(`delete from wormix_craft where id > 37`)
+	rr, err := ref.Query(`select id, reagents, required_level from wormix_craft`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rr.Next() {
+		var id, lvl int64
+		var rg string
+		rr.Scan(&id, &rg, &lvl)
+		d.Exec(`update wormix_craft set reagents = ?, required_level = ? where id = ?`, rg, lvl, id)
+	}
+	rr.Close()
+	d.Exec(`delete from migrations where migration = '2026_11_09_130000_add_wormix_recipes_125'`)
+	// And the races of the 1.25.0 client: dragon, robot, rhino and boar, and its prices for the old ones.
+	var races, dragon int
+	d.QueryRow(`select count(*) from wormix_races`).Scan(&races)
+	d.QueryRow(`select count(*) from wormix_races where race_id = 7 and race_name = 'dragon' and price = 2600 and real_price = 26 and required_level = 14`).Scan(&dragon)
+	if races != 10 || dragon != 1 {
+		t.Errorf("1.25.0 races %d (dragon %d), want 10 (1)", races, dragon)
+	}
+	d.Exec(`delete from wormix_races where race_id > 6`)
+	rq, err := ref.Query(`select race_id, price, real_price, required_level from wormix_races`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rq.Next() {
+		var id, price, real, lvl int64
+		rq.Scan(&id, &price, &real, &lvl)
+		d.Exec(`update wormix_races set price = ?, real_price = ?, required_level = ? where race_id = ?`, price, real, lvl, id)
+	}
+	rq.Close()
+	d.Exec(`delete from migrations where migration = '2026_11_09_140000_add_wormix_races_125'`)
+	// wormix_users_battle_info.last_coop_mission_id (1.25.0 co-op bosses) is in the reference DB already.
+	d.Exec(`delete from migrations where migration = '2026_11_09_150000_add_wormix_coop_progress'`)
+	// And the solo bosses of the 1.25.0 client (21 Dark Knight .. 27).
+	var missions, knight int
+	d.QueryRow(`select count(*) from wormix_missions where mission_id > 20`).Scan(&missions)
+	d.QueryRow(`select count(*) from wormix_missions where mission_id = 21 and required_level = 20 and awards like '%[1067,1]%'`).Scan(&knight)
+	if missions != 7 || knight != 1 {
+		t.Errorf("1.25.0 missions %d (dark knight %d), want 7 (1)", missions, knight)
+	}
+	var training int
+	d.QueryRow(`select count(*) from wormix_missions where mission_id in (-4, -5) and required_level = 1`).Scan(&training)
+	if training != 2 {
+		t.Errorf("1.25.0 training missions %d, want 2", training)
+	}
+	d.Exec(`delete from wormix_missions where mission_id > 20 or mission_id < -3`)
+	d.Exec(`delete from migrations where migration in ('2026_11_09_160000_add_wormix_missions_125', '2026_11_09_190000_add_wormix_training_125')`)
+	// users_vk_data.name_changed_at (the profile page's name change) is in the reference DB already.
+	d.Exec(`delete from migrations where migration = '2026_11_09_170000_add_users_name_changed_at'`)
+	// So is the chat_messages table (the players' chat).
+	d.Exec(`delete from migrations where migration = '2026_11_09_180000_create_chat_messages_table'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

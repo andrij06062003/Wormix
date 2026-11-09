@@ -62,6 +62,35 @@ Stop everything:
 powershell -ExecutionPolicy Bypass -File .\stop.ps1
 ```
 
+## Profile
+
+"Профіль" under the game opens the player's profile (`wwwroot/play.html`): level, rating, fuzes and rubies, and
+
+- **avatar**: pick a photo, drag and zoom it in the square; it is saved as a 256×256 JPEG
+  (`POST /api/account/update_photo`) and shown in the game (friends list, battles) after a restart;
+- **nickname** (the name other players see): once in 60 days (`NameChangeDays`, `users_vk_data.name_changed_at`);
+- **login** and **password**: only with the current password. The login is 3 to 32 letters, digits, `_ - .` and
+  unique whatever its case.
+
+"Профиль игрока" in a friend's menu in the game opens that player's profile (with "write a message").
+
+## Chat
+
+The bird with a letter next to the friends list (and "Чат" under the game) opens the players' chat, drawn over the
+game like its own windows: one room for everybody and private conversations (a name or an avatar in the room starts
+one). A private message while the chat is closed shows a notice at the top of the game. The page polls
+`GET /api/chat?after=<id>` (every 2.5 s while the chat is open, every 10 s while it is closed) and sends with
+`POST /api/chat {text, to}` (`services/api/internal/app/chat.go`, table `chat_messages`): up to 300 letters,
+5 messages in 10 seconds.
+
+A green dot shows who is in the game: on avatars in the chat, in the chat's "В игре" list (a click starts a private
+conversation) and in a player's profile ("Зараз у грі", or "Востаннє в грі ..."). The page's chat polls tell
+the API who has the game open (`services/api/internal/app/presence.go`): a player counts as in the game for 90 seconds
+after the last one. It is kept in memory, so "last seen" is forgotten when the API restarts.
+
+No VK is left in the 1.25.0 client: the VK group button is hidden, "+" in an empty friend cell copies the game's
+address and your id to send to a friend, and the full screen button works (`client-patches/standalone-125/`).
+
 ## Settings
 
 Game host: `services/relay/appsettings.json`, environment variables with the same names, or command line

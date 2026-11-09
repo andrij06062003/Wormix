@@ -260,12 +260,13 @@ type ArenaResult struct {
 	BattlesCount          int32
 	CurrentMission        int32
 	BossAvailable         bool
+	CurrentCoopMission    int32 // 1.25.0 only: the last co-op boss beaten (curCooperativeMissionId)
 }
 
 // DecodeArenaResult reads ArenaResult from API JSON.
 func DecodeArenaResult(v *jsonx.Value) ArenaResult {
 	r := ArenaResult{UserProfileStructures: emptyIfCtor[UserProfile]()}
-	v.Struct("ArenaResult").Members([]string{"UserProfileStructures", "BattlesCount", "CurrentMission", "BossAvailable"}, func(f int, x *jsonx.Value) {
+	v.Struct("ArenaResult").Members([]string{"UserProfileStructures", "BattlesCount", "CurrentMission", "BossAvailable", "CurrentCoopMission"}, func(f int, x *jsonx.Value) {
 		switch f {
 		case 0:
 			r.UserProfileStructures = decodeUserProfiles(x)
@@ -275,6 +276,8 @@ func DecodeArenaResult(v *jsonx.Value) ArenaResult {
 			r.CurrentMission = x.Int32()
 		case 3:
 			r.BossAvailable = x.Bool()
+		case 4:
+			r.CurrentCoopMission = x.Int32()
 		}
 	})
 	return r

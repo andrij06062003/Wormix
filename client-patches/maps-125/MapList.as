@@ -1853,9 +1853,24 @@ package config
          return availableMaps;
       }
       
+      // We have no files for the maps after id 79 either, but the bosses ask for them by id ("error
+      // loading map (id = 96)"). Until the real files are in storage/levels, a boss level gets one of our
+      // maps with enough worm places (all of ours are 2800x1400, like the boss maps). Take an id out of
+      // this list once its map.swf is added.
+      private static const STAND_IN:Object = {
+         80:72, 81:63, 82:69, 83:67, 84:26, 85:30, 86:58, 87:40, 88:72, 89:71,
+         90:26, 91:19, 92:14, 93:31, 94:53, 95:31, 96:74, 97:56, 98:60, 99:50,
+         100:61, 101:39, 102:53, 103:46, 104:41, 105:57, 106:53, 107:32, 108:34, 109:42,
+         110:45, 111:59, 112:76, 113:46, 114:39
+      };
+      
       public static function §5"W§(param1:int) : §^"C§
       {
          var _loc2_:§^"C§ = null;
+         if(STAND_IN[param1] != undefined)
+         {
+            param1 = int(STAND_IN[param1]);
+         }
          for each(_loc2_ in maps)
          {
             if(_loc2_.getId() == param1)

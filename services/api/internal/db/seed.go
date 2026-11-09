@@ -224,6 +224,10 @@ func (d *DB) Seed(ctx context.Context) error {
 			}
 		}
 	}
+	// The 1.25.0 client's races (migrateRaces125 leaves a new database to this).
+	if err := applyRaces125(ctx, d); err != nil {
+		return fmt.Errorf("seed: races 1.25.0: %w", err)
+	}
 
 	// level_awards.json
 	if l, ok := loadJSON("level_awards.json").(*php.Arr); ok {
@@ -278,6 +282,10 @@ func (d *DB) Seed(ctx context.Context) error {
 			return fmt.Errorf("seed: missions: %w", err)
 		}
 	}
+	// The 1.25.0 client's solo bosses 21-27 (migrateMissions125 leaves a new database to this).
+	if err := applyMissions125(ctx, d); err != nil {
+		return fmt.Errorf("seed: missions 1.25.0: %w", err)
+	}
 
 	// recipes.json
 	if r, ok := loadJSON("recipes.json").(*php.Arr); ok {
@@ -294,6 +302,10 @@ func (d *DB) Seed(ctx context.Context) error {
 				return fmt.Errorf("seed: recipe: %w", err)
 			}
 		}
+	}
+	// The 1.25.0 client's recipes (migrateRecipes125 leaves a new database to this).
+	if err := applyRecipes125(ctx, d); err != nil {
+		return fmt.Errorf("seed: recipes 1.25.0: %w", err)
 	}
 	log.Printf("game:init: SETUP IS COMPLETED")
 	return nil

@@ -10,3 +10,9 @@ import (
 func migrateGrantOwner(ctx context.Context, tx *sql.Tx) error {
 	return nil
 }
+
+// migrateGrantOwnerHats is 2026_11_10_130000_grant_owner_crafted_hats: another one-off change of one
+// account (fuzes, rubies and crafted hats), done already. A no-op for the same reason.
+func migrateGrantOwnerHats(ctx context.Context, tx *sql.Tx) error {
+	return nil
+}

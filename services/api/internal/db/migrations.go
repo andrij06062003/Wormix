@@ -125,6 +125,12 @@ var Migrations = []Migration{
 		`create index if not exists "chat_messages_to_user_id_index" on "chat_messages" ("to_user_id")`,
 		`create index if not exists "chat_messages_from_user_id_index" on "chat_messages" ("from_user_id")`,
 	}},
+	// The 1.25.0 client's weapons that only come as awards (missions, bosses, events), hidden in the shop and
+	// not infinite: without their rows a boss's award left them out (the Assassin's nail grenades, 93).
+	{Name: "2026_11_10_120000_add_wormix_award_weapons_125", SQL: []string{
+		`insert or ignore into "wormix_weapons" ("id", "name", "is_starter", "hide_in_shop", "price", "real_price", "infinity", "one_day", "required_friends", "required_level", "required_rating", "created_at", "updated_at") values (84, 'Скверная тыква', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (85, 'Колдовской отвар', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (86, 'Душемет', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (87, 'Снежный ком', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (88, 'Глубокая заморозка', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (89, 'Бочка фейерверков', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (90, 'Подарочная коробка', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (91, 'Артиллерия', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (92, 'Липучая мина', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (93, 'Гвоздевая граната', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (99, 'Докторская сумка', 0, 1, 0, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (100, 'Зелье подводного дыхания', 0, 1, 0, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (101, 'Зелье алхимика', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (102, 'Горящая тыква', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (103, 'Зловонный арбуз', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now')), (104, 'Марш зомби', 0, 1, 1, 1, 0, 0, 0, 1, 0, datetime('now'), datetime('now'))`,
+	}},
+	{Name: "2026_11_10_130000_grant_owner_crafted_hats", Fn: migrateGrantOwnerHats},
 }
 
 func tableExists(ctx context.Context, q interface {

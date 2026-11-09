@@ -154,6 +154,16 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	d.Exec(`delete from wormix_weapons where id in (81, 82, 83, 94, 95, 96, 105, 107, 109)`)
 	d.Exec(`delete from migrations where migration = '2026_11_09_120000_add_wormix_weapons_125'`)
+	// And the 1.25.0 weapons that only come as awards (hidden, not infinite).
+	var award125 int
+	d.QueryRow(`select count(*) from wormix_weapons where id in (84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104) and hide_in_shop = 1 and infinity = 0`).Scan(&award125)
+	if award125 != 16 {
+		t.Errorf("1.25.0 award weapon rows %d, want 16", award125)
+	}
+	d.Exec(`delete from wormix_weapons where id in (84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104)`)
+	d.Exec(`delete from migrations where migration = '2026_11_10_120000_add_wormix_award_weapons_125'`)
+	// The owner's grant changes no game data (and there is no such account here).
+	d.Exec(`delete from migrations where migration = '2026_11_10_130000_grant_owner_crafted_hats'`)
 	// And the weapon upgrades of the 1.25.0 client: 52 new recipes, and its costs for the old ones.
 	var recipes, sheep int
 	d.QueryRow(`select count(*) from wormix_craft`).Scan(&recipes)

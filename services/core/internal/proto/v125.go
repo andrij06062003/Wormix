@@ -183,7 +183,7 @@ func (r *ArenaResult) Emit125(out Out) {
 	emitFixed(out, CmdArenaResult, 4+2+2+1+1+2, false, func(w *wire.Writer) {
 		w.U32(uint32(r.BattlesCount))
 		w.I16(int(r.CurrentMission))
-		w.I16(0) // curCooperativeMissionId
+		w.I16(int(r.CurrentCoopMission))
 		w.Bool(r.BossAvailable)
 		w.Bool(false) // superBossAvaliable
 		w.U16(0)      // heroic missions
@@ -360,4 +360,74 @@ func EmitToggleTeamMemberResult125(out Out, result int, profileID int32) {
 		w.I16(result)
 		w.I32(profileID)
 	})
+}
+
+// GetFriendsForBoss (1.25.0, cmd 93): the friends the player may call to the co-op boss.
+const (
+	CmdGetFriendsForBoss125       = 93
+	CmdGetFriendsForBossResult125 = 1093
+)
+
+// ReadGetFriendsForBoss125 reads the boss's mission ids (short count, shorts).
+func ReadGetFriendsForBoss125(r *wire.Reader) []int16 {
+	n := int(r.U16())
+	out := make([]int16, 0, n)
+	for i := 0; i < n; i++ {
+		out = append(out, int16(r.U16()))
+	}
+	return out
+}
+
+// BossFriend125 is a friend in GetFriendsForBossResult: its profile and whether it can come
+// (0 yes, 1 no battles left, 2 the boss isn't open to it).
+type BossFriend125 struct {
+	Profile UserProfile
+	State   int16
+}
+
+// writeUnit125 is the 1.25.0 UnitStructure of a player: its own worm and its account.
+func writeUnit125(w *wire.Writer, p *UserProfile) {
+	var me Worm
+	for _, x := range p.WormsGroup {
+		if x.OwnerID == p.ID {
+			me = x
+			break
+		}
+	}
+	race, hat := splitHat(me.Hat)
+	w.U32(p.ID)
+	w.I32(int32(me.Armor))
+	w.I32(int32(me.Attack))
+	w.I32(int32(me.Level))
+	w.I32(int32(p.Money))
+	w.I32(int32(p.RealMoney))
+	w.I32(p.ReactionRate)
+	w.I32(p.Rating)
+	w.I32(int32(len(p.WormsGroup)))
+	w.I16(hat)
+	w.I16(race)
+	w.I16(int(me.Artifact))
+	if p.SocialID != nil {
+		w.UTF(*p.SocialID)
+	} else {
+		w.UTF("")
+	}
+}
+
+// EmitGetFriendsForBossResult125 writes GetFriendsForBossResult: the friends (size + UnitStructure each),
+// then their states.
+func EmitGetFriendsForBossResult125(out Out, friends []BossFriend125) {
+	var w wire.Writer
+	w.U16(uint16(len(friends)))
+	for i := range friends {
+		var b wire.Writer
+		writeUnit125(&b, &friends[i].Profile)
+		w.U16(uint16(len(b.B)))
+		w.Bytes(b.B)
+	}
+	w.U16(uint16(len(friends)))
+	for _, f := range friends {
+		w.I16(int(f.State))
+	}
+	out(Frame(CmdGetFriendsForBossResult125, w.B, false))
 }

@@ -40,7 +40,17 @@ func getProfile(token string) (p proto.UserProfile, err error) {
 // startBattle is PvpApi.StartBattle: records the battle for the player and takes the wager. Pass the reagents
 // the first player got to the second player (nil makes the API choose them).
 func startBattle(token string, battleID uint32, wager int32, reagents []int32) (p proto.UserProfile, got []int32, err error) {
-	body := jsonx.NewObject().Int("BattleId", int64(battleID)).Int("Wager", int64(wager))
+	return postStartBattle(token, jsonx.NewObject().Int("BattleId", int64(battleID)).Int("Wager", int64(wager)), reagents)
+}
+
+// startCoopBattle is startBattle for a co-op boss fight (mission 101+ of the 1.25.0 client): the API takes a
+// battle instead of a wager and pays the boss's awards out at endBattle. A 422 is a player who has no battles
+// left or for whom the boss isn't open.
+func startCoopBattle(token string, battleID uint32, mission int16, reagents []int32) (p proto.UserProfile, got []int32, err error) {
+	return postStartBattle(token, jsonx.NewObject().Int("BattleId", int64(battleID)).Int("Wager", 0).Int("MissionId", int64(mission)), reagents)
+}
+
+func postStartBattle(token string, body *jsonx.ObjectWriter, reagents []int32) (p proto.UserProfile, got []int32, err error) {
 	if reagents == nil {
 		body.Ints("Reagents", nil)
 	} else {

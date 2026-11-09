@@ -141,6 +141,7 @@ func (a *App) registerRoutes() {
 		{"pvp/profile", (*Ctx).pvpProfile},
 		{"pvp/start_battle", (*Ctx).pvpStartBattle},
 		{"pvp/end_battle", (*Ctx).pvpEndBattle},
+		{"pvp/coop_state", (*Ctx).pvpCoopState},
 	} {
 		a.add("POST", "api/internal/"+x.p, x.h, "iauth")
 	}

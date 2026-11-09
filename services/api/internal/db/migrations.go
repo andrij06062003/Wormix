@@ -115,6 +115,7 @@ var Migrations = []Migration{
 	}},
 	{Name: "2026_11_09_130000_add_wormix_recipes_125", Fn: migrateRecipes125},
 	{Name: "2026_11_09_140000_add_wormix_races_125", Fn: migrateRaces125},
+	{Name: "2026_11_09_150000_add_wormix_coop_progress", Fn: migrateCoopProgress},
 }
 
 func tableExists(ctx context.Context, q interface {

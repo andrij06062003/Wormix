@@ -198,6 +198,8 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	rq.Close()
 	d.Exec(`delete from migrations where migration = '2026_11_09_140000_add_wormix_races_125'`)
+	// wormix_users_battle_info.last_coop_mission_id (1.25.0 co-op bosses) is in the reference DB already.
+	d.Exec(`delete from migrations where migration = '2026_11_09_150000_add_wormix_coop_progress'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

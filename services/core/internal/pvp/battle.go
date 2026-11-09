@@ -59,6 +59,11 @@ var (
 	TurnTimeout           = 150 * time.Second
 	ResponseTimeout       = 120 * time.Second
 	EndTurnResendInterval = 5 * time.Second
+
+	// A co-op boss battle (pve) is won when it goes quiet (see pve125.go): for this long, or for twice the
+	// longest AI turn seen and a bit, but at least PveOverMin.
+	PveOverTimeout = 40 * time.Second
+	PveOverMin     = 20 * time.Second
 )
 
 // player is one player of a battle. Fields other than the first four are guarded by the battle's lock.
@@ -132,6 +137,16 @@ type Battle struct {
 	// players, which is also the turn order) instead of their id, and messages are signed with its salt.
 	v125 bool
 
+	// pve: a co-op boss battle of 1.25.0 clients (pve125.go). The players fight together against the
+	// client's AI; the client decides whose turn it is, so the server takes the turn's mover from its moves
+	// (actor; nil on an AI turn, which only has EndTurnResponses) and decides the end itself.
+	pve           bool
+	actor         *player
+	turnStartedAt time.Time
+	quietSince    time.Time     // the last message of the battle (or connection change)
+	firstRespAt   time.Time     // the first EndTurnResponse of the turn
+	maxAITurn     time.Duration // the longest AI turn so far
+
 	over atomic.Bool
 }
 
@@ -139,7 +154,7 @@ type Battle struct {
 func newBattle(id uint32, wager int32, players, order []*player) *Battle {
 	now := time.Now()
 	b := &Battle{ID: id, Wager: wager, players: players, order: slices.Clone(order), created: now, turn: 1,
-		lastActivity: now, results: map[uint32]int{}}
+		lastActivity: now, results: map[uint32]int{}, turnStartedAt: now, quietSince: now}
 	for i, p := range order {
 		p.seat = i
 	}
@@ -182,6 +197,14 @@ func (b *Battle) playerByID(userID uint32) *player {
 
 func (b *Battle) activePlayer() *player { return b.order[b.active] }
 
+// isActive reports whether p moves this turn.
+func (b *Battle) isActive(p *player) bool {
+	if b.pve {
+		return p == b.actor
+	}
+	return p == b.activePlayer()
+}
+
 // sendOthers sends to every player but p who is still in the battle.
 func (b *Battle) sendOthers(p *player, msg []byte) {
 	for _, x := range b.players {
@@ -195,7 +218,12 @@ func (b *Battle) sendOthers(p *player, msg []byte) {
 // still has worms and hasn't left.
 func (b *Battle) responders() []*player {
 	var out []*player
-	act := b.activePlayer()
+	var act *player
+	if b.pve {
+		act = b.actor
+	} else {
+		act = b.activePlayer()
+	}
 	for _, x := range b.players {
 		if x != act && !x.left && !x.out {
 			out = append(out, x)
@@ -287,7 +315,7 @@ func (b *Battle) Login(c Conn, userID uint32) bool {
 	if reconnect {
 		b.sendOthers(p, b.sysMsg(sysReconnected, p))
 	}
-	if p != b.activePlayer() {
+	if !b.isActive(p) {
 		b.resendTurnCommands(p, 0) // moves the active player made before this player connected
 	}
 	return true
@@ -312,7 +340,7 @@ func (b *Battle) Reconnect(c Conn, userID uint32, turnNum int, lastCommandNum ui
 	switch {
 	case turnNum < b.turn && b.lastStartTurn != nil:
 		send(p, b.lastStartTurn) // missed the start of the current turn
-	case p != b.activePlayer():
+	case !b.isActive(p):
 		if turnNum == b.turn {
 			b.resendTurnCommands(p, int(lastCommandNum))
 		} else if turnNum == b.turn+1 && b.activeEnd != nil && p.end == nil {
@@ -348,6 +376,7 @@ func (b *Battle) attach(p *player, c Conn) {
 	p.session = c
 	p.everConnected = true
 	p.disconnectedAt = nil
+	b.quietSince = time.Now()
 	c.SetBattle(b)
 	if b.v125 {
 		// StartBattle: the 1.25.0 client starts the battle with it (it also answers a reconnect).
@@ -378,6 +407,7 @@ func (b *Battle) OnDisconnected(c Conn) {
 	}
 	now := time.Now()
 	p.disconnectedAt = &now
+	b.quietSince = now
 	b.logf("%d disconnected", p.userID)
 	b.sendOthers(p, b.sysMsg(sysDisconnected, p))
 }
@@ -446,10 +476,13 @@ func (b *Battle) onAction(p *player, body []byte) {
 	r.U32()
 	turn := r.U16()
 	num := r.U16()
-	if b.Over() || p != b.activePlayer() || int(turn) != b.turn || b.activeEnd != nil {
+	if b.pve && !b.Over() && int(turn) == b.turn {
+		b.claimTurn(p)
+	}
+	if b.Over() || !b.isActive(p) || int(turn) != b.turn || b.activeEnd != nil {
 		return
 	}
-	b.store(num, message(CmdAction, false, func(w *wire.Writer) { w.Bytes(body) }))
+	b.store(p, num, message(CmdAction, false, func(w *wire.Writer) { w.Bytes(body) }))
 }
 
 func (b *Battle) onEndTurn(p *player, body []byte) {
@@ -462,10 +495,13 @@ func (b *Battle) onEndTurn(p *player, body []byte) {
 	r.U8()
 	eliminated := b.readEliminated(r)
 	state := int32(r.U32())
-	if b.Over() || p != b.activePlayer() || int(turn) != b.turn || b.activeEnd != nil {
+	if b.pve && !b.Over() && int(turn) == b.turn {
+		b.claimTurn(p)
+	}
+	if b.Over() || !b.isActive(p) || int(turn) != b.turn || b.activeEnd != nil {
 		return
 	}
-	b.store(num, message(CmdEndTurn, false, func(w *wire.Writer) { w.Bytes(body) }))
+	b.store(p, num, message(CmdEndTurn, false, func(w *wire.Writer) { w.Bytes(body) }))
 	b.activeEnd = &turnEnd{eliminated, state}
 	b.activeEndAt = time.Now()
 	b.lastEndTurn = b.activeEndAt
@@ -483,6 +519,8 @@ func (b *Battle) readEliminated(r *wire.Reader) []uint32 {
 	for i := 0; i < n; i++ {
 		if num := int(r.U8()); num < len(b.players) {
 			ids = append(ids, b.players[num].userID)
+		} else {
+			ids = append(ids, aiSquad|uint32(num)) // a squad of the client's AI (co-op boss)
 		}
 	}
 	for n = int(r.U16()); n > 0; n-- { // collected reagents
@@ -496,8 +534,10 @@ func (b *Battle) readEliminated(r *wire.Reader) []uint32 {
 	return ids
 }
 
-func (b *Battle) store(num uint16, msg []byte) {
+// store keeps a move of the active player p and forwards it.
+func (b *Battle) store(p *player, num uint16, msg []byte) {
 	b.lastActivity = time.Now()
+	b.quietSince = b.lastActivity
 	for _, c := range b.turnCommands {
 		if c.num == num {
 			return // a resend of something we already have
@@ -508,7 +548,7 @@ func (b *Battle) store(num uint16, msg []byte) {
 	if num > b.lastCommandNum {
 		b.lastCommandNum = num
 	}
-	b.sendOthers(b.activePlayer(), msg)
+	b.sendOthers(p, msg)
 }
 
 func (b *Battle) onEndTurnResponse(p *player, body []byte) {
@@ -519,10 +559,16 @@ func (b *Battle) onEndTurnResponse(p *player, body []byte) {
 	r.U32()
 	eliminated := b.readEliminated(r)
 	state := int32(r.U32())
-	if b.Over() || p == b.activePlayer() || int(turn) != b.turn || p.end != nil {
+	if b.Over() || b.isActive(p) || int(turn) != b.turn || p.end != nil {
 		return
 	}
 	p.end = &turnEnd{eliminated, state}
+	if b.pve {
+		b.quietSince = time.Now()
+		if b.firstRespAt.IsZero() {
+			b.firstRespAt = b.quietSince
+		}
+	}
 	b.tryFinishTurn()
 }
 
@@ -531,7 +577,7 @@ func (b *Battle) onRetryRequest(p *player, body []byte) {
 	r := wire.NewReader(body)
 	have := r.U16()
 	turn := r.U16()
-	if !b.Over() && p != b.activePlayer() && int(turn) == b.turn {
+	if !b.Over() && !b.isActive(p) && int(turn) == b.turn {
 		b.resendTurnCommands(p, int(have))
 	}
 }
@@ -564,6 +610,12 @@ func (b *Battle) onDropPlayer(p *player, body []byte) {
 	if typ == dropDesync {
 		b.logf("%d reports desync: draw", p.userID)
 		b.finish(b.all(0), true)
+		return
+	}
+	if b.pve && !p.out {
+		b.logf("%d left the co-op battle (type %d): cancelled", p.userID, typ)
+		b.sendOthers(p, b.sysMsg(sysSurrendered, p))
+		b.finish(b.pveCancel(p), false)
 		return
 	}
 	if p.out {
@@ -613,6 +665,10 @@ func (b *Battle) all(r int) []result {
 }
 
 func (b *Battle) tryFinishTurn() {
+	if b.pve {
+		b.finishTurnPve()
+		return
+	}
 	a := b.activeEnd
 	if a == nil || b.Over() {
 		return
@@ -705,6 +761,10 @@ func (b *Battle) tick(keepFinished time.Duration) bool {
 	now := time.Now()
 	if b.Over() {
 		return now.Sub(b.overAt) > keepFinished
+	}
+	if b.pve {
+		b.tickPve(now)
+		return false
 	}
 
 	// Someone never showed up, or didn't come back after a disconnect.

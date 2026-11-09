@@ -64,7 +64,9 @@ func coopMissionCfg(id int64) (coopMission, bool) {
 }
 
 // lastCoopMission: the last co-op boss beaten, as the client counts it (100 = none yet).
-func lastCoopMission(bi *Model) int64 { return max(coopBase, php.ToInt(bi.Get("last_coop_mission_id"))) }
+func lastCoopMission(bi *Model) int64 {
+	return max(coopBase, php.ToInt(bi.Get("last_coop_mission_id")))
+}
 
 // battlesNow is battles_count with the battles regained since the last one, as getArena counts them.
 func battlesNow(bi *Model) int64 {

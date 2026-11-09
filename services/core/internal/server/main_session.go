@@ -352,6 +352,11 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		s.weaponRecipe("craft/upgrade_weapon", proto.CmdUpgradeWeaponResult, proto.ReadRecipe(r))
 	case proto.CmdDowngradeWeapon:
 		s.weaponRecipe("craft/downgrade_weapon", proto.CmdDowngradeWeaponResult, proto.ReadRecipe(r))
+	case proto.CmdGetFriendsForBoss125:
+		missions := proto.ReadGetFriendsForBoss125(r)
+		friends := pvp.BossFriends(s.UserID(), missions)
+		log.Printf("[main %s] %d friends for co-op boss %v", s.short(), len(friends), missions)
+		proto.EmitGetFriendsForBossResult125(s.out, friends)
 	default:
 		if !pvp.HandleLobby(s, cmd, body) {
 			log.Printf("[main %s] unknown command %d", s.short(), cmd)

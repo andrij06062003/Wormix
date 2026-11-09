@@ -193,13 +193,13 @@ func TestEnterAccount125(t *testing.T) {
 
 func TestArenaResult125(t *testing.T) {
 	var got []byte
-	(&ArenaResult{BattlesCount: 7, CurrentMission: 3, BossAvailable: true}).Emit125(func(b []byte) { got = append(got, b...) })
+	(&ArenaResult{BattlesCount: 7, CurrentMission: 3, BossAvailable: true, CurrentCoopMission: 101}).Emit125(func(b []byte) { got = append(got, b...) })
 	cmd, n, err := wire.ReadHeader(bytes.NewReader(got))
 	if err != nil || cmd != CmdArenaResult || int(n) != len(got)-wire.HeaderSize || n != 12 {
 		t.Fatalf("header %d %d %v", cmd, n, err)
 	}
 	r := wire.NewReader(got[wire.HeaderSize:])
-	if b, solo, coop, boss, super, heroic := r.U32(), r.U16(), r.U16(), r.Bool(), r.Bool(), r.U16(); b != 7 || solo != 3 || coop != 0 || !boss || super || heroic != 0 {
+	if b, solo, coop, boss, super, heroic := r.U32(), r.U16(), r.U16(), r.Bool(), r.Bool(), r.U16(); b != 7 || solo != 3 || coop != 101 || !boss || super || heroic != 0 {
 		t.Fatalf("got %d %d %d %v %v %d", b, solo, coop, boss, super, heroic)
 	}
 }
@@ -406,5 +406,34 @@ func TestToggleTeamMember125(t *testing.T) {
 	r := wire.NewReader(got[wire.HeaderSize:])
 	if r.U16() != 0 || r.U32() != 42 {
 		t.Fatalf("% x", got)
+	}
+}
+
+func TestGetFriendsForBossResult125(t *testing.T) {
+	social := "s9"
+	p := UserProfile{ID: 9, SocialID: &social, Money: 50, Rating: 4,
+		WormsGroup: []Worm{{OwnerID: 3}, {OwnerID: 9, Armor: 1, Attack: 2, Level: 12, Artifact: 2001}}}
+	var got []byte
+	EmitGetFriendsForBossResult125(func(b []byte) { got = append(got, b...) }, []BossFriend125{{Profile: p, State: 1}})
+	cmd, n, err := wire.ReadHeader(bytes.NewReader(got))
+	if err != nil || cmd != CmdGetFriendsForBossResult125 || int(n) != len(got)-wire.HeaderSize {
+		t.Fatalf("header %d %d %v", cmd, n, err)
+	}
+	r := wire.NewReader(got[wire.HeaderSize:])
+	if r.U16() != 1 || r.U16() != 4*9+2*3+2+2 {
+		t.Fatalf("friends: % x", got)
+	}
+	id, armor, attack, level, money := r.U32(), r.U32(), r.U32(), r.U32(), r.U32()
+	r.U32()
+	r.U32()
+	rating, group := r.U32(), r.U32()
+	r.U16()
+	r.U16()
+	art, sid := r.U16(), r.UTF()
+	if id != 9 || armor != 1 || attack != 2 || level != 12 || money != 50 || rating != 4 || group != 2 || art != 2001 || sid != "s9" {
+		t.Fatalf("unit: % x", got)
+	}
+	if r.U16() != 1 || r.U16() != 1 {
+		t.Fatalf("states: % x", got)
 	}
 }

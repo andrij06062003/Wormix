@@ -271,7 +271,11 @@ func exCreate(c Conn, body []byte) {
 	}
 	me := &exMember{userID: l.id, names: l.names, social: l.social, main: main, conn: c}
 	switch typ {
-	case exFriendPvp:
+	case exFriendPvp, exPveFriend:
+		if typ == exPveFriend && len(missions) == 0 {
+			c.SendMessage(exFailure(0, l.id, l.social, exClientError))
+			return
+		}
 		room := &exRoom{typ: typ, mapID: mapID, missions: missions, randomWeapons: randomWeapons, randomMap: randomMap}
 		exInvite(me, room, ids, teams)
 	case exWagerDuel, exWager2x2, exWager3ForAll, exWager4ForAll:
@@ -358,7 +362,10 @@ func exInvite(me *exMember, room *exRoom, ids []uint32, teams []int) {
 			friend.userID, friend.team = id, team
 		}
 	}
-	if friend.userID == 0 || friend.team == me.team {
+	if room.typ == exPveFriend {
+		me.team, friend.team = 0, 0 // both against the boss
+	}
+	if friend.userID == 0 || (friend.team == me.team && room.typ != exPveFriend) {
 		me.conn.SendMessage(exFailure(0, friend.userID, 0, exClientError))
 		return
 	}
@@ -574,23 +581,32 @@ func exEnqueue(me *exMember, wagerIDs []int16, mapID uint32) {
 
 // ---- Start -------------------------------------------------------------------------------------------------
 
-// exStart records the battle in the API for everyone (taking the wagers) and sends BattleCreated.
+// exStart records the battle in the API for everyone (taking the wagers, or a battle for a co-op boss) and
+// sends BattleCreated.
 func exStart(room *exRoom) {
 	profiles := make([]proto.UserProfile, len(room.members))
 	var reagents []int32 // the first player's, for everyone
+	coop := room.typ == exPveFriend
 	for i, m := range room.members {
 		give := reagents
-		if room.wager == 0 {
+		if room.wager == 0 && !coop {
 			give = []int32{}
 		}
-		p, got, err := startBattle(m.main.Token(), room.id, room.wager, give)
+		var p proto.UserProfile
+		var got []int32
+		var err error
+		if coop {
+			p, got, err = startCoopBattle(m.main.Token(), room.id, room.missions[0], give)
+		} else {
+			p, got, err = startBattle(m.main.Token(), room.id, room.wager, give)
+		}
 		if err != nil {
 			logf("[PvP %d] can't start the battle for %d: %v", room.id, m.userID, err)
 			for _, x := range room.members[:i] {
 				tryEndBattle(x.main.Token(), x.userID, room.id, 0)
 			}
 			reason := exServerError
-			if isNotEnoughMoney(err) {
+			if isNotEnoughMoney(err) && !coop {
 				reason = exNoMoney
 			}
 			exMu.Lock()
@@ -671,6 +687,7 @@ func exLaunchLocked(room *exRoom) {
 	}
 	b := newBattle(room.id, room.wager, players, players)
 	b.v125 = true
+	b.pve = room.typ == exPveFriend || room.typ == exPvePartner
 	addBattle(b)
 	for _, m := range room.members {
 		if m.ready {

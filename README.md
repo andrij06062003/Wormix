@@ -62,6 +62,16 @@ Stop everything:
 powershell -ExecutionPolicy Bypass -File .\stop.ps1
 ```
 
+## Profile
+
+"Профіль" under the game opens the player's profile (`wwwroot/play.html`): level, rating, fuzes and rubies, and
+
+- **avatar**: pick a photo, drag and zoom it in the square; it is saved as a 256×256 JPEG
+  (`POST /api/account/update_photo`) and shown in the game (friends list, battles) after a restart;
+- **nickname** (the name other players see): once in 60 days (`NameChangeDays`, `users_vk_data.name_changed_at`);
+- **login** and **password**: only with the current password. The login is 3 to 32 letters, digits, `_ - .` and
+  unique whatever its case.
+
 ## Settings
 
 Game host: `services/relay/appsettings.json`, environment variables with the same names, or command line

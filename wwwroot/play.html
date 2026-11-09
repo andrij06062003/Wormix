@@ -27,6 +27,42 @@
         #login .secondary { background: #3a3a3a; color: var(--text); }
         #msg { min-height: 20px; margin-top: 12px; color: var(--error); font-size: 13px; text-align: center; }
         [hidden] { display: none !important; }
+
+        /* Profile: avatar, nickname (once in 60 days), login and password. "Профіль" under the game opens it. */
+        #bar img { width: 20px; height: 20px; border-radius: 4px; object-fit: cover; vertical-align: middle; margin-right: 4px; }
+        #profile { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 16px;
+                   background: rgba(0, 0, 0, .6); overflow: auto; }
+        #profile .card { position: relative; width: min(460px, 100%); box-sizing: border-box; padding: 22px;
+                         background: var(--panel); border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, .6); }
+        #profile h2 { margin: 0 0 16px; font-size: 19px; }
+        #profile h3 { margin: 0 0 8px; font-size: 14px; color: var(--muted); font-weight: 600; }
+        #profile section { margin-top: 16px; padding-top: 14px; border-top: 1px solid #3a3a3a; }
+        #profile label { display: block; margin: 8px 0 4px; color: var(--muted); font-size: 13px; }
+        #profile input:not([type=range]):not([type=file]) { box-sizing: border-box; width: 100%; padding: 8px 10px;
+                         border: 1px solid #444; border-radius: 6px; background: #1b1b1b; color: var(--text); font: inherit; }
+        #profile input:disabled { opacity: .6; }
+        #profile .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+        #profile .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        #profile .note { color: var(--muted); font-size: 12px; margin-top: 6px; }
+        .pbtn { padding: 8px 14px; border: 0; border-radius: 6px; cursor: pointer; font: inherit; font-size: 14px; font-weight: 600;
+                background: #3a3a3a; color: var(--text); }
+        .pbtn.primary { background: var(--accent); color: #1d1d1d; }
+        .pbtn:disabled { opacity: .5; cursor: default; }
+        #pfClose { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; padding: 0; font-size: 16px; }
+        .pfHead { display: flex; gap: 16px; align-items: center; }
+        #pfAva { width: 88px; height: 88px; flex: none; border-radius: 10px; object-fit: cover; background: #333; }
+        #pfName { font-size: 20px; font-weight: 700; overflow-wrap: anywhere; }
+        #pfMeta { color: var(--muted); font-size: 13px; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0 0; }
+        .stats div { padding: 8px 4px; border-radius: 8px; background: #222; text-align: center; }
+        .stats dt { color: var(--muted); font-size: 12px; } .stats dd { margin: 2px 0 0; font-size: 16px; font-weight: 700; }
+        #pfCrop { display: grid; justify-items: center; gap: 10px; margin-top: 12px; }
+        #pfCanvas { width: 200px; height: 200px; border-radius: 10px; cursor: grab; touch-action: none; background: #111; }
+        #pfZoom { width: 200px; accent-color: var(--accent); }
+        #pfMsg { min-height: 18px; margin-top: 14px; font-size: 13px; text-align: center; }
+        #pfMsg.err { color: var(--error); } #pfMsg.ok { color: #7bd17b; }
+        #pfRestart { margin-top: 8px; padding: 10px; border-radius: 8px; background: rgba(240, 160, 32, .12); font-size: 13px; }
+        @media (max-width: 440px) { .stats { grid-template-columns: repeat(2, 1fr); } #profile .two { grid-template-columns: 1fr; } }
     </style>
     <!-- Ruffle: open-source Flash Player emulator (https://ruffle.rs) -->
     <script src="https://unpkg.com/@ruffle-rs/ruffle@0.7.1/ruffle.js"></script>
@@ -47,7 +83,74 @@
 </form>
 
 <div id="game"></div>
-<div id="bar" hidden><span id="who"></span> · <button id="logout" type="button">Вийти</button></div>
+<div id="bar" hidden><img id="barAva" alt=""><span id="who"></span> · <button id="profileBtn" type="button">Профіль</button> · <button id="logout" type="button">Вийти</button></div>
+
+<div id="profile" hidden>
+    <div class="card" role="dialog" aria-modal="true" aria-labelledby="pfTitle">
+        <button id="pfClose" class="pbtn" type="button" title="Закрити (Esc)">✕</button>
+        <h2 id="pfTitle">Мій профіль</h2>
+        <div class="pfHead">
+            <img id="pfAva" alt="Аватарка">
+            <div><div id="pfName"></div><div id="pfMeta"></div></div>
+        </div>
+        <dl class="stats">
+            <div><dt>Рівень</dt><dd id="stLevel">–</dd></div>
+            <div><dt>Рейтинг</dt><dd id="stRating">–</dd></div>
+            <div><dt>Фузи</dt><dd id="stMoney">–</dd></div>
+            <div><dt>Рубіни</dt><dd id="stRubies">–</dd></div>
+        </dl>
+
+        <section>
+            <h3>Аватарка</h3>
+            <div class="row">
+                <button id="pfPick" class="pbtn primary" type="button">Вибрати фото…</button>
+                <span class="note">JPG або PNG, від 100×100</span>
+            </div>
+            <input id="pfFile" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+            <div id="pfCrop" hidden>
+                <canvas id="pfCanvas" width="256" height="256" title="Перетягніть, щоб вибрати частину фото"></canvas>
+                <input id="pfZoom" type="range" min="1" max="4" step="0.01" value="1" aria-label="Масштаб">
+                <div class="row">
+                    <button id="pfSaveAva" class="pbtn primary" type="button">Зберегти аватарку</button>
+                    <button id="pfCancelAva" class="pbtn" type="button">Скасувати</button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3>Нікнейм</h3>
+            <form id="pfNickForm">
+                <input id="pfNick" maxlength="20" required aria-label="Нікнейм">
+                <div id="pfNickNote" class="note">Так вас бачать інші гравці. Змінювати можна раз на 60 днів.</div>
+                <div class="row"><button id="pfNickSave" class="pbtn primary" type="submit">Змінити нікнейм</button></div>
+            </form>
+        </section>
+
+        <section>
+            <h3>Логін і пароль</h3>
+            <form id="pfLoginForm">
+                <label for="pfLogin">Логін (для входу в гру)</label>
+                <input id="pfLogin" maxlength="32" autocomplete="username" required>
+                <label for="pfPass">Новий пароль (порожньо — не змінювати)</label>
+                <div class="two">
+                    <input id="pfPass" type="password" minlength="8" autocomplete="new-password" placeholder="Новий пароль">
+                    <input id="pfPass2" type="password" minlength="8" autocomplete="new-password" placeholder="Ще раз">
+                </div>
+                <label for="pfCurrent">Поточний пароль</label>
+                <input id="pfCurrent" type="password" autocomplete="current-password" required>
+                <div class="row"><button class="pbtn primary" type="submit">Зберегти логін і пароль</button></div>
+            </form>
+        </section>
+
+        <div id="pfMsg"></div>
+        <div id="pfRestart" hidden>
+            <div class="row" style="margin-top:0; justify-content:space-between">
+                <span>У грі зміни з'являться після перезапуску.</span>
+                <button id="pfReload" class="pbtn primary" type="button">Перезапустити гру</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     // Everything (this page, the API at /api/ and the game connections) is served by the game host
@@ -64,20 +167,23 @@
         clear() { try { localStorage.removeItem('wormix_session'); } catch { } }
     };
 
-    async function api(path, { body, token } = {}) {
+    // body: an object (sent as JSON) or FormData (a file upload).
+    async function api(path, { body, token, method = 'POST' } = {}) {
+        const form = body instanceof FormData;
         const res = await fetch(API + path, {
-            method: 'POST',
+            method,
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                ...(body && !form ? { 'Content-Type': 'application/json' } : {}),
                 ...(token ? { 'Authorization': 'Bearer ' + token } : {})
             },
-            body: body ? JSON.stringify(body) : undefined
+            body: form ? body : body ? JSON.stringify(body) : undefined
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
             const err = new Error(data.message || ('HTTP ' + res.status));
             err.status = res.status;
+            err.data = data;
             throw err;
         }
         return data;
@@ -134,6 +240,8 @@
         document.getElementById('bar').hidden = false;
         // The game id is what friends enter in "call by id" to challenge this player.
         document.getElementById('who').textContent = s.login + ' · ID ' + s.id;
+        document.getElementById('barAva').src = photoUrl(null);
+        loadAccount().then(showBarAccount).catch(() => { });
 
         const id = String(s.id);
         const flashvars = {
@@ -212,6 +320,229 @@
         player.ruffle().load({ url: 'vk/1.25.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.25.0/' })
             .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
     }
+
+    // --- Profile -------------------------------------------------------------------------------
+    // Your avatar (cropped to a square here, then uploaded), the nickname other players see (once in 60 days,
+    // the server checks it), the login and the password (both only with the current password).
+    const $ = id => document.getElementById(id);
+    const profileBox = $('profile'), pfMsg = $('pfMsg');
+    let account = null;     // GET /api/account
+    let changed = false;    // the game shows the old avatar and name until it restarts
+
+    // A missing photo comes back as the default picture.
+    const photoUrl = photo => API + 'photos/users/' + encodeURIComponent(photo || 'none');
+    const nickOf = a => [a.social_data?.first_name, a.social_data?.last_name].filter(Boolean).join(' ') || a.login;
+    const dateUk = iso => new Date(iso).toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    async function loadAccount() {
+        const s = store.get();
+        return (await api('account', { token: s.token, method: 'GET' })).data;
+    }
+
+    function showBarAccount(a) {
+        $('barAva').src = photoUrl(a.social_data?.photo);
+        $('who').textContent = nickOf(a) + ' · ID ' + a.id;
+    }
+
+    function say(text, kind = 'err') { pfMsg.textContent = text; pfMsg.className = text ? kind : ''; }
+
+    async function openProfile() {
+        profileBox.hidden = false;
+        say('');
+        cancelCrop();
+        $('pfRestart').hidden = !changed;
+        $('pfClose').focus();
+        try {
+            account = await loadAccount();
+        } catch (err) {
+            return say('Не вдалося завантажити профіль: ' + err.message);
+        }
+        fillProfile();
+    }
+
+    function fillProfile() {
+        const a = account, p = a.user_profile || {}, w = a.worm_data || {};
+        $('pfAva').src = photoUrl(a.social_data?.photo);
+        $('pfName').textContent = nickOf(a);
+        $('pfMeta').textContent = 'Логін ' + a.login + ' · ID ' + a.id;
+        $('stLevel').textContent = w.level ?? '–';
+        $('stRating').textContent = p.rating ?? '–';
+        $('stMoney').textContent = p.money ?? '–';
+        $('stRubies').textContent = p.real_money ?? '–';
+        $('pfNick').value = nickOf(a);
+        $('pfLogin').value = a.login;
+        const next = a.social_data?.next_name_change_at;
+        $('pfNick').disabled = $('pfNickSave').disabled = !!next;
+        $('pfNickNote').textContent = next
+            ? 'Наступна зміна нікнейму: ' + dateUk(next)
+            : 'Так вас бачать інші гравці. Змінювати можна раз на 60 днів.';
+        showBarAccount(a);
+    }
+
+    function closeProfile() {
+        if (profileBox.hidden) return;
+        profileBox.hidden = true;
+        cancelCrop();
+        $('pfCurrent').value = $('pfPass').value = $('pfPass2').value = '';
+        const p = document.querySelector('#game ruffle-player');
+        if (p) p.focus();
+    }
+
+    function markChanged(text) {
+        changed = true;
+        say(text, 'ok');
+        $('pfRestart').hidden = false;
+    }
+
+    $('profileBtn').addEventListener('click', openProfile);
+    $('pfClose').addEventListener('click', closeProfile);
+    profileBox.addEventListener('pointerdown', e => { if (e.target === profileBox) closeProfile(); });
+    profileBox.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); closeProfile(); } });
+    $('pfReload').addEventListener('click', () => location.reload());
+
+    // The avatar: pick a photo, drag and zoom it in the square, save it as a 256x256 JPEG.
+    const canvas = $('pfCanvas'), ctx = canvas.getContext('2d'), zoom = $('pfZoom');
+    const crop = { img: null, base: 1, x: 0, y: 0, zoom: 1 };
+
+    function cancelCrop() {
+        $('pfCrop').hidden = true;
+        crop.img = null;
+        $('pfFile').value = '';
+    }
+
+    function drawCrop() {
+        const { img } = crop;
+        if (!img) return;
+        const k = crop.base * crop.zoom, w = img.naturalWidth * k, h = img.naturalHeight * k;
+        // The photo always covers the whole square.
+        crop.x = Math.min(0, Math.max(canvas.width - w, crop.x));
+        crop.y = Math.min(0, Math.max(canvas.height - h, crop.y));
+        ctx.fillStyle = '#111';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, crop.x, crop.y, w, h);
+    }
+
+    $('pfPick').addEventListener('click', () => $('pfFile').click());
+    $('pfFile').addEventListener('change', () => {
+        const file = $('pfFile').files[0];
+        if (!file) return;
+        say('');
+        const img = new Image();
+        img.onload = () => {
+            URL.revokeObjectURL(img.src);
+            if (img.naturalWidth < 100 || img.naturalHeight < 100) return say('Фото замале: потрібно щонайменше 100×100');
+            crop.img = img;
+            crop.base = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+            crop.zoom = 1;
+            zoom.value = 1;
+            crop.x = (canvas.width - img.naturalWidth * crop.base) / 2;
+            crop.y = (canvas.height - img.naturalHeight * crop.base) / 2;
+            $('pfCrop').hidden = false;
+            drawCrop();
+        };
+        img.onerror = () => say('Це не схоже на фото (потрібен JPG або PNG)');
+        img.src = URL.createObjectURL(file);
+    });
+
+    // Zoom around the middle of the square.
+    zoom.addEventListener('input', () => {
+        const r = Number(zoom.value) / crop.zoom, c = canvas.width / 2;
+        crop.x = c - (c - crop.x) * r;
+        crop.y = c - (c - crop.y) * r;
+        crop.zoom = Number(zoom.value);
+        drawCrop();
+    });
+    canvas.addEventListener('wheel', e => {
+        e.preventDefault();
+        zoom.value = Math.min(4, Math.max(1, crop.zoom * (e.deltaY < 0 ? 1.1 : 1 / 1.1)));
+        zoom.dispatchEvent(new Event('input'));
+    }, { passive: false });
+    let drag = null;
+    canvas.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY }; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener('pointermove', e => {
+        if (!drag) return;
+        const s = canvas.width / canvas.clientWidth;   // drawn at 256 px, shown at 200 px
+        crop.x += (e.clientX - drag.x) * s;
+        crop.y += (e.clientY - drag.y) * s;
+        drag = { x: e.clientX, y: e.clientY };
+        drawCrop();
+    });
+    canvas.addEventListener('pointerup', () => drag = null);
+    canvas.addEventListener('pointercancel', () => drag = null);
+    $('pfCancelAva').addEventListener('click', cancelCrop);
+
+    $('pfSaveAva').addEventListener('click', async () => {
+        const s = store.get();
+        if (!s || !crop.img) return;
+        const btn = $('pfSaveAva');
+        btn.disabled = true;
+        try {
+            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
+            const body = new FormData();
+            body.append('photo', blob, 'avatar.jpg');
+            const r = await api('account/update_photo', { body, token: s.token });
+            account.social_data = { ...account.social_data, photo: r.data?.photo };
+            cancelCrop();
+            fillProfile();
+            markChanged('Аватарку збережено');
+        } catch (err) {
+            say('Не вдалося зберегти аватарку: ' + err.message);
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    $('pfNickForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const s = store.get();
+        const nick = $('pfNick').value.trim().replace(/\s+/g, ' ');
+        if (!nick) return say('Вкажіть нікнейм');
+        if (nick === nickOf(account)) return say('Це ваш поточний нікнейм');
+        if (!confirm('Змінити нікнейм на «' + nick + '»? Наступного разу його можна буде змінити через 60 днів.')) return;
+        try {
+            await api('account', { body: { social_data: { first_name: nick, last_name: '' } }, token: s.token });
+            account = await loadAccount();
+            fillProfile();
+            markChanged('Нікнейм змінено');
+        } catch (err) {
+            const next = err.data?.next_change_at;
+            say(next ? 'Нікнейм можна змінити ' + dateUk(next) : 'Не вдалося змінити нікнейм: ' + err.message);
+        }
+    });
+
+    $('pfLoginForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const s = store.get();
+        const login = $('pfLogin').value.trim(), password = $('pfPass').value, password2 = $('pfPass2').value;
+        const user = {};
+        if (login !== account.login) {
+            if (!/^[\p{L}\p{N}_.\-]{3,32}$/u.test(login)) return say('Логін: від 3 до 32 літер, цифр або _ - .');
+            user.login = login;
+        }
+        if (password || password2) {
+            if (password.length < 8) return say('Новий пароль: щонайменше 8 символів');
+            if (password !== password2) return say('Нові паролі не збігаються');
+            if (password.trim() !== password) return say('Пароль не може починатися чи закінчуватися пробілом');
+            user.password = password;
+            user.password_confirmation = password2;
+        }
+        if (!Object.keys(user).length) return say('Нічого не змінено');
+        try {
+            await api('account', { body: { current_password: $('pfCurrent').value, user }, token: s.token });
+            if (user.login) store.set({ ...s, login: user.login });
+            account = await loadAccount();
+            fillProfile();
+            $('pfCurrent').value = $('pfPass').value = $('pfPass2').value = '';
+            say(user.login && user.password ? 'Логін і пароль змінено' : user.login ? 'Логін змінено: входьте з ним наступного разу' : 'Пароль змінено', 'ok');
+        } catch (err) {
+            const code = err.data?.error;
+            say(code === 'current_password' ? 'Неправильний поточний пароль'
+                : code === 'login_taken' ? 'Цей логін уже зайнятий'
+                : code === 'login_format' ? 'Логін: від 3 до 32 літер, цифр або _ - .'
+                : 'Не вдалося зберегти: ' + err.message);
+        }
+    });
 
     window.addEventListener('load', startGame);
 </script>

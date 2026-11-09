@@ -6,6 +6,7 @@ import (
 	"math/rand/v2"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -150,7 +151,16 @@ func (c *Ctx) accountResource(u *Model) Resp {
 	profile := c.First(defProfile, `where "wormix_user_profiles"."user_id" in (?)`, id)
 	u.SetRelation("user_profile", profile)
 	u.SetRelation("worm_data", c.First(defWorm, `where "wormix_worms_data"."owner_id" in (?)`, id))
-	u.SetRelation("social_data", c.First(defSocial, `where "users_vk_data"."user_id" in (?)`, id))
+	sd := c.First(defSocial, `where "users_vk_data"."user_id" in (?)`, id)
+	if sd != nil {
+		// For the profile page: when the name may be changed again (null: now).
+		var next any
+		if t := nextNameChange(sd); time.Now().UTC().Before(t) {
+			next = t.Format(time.RFC3339)
+		}
+		sd.SetRaw("next_name_change_at", next)
+	}
+	u.SetRelation("social_data", sd)
 	u.SetRelation("battle_info", c.First(defBattleInfo, `where "wormix_users_battle_info"."user_id" in (?)`, id))
 	if profile != nil {
 		team := c.All(defTeam, `where "wormix_users_teams"."user_id" in (?)`, profile.Get("user_id"))
@@ -171,6 +181,21 @@ func (c *Ctx) getAccountInfo() Resp {
 	return c.accountResource(c.boundUser)
 }
 
+// NameChangeDays: a player may change the name the game shows (the nickname) once in this many days.
+const NameChangeDays = 60
+
+// A login: 3 to 32 letters (any alphabet), digits, "_", "-" and ".".
+var loginPattern = regexp.MustCompile(`^[\p{L}\p{N}_.\-]{3,32}$`)
+
+// nextNameChange is when the player may change the name again (zero: now).
+func nextNameChange(sd *Model) time.Time {
+	at, err := time.Parse(time.DateTime, php.ToString(sd.Get("name_changed_at")))
+	if err != nil {
+		return time.Time{}
+	}
+	return at.Add(NameChangeDays * 24 * time.Hour)
+}
+
 func (c *Ctx) updateAccount() Resp {
 	// Players change only their name, login and password here. Money, rubies, rating, the worm and
 	// battles change only through the game.
@@ -180,22 +205,49 @@ func (c *Ctx) updateAccount() Resp {
 		}
 	}
 	c.Validate([]R{
-		{"social_data.first_name", "string|max:100"},
-		{"social_data.last_name", "string|max:100"},
-		{"user.login", "string|max:100"},
+		{"social_data.first_name", "string|max:20"},
+		{"social_data.last_name", "nullable|string|max:20"},
+		{"user.login", "string|max:32"},
 		{"user.password", "nullable|string|min:8"},
 		{"user.password_confirmation", "nullable|string|min:8|required_unless:user.password,null|same:user.password"},
 	})
 	u := c.user
+	// The login and the password change only with the current password, so a game left open somewhere
+	// is not enough to take the account over.
+	if c.JSON("user.login") != nil || c.JSON("user.password") != nil {
+		if !CheckPassword(php.ToString(c.JSON("current_password")), u.Get("password")) {
+			return jsonResp(403, php.Assoc("message", "Wrong current password", "error", "current_password"))
+		}
+	}
 	if c.JSON("social_data") != nil {
 		sd := must(c.userSocial(u))
-		sd.Fill(c.JSON("social_data"), "first_name", "last_name", "nickname")
-		c.Save(sd)
+		first, last := php.ToString(c.JSON("social_data.first_name")), php.ToString(c.JSON("social_data.last_name"))
+		if first == "" {
+			first, last = php.ToString(sd.Get("first_name")), php.ToString(sd.Get("last_name"))
+		}
+		if first != php.ToString(sd.Get("first_name")) || last != php.ToString(sd.Get("last_name")) {
+			// The name (what other players know you by) changes once in NameChangeDays.
+			if next := nextNameChange(sd); time.Now().UTC().Before(next) {
+				return jsonResp(429, php.Assoc("message", "The name can be changed once in "+strconv.Itoa(NameChangeDays)+" days",
+					"error", "name_cooldown", "next_change_at", next.Format(time.RFC3339)))
+			}
+			sd.Set("first_name", first)
+			if last == "" {
+				sd.Set("last_name", nil)
+			} else {
+				sd.Set("last_name", last)
+			}
+			sd.Set("name_changed_at", time.Now().UTC().Format(time.DateTime))
+			c.Save(sd)
+		}
 	}
 	if c.JSON("user") != nil {
 		if login := c.JSON("user.login"); login != nil {
-			if c.Count(`select count(*) as aggregate from "users" where "login" = ? and "id" != ?`, login, u.Get("id")) > 0 {
-				return jsonResp(422, php.Assoc("message", "User login must be unique"))
+			if !loginPattern.MatchString(php.ToString(login)) {
+				return jsonResp(422, php.Assoc("message", "The login is 3 to 32 letters, digits, _ - or .", "error", "login_format"))
+			}
+			if c.Count(`select count(*) as aggregate from "users" where lower("login") = lower(?) and "id" != ?`, login, u.Get("id")) > 0 {
+				return jsonResp(422, php.Assoc("message", "User login must be unique", "error", "login_taken"))
 			}
 			u.Set("login", login)
 		}
@@ -315,7 +367,10 @@ func (c *Ctx) vkProfile(userID, first, last, nickname, photo any) *php.Arr {
 	}
 	p := ""
 	if photo != nil {
-		p = c.url("api/photos/" + path + "/" + php.ToString(photo))
+		// A path on the game's own address, not c.url(): the API sits behind the game host, which doesn't pass
+		// the player's Host on, so c.url() named the API's internal address (http://127.0.0.1:8000), which a
+		// player's game can't load (another computer, another origin, http under https).
+		p = "/api/photos/" + path + "/" + php.ToString(photo)
 	}
 	if last == nil {
 		last = ""

@@ -63,8 +63,8 @@ function Start-Part([string]$name, [int]$port, [string]$exe, [string[]]$argument
 }
 
 # --- Checks ---------------------------------------------------------------------------------
-if (-not (Test-Path (Join-Path $ClientDir 'vk\1.05.0\preloader.swf'))) {
-    Fail "Game client not found in $ClientDir (expected vk\1.05.0\preloader.swf). See README.md."
+if (-not (Test-Path (Join-Path $ClientDir 'vk\1.25.0\preloader.swf'))) {
+    Fail "Game client not found in $ClientDir (expected vk\1.25.0\preloader.swf). See README.md."
 }
 $go = Find-Exe 'go' @("$env:ProgramFiles\Go\bin\go.exe")
 if (-not $go) { Fail 'Go not found. Install it with: winget install GoLang.Go' }

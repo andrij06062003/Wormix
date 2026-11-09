@@ -83,6 +83,11 @@ one). A private message while the chat is closed shows a notice at the top of th
 `POST /api/chat {text, to}` (`services/api/internal/app/chat.go`, table `chat_messages`): up to 300 letters,
 5 messages in 10 seconds.
 
+A green dot shows who is in the game: on avatars in the chat, in the chat's "В игре" list (a click starts a private
+conversation) and in a player's profile ("Зараз у грі", or "Востаннє в грі ..."). The page's chat polls tell
+the API who has the game open (`services/api/internal/app/presence.go`): a player counts as in the game for 90 seconds
+after the last one. It is kept in memory, so "last seen" is forgotten when the API restarts.
+
 No VK is left in the 1.25.0 client: the VK group button is hidden, "+" in an empty friend cell copies the game's
 address and your id to send to a friend, and the full screen button works (`client-patches/standalone-125/`).
 

@@ -55,6 +55,8 @@
         #pfAva { width: 88px; height: 88px; flex: none; border-radius: 10px; object-fit: cover; background: #333; }
         #pfName { font-size: 20px; font-weight: 700; overflow-wrap: anywhere; }
         #pfMeta { color: var(--muted); font-size: 13px; }
+        #pfStatus { margin-top: 4px; font-size: 13px; color: var(--muted); }
+        #pfStatus.on { color: #7bd17b; } #pfStatus.on::before { content: "● "; }
         .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0 0; }
         .stats div { padding: 8px 4px; border-radius: 8px; background: #222; text-align: center; }
         .stats dt { color: var(--muted); font-size: 12px; } .stats dd { margin: 2px 0 0; font-size: 16px; font-weight: 700; }
@@ -90,7 +92,15 @@
         .gtab.on { background: #e9cf8f; box-shadow: inset 0 0 0 .2cqw #c99f62; }
         .gtab img, .gmsg img { width: 3.6cqw; height: 3.6cqw; flex: none; border-radius: .6cqw; object-fit: cover; background: #e3c98f;
                                border: .2cqw solid #c99f62; }
-        .gtab span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+        /* An avatar with the green "in the game" dot, like the lamp of the game's friends list. */
+        .gava { position: relative; flex: none; display: flex; }
+        .gava.on::after { content: ""; position: absolute; right: -.35cqw; bottom: -.35cqw; width: 1.3cqw; height: 1.3cqw; border-radius: 50%;
+                          background: radial-gradient(circle at 35% 30%, #b6f36a, #3f9b12 70%); border: .25cqw solid #fbf3dc; }
+        .gsub { margin: 1.2cqw .4cqw .4cqw; padding-top: .9cqw; border-top: .2cqw dashed #e3c98f; color: #8c6233; font-size: 1.3cqw; }
+        .gnone { padding: .2cqw .8cqw; color: #b39468; font-size: 1.25cqw; font-weight: normal; }
+        .ghead small { margin-left: .8cqw; font-size: 1.3cqw; font-weight: normal; color: #b39468; }
+        .ghead small.on { color: #3f9b12; }
+        .gtab > span:not(.gava) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
         .gtab .gnew { flex: none; min-width: 1.8cqw; padding: 0 .4cqw; border-radius: 1cqw; background: #d9342b; color: #fff; font-size: 1.2cqw;
                       line-height: 1.8cqw; text-align: center; }
         .groom { display: grid; place-items: center; width: 3.6cqw; height: 3.6cqw; flex: none; border-radius: .6cqw; background: #7cc242;
@@ -169,7 +179,7 @@
         <h2 id="pfTitle">Мій профіль</h2>
         <div class="pfHead">
             <img id="pfAva" alt="Аватарка">
-            <div><div id="pfName"></div><div id="pfMeta"></div></div>
+            <div><div id="pfName"></div><div id="pfMeta"></div><div id="pfStatus"></div></div>
         </div>
         <dl class="stats">
             <div><dt>Рівень</dt><dd id="stLevel">–</dd></div>
@@ -419,6 +429,12 @@
     // A missing photo comes back as the default picture.
     const photoUrl = photo => API + 'photos/users/' + encodeURIComponent(photo || 'none');
     const nickOf = a => [a.social_data?.first_name, a.social_data?.last_name].filter(Boolean).join(' ') || a.login;
+    const agoUk = iso => {
+        const min = Math.max(1, Math.round((Date.now() - new Date(iso)) / 60000));
+        if (min < 60) return min + ' хв тому';
+        const h = Math.round(min / 60);
+        return h < 24 ? h + ' год тому' : dateUk(iso);
+    };
     const dateUk = iso => new Date(iso).toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' });
 
     async function loadAccount(id) {
@@ -452,6 +468,7 @@
         $('pfAva').src = photoUrl(null);
         $('pfName').textContent = '…';
         $('pfMeta').textContent = '';
+        $('pfStatus').textContent = ''; $('pfStatus').className = '';
         for (const k of ['stLevel', 'stRating', 'stMoney', 'stRubies']) $(k).textContent = '–';
         $('pfClose').focus();
         try {
@@ -469,6 +486,11 @@
         $('pfAva').src = photoUrl(a.social_data?.photo);
         $('pfName').textContent = nickOf(a);
         $('pfMeta').textContent = (own ? 'Логін ' + a.login + ' · ' : '') + 'ID ' + a.id;
+        if (!own) {
+            // services/api/internal/app/presence.go: the server knows who has the game open.
+            $('pfStatus').className = a.online ? 'on' : '';
+            $('pfStatus').textContent = a.online ? 'Зараз у грі' : a.last_seen_at ? 'Востаннє в грі ' + agoUk(a.last_seen_at) : 'Не в грі';
+        }
         $('stLevel').textContent = w.level ?? '–';
         $('stRating').textContent = p.rating ?? '–';
         $('stMoney').textContent = p.money ?? '–';
@@ -656,7 +678,16 @@
     // like the game's windows and in its language. The page asks the server for new messages every few seconds:
     // often while the chat is open, rarely while it is closed (for the unread counts and the notice).
     const chatBox = $('chat');
-    const chat = { me: null, last: 0, msgs: [], users: {}, peer: null, unread: {}, started: false, timer: null, busy: false };
+    const chat = { me: null, last: 0, msgs: [], users: {}, peer: null, unread: {}, started: false, timer: null, busy: false,
+                   online: [] };  // ids (strings) of the players in the game, the most recently seen first
+    const isOnline = id => chat.online.includes(String(id));
+    // An avatar, with the green dot while that player is in the game.
+    const avatar = id => {
+        const box = document.createElement('span');
+        box.className = 'gava' + (isOnline(id) ? ' on' : '');
+        box.append(Object.assign(document.createElement('img'), { src: photoOf(userOf(id)), alt: '' }));
+        return box;
+    };
     const peerKey = m => m.to == null ? null : String(m.from === chat.me ? m.to : m.from);
     const userOf = id => chat.users[id] || { name: 'Игрок ' + id, photo: null };
     const photoOf = u => u.photo || photoUrl(null);
@@ -670,7 +701,11 @@
             const r = await api('chat?after=' + chat.last, { token: s.token, method: 'GET' });
             chat.me = r.me;
             Object.assign(chat.users, r.users || {});
+            const online = (r.online || []).map(String);
+            const onlineChanged = online.join() !== chat.online.join();
+            chat.online = online;
             const fresh = (r.messages || []).filter(m => m.id > chat.last);
+            if (!fresh.length && onlineChanged && !chatBox.hidden) renderChat();
             if (fresh.length) {
                 const first = chat.last === 0;
                 chat.last = fresh[fresh.length - 1].id;
@@ -762,11 +797,18 @@
             tabs.append(el);
         };
         tab(null, Object.assign(document.createElement('b'), { className: 'groom', textContent: '☺' }), 'Общий чат');
-        for (const k of peers) {
-            const u = userOf(k);
-            tab(k, Object.assign(document.createElement('img'), { src: photoOf(u), alt: '' }), u.name);
+        for (const k of peers) tab(k, avatar(k), userOf(k).name);
+        // Everybody in the game: a click starts a private conversation.
+        const others = chat.online.filter(id => id !== String(chat.me));
+        tabs.append(Object.assign(document.createElement('div'), { className: 'gsub', textContent: 'В игре: ' + others.length }));
+        if (!others.length) tabs.append(Object.assign(document.createElement('div'), { className: 'gnone', textContent: 'Пока никого' }));
+        for (const k of others) tab(k, avatar(k), userOf(k).name);
+        const head = $('gHead');
+        head.textContent = chat.peer === null ? 'Общий чат' : 'Личные сообщения: ' + userOf(chat.peer).name;
+        if (chat.peer !== null) {
+            const on = isOnline(chat.peer);
+            head.append(Object.assign(document.createElement('small'), { className: on ? 'on' : '', textContent: on ? '● в игре' : 'не в игре' }));
         }
-        $('gHead').textContent = chat.peer === null ? 'Общий чат' : 'Личные сообщения: ' + userOf(chat.peer).name;
 
         const log = $('gLog');
         const atBottom = log.scrollHeight - log.scrollTop - log.clientHeight < 40;
@@ -781,7 +823,7 @@
             const row = document.createElement('div');
             row.className = 'gmsg' + (mine ? ' mine' : '');
             const who = Object.assign(document.createElement('span'), { className: 'gwho', textContent: u.name });
-            const img = Object.assign(document.createElement('img'), { src: photoOf(u), alt: '' });
+            const ava = avatar(m.from), img = ava.firstChild;
             if (!mine) {
                 // A name or an avatar opens a private conversation with that player.
                 who.title = img.title = 'Написать лично';
@@ -791,7 +833,7 @@
             const body = document.createElement('div');
             body.append(who, Object.assign(document.createElement('time'), { textContent: timeRu(m.at) }),
                 Object.assign(document.createElement('p'), { textContent: m.text }));
-            row.append(img, body);
+            row.append(ava, body);
             log.append(row);
         }
         if (atBottom || shown.length) log.scrollTop = log.scrollHeight;

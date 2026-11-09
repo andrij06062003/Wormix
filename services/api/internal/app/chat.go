@@ -47,9 +47,12 @@ func (c *Ctx) chatMessages(q string, args ...any) []chatMsg {
 }
 
 // chatList is GET api/chat: the messages the player may see (the room and their own private ones) after the
-// id `after`, or the latest ones without it, and the names and photos of everybody who wrote them.
+// id `after`, or the latest ones without it, the names and photos of everybody who wrote them, and who is in
+// the game now (`online`). It also marks the player as in the game (presence.go).
 func (c *Ctx) chatList() Resp {
 	me := php.ToInt(c.user.Get("id"))
+	now := time.Now()
+	c.app.presence.touch(me, now)
 	after, _ := strconv.ParseInt(c.r.URL.Query().Get("after"), 10, 64)
 	var msgs []chatMsg
 	if after > 0 {
@@ -74,7 +77,13 @@ func (c *Ctx) chatList() Resp {
 		}
 		list.Append(php.Assoc("id", m.id, "from", m.from, "to", to, "text", m.text, "at", chatTime(m.at)))
 	}
-	return jsonResp(200, php.Assoc("me", me, "messages", list, "users", c.chatUsers(users)))
+	// The players in the game (with names and photos, for the chat's "В игре" list and the green dots).
+	online := php.NewArr()
+	for _, id := range c.app.presence.onlineIDs(now, onlineListMax) {
+		online.Append(id)
+		users[id] = true
+	}
+	return jsonResp(200, php.Assoc("me", me, "messages", list, "users", c.chatUsers(users), "online", online))
 }
 
 // mergeByID merges two lists sorted by id descending into one sorted ascending.

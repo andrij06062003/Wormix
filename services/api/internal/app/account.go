@@ -161,6 +161,14 @@ func (c *Ctx) accountResource(u *Model) Resp {
 		sd.SetRaw("next_name_change_at", next)
 	}
 	u.SetRelation("social_data", sd)
+	// For the profile page: whether the player has the game open, and when the server last heard from it.
+	uid := php.ToInt(id)
+	var seen any
+	if t := c.app.presence.lastSeen(uid); !t.IsZero() {
+		seen = t.UTC().Format(time.RFC3339)
+	}
+	u.SetRaw("online", c.app.presence.online(uid, time.Now()))
+	u.SetRaw("last_seen_at", seen)
 	u.SetRelation("battle_info", c.First(defBattleInfo, `where "wormix_users_battle_info"."user_id" in (?)`, id))
 	if profile != nil {
 		team := c.All(defTeam, `where "wormix_users_teams"."user_id" in (?)`, profile.Get("user_id"))

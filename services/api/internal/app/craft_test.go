@@ -225,6 +225,25 @@ func TestUpgradeSheep125(t *testing.T) {
 	}
 }
 
+// The races new in 1.25.0 (here the dragon) can be bought, and the hat stays on.
+func TestBuyDragon125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set real_money = 100 where user_id = 1`)
+	d.Exec(`update wormix_worms_data set level = 30, hat = 1003 where owner_id = 1`)
+	st, j := call(t, srv, "POST", "/api/internal/account/buy/race", map[string]any{"RaceId": 7, "MoneyType": 0}, h)
+	if st != 200 || fmt.Sprint(j["data"].(map[string]any)["Result"]) != "0" {
+		t.Fatalf("buy: %d %v", st, j)
+	}
+	var hat, real int64
+	d.QueryRow(`select hat from wormix_worms_data where owner_id = 1`).Scan(&hat)
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
+	if hat != hatByRaceAndHat(1003, 7) || real != 74 {
+		t.Fatalf("hat %d, real money %d", hat, real)
+	}
+}
+
 // The weapons new in the 1.25.0 shop (here the laser gun) can be bought.
 func TestBuyWeapon125(t *testing.T) {
 	srv, d, v := newServer(t)

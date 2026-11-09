@@ -224,6 +224,10 @@ func (d *DB) Seed(ctx context.Context) error {
 			}
 		}
 	}
+	// The 1.25.0 client's races (migrateRaces125 leaves a new database to this).
+	if err := applyRaces125(ctx, d); err != nil {
+		return fmt.Errorf("seed: races 1.25.0: %w", err)
+	}
 
 	// level_awards.json
 	if l, ok := loadJSON("level_awards.json").(*php.Arr); ok {

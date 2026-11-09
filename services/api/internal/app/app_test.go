@@ -200,6 +200,15 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	d.Exec(`delete from migrations where migration = '2026_11_09_140000_add_wormix_races_125'`)
 	// wormix_users_battle_info.last_coop_mission_id (1.25.0 co-op bosses) is in the reference DB already.
 	d.Exec(`delete from migrations where migration = '2026_11_09_150000_add_wormix_coop_progress'`)
+	// And the solo bosses of the 1.25.0 client (21 Dark Knight .. 27).
+	var missions, knight int
+	d.QueryRow(`select count(*) from wormix_missions where mission_id > 20`).Scan(&missions)
+	d.QueryRow(`select count(*) from wormix_missions where mission_id = 21 and required_level = 20 and awards like '%[1067,1]%'`).Scan(&knight)
+	if missions != 7 || knight != 1 {
+		t.Errorf("1.25.0 missions %d (dark knight %d), want 7 (1)", missions, knight)
+	}
+	d.Exec(`delete from wormix_missions where mission_id > 20`)
+	d.Exec(`delete from migrations where migration = '2026_11_09_160000_add_wormix_missions_125'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

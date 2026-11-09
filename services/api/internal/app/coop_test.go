@@ -113,3 +113,52 @@ func TestCoopBoss125(t *testing.T) {
 		t.Fatalf("no battles: state %s, want 1", s)
 	}
 }
+
+// Skipping to a later boss for rubies (BuyUnlockMission): the 1.25.0 solo bosses (21+) and the co-op ones
+// (101+), 10 rubies for each boss skipped.
+func TestUnlockMission125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set real_money = 100 where user_id = 1`)
+	d.Exec(`update wormix_worms_data set level = 20 where owner_id = 1`)
+	d.Exec(`update wormix_users_battle_info set last_mission_id = 19, last_coop_mission_id = 0 where user_id = 1`)
+	unlock := func(mid int) string {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/account/buy/mission", map[string]any{"MissionId": mid}, h)
+		if st != 200 {
+			t.Fatalf("unlock %d: %d %v", mid, st, j)
+		}
+		return fmt.Sprint(j["data"].(map[string]any)["Result"])
+	}
+	var last, coop, real int64
+	read := func() {
+		d.QueryRow(`select last_mission_id, last_coop_mission_id from wormix_users_battle_info where user_id = 1`).Scan(&last, &coop)
+		d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
+	}
+
+	// Dark Knight (21) with Engineer (19) beaten: one boss skipped.
+	if r := unlock(21); r != "0" {
+		t.Fatalf("unlock 21: %s", r)
+	}
+	read()
+	if last != 20 || real != 90 {
+		t.Fatalf("after 21: last %d, real money %d; want 20, 90", last, real)
+	}
+	// The third co-op boss with none beaten: two skipped.
+	if r := unlock(103); r != "0" {
+		t.Fatalf("unlock 103: %s", r)
+	}
+	read()
+	if coop != 102 || real != 70 || last != 20 {
+		t.Fatalf("after 103: coop %d, real money %d, last %d; want 102, 70, 20", coop, real, last)
+	}
+	// Already open, unknown, too expensive.
+	if unlock(102) != "1" || unlock(199) != "1" || unlock(114) != "1" {
+		t.Fatal("a bad unlock went through")
+	}
+	read()
+	if coop != 102 || real != 70 {
+		t.Fatalf("bad unlocks changed something: coop %d, real money %d", coop, real)
+	}
+}

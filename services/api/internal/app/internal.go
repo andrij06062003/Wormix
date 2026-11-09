@@ -603,7 +603,12 @@ func (c *Ctx) buyBattle() Resp {
 }
 
 func (c *Ctx) unlockMission() Resp {
-	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"MissionId", "required|min:1|exists:wormix_missions,mission_id"}})
+	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"MissionId", "required|integer|min:1"}})
+	mid := php.ToInt(c.JSON("MissionId"))
+	if mid > coopBase {
+		return c.unlockCoopMission(mid)
+	}
+	c.Validate([]R{{"MissionId", "exists:wormix_missions,mission_id"}})
 	u := must(c.First(defUser, `where "id" = ?`, c.UserID()))
 	bi := must(c.First(defBattleInfo, `where "wormix_users_battle_info"."user_id" in (?)`, u.Get("id")))
 	worm := must(c.First(defWorm, `where "wormix_worms_data"."owner_id" in (?)`, u.Get("id")))
@@ -615,6 +620,26 @@ func (c *Ctx) unlockMission() Resp {
 	}
 	bi.Set("last_mission_id", php.Sub(c.JSON("MissionId"), int64(1)))
 	p.Set("real_money", php.Sub(p.Get("real_money"), price))
+	c.Save(p)
+	c.Save(bi)
+	return dataResult("Result", int64(0))
+}
+
+// unlockCoopMission is account/buy/mission for a co-op boss of the 1.25.0 client (101+): 10 rubies for
+// every boss skipped, as the client counts it; the co-op progress moves to the one before it.
+func (c *Ctx) unlockCoopMission(mid int64) Resp {
+	uid := c.UserID()
+	m, ok := coopMissionCfg(mid)
+	bi := must(c.First(defBattleInfo, `where "user_id" = ?`, uid))
+	worm := must(c.First(defWorm, `where "owner_id" = ?`, uid))
+	p := must(c.First(defProfile, `where "user_id" = ?`, uid))
+	last := lastCoopMission(bi)
+	price := (mid - 1 - last) * 10
+	if !ok || php.ToInt(worm.Get("level")) < m.requiredLevel || last >= mid || php.ToInt(p.Get("real_money")) < price {
+		return dataResult("Result", int64(1))
+	}
+	bi.Set("last_coop_mission_id", mid-1)
+	p.Set("real_money", php.ToInt(p.Get("real_money"))-price)
 	c.Save(p)
 	c.Save(bi)
 	return dataResult("Result", int64(0))

@@ -118,6 +118,12 @@ var Migrations = []Migration{
 	{Name: "2026_11_09_150000_add_wormix_coop_progress", Fn: migrateCoopProgress},
 	{Name: "2026_11_09_160000_add_wormix_missions_125", Fn: migrateMissions125},
 	{Name: "2026_11_09_170000_add_users_name_changed_at", Fn: migrateNameChangedAt},
+	// The players' chat: the room (to_user_id null) and private messages.
+	{Name: "2026_11_09_180000_create_chat_messages_table", SQL: []string{
+		`create table if not exists "chat_messages" ("id" integer primary key autoincrement not null, "from_user_id" integer not null, "to_user_id" integer, "text" varchar not null, "created_at" datetime, foreign key("from_user_id") references "users"("id") on delete cascade, foreign key("to_user_id") references "users"("id") on delete cascade)`,
+		`create index if not exists "chat_messages_to_user_id_index" on "chat_messages" ("to_user_id")`,
+		`create index if not exists "chat_messages_from_user_id_index" on "chat_messages" ("from_user_id")`,
+	}},
 }
 
 func tableExists(ctx context.Context, q interface {

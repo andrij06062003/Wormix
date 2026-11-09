@@ -179,6 +179,25 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	rr.Close()
 	d.Exec(`delete from migrations where migration = '2026_11_09_130000_add_wormix_recipes_125'`)
+	// And the races of the 1.25.0 client: dragon, robot, rhino and boar, and its prices for the old ones.
+	var races, dragon int
+	d.QueryRow(`select count(*) from wormix_races`).Scan(&races)
+	d.QueryRow(`select count(*) from wormix_races where race_id = 7 and race_name = 'dragon' and price = 2600 and real_price = 26 and required_level = 14`).Scan(&dragon)
+	if races != 10 || dragon != 1 {
+		t.Errorf("1.25.0 races %d (dragon %d), want 10 (1)", races, dragon)
+	}
+	d.Exec(`delete from wormix_races where race_id > 6`)
+	rq, err := ref.Query(`select race_id, price, real_price, required_level from wormix_races`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rq.Next() {
+		var id, price, real, lvl int64
+		rq.Scan(&id, &price, &real, &lvl)
+		d.Exec(`update wormix_races set price = ?, real_price = ?, required_level = ? where race_id = ?`, price, real, lvl, id)
+	}
+	rq.Close()
+	d.Exec(`delete from migrations where migration = '2026_11_09_140000_add_wormix_races_125'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

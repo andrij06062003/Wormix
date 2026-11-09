@@ -114,6 +114,7 @@ var Migrations = []Migration{
 		`insert or ignore into "wormix_weapons" ("id", "name", "is_starter", "hide_in_shop", "price", "real_price", "infinity", "one_day", "required_friends", "required_level", "required_rating", "created_at", "updated_at") values (81, 'Газовая граната', 0, 0, 3000, 30, 1, 0, 0, 13, 0, datetime('now'), datetime('now')), (82, 'Блокиратор', 0, 0, 3600, 36, 1, 0, 0, 14, 0, datetime('now'), datetime('now')), (83, 'Паразит', 0, 0, 3200, 32, 1, 0, 0, 16, 0, datetime('now'), datetime('now')), (94, 'Лазерный луч', 0, 0, 4200, 42, 1, 0, 0, 20, 0, datetime('now'), datetime('now')), (95, 'Каменюк', 0, 0, 3400, 34, 1, 0, 0, 14, 0, datetime('now'), datetime('now')), (96, 'Вакуумная граната', 0, 0, 5200, 52, 1, 0, 0, 20, 0, datetime('now'), datetime('now')), (105, 'Ледяной дождь', 0, 0, 5400, 54, 1, 0, 0, 15, 0, datetime('now'), datetime('now')), (107, 'Заземлитель', 0, 0, 3700, 37, 1, 0, 0, 16, 0, datetime('now'), datetime('now')), (109, 'Гравимина', 0, 0, 2900, 29, 1, 0, 0, 11, 0, datetime('now'), datetime('now'))`,
 	}},
 	{Name: "2026_11_09_130000_add_wormix_recipes_125", Fn: migrateRecipes125},
+	{Name: "2026_11_09_140000_add_wormix_races_125", Fn: migrateRaces125},
 }
 
 func tableExists(ctx context.Context, q interface {

@@ -282,7 +282,13 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		proto.DecodeSelectStuffResult(dataBang(s.post("account/select_stuff", req.JSON()))).Emit(s.out)
 	case proto.CmdChangeRace:
 		req := proto.ReadChangeRace(r)
-		proto.DecodeShortResult(proto.CmdChangeRaceResult, dataBang(s.post("account/buy/race", req.JSON()))).Emit(s.out)
+		// A race the API refuses (one it doesn't know) fails the purchase instead of dropping the session.
+		if v, refused := api.PostRefusable("account/buy/race", req.JSON(), s.sid, s.tokenPtr()); refused {
+			log.Printf("[main %s] race %d refused by the API", s.short(), req.RaceID)
+			proto.ShortResult{Cmd: proto.CmdChangeRaceResult, Result: 1}.Emit(s.out)
+		} else {
+			proto.DecodeShortResult(proto.CmdChangeRaceResult, dataBang(v)).Emit(s.out)
+		}
 	case proto.CmdGetWhoPumpedReaction:
 		req := proto.ReadGetWhoPumpedReaction(r)
 		proto.DecodeWhoPumpedReactionResult(dataBang(s.post("info/pumped_reaction", req.JSON()))).Emit(s.out)

@@ -49,8 +49,8 @@ func applyRaces125(ctx context.Context, q execQuerier) error {
 			return err
 		}
 		if n > 0 {
-			if _, err := q.ExecContext(ctx, `update "wormix_races" set "price" = ?, "real_price" = ?, "required_level" = ?, "updated_at" = ? where "race_id" = ?`,
-				r.price, r.realPrice, r.minLevel, now, r.id); err != nil {
+			if _, err := q.ExecContext(ctx, `update "wormix_races" set "price" = ?, "real_price" = ?, "required_level" = ? where "race_id" = ?`,
+				r.price, r.realPrice, r.minLevel, r.id); err != nil {
 				return err
 			}
 			continue

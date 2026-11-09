@@ -162,3 +162,29 @@ func TestUnlockMission125(t *testing.T) {
 		t.Fatalf("bad unlocks changed something: coop %d, real money %d", coop, real)
 	}
 }
+
+// The 1.25.0 training has five missions (1.05.0 three): -4 and -5 follow -3.
+func TestTraining125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_users_battle_info set last_mission_id = -3, battles_count = 5 where user_id = 1`)
+	d.Exec(`update wormix_worms_data set level = 1 where owner_id = 1`)
+	for _, mid := range []int{-4, -5} {
+		st, j := call(t, srv, "POST", "/api/internal/game/start_battle", map[string]any{"MissionId": mid}, h)
+		if st != 200 {
+			t.Fatalf("start %d: %d %v", mid, st, j)
+		}
+		bid, _ := j["data"].(map[string]any)["BattleId"].(float64)
+		st, j = call(t, srv, "POST", "/api/internal/game/end_battle", map[string]any{"Result": int(bid) + 1, "Type": 0, "ExpBonus": 0,
+			"BattleId": int(bid), "MissionId": mid, "Items": []any{}, "CollectedReagents": []any{}}, h)
+		if st != 200 || fmt.Sprint(j["Status"]) != "OK" {
+			t.Fatalf("end %d: %d %v", mid, st, j)
+		}
+		var last int
+		d.QueryRow(`select last_mission_id from wormix_users_battle_info where user_id = 1`).Scan(&last)
+		if last != mid {
+			t.Fatalf("after %d: last mission %d", mid, last)
+		}
+	}
+}

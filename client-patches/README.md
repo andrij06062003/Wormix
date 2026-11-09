@@ -38,7 +38,11 @@ which adds them (the patch files already have them). With the 1.25.0 classes dec
 We only have the 1.05.0 map files (`wormix-client/vk/storage/levels`). The 1.25.0 client
 knows 34 newer maps (ids 80–114), and battles, missions and bosses pick a random map from its list,
 so they could stop with "error loading map". `MapList.as` (`config.§##r§`, the map list) leaves the
-maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` patches:
+maps after id 79 out of the list it hands out. The bosses still ask for some of those maps by id ("error loading map (id = 96)"),
+so `§5"W§` (get a map by id) hands out one of our maps instead (`STAND_IN`: one with as many worm places as the
+boss level uses; all our maps and the boss maps are 2800x1400). The real files can't be found (not in the
+1.25.0 repo or other public copies); once one is added as `vk/storage/levels/<name>/map.swf`, take its id
+out of `STAND_IN`. Compile it like the `no-vk-125/` patches:
 
     FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
         client-patches/maps-125/MapList.as Wormix.swf Wormix.new.swf 'config.§##r§' && mv Wormix.new.swf Wormix.swf

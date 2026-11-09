@@ -117,6 +117,7 @@ var Migrations = []Migration{
 	{Name: "2026_11_09_140000_add_wormix_races_125", Fn: migrateRaces125},
 	{Name: "2026_11_09_150000_add_wormix_coop_progress", Fn: migrateCoopProgress},
 	{Name: "2026_11_09_160000_add_wormix_missions_125", Fn: migrateMissions125},
+	{Name: "2026_11_09_190000_add_wormix_training_125", Fn: migrateMissions125},
 	{Name: "2026_11_09_170000_add_users_name_changed_at", Fn: migrateNameChangedAt},
 	// The players' chat: the room (to_user_id null) and private messages.
 	{Name: "2026_11_09_180000_create_chat_messages_table", SQL: []string{

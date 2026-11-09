@@ -207,8 +207,13 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	if missions != 7 || knight != 1 {
 		t.Errorf("1.25.0 missions %d (dark knight %d), want 7 (1)", missions, knight)
 	}
-	d.Exec(`delete from wormix_missions where mission_id > 20`)
-	d.Exec(`delete from migrations where migration = '2026_11_09_160000_add_wormix_missions_125'`)
+	var training int
+	d.QueryRow(`select count(*) from wormix_missions where mission_id in (-4, -5) and required_level = 1`).Scan(&training)
+	if training != 2 {
+		t.Errorf("1.25.0 training missions %d, want 2", training)
+	}
+	d.Exec(`delete from wormix_missions where mission_id > 20 or mission_id < -3`)
+	d.Exec(`delete from migrations where migration in ('2026_11_09_160000_add_wormix_missions_125', '2026_11_09_190000_add_wormix_training_125')`)
 	// users_vk_data.name_changed_at (the profile page's name change) is in the reference DB already.
 	d.Exec(`delete from migrations where migration = '2026_11_09_170000_add_users_name_changed_at'`)
 	// So is the chat_messages table (the players' chat).

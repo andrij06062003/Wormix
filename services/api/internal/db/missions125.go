@@ -5,13 +5,16 @@ import (
 	"database/sql"
 )
 
-// missions125 are the solo bosses of the 1.25.0 client that 1.05.0 doesn't have (21 Dark Knight .. 27
-// Symbiote), with the client's level and awards (first win, repeat). Without a row the API refused to
+// missions125 are the missions of the 1.25.0 client that 1.05.0 doesn't have: training -4 and -5, and
+// the solo bosses 21 (Dark Knight) .. 27 (Symbiote), with the client's level and awards (first win, repeat). Without a row the API refused to
 // start or unlock them (exists:wormix_missions) and the core dropped the session.
 var missions125 = []struct {
 	id, level int64
 	awards    string
 }{
+	// Training: 1.05.0 has three of them, 1.25.0 five.
+	{-4, 1, `[{"money":40,"experience":12,"real_money":0,"weapons":[]}]`},
+	{-5, 1, `[{"money":40,"experience":12,"real_money":0,"weapons":[]}]`},
 	{21, 20, `[{"money":0,"experience":140,"real_money":7,"weapons":[[72,8],[80,8],[74,6],[1067,1]]},{"money":130,"experience":70,"real_money":0,"weapons":[[72,3],[80,3],[74,4],[1067,1]]}]`},
 	{22, 20, `[{"money":0,"experience":150,"real_money":7,"weapons":[[72,10],[80,10],[93,4],[1096,1]]},{"money":140,"experience":75,"real_money":0,"weapons":[[72,3],[80,3],[93,2],[1096,1]]}]`},
 	{23, 20, `[{"money":0,"experience":150,"real_money":7,"weapons":[[72,10],[80,10],[84,4],[1103,1]]},{"money":140,"experience":75,"real_money":0,"weapons":[[72,3],[80,3],[84,2],[1103,1]]}]`},

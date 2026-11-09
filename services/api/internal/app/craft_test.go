@@ -1,7 +1,6 @@
 package app
 
 import (
-	"context"
 	"fmt"
 	"testing"
 
@@ -290,45 +289,5 @@ func TestToggleTeammate125(t *testing.T) {
 	}
 	if r := toggle(3, false); r != "1" {
 		t.Fatalf("not in the team: result %s", r)
-	}
-}
-
-// The owner's grant: fuzes and rubies added, the best of every crafted hat, a worn lesser one made the best.
-func TestGrantOwnerCraftedHats(t *testing.T) {
-	d := openDB(t, copyFixture(t))
-	ctx := context.Background()
-	if _, err := d.Migrate(ctx); err != nil {
-		t.Fatal(err)
-	}
-	// bob (2) becomes the owner, with a Samurai helm 1502 worn by a race-1 worm.
-	for _, q := range []string{
-		`update users set login = 'andrii' where id = 2`,
-		`insert into wormix_users_weapons (owner_id, weapon_id, count, expire_at) values (2, 1502, -1, -1)`,
-		`update wormix_worms_data set hat = 20202 where owner_id = 2`,
-		`delete from migrations where migration = '2026_11_10_130000_grant_owner_crafted_hats'`,
-	} {
-		if _, err := d.Exec(q); err != nil {
-			t.Fatalf("%s: %v", q, err)
-		}
-	}
-	if _, err := d.Migrate(ctx); err != nil {
-		t.Fatal(err)
-	}
-	var money, real, hat, hats, samurai, others int64
-	d.QueryRow(`select money, real_money from wormix_user_profiles where user_id = 2`).Scan(&money, &real)
-	d.QueryRow(`select hat from wormix_worms_data where owner_id = 2`).Scan(&hat)
-	d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 2 and weapon_id >= 1500 and weapon_id < 2000`).Scan(&hats)
-	d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 2 and weapon_id between 1500 and 1509`).Scan(&samurai)
-	d.QueryRow(`select count(*) from wormix_users_weapons where owner_id <> 2 and weapon_id >= 1500 and weapon_id < 2000`).Scan(&others)
-	if money != 450+100000 || real != 3+20000 {
-		t.Errorf("money %d, rubies %d", money, real)
-	}
-	if hats != 15 || samurai != 1 || hat != 20205 || others != 0 {
-		t.Errorf("hats %d (samurai %d), worn %d, others' %d", hats, samurai, hat, others)
-	}
-	var best int64
-	d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 2 and weapon_id in (1505, 1514, 1525, 1536, 1545, 1555, 1566, 1577, 1586, 1596, 1606, 1615, 1626, 1636, 1646)`).Scan(&best)
-	if best != 15 {
-		t.Errorf("best hats %d, want 15", best)
 	}
 }

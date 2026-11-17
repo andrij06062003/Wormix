@@ -134,6 +134,8 @@ var Migrations = []Migration{
 	// The girder's and the freezing bazooka's first upgrades (recipes 46 and 91) were missing from
 	// recipes125.json (their entries didn't decompile), so the API refused them (exists:wormix_craft,id).
 	{Name: "2026_11_17_120000_add_wormix_recipes_125_girder_freezer", Fn: migrateRecipes125},
+	// The 1.61.7 client's weapon upgrades (recipes 92-159) and the levels and reagents it differs in.
+	{Name: "2026_11_17_210000_add_wormix_recipes_161", Fn: migrateRecipes161},
 }
 
 func tableExists(ctx context.Context, q interface {

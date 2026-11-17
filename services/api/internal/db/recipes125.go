@@ -26,19 +26,36 @@ func migrateRecipes125(ctx context.Context, tx *sql.Tx) error {
 	if n == 0 {
 		return nil
 	}
-	return applyRecipes125(ctx, tx)
+	return applyRecipes(ctx, tx, "recipes125.json")
 }
 
-// applyRecipes125 writes game/recipes125.json into wormix_craft: a recipe that exists gets the 1.25.0
+// migrateRecipes161 is 2026_11_17_210000_add_wormix_recipes_161: the weapon upgrades of the 1.61.7 client
+// (recipes 92-159), which the API refused, so the client said "an error while saving the data (1)". It runs
+// after the 1.25.0 recipes, as game:init does.
+func migrateRecipes161(ctx context.Context, tx *sql.Tx) error {
+	var n int
+	if err := tx.QueryRowContext(ctx, `select count(*) from "wormix_craft"`).Scan(&n); err != nil {
+		return err
+	}
+	if n == 0 {
+		return nil
+	}
+	if err := applyRecipes(ctx, tx, "recipes125.json"); err != nil {
+		return err
+	}
+	return applyRecipes(ctx, tx, "recipes161.json")
+}
+
+// applyRecipes writes a game/recipesNNN.json into wormix_craft: a recipe that exists gets the file's
 // reagents and levels, a missing one is inserted.
-func applyRecipes125(ctx context.Context, q execQuerier) error {
-	cfg, ok := loadJSON("recipes125.json").(*php.Arr)
+func applyRecipes(ctx context.Context, q execQuerier, name string) error {
+	cfg, ok := loadJSON(name).(*php.Arr)
 	if !ok {
-		return fmt.Errorf("recipes125.json: invalid")
+		return fmt.Errorf("%s: invalid", name)
 	}
 	list, ok := cfg.Val("recipes").(*php.Arr)
 	if !ok {
-		return fmt.Errorf("recipes125.json: no recipes")
+		return fmt.Errorf("%s: no recipes", name)
 	}
 	now := Now()
 	for _, x := range list.Values() {

@@ -304,8 +304,12 @@ func (d *DB) Seed(ctx context.Context) error {
 		}
 	}
 	// The 1.25.0 client's recipes (migrateRecipes125 leaves a new database to this).
-	if err := applyRecipes125(ctx, d); err != nil {
+	if err := applyRecipes(ctx, d, "recipes125.json"); err != nil {
 		return fmt.Errorf("seed: recipes 1.25.0: %w", err)
+	}
+	// And the 1.61.7 client's (migrateRecipes161 likewise).
+	if err := applyRecipes(ctx, d, "recipes161.json"); err != nil {
+		return fmt.Errorf("seed: recipes 1.61.7: %w", err)
 	}
 	log.Printf("game:init: SETUP IS COMPLETED")
 	return nil

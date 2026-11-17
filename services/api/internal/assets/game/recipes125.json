@@ -1,5 +1,5 @@
 {
- "_comment": "Weapon upgrade recipes of the 1.25.0 client (from its recipe config): 54 new ones (38+) and new costs/levels for 17 of 1.05.0's. Applied to wormix_craft by applyRecipes125 (the 2026_11_09_130000_add_wormix_recipes_125 and 2026_11_17_120000_add_wormix_recipes_125_girder_freezer migrations, and game:init after recipes.json).",
+ "_comment": "Weapon upgrade recipes of the 1.25.0 client (from its recipe config): 54 new ones (38+) and new costs/levels for 17 of 1.05.0's. Applied to wormix_craft by applyRecipes(\"recipes125.json\") (the 2026_11_09_130000_add_wormix_recipes_125 and 2026_11_17_120000_add_wormix_recipes_125_girder_freezer migrations, and game:init after recipes.json).",
  "recipes": [
   {
    "id": 1,

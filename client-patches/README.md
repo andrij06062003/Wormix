@@ -94,7 +94,7 @@ item are in `data/lang/messages_ru.xml` (`RETURN_FRIEND_BTN_QTIP`, `USER_PAGE`).
 ## `standalone-161/`: the 1.61.7 client without its preloader
 
 In `wormix-client/vk/1.61.7/Wormix.swf` since build 2026-11-17.2, when 1.61.7 became the default client.
-The page starts `Wormix.swf` directly (its preloader is built for VK and the original servers), and three
+The page starts `Wormix.swf` directly (its preloader is built for VK and the original servers), and some
 things the preloader or Flash Player gave it were missing. Each file is a whole method in FFDec's P-code
 (from `method` to `end ; method`), put in with `-replace` and the method body's index:
 
@@ -104,12 +104,23 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   `clientVersion: "1.61.7"` and `showBanner: Application.§&]§`, an empty function of the client.
 - `LoginParams.pcode` (`§&%X§.§5F§`, body 7326): the Login's extra strings read `Capabilities` and `System`
   values that Ruffle returns as null; it sends `"-"` for each instead.
-- `WeaponUpgrades.pcode` (`§8#o§.§1@§`, body 5944): building an upgrade whose base weapon isn't loaded yet
-  threw at start; it skips that upgrade instead.
+- `BuildUpgrades.pcode` (`§8#o§.§1@§`, `§,&G§`, body 5943, since build 2026-11-17.3): the upgraded weapons are
+  built by cloning the previous level (`getWeapons()[prevUpgradeId]`), going through `recipes`, an object keyed
+  by recipe id. Flash went through it in id order, so a level 1 upgrade was built before its level 2; Ruffle's
+  order differs, so a level 2 met a missing base. Build 2026-11-17.2 skipped those (`WeaponUpgrades.pcode`), and
+  a player who owned one got a blank blue screen. It now goes through the recipes again until nothing more can
+  be built (at most 20 times).
+- `WeaponUpgrades.pcode` (`§8#o§.§1@§`, `§1"U§`, body 5944): building an upgrade whose base is missing returns
+  null instead of throwing (no longer happens with `BuildUpgrades.pcode`; kept as a guard).
+- `Application.log.pcode` (`Application`, `§1%&§`, body 12, since build 2026-11-17.3): the client's own log
+  (`Application.loginfo`/error, including the main menu's caught errors) was an empty function; it goes to the
+  browser console as `WLOG <level>: <text>` (`ExternalInterface.call("console.log", ...)`).
 
     cp Wormix.orig.swf a.swf
     java -jar ffdec-cli.jar -replace a.swf b.swf '§8#o§.§1@§' client-patches/standalone-161/WeaponUpgrades.pcode 5944
     java -jar ffdec-cli.jar -replace b.swf c.swf Application client-patches/standalone-161/Application.onAddedToStage.pcode 16
-    java -jar ffdec-cli.jar -replace c.swf Wormix.swf '§&%X§.§5F§' client-patches/standalone-161/LoginParams.pcode 7326
+    java -jar ffdec-cli.jar -replace c.swf d.swf '§&%X§.§5F§' client-patches/standalone-161/LoginParams.pcode 7326
+    java -jar ffdec-cli.jar -replace d.swf e.swf '§8#o§.§1@§' client-patches/standalone-161/BuildUpgrades.pcode 5943
+    java -jar ffdec-cli.jar -replace e.swf Wormix.swf Application client-patches/standalone-161/Application.log.pcode 12
 
 `Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).

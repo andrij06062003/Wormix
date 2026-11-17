@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+    <message name="COMMON_NAMES" value="Casual,Nomad,Recruit,Poser,Randy,Coaster"/>
+    <!-- панамка -->
+    <message name="NAMES_FOR_HAT_1003" value="Tourist,Redneck,Peasant,Peon,Serf,Camper"/>
+    <!-- звездочет -->
+    <message name="NAMES_FOR_HAT_1025" value="Stargazer,Astronomer,Scholar,Nostradamus,Conjurer,Faquir"/>
+    <!-- японская прическая -->
+    <message name="NAMES_FOR_HAT_1018" value="Jimmy,Genin,Judoist,Judoka,Bruce,Aikidoka"/>
+    <!-- цилиндр -->
+    <message name="NAMES_FOR_HAT_1006" value="Pedant,Dandy,Johnny,Snob,Noble,Tophat"/>
+    <!-- белая шапка -->
+    <message name="NAMES_FOR_HAT_1022" value="Skier,Sprinter,Jumper,Bouncer,Outrunner,Sporty"/>
+    <!-- каска -->
+    <message name="NAMES_FOR_HAT_1004" value="Grunt,Marinet,Armydog,Bayonet,Ramrod"/>
+    <!-- Шлем танкиста -->
+    <message name="NAMES_FOR_HAT_1009" value="Tanky,Gunner,Warrant,Merc,Veteran,Trench"/>
+    <!-- Инопланетный шлем -->
+    <message name="NAMES_FOR_HAT_1005" value="Visitor,Darth,Alien,Humanoid"/>
+    <!-- Бейсбольная кепка -->
+    <message name="NAMES_FOR_HAT_1023" value="Striker,Pitcher,Razorback,Hunkie,Pipeman,Plumber"/>
+    <!-- Шлем викингов -->
+    <message name="NAMES_FOR_HAT_1007" value="Viking,Pagan,Redhead,Axe,Seafarer,Barbarian"/>
+    <!-- Берет девочки -->
+    <message name="NAMES_FOR_HAT_1021" value="Sonya,Brush,Cherry"/>
+    <!-- Берет -->
+    <message name="NAMES_FOR_HAT_1016" value="Bonnet,Artist,Craftster,Hipster,Bard"/>
+    <!-- Маньяк -->
+    <message name="NAMES_FOR_HAT_1010" value="Jack,Psycho,Jason,Freddy,Hatchet,Executioner"/>
+    <!-- Пиратская шапка -->
+    <message name="NAMES_FOR_HAT_1008" value="Pirate,Corsair,Drake,Blackdog,Rum belly,Buccaneer,Rover"/>
+    <!-- Перо индейца -->
+    <message name="NAMES_FOR_HAT_1031" value="Iroquois,Cherokee,Apache,Mohican,Comanche,Sequoia,Chinook"/>
+    <!-- Самурайский шлем -->
+    <message name="NAMES_FOR_HAT_1011" value="Samurai,Ronin,Takeda,Akira,Bushi,Oroku,Ryu"/>
+    <!-- Гангстерская шапка -->
+    <message name="NAMES_FOR_HAT_1024" value="Gangsta,Robber,Bandit,Snoop,Coon,Hooligan,Footpad"/>
+    <!-- Шлем с шипами -->
+    <message name="NAMES_FOR_HAT_1012" value="Juggernaut,Sadist,Dangerous,Furious,Punisher,Thorny"/>
+    <!-- Розовый шлем -->
+    <message name="NAMES_FOR_HAT_1020" value="Valkyria,Brunhilda,Moira"/>
+    <!-- Сомбреро -->
+    <message name="NAMES_FOR_HAT_1029" value="Machete,Sombreros,Mariachi,Fidel,Desperado,Bandolero"/>
+    <!-- Изысканный самурайский шлем -->
+    <message name="NAMES_FOR_HAT_1013" value="Kensai,Shredder,Daime,Shogun"/>
+    <!-- Противогаз -->
+    <message name="NAMES_FOR_HAT_1030" value="Trooper,Toxic,Walter,Chemist,Sniffy"/>
+    <!-- Перья Вождя -->
+    <message name="NAMES_FOR_HAT_1033" value="Chieftain,Eagle Eye,Red Cloud,Rabbit Foot,Falcon Eye"/>
+    <!-- Гладиаторский шлем -->
+    <message name="NAMES_FOR_HAT_1014" value="Gladiator,Hector,Spartan,Tribune,Legate,Centurion"/>
+    <!-- Гладиаторский шлем розовый -->
+    <message name="NAMES_FOR_HAT_1026" value="Spardakus,Legioneer,Troyan,Captain"/>
+    <!-- Повязка банды якудза -->
+    <message name="NAMES_FOR_HAT_1047" value="Yakuza,Dragon,Snake,Takeshi,Hanzo,Pay May"/>
+    <!-- Корона древних -->
+    <message name="NAMES_FOR_HAT_1015" value="Lord,Tzar,Baron,Earl,Grandee,Magnifico,Proudling"/>
+    <!-- Корона древних женская -->
+    <message name="NAMES_FOR_HAT_1017" value="Princess,Lady,Duchess,Countess"/>
+    <!-- Очки Нео -->
+    <message name="NAMES_FOR_HAT_1057" value="Neo,Boss,Chief,Ace,Trump,Tough guy"/>
+    <!-- Огнеупорный шлем -->
+    <message name="NAMES_FOR_HAT_1042" value="Welder,Smelter,Fireproof,Metalsmith,Smoky,Armorer"/>
+    <!-- Шапка-ушанка -->
+    <message name="NAMES_FOR_HAT_1051" value="Ivanov,Sidorov,Zhukov,Boris,Vladimir"/>
+    <!-- Гладиаторский шлем -->
+    <message name="NAMES_FOR_HAT_1064" value="Nord,Brigand,Vandal,Savage,Marauder"/>
+    <!-- Шапка мастера -->
+    <message name="NAMES_FOR_HAT_1002" value="Flash,Meteor,Lightning,Master,Whiz"/>
+    <!-- Гоночный шлем -->
+    <message name="NAMES_FOR_HAT_1062" value="Racer,Driver,Reckless,Diesel"/>
+    <!-- Шлем каскадера -->
+    <message name="NAMES_FOR_HAT_1063" value="Biker,Trickster,Stuntman,Harley"/>
+    <!-- Шапка аса -->
+    <message name="NAMES_FOR_HAT_1000" value="Fiery,Ace,Virtuoso,Radiant,Blaze,Vulcano"/>
+    <!-- Причёска Элвиса -->
+    <message name="NAMES_FOR_HAT_1041" value="Copycat,Lookalike,Imitator,Wannabe,Twin"/>
+    <!-- Шляпа шерифа -->
+    <message name="NAMES_FOR_HAT_1032" value="Policeman,Sheriff,Chuck,Ranger,Overseer"/>
+    <!-- Советская шапка -->
+    <message name="NAMES_FOR_HAT_1050" value="Comrade,Sergeant,Siberian,Grumpy,Muzhik"/>
+    <!-- Повязка ниндзя -->
+    <message name="NAMES_FOR_HAT_1058" value="Ninja,Spy,Shadow,Ghost,Saboteur,Infiltrator,Subverter"/>
+    <!-- Маска шаман кролей -->
+    <message name="NAMES_FOR_HAT_1027" value="Shaman,Houngan,Mambo,Mystic,Powwow,Fetish"/>
+    <!-- Докторская повязка -->
+    <message name="NAMES_FOR_HAT_1056" value="Apothecary,Dentist,Vet,Paramedic,Surgeon"/>
+    <!-- Офицерская фуражка -->
+    <message name="NAMES_FOR_HAT_1052" value="Commander,Colonel,General,Redhat,Major"/>
+    <!-- Шляпа вампира -->
+    <message name="NAMES_FOR_HAT_1055" value="Alucard,Count,Vigilante,Nosferatu,Nightwing,Ghast"/>
+    <!-- Черный ворон -->
+    <message name="NAMES_FOR_HAT_1061" value="Black Crow,Black Doctor,Doctor Beak,Jekyll,Inquisitor"/>
+    <!-- Маска кролика вуду -->
+    <message name="NAMES_FOR_HAT_1028" value="Puppeteer,Koradji,Voodoo,Witchdoctor,Greegree,Warlock"/>
+    <!-- Акваланг -->
+    <message name="NAMES_FOR_HAT_1034" value="Diver,Frogman,Aqualunger,Plunger,Submariner"/>
+    <!-- Маска героя -->
+    <message name="NAMES_FOR_HAT_1066" value="Defender,Avenger,Darkwing,Protector"/>
+    <!-- Нимб -->
+    <message name="NAMES_FOR_HAT_1065" value="Monk,Goody,Vicar,Saint,Devotee"/>
+
+    <!-- 1.18 -->
+
+    <!-- ночная шапка -->
+    <message name="NAMES_FOR_HAT_1129" value="Punisher,Licvidator,Spy,Tactician,Shadow,Avenger,Night Hunter"/>
+    <!-- ночное видение (повторяет ночную шапку) -->
+    <message name="NAMES_FOR_HAT_1084" value="Punisher,Licvidator,Spy,Tactician,Shadow,Avenger,Night Hunter"/>
+    <!-- монах -->
+    <message name="NAMES_FOR_HAT_1102" value="Monk,Hermit,Sensei,Wanderer,Pilgrim,Asigaru"/>
+    <!-- зеленый ирокез -->
+    <message name="NAMES_FOR_HAT_1077" value="Cutthroat,Punk,Thoughy,Rocker,Snake,Madman,Savage"/>
+    <!-- авиатор -->
+    <message name="NAMES_FOR_HAT_1098" value="Navigator,Gastello,Chaser,Bombardier,Pilot,Ace"/>
+    <!-- цветной ирокез -->
+    <message name="NAMES_FOR_HAT_1078" value="Crazy,Thug,Bully,Fiery,Chameleon,Freak,Brute"/>
+    <!-- Капюшон -->
+    <message name="NAMES_FOR_HAT_1095" value="Cape,Marksman,Thief,Night Watcher,Stealthy,Cultist"/>
+    <!-- Крик -->
+    <message name="NAMES_FOR_HAT_1079" value="Chaos,Scream,Nightmare,Scary,Sinister,Skull,Grim"/>
+    <!-- Демонический -->
+    <message name="NAMES_FOR_HAT_1080" value="Tormentor,Imp,Hellraiser,Fallen,Hellhound,Chaotic,Beast"/>
+    <!-- Скафандр -->
+    <message name="NAMES_FOR_HAT_1097" value="Spaceman,Astrogator,Rocketman,Moonwalker,Astronaut,Torpedo"/>
+
+    <!--merc names-->
+    <message name="MERC_NAME_1" value="Coaster"/>
+    <message name="MERC_NAME_2" value="Tourist"/>
+    <message name="MERC_NAME_3" value="Redneck"/>
+    <message name="MERC_NAME_4" value="Grunt"/>
+    <message name="MERC_NAME_5" value="Steiny"/>
+    <message name="MERC_NAME_6" value="Snob"/>
+    <message name="MERC_NAME_7" value="Roamer"/>
+    <message name="MERC_NAME_8" value="Sith"/>
+    <message name="MERC_NAME_9" value="Snoop"/>
+    <message name="MERC_NAME_10" value="Striker"/>
+    <message name="MERC_NAME_11" value="Hipster"/>
+    <message name="MERC_NAME_12" value="Chinook"/>
+    <message name="MERC_NAME_13" value="Tormentor"/>
+    <message name="MERC_NAME_14" value="Gastello"/>
+    <message name="MERC_NAME_15" value="Lubber"/>
+    <message name="MERC_NAME_16" value="Gangster"/>
+    <message name="MERC_NAME_17" value="Backsword"/>
+    <message name="MERC_NAME_18" value="Recruit"/>
+    <message name="MERC_NAME_19" value="Toasty"/>
+    <message name="MERC_NAME_20" value="Brute"/>
+    <message name="MERC_NAME_21" value="Fidel"/>
+    <message name="MERC_NAME_22" value="Bandit"/>
+    <message name="MERC_NAME_23" value="Rusty"/>
+    <message name="MERC_NAME_24" value="Duelist"/>
+    <message name="MERC_NAME_25" value="Vandal"/>
+    <message name="MERC_NAME_26" value="Gagarin"/>
+    <message name="MERC_NAME_27" value="Chemist"/>
+    <message name="MERC_NAME_28" value="Fuzz"/>
+    <message name="MERC_NAME_29" value="Baron"/>
+    <message name="MERC_NAME_30" value="Maradeur"/>
+    <message name="MERC_NAME_31" value="Shaman"/>
+    <message name="MERC_NAME_32" value="Miner"/>
+    <message name="MERC_NAME_33" value="Legate"/>
+    <message name="MERC_NAME_34" value="Footpad"/>
+    <message name="MERC_NAME_35" value="Walter"/>
+    <message name="MERC_NAME_36" value="Snake"/>
+    <message name="MERC_NAME_37" value="Virtuoso"/>
+    <message name="MERC_NAME_38" value="Comrade"/>
+    <message name="MERC_NAME_39" value="Terminator"/>
+    <message name="MERC_NAME_40" value="Smelter"/>
+    <message name="MERC_NAME_41" value="Fiery"/>
+    <message name="MERC_NAME_42" value="Tanky"/>
+    <message name="MERC_NAME_43" value="Crazy"/>
+    <message name="MERC_NAME_44" value="Vitalizer"/>
+    <message name="MERC_NAME_45" value="Cleric"/>
+    <message name="MERC_NAME_46" value="Goblin"/>
+
+    <!-- 1.30 -->
+
+    <!--&lt;!&ndash; SAMURAI_HELM &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1500" value="Киото,Хисао,Банзай,Кенджи,Муто,Шизеку,Даймё,Буси,Онна-бугэйся,Асигару,Хитрец"/>-->
+    <!--&lt;!&ndash; RESPIRATOR &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1510" value="Кислотчик,Хайзенберг,Дым,Химик,Сталкер,Хлор,Стрелок,Выживший,Гелертер"/>-->
+    <!--&lt;!&ndash; PSYKER_HELM &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1520" value="Сетевик,Синт,Штурмовик,Фотон,Квазар,Психо,Манипулятор,Безумец,Пирокенетик,Испепелитель"/>-->
+    <!--&lt;!&ndash; CHAMPION_HELM &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1530" value="Лидер,Олимпиец,Фаворит,Эквит,Бустуарий,Эсседарий,Венатор,Прегенарий,Роланд,Чемпион,Данс,Лавр,Светлый"/>-->
+    <!--&lt;!&ndash; SPEC_OPS &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1540" value="Ратный,Служивый,Взрывник,Связист,Мародёр,Шпион,Диверсант,Наёмник,Пехотинец"/>-->
+    <!--&lt;!&ndash; STEAMPUNK_GLASSES &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1550" value="Лорнет,Стекольщик,Археолог,Химик,Исследователь,Ювелир,Механик,Янсен,Дисперсионный,Отоларинголог,Близорукий"/>-->
+    <!--&lt;!&ndash; NORDIC_HELM &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1560" value="Варяг,Витязь,Норманн,Конунг,Хёвдинг,Хольд,Ёрунд,Сигвальд,Ингвар,Барди,Торгейр"/>-->
+    <!--&lt;!&ndash; FIRESHEEP_HAT &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1570" value="Бубен,Черепок,Мститель,Князь тьмы,Чёрный ангел,Падший,Дух зла,Знамение,Богорог,Огнебык,Чёрт,Ифрит,Искристый"/>-->
+    <!--&lt;!&ndash; FIRE_MASK &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1580" value="Вулкан,Жаркий,Гефест,Адепт,Наместник ада,Вербовщик,Зло,Судья,Исчадие,Пепел,Феникс,Прометей,Сатанист"/>-->
+    <!--&lt;!&ndash; VILE_MASK Зловещий образ &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1590" value="Аспид,Гневный,Дурной,Шаман,Нганга,Врачеватель,Знахарь,Ворожей,Бокор,Хунган,Адепт,Парна,Кукла"/>-->
+    <!--&lt;!&ndash; COMISSAR_HAT &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1600" value="Военком,Следопыт,Ищейка,Дубань,Наместник,Губернатор,Надзиратель,Смотритель,Полковник,Капитан,Лейтенант,Майор,Прапорщик"/>-->
+    <!--&lt;!&ndash; SAPPER_HELM &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1610" value="Тральщик,Подрывник,Минёр,Землекоп,Крот,Проводник,Винченцо,Сапёр,Подкоп,Дефузер,Фитиль,Детонатор"/>-->
+    <!--&lt;!&ndash; GHOST_RAVEN &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1620" value="Видение,Мираж,Призрак,Пожиратель душ,Некромант,Проклятый,Блуждающий,Дух,Чума,Некрозник,Ведьмак,Хулобат,Некромант"/>-->
+    <!--&lt;!&ndash; FIEND_HELM Шлем изверга &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1630" value="Истязатель,Живорез,Палач,Изувер,Зубная фея,Ирод,Лиходей,Рейдер,Изгой,Кованый,Головорез,Щенок"/>-->
+    <!--&lt;!&ndash; HELL_RACER &ndash;&gt;-->
+    <!--<message name="NAMES_FOR_HAT_1640" value="Сорвиголова,Адский гонщик,Винт,Шумахер,Адреналин,Ночной всадник,Блэйз,Одержимый,Сын полуночи,Всевидящий,Спринтер,Шоссейник,Стритрейсер,Автораллист"/>-->
+    <!-- SITH_HOOD -->
+    <!--<message name="NAMES_FOR_HAT_1650" value="Ситх,Воин,Страж,Джедай,Чёрный,Тёмный лорд,Ночник"/>-->
+
+    <!-- 1.31 -->
+    <message name="ARENA_MERC_NAME_1" value="Bucaneer"/>
+    <message name="ARENA_MERC_NAME_2" value="Pathfinder"/>
+    <message name="ARENA_MERC_NAME_3" value="Frost"/>
+    <message name="ARENA_MERC_NAME_4" value="Bomberman"/>
+    <message name="ARENA_MERC_NAME_5" value="Dozer"/>
+    <message name="ARENA_MERC_NAME_6" value="Partisan"/>
+    <message name="ARENA_MERC_NAME_7" value="Pyro"/>
+    <message name="ARENA_MERC_NAME_8" value="Aviator"/>
+    <message name="ARENA_MERC_NAME_9" value="Jason"/>
+
+    <!-- 1.49 -->
+    <message name="ARENA_MERC_EPIC_NAME_1" value="Dionysus"/>
+    <message name="ARENA_MERC_EPIC_NAME_2" value="Oracle"/>
+    <message name="ARENA_MERC_EPIC_NAME_3" value="Steep"/>
+    <message name="ARENA_MERC_EPIC_NAME_4" value="Silent"/>
+    <message name="ARENA_MERC_EPIC_NAME_5" value="Technomonk"/>
+    <message name="ARENA_MERC_EPIC_NAME_6" value="Quarterback"/>
+    <message name="ARENA_MERC_EPIC_NAME_7" value="Swine demon"/>
+    <message name="ARENA_MERC_EPIC_NAME_8" value="Owl"/>
+    <message name="ARENA_MERC_EPIC_NAME_9" value="Bibi"/>
+
+    <!-- 1.57 -->
+    <message name="MERC_NAME_47" value="Jackdaw"/>
+    <message name="MERC_NAME_48" value="Billy"/>
+    <message name="MERC_NAME_49" value="Corpse"/>
+    <message name="MERC_NAME_50" value="Swindler"/>
+    <message name="MERC_NAME_51" value="Toxic"/>
+    <message name="MERC_NAME_52" value="Dwarf"/>
+    <message name="MERC_NAME_53" value="Boruto"/>
+    <message name="MERC_NAME_54" value="Mohel"/>
+    <message name="MERC_NAME_55" value="Spam"/>
+    <message name="MERC_NAME_56" value="Horny"/>
+    <message name="MERC_NAME_57" value="Pigeon"/>
+    <message name="MERC_NAME_58" value="Miaowara"/>
+    <message name="MERC_NAME_59" value="Dahmer"/>
+    <message name="MERC_NAME_60" value="Raw"/>
+    <message name="MERC_NAME_61" value="Naked Gun"/>
+    <message name="MERC_NAME_62" value="Marek"/>
+    <message name="MERC_NAME_63" value="Not A Coaster"/>
+    <message name="MERC_NAME_64" value="Torentino"/>
+    <message name="MERC_NAME_65" value="The Defiant"/>
+    <message name="MERC_NAME_66" value="Short Fuse"/>
+    <message name="MERC_NAME_67" value="Donnie"/>
+    <message name="MERC_NAME_68" value="Livsey"/>
+    <message name="MERC_NAME_69" value="Charon"/>
+    <message name="MERC_NAME_70" value="Lalo"/>
+    <message name="MERC_NAME_71" value="Marley"/>
+    <message name="MERC_NAME_72" value="Balrog"/>
+    <message name="MERC_NAME_73" value="Vaccine"/>
+    <message name="MERC_NAME_74" value="Smaug The Golden"/>
+    <message name="MERC_NAME_75" value="Crusher"/>
+    <message name="MERC_NAME_76" value="Long-eared"/>
+    <message name="MERC_NAME_77" value="Azazel"/>
+    <message name="MERC_NAME_78" value="Jump-Shoot"/>
+    <message name="MERC_NAME_79" value="Rough Shawn"/>
+</dictionary>

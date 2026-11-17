@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <message name = "PARAMS_CHEAT" value = "Ban for character parameters cheating" />
+    <message name = "PROTOCOL_CHEAT" value = "Ban for attempting to hack game protocol" />
+    <message name = "BATTLE_CANCEL" value = "Ban for the use of programs and bugs causing cancellation of combat" />
+    <message name = "BOT_USE" value = "Ban for the bot usage" />
+    <message name = "SEARCH_CHEAT" value = "Ban for using software to search friends" />
+    <message name = "USE_PROGRAMS_FOR_CHEAT" value = "Ban for the use and distribution of game hacks" />
+    <message name = "WARDROBE_CHEAT" value = "Ban for breaking the wardrobe" />
+    <message name = "FRIEND_LIST_CHEAT" value = "Ban for the substitution of the friend list" />
+    <message name = "SHOP_CHEAT" value = "Ban for breaking the game shop" />
+    <message name = "BAN_FOR_CHAT" value = "Ban for the insulting other players" />
+    <message name = "GENERAL_BAN" value = "Ban for violating game rules" />
+    <message name = "BAN_END_DATE" value = "Ban ends on:" />
+    <message name = "HELP_FOR_BAN">
+        <![CDATA[You can send a request to remove the ban in private messages of the official group: <a href='https://vk.ru/club13842325' target = '_ blank'><font color = '#5197FF'>https://vk.ru/club13842325</font></a>]]>
+    </message>
+    <message name="USER_ID" value="Your game ID {id}"/>
+</dictionary>

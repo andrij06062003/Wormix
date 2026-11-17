@@ -340,7 +340,12 @@
         loadAccount().then(showBarAccount).catch(() => { });
 
         const id = String(s.id);
-        const flashvars = {
+        // play.html?161 runs the 1.61.7 client (being ported; the 1.25.0 one is the default).
+        const v161 = new URLSearchParams(location.search).has('161');
+        const flashvars = v161 ? {
+            // Its "none" social network: no VK, the game takes the player's id and auth key from here.
+            user_id: id, _masterKey: authKey, _social_type: 'none', _lang: 'ru', _app_mode: 'web'
+        } : {
             api_id: '2', api_settings: '8479', viewer_type: '2', sid: 'smtp', secret: 'smtp',
             access_token: '', user_id: id, viewer_id: id, group_id: '0', is_app_user: '1',
             language: '0', parent_language: '0', ad_info: '', is_secure: '0', ads_app_id: 'smtp',
@@ -362,7 +367,14 @@
             // Flash aborts scripts that run longer than 15 s. Building the destructible map is heavy
             // and slower in Ruffle than in the old Flash Player, so allow more time.
             maxExecutionDuration: 120,
-            urlRewriteRules: [
+            urlRewriteRules: v161 ? [
+                [new RegExp('^https?://[^/]+/vk/1\\.61\\.7/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/1.61.7/Wormix.swf?b=' + CLIENT_BUILD],
+                [new RegExp('^https?://[^/]+/vk/storage/levels/([^/?]+)/map[0-9]*\\.swf(\\?.*)?$'), location.origin + '/vk/storage/levels/$1/map.swf'],
+                // The original game's addresses built into the client: its files and its achievements server.
+                [new RegExp('^https?://tesla\\.rmart\\.ru/engine/1\\.61\\.7/(.*)$'), location.origin + '/vk/1.61.7/$1'],
+                [new RegExp('^https?://tesla\\.rmart\\.ru/engine/storage/(.*)$'), location.origin + '/vk/storage/$1'],
+                [new RegExp('^https?://(my|tesla)\\.rmart\\.ru(:[0-9]+)?/(.*)$'), location.origin + '/$3'],
+            ] : [
                 // Cloudflare tells browsers to keep .swf files for 4 hours, so a patched Wormix.swf would reach
                 // players hours later. Ask for it with the build number: change CLIENT_BUILD with every patch.
                 [new RegExp('^https?://[^/]+/vk/1\\.25\\.0/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/1.25.0/Wormix.swf?b=' + CLIENT_BUILD],
@@ -381,7 +393,12 @@
             // the game host (ws://<host>/<port>), which forwards them to wormix-core.
             // The game has wormixtest.ru built in; these entries send it to our own server instead.
             // Ports built into the preloader: 49196, 49197 main, 49198 PvP, 49199 achievements.
-            socketProxy: [49196, 49197, 49198, 49199, 49297, 49298, 49299, 49300].flatMap(port =>
+            // 1.61.7: main server my.rmart.ru:6020 and PvP my.rmart.ru:6002 (the preloader's tesla.rmart.ru
+            // 60101 and 60102 too), sent to our main (49197) and PvP (49198) servers.
+            socketProxy: v161 ? [['my.rmart.ru', 6020, 49197], ['my.rmart.ru', 6002, 49198],
+                ['tesla.rmart.ru', 60101, 49197], ['tesla.rmart.ru', 60102, 49198]].map(([host, port, to]) => ({
+                    host, port, proxyUrl: RELAY + '/' + to
+                })) : [49196, 49197, 49198, 49199, 49297, 49298, 49299, 49300].flatMap(port =>
                 ['wormixtest.ru', 'battle.wormixtest.ru', 'localhost', '127.0.0.1'].map(host => ({
                     host, port, proxyUrl: RELAY + '/' + port
                 })))
@@ -413,7 +430,11 @@
         // the whole screen. Put the game box in full screen instead, so the CSS above sets the shape.
         player.requestFullscreen = options => box.requestFullscreen(options);
         player.webkitRequestFullscreen = options => box.webkitRequestFullscreen && box.webkitRequestFullscreen(options);
-        player.ruffle().load({ url: 'vk/1.25.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.25.0/' })
+        // 1.61.7 starts without its preloader (built for VK and the original servers).
+        const start = v161
+            ? { url: 'vk/1.61.7/Wormix.swf?b=' + CLIENT_BUILD, parameters: flashvars, base: 'vk/1.61.7/' }
+            : { url: 'vk/1.25.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.25.0/' };
+        player.ruffle().load(start)
             .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
     }
 

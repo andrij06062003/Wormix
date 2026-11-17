@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <message name="BONUS.SPEED" value="Speed"/>
+    <message name="BONUS.POISON_DEFENSE" value="Poison protection"/>
+    <message name="BONUS.FROST_DEFENSE" value="Cold protection"/>
+    <message name="BONUS.MIGHTY_JUMP" value="Mighty jump"/>
+    <message name="BONUS.EXTRA_JUMP" value="Extra jump"/>
+    <message name="BONUS.EXTRA_DRAGON_FLY_UPSWING" value="Dragon upswing"/>
+    <message name="BONUS.WATER_BREATH" value="Underwater breathing"/>
+    <message name="BONUS.SLOW_PROTECTION" value="Protects from slowing"/>
+    <message name="BONUS.HEAL" value="Healing bonus"/>
+    <message name="BONUS.SHOCK_DAMAGE" value="Shock power"/>
+    <message name="BONUS.SHOCK_DEFENSE" value="Shock protection"/>
+    <message name="BONUS.AIR_DAMAGE" value="Air strikes"/>
+    <message name="BONUS.AIR_DEFENSE" value="Air defense"/>
+    <message name="BONUS.POISON_DAMAGE" value="Poison power"/>
+    <message name="BONUS.FIRE_DAMAGE" value="Fire power"/>
+    <message name="BONUS.FIRE_DEFENSE" value="Fire reduction"/>
+    <message name="BONUS.LEECH" value="Vampirism"/>
+    <message name="BONUS.DODGE" value="Dodge chance"/>
+    <message name="BONUS.REGENERATION" value="Regeneration"/>
+    <message name="BONUS.EXPLOSION_DEATH" value="Explodes on unit's death"/>
+    <message name="BONUS.PENETRATION" value="Penetration"/>
+    <message name="BONUS.WATER_PROTECTION" value="Saves from drowning once per battle, priced at 40% of full fighter hit points"/>
+    <message name="BONUS.FROST_DAMAGE" value="Frost power"/>
+    <message name="BONUS.SQUAD_ATTACK" value="Squad attack"/>
+    <message name="BONUS.SQUAD_ARMOR" value="Squad armor"/>
+    <message name="BONUS.REACTION_ADDITION" value="Reaction level"/>
+    <message name="BONUS.REACTION_REDUCTION" value="Enemy's reaction"/>
+    <message name="BONUS.CRITICAL_HIT" value="Every 4th attack deals {value}% more damage"/>
+    <message name="BONUS.CRITICAL_HIT2" value="Every 2nd attack deals {value}% more damage"/>
+    <message name="BONUS.CRITICAL_HIT3" value="Every 3th attack deals {value}% more damage"/>
+    <message name="BONUS.CRITICAL_HIT10" value="Every 10th attack deals {value}% more damage"/>
+    <message name="BONUS.DAMAGE_BLOCK" value="Blocks {value} damage from every 3rd attack"/>
+    <message name="BONUS.REPELL" value="Repell"/>
+    <message name="BONUS.CIRCUS_WEAPON_DAMAGE" value="Circus cannon damage"/>
+    <message name="BONUS.REVENGE_DAMAGE" value="Revenge power"/>
+    <message name="BONUS.REVIVAL_HP" value="Revived health"/>
+    <message name="BONUS.HAM_HEAL" value="When your life drops below 30% restores {value} health and is replaced with other item"/>
+    <message name="BONUS.HAM_HEAL05" value="When your life drops below 50% restores {value} health and is replaced with other item"/>
+    <message name="BONUS.HAM_HEAL06" value="When your life drops below 60% restores {value} health and is replaced with other item"/>
+    <message name="BONUS.WATER_PROTECTION_FIRST_ACT" value="Protection from water until unit's first turn, priced at 20% of full fighter hit points"/>
+    <message name="BONUS.BOUNCE_PROTECTION" value="Gravity protection"/>
+    <message name="BONUS.POISONING_ADDITION" value="Poison duration (enemy)"/>
+    <message name="BONUS.POISONING_REDUCTION" value="Poison duration (self)"/>
+    <message name="BONUS.IMMOBILITY_ADDITION" value="Frost duration (enemy)"/>
+    <message name="BONUS.IMMOBILITY_REDUCTION" value="Frost duration (self)"/>
+    <message name="BONUS.FUEL" value="Additional fuel"/>
+    <message name="BONUS.DRAGON_FLY_SPEED" value="Dragon flight speed"/>
+    <message name="BONUS.DEVICE_DURATION" value="Lifetime of devices"/>
+    <message name="BONUS.WEAPON_DEVICE_DURATION" value="Lifetime of mechanisms"/>
+
+    <message name="HAT.VOODOO" value="Voodoo rabbit mask"/>
+    <message name="HAT.MASK_SHAMAN_RABBITS" value="Rabbit shaman mask"/>
+    <message name="HAT.SOMBRERO" value="Sombrero"/>
+    <message name="HAT.MUZZLE" value="Gas mask"/>
+    <message name="HAT.INDIAN" value="Indian feather"/>
+    <message name="HAT.SHERIFF" value="Sheriff's hat"/>
+    <message name="HAT.CHIEFTAIN" value="Chieftain's feathers"/>
+    <message name="HAT.AQUALUNG" value="Aqualung"/>
+    <message name="HAT.ACE" value="Helm of the Ace"/>
+    <message name="HAT.PANAMA" value="Panama"/>
+    <message name="HAT.SIMPLEHELM" value="Combat helm"/>
+    <message name="HAT.CYLINDER" value="Top hat"/>
+    <message name="HAT.TANKHELM" value="Tankman helmet"/>
+    <message name="HAT.ALIEN" value="Alien helm"/>
+    <message name="HAT.VIKING" value="Viking helm"/>
+    <message name="HAT.MONSTER" value="Ripper's mask"/>
+    <message name="HAT.PIRATE" value="Pirate hat"/>
+    <message name="HAT.SAMURAI" value="Samurai helm"/>
+    <message name="HAT.SPIKES" value="Spiked helm"/>
+    <message name="HAT.ELEGANT_SAMURAI" value="Exquisite samurai helm"/>
+    <message name="HAT.LEGIONER" value="Legioner helm"/>
+    <message name="HAT.ELEGANT_LEGIONER" value="Exquisite legioner helm"/>
+    <message name="HAT.CROWN" value="Ancient crown"/>
+    <message name="HAT.MASTER" value="Master's helm"/>
+    <message name="HAT.ARTIST" value="Beret"/>
+    <message name="HAT.CROWN_PRINCESS" value="Princess crown"/>
+    <message name="HAT.JAPAN" value="Japanese hairstyle"/>
+    <message name="HAT.PINK_HAT" value="Pink hat"/>
+    <message name="HAT.PINK_HELMET" value="Pink helm"/>
+    <message name="HAT.GIRLBERRET" value="Beret"/>
+    <message name="HAT.WHITEHAT" value="White hat"/>
+    <message name="HAT.WIZARD" value="Astrologer hat"/>
+    <message name="HAT.RED_CAP" value="Baseball cap"/>
+    <message name="HAT.GANSTER" value="Gangster hat"/>
+    <message name="HAT.ELVIS" value="Elvis hair"/>
+    <message name="HAT.FIREPROOF_HELMET" value="Fireproof helmet"/>
+    <message name="HAT.SOVIET" value="Soviet hat"/>
+    <message name="HAT.RUSSIAN" value="Ushanka"/>
+    <message name="HAT.OFFICER" value="Saucer cap"/>
+    <message name="HAT.BOSS_PIRATE" value="Hat of the pirate captain"/>
+    <message name="HAT.BOSS_ILLUSIONIST_CYLINDER" value="Illusionist's top hat"/>
+    <message name="HAT.BOSS_SHAMAN_VOODOO_MASK" value="Mask of voodoo shaman"/>
+    <message name="HAT.BOSS_VIKING" value="Viking greathelm"/>
+    <message name="HAT.BOSS_WIND_MASTER" value="Wind Master's helm"/>
+    <message name="HAT.BOSS_GHOST" value="Mask of ancient ghost"/>
+    <message name="HAT.BOSS_KING_DEAD" value="Zombie King's crown"/>
+    <message name="HAT.BOSS_REVIVED_CAPTAIN" value="Cap of the revived captain"/>
+    <message name="HAT.BOSS_ROMEO" value="Romeo's hat"/>
+    <message name="HAT.BOSS_JUILET" value="Juliet's hat"/>
+    <message name="HAT.VAMPIRE" value="Vampire's hat"/>
+    <message name="HAT.DOCTOR_ARMBAND" value="Doctor's headband"/>
+    <message name="HAT.NEO" value="Neo's sunglasses"/>
+    <message name="HAT.NINJA_TURTLES" value="Ninja headband"/>
+    <message name="HAT.BOSS_GUARDIAN" value="Guardian's helm"/>
+    <message name="HAT.BOSS_ENGINEER" value="Engineer's helmet"/>
+    <message name="HAT.BLACK_RAVEN" value="Black raven"/>
+    <message name="HAT.CHROME_HELMET" value="Chrome helmet"/>
+    <message name="HAT.RED_RACING_HELMET" value="Racing helmet"/>
+    <message name="HAT.HELMET_STUNT" value="Helmet stunt"/>
+    <message name="HAT.GLADIATOR_HELMET" value="Gladiator helmet"/>
+
+    <!-- off hand -->
+    <message name="ARTIFACT.BROKEN_SWORD" value="Broken sword"/>
+    <message name="ARTIFACT.TRAINING_SHIELD" value="Training shield"/>
+    <message name="ARTIFACT.WOODEN_SHIELD" value="Wooden shield"/>
+    <message name="ARTIFACT.WHINGER" value="Whinger"/>
+    <message name="ARTIFACT.TALISMAN" value="Talisman"/>
+    <message name="ARTIFACT.SKULL_STAFF" value="Skull staff"/>
+    <message name="HAT.NIMBUS" value="Halo"/>
+    <message name="HAT.HERO_MASK" value="Hero mask"/>
+    <message name="HAT.BOSS_DARK_KNIGHT" value="Black helmet"/>
+    <message name="HAT.BOSS_PALADIN" value="Paladin's helmet"/>
+    <message name="HAT.BOSS_HACKER" value="Hacker's glasses"/>
+    <message name="HAT.BOSS_THIEF" value="Thief's mask"/>
+
+    <!-- 1.9.0 -->
+    <message name="HAT.BOSS_PHANTOM" value="Phantom mask"/>
+    <message name="HAT.LAVA_JAW" value="Lava jaw"/>
+    <message name="HAT.PSI_BIOTIC" value="Biotic helm"/>
+    <message name="HAT.BOSS_PSI_TELEPATHIST" value="Telepathist helm"/>
+    <message name="ARTIFACT.BOSS_ARCHIDEMON_SHIELD" value="Archdemon's shiled"/>
+    <message name="HAT.GREEN_IROQUOIS" value="Green iroquois"/>
+    <message name="HAT.COLORED_IROQUOIS" value="Colored iroquois"/>
+    <message name="HAT.MASK_SCREAM" value="Scream"/>
+    <message name="HAT.DEMON_HAT" value="Demonic helm"/>
+    <message name="ARTIFACT.METAL_SHIELD" value="Iron shield"/>
+    <message name="ARTIFACT.JEDI_SWORD" value="Lightsaber"/>
+    <message name="ARTIFACT.PIRATE_HOOK" value="Pirate hook"/>
+    <message name="ARTIFACT.SAW" value="Great saw"/>
+    <message name="ARTIFACT.TOTEM_FIRE" value="Totem of fire"/>
+    <message name="ARTIFACT.TOTEM_POISON" value="Totem of poison"/>
+
+    <!-- 1.11.0 -->
+    <message name="HAT.WOLF_MASTER" value="Master's wolf mantle"/>
+    <message name="HAT.WOLF_ACE" value="Ace's wolf mantle"/>
+    <message name="HAT.WOLF_ELITE" value="Champions's wolf mantle"/>
+
+    <message name="HAT.CRAFT_SAMURAI_HELM" value="Samurai helm"/>
+    <message name="HAT.CRAFT_RESPIRATOR" value="Respirator"/>
+    <message name="HAT.CRAFT_PSYKER_HELM" value="Psyker helm"/>
+    <message name="HAT.CRAFT_CHAMPION_HELM" value="Champion helm"/>
+    <message name="HAT.CRAFT_SPEC_OPS" value="Spec ops helm"/>
+    <message name="ARTIFACT.CRAFT_CHROME_SHIELD" value="Chrome plated shield"/>
+    <message name="ARTIFACT.CRAFT_BLADE" value="Blade"/>
+
+    <!-- 1.12.0 -->
+
+    <message name="HAT.STEAMPUNK_GLASSES" value="Oculus"/>
+    <message name="HAT.NORDIC_HELM" value="Nordic helm"/>
+    <message name="HAT.FIRESHEEP_HAT" value="Burning ram skull"/>
+    <message name="HAT.FIRE_MASK" value="Grand fire helm"/>
+    <message name="ARTIFACT.ARCHIDEMON_SWORD" value="Archdemon sword"/>
+
+    <!-- 1.13 -->
+    <message name="ARTIFACT.PALADIN_SWORD" value="Paladin's sword"/>
+    <message name="HAT.MONK_MASTER" value="Hat of a monk-strategist"/>
+    <message name="HAT.MONK_ACE" value="Hat of a monk-mentor"/>
+    <message name="HAT.MONK_ELITE" value="Hat of a monk-guru"/>
+    <message name="HAT.KNIGHT_MASTER" value="Master's knight helm"/>
+    <message name="HAT.KNIGHT_ACE" value="Ace's knight helm"/>
+    <message name="HAT.KNIGHT_ELITE" value="Champion's knight helm"/>
+    <message name="HAT.HOCKEY_PLAYER_MASTER" value="Master's hockey helm"/>
+    <message name="HAT.HOCKEY_PLAYER_ACE" value="Ace's hockey helm"/>
+    <message name="HAT.HOCKEY_PLAYER_ELITE" value="Champion's hockey helm"/>
+    <message name="HAT.ASSASSIN_MASTER" value="Master's combat helm"/>
+    <message name="HAT.ASSASSIN_ACE" value="Ace's combat helm"/>
+    <message name="HAT.ASSASSIN_ELITE" value="Champion's combat helm"/>
+    <message name="HAT.NIGHT_VISION_DEVICE" value="Night vision"/>
+    <message name="HAT.ILLUSIONIST_GLASSES" value="Illusionist's glasses"/>
+    <message name="HAT.DARK_CULTIST_HOOD" value="Dark cape"/>
+    <message name="HAT.COSMONAUT" value="Spacesuit"/>
+    <message name="HAT.AVIATOR" value="Pilot helm"/>
+    <message name="HAT.MONK" value="Monk hat"/>
+    <message name="HAT.CHEMIST_BOSS" value="Alchemist's top hat"/>
+    <message name="HAT.BOSS_ASSASSIN_HOOD" value="Assassin's cape"/>
+
+    <!-- 1.13 halloween -->
+    <message name="HAT.HALLOWEEN1" value="Witch hat"/>
+    <message name="HAT.HALLOWEEN2" value="Warlock hat"/>
+    <message name="HAT.PUMPKIN_GREEN_WEAPON" value="Vile pumpkin"/>
+    <message name="HAT.PUMPKIN_RED" value="Hellish pumpkin"/>
+    <message name="HAT.PUMPKIN_ORANGE" value="Orange pumpkin"/>
+
+    <!-- 1.15 -->
+    <message name="HAT.WHITE_YETI" value="White yeti helm"/>
+    <message name="HAT.BLUE_YETI" value="Blue yeti helm"/>
+    <message name="HAT.BLACK_YETI" value="Black yeti helm"/>
+    <message name="HAT.WINTER_HAT" value="Winter hat"/>
+    <message name="HAT.PHARAOH" value="Klaft"/>
+    <message name="HAT.COVER_GIFT_BOX" value="Cover from gift box"/>
+    <message name="HAT.EAGLE_HAT" value="Eagle helm"/>
+    <message name="HAT.CHRISTMAS_HELMET" value="Winter helm"/>
+    <message name="HAT.GIFT_BOX_WEAPON" value="Gift box"/>
+    <message name="HAT.CYBORG" value="Cyborg helm"/>
+    <message name="HAT.MINION" value="Terminator helm"/>
+    <message name="HAT.BOMB" value="Bomber hat"/>
+    <message name="ARTIFACT.ROBO_SHIELD" value="Roboshield"/>
+    <message name="ARTIFACT.SNAKE_STAFF" value="Snake staff"/>
+
+    <!--1.16-->
+    <message name="HAT.BOSS_JARL_HELM" value="Jarl's helm"/>
+    <message name="ARTIFACT.BOSS_JARL_SPEAR" value="Jarl's spear"/>
+    <message name="ARTIFACT.JARL_STONE_HAMMER" value="Stone hammer"/>
+    <message name="ARTIFACT.BOSS_ARCHBOT_STUFF" value="Archbot's wand"/>
+    <message name="HAT.BOSS_ARCHBOT" value="Archbot's hat"/>
+
+    <!--1.17-->
+    <message name="HAT.NIGHT" value="Night hat"/>
+
+    <!--1.18-->
+    <message name="HAT.DOCTOR_MASK" value="Doctor mask"/>
+    <message name="HAT.ELECTRIC" value="Electrocap"/>
+    <message name="HAT.PAN" value="Combat pan"/>
+    <message name="ARTIFACT.ICE_SHARD" value="Ice pike"/>
+    <message name="ARTIFACT.JAWBLADE" value="Jaw blade"/>
+    <message name="ARTIFACT.WATER_SWORD" value="Sword of depths"/>
+    <message name="ARTIFACT.VAMPIRIC_SWORD" value="Vampiric sword"/>
+    <message name="ARTIFACT.MORGENSHTERN" value="Morning star"/>
+
+    <!-- 1.19 -->
+    <message name="HAT.BOSS_ENCHANTER_MASK" value="Enchanter's mask"/>
+    <message name="HAT.ARCHIVIST" value="Archivist's helm"/>
+    <message name="ARTIFACT.BOSS_ENCHANTER_FIERY_DAGGER" value="Fiery dagger"/>
+    <message name="ARTIFACT.DEATH_TORCH" value="Death torch"/>
+
+    <!-- 1.20 -->
+    <message name="HAT.EMPEROR" value="Emperor's fez"/>
+    <message name="ARTIFACT.EMPEROR" value="Divine scepter"/>
+    <message name="HAT.SCIENTIST" value="Scientist's glasses"/>
+    <message name="ARTIFACT.SCIENTIST" value="Strange device"/>
+    <message name="HAT.BOSS_SYMBIOTE_HELM" value="Simbiot helm"/>
+    <message name="ARTIFACT.BOSS_SYMBIOTE_BIOBLADE" value="Bioblade"/>
+
+    <!-- 1.21 -->
+    <message name="HAT.VILE_MASK" value="Vile visage"/>
+    <message name="ARTIFACT.FROST_SHIELD" value="Frozen shield"/>
+    <message name="ARTIFACT.BLAZING_AXE" value="Blazing axe"/>
+
+    <!-- 1.23 -->
+    <message name="HAT.COMISSAR_HAT" value="Commissar hat"/>
+    <message name="HAT.HELM_SAPPER" value="Sapper helm"/>
+    <message name="ARTIFACT.SHOVEL_SAPPER" value="Sapper shovel"/>
+
+    <!-- 1.24 -->
+    <message name="HAT.RAVEN_MASK" value="Spectral raven"/>
+    <message name="HAT.MOOSE_HELM" value="Moose helm"/>
+    <message name="HAT.ROBOCHIKEN" value="Mechanochicken"/>
+    <message name="ARTIFACT.HAM_MACE" value="Ham mace"/>
+    <message name="ARTIFACT.PROVOKER_SHIELD" value="Provoking shield"/>
+
+    <!-- 1.25 -->
+    <message name="HAT.FIEND_HELM" value="Fiendish helm"/>
+    <message name="HAT.BOSS_GRAVITY_MASTER_HELM" value="Gravimaster's helm"/>
+    <message name="HAT.HELL_RACER_HELM" value="Hellracer"/>
+    <message name="ARTIFACT.ARMY_KNIFE" value="Army knife"/>
+    <message name="ARTIFACT.GNAWED_BONE" value="Gnawed bone"/>
+    <message name="ARTIFACT.BOSS_GRAVITY_MASTER_SHIELD" value="Gravity shield"/>
+    <message name="ARTIFACT.TANK_SHIELD" value="Tank plate shiled"/>
+    <message name="HAT.BLACK_BANDAGE" value="Black bandage"/>
+    <message name="HAT.SOLAR_PRIEST_HAT" value="Solar crown"/>
+    <message name="ARTIFACT.SOLAR_SICKLE" value="Solar sickle"/>
+    <message name="ARTIFACT.MIRROR_SHIELD" value="Mirror shield"/>
+
+    <!--1.27-->
+    <message name="ARTIFACT.BOSS_ARCTIC_SWORD" value="Arctic sword"/>
+    <message name="HAT.BOSS_ARCTIC_HELM" value="Arctic helm"/>
+
+    <!--1.28-->
+    <message name="HAT.BLACK_SOMBRERO" value="Black sombrero"/>
+
+    <!--1.29-->
+    <message name="ARTIFACT.BLACKSMITH_HAMMER" value="Blacksmith's hammer"/>
+    <message name="HAT.BLACKSMITH_HELM" value="Hellsmith's helm"/>
+
+    <message name="ARTIFACT.BOSS_SOUL_MASTER_STAFF" value="Soul catcher"/>
+    <message name="HAT.BOSS_SOUL_MASTER_HELM" value="Soul master's helm"/>
+
+    <!--1.30-->
+
+    <message name="HAT.SITH_HOOD" value="Darkside mask"/>
+    <message name="ARTIFACT.DEATH_HAMMER" value="Chilling hammer"/>
+
+    <!--1.33-->
+    <message name="ARTIFACT.JEDI_SWORD_RED" value="Duel sword"/>
+    <message name="ARTIFACT.JEDI_SWORD_RED_CROSS" value="Ceremonial sword"/>
+
+    <message name="ARTIFACT.BOTTLE_ROSE" value="Bottle rose"/>
+    <message name="ARTIFACT.PICK" value="Pickaxe"/>
+
+    <message name="HAT.MINER_HELM" value="Miner's helm"/>
+    <message name="HAT.REBEL_BANDAGE" value="Rebellious band"/>
+
+    <!-- 1.34 -->
+    <message name="HAT.SURGEON_BAND" value="Field surgeon"/>
+    <message name="ARTIFACT.HEALER_STAFF" value="Apothecary's staff"/>
+
+    <!-- 1.35 -->
+    <message name="HAT.WOLF_PELT" value="Wolf pelt"/>
+    <message name="HAT.SPORTS_CAP" value="Peaky cap"/>
+
+    <!-- 1.36 -->
+    <message name="HAT.HOCKEY_HELM" value="Hockey helm"/>
+
+    <!-- 1.38 -->
+    <message name="HAT.KNIGHT_HELM" value="Knight great helm"/>
+    <message name="HAT.STRATEGIST_HAT" value="Strategist hat"/>
+    <message name="ARTIFACT.STRATEGIST_FAN" value="Strategist fan"/>
+
+    <!-- 1.39 -->
+    <message name="HAT.FIRE_FIGHTER_HAT" value="Fireman's helm"/>
+    <message name="ARTIFACT.FIRE_FIGHTER_AXE" value="Fireman's axe"/>
+
+    <!-- 1.40 -->
+    <message name="SET.FIRE_FIGHTER" value="Fire fighter"/>
+    <message name="SET.PIRATE" value="Old Barbarossa"/>
+    <message name="SET.EMINENCE" value="The Reverend"/>
+    <message name="SET.VOLT" value="Alessandro Volt"/>
+    <message name="SET.HARDENED_TANKER" value="Seasoned tankman"/>
+    <message name="SET.GRAVES_DIGGER" value="Grave digger"/>
+    <message name="SET.LIGHT_MESSENGER" value="Emissary of light"/>
+    <message name="SET.SHINTO" value="Shinto"/>
+    <message name="SET.DARTH_VADER" value="Darth Vader"/>
+    <message name="SET.TOXIC_CREATURE" value="Toxic creature"/>
+    <message name="SET.TRIPLE_GILLS" value="Triple gills"/>
+    <message name="SET.SERVANT_OF_ODIN" value="Servant of Odin"/>
+    <message name="SET.ELM_STREET" value="Of the Elm street"/>
+    <message name="SET.SEEKER_RESOURCES" value="Resource seeker"/>
+    <message name="SET.VLAD_THE_IMPALER" value="Vlad the Impaler"/>
+    <message name="SET.PATRON_OF_NATURE" value="Nature patron"/>
+    <message name="SET.KILLER_WAYNE" value="Wayne slayer"/>
+    <message name="SET.FIRE_ATRONACH" value="Fire atronach"/>
+    <message name="SET.ERIK_THE_RED" value="Erik the Red"/>
+    <message name="SET.NEIL_ARMSTRONG" value="Neil Armstrong"/>
+    <message name="SET.FUTURE_SOLDIER" value="Soldier of future"/>
+    <message name="SET.PAPUANS_LEADER" value="Papuan chief"/>
+    <message name="SET.RESIDENTS" value="Physician"/>
+    <message name="SET.THIS_IS_WORMIX" value="This is Wormix"/>
+    <message name="SET.SCYTHIAN" value="Scythian"/>
+    <message name="SET.MAGNETO" value="Magneto"/>
+    <message name="SET.SCROOGE" value="Scrooge"/>
+    <message name="SET.SANTA" value="Santa"/>
+    <message name="SET.BOSS_SMITH" value="Hephaestus"/>
+    <message name="SET.IVAN_KOZHEDUB" value="Crazy Ivan"/>
+    <message name="SET.DON_VITO_CORLEONE" value="Don Corleone"/>
+    <message name="SET.SLY" value="Wicked"/>
+    <message name="SET.HABSBURG" value="Habsburg"/>
+    <message name="SET.ANCIENT_WIZARD" value="Ancient master"/>
+    <message name="SET.KVIBERN" value="Qyburn"/>
+
+    <message name="ONLY_FOR_RACE" value="Only for race: {race}"/>
+    <message name="ONLY_FOR_RACES" value="Only for races: {races}"/>
+
+    <message name="ARTIFACT.COLT_M" value="Colt M1911"/>
+    <message name="ARTIFACT.TOPOGRAPHIC_MAP" value="Topographic map"/>
+    <message name="ARTIFACT.FLAMBEAU" value="Flambeau"/>
+    <message name="ARTIFACT.GOLDEN_HORN" value="Golden horn"/>
+    <message name="ARTIFACT.WINE_HORN" value="Wine horn"/>
+    <message name="ARTIFACT.NUNCHAKU" value="Nunchaku"/>
+    <message name="ARTIFACT.PHOSPHORUS_LAMP" value="Phosphorus lamp"/>
+
+    <!-- 1.44 -->
+    <message name="HAT.SUPER_AQUALUNG" value="Super aqualung"/>
+    <message name="ARTIFACT.SUPER_MORGENSHTERN" value="Super morning star"/>
+    <message name="ARTIFACT.MIRAGE" value="Mirage"/>
+    <message name="HAT.JARL_SHOCK" value="Tan's helm of snow"/>
+    <message name="HAT.JARL_BASIC" value="Tan's helm"/>
+    <message name="HAT.JARL_POISON" value="Tan's helm of nature"/>
+    <message name="HAT.JARL_FIRE" value="Tan's helm of fire"/>
+    <message name="HAT.BOSS_MINER_CAP" value="Miner's cap"/>
+    <message name="HAT.BOSS_BURNING_ZOMBIES_FLAME" value="Zombie flame"/>
+    <message name="HAT.BOSS_DEVOTEE" value="Enslaver's helm"/>
+    <message name="HAT.BOSS_DEVOTEE_MINION" value="UFO pilot glasses"/>
+    <message name="EQUIP_STACKING_NOTIFY">
+        <![CDATA[<br/><font color="#A20000"><b>Attention!</b> Duration of identical items sums up!</font>]]>
+    </message>
+
+    <!-- 1.45 -->
+    <message name="HAT.PYROMANCER" value="Celestial pyromancer"/>
+    <message name="ARTIFACT.ABSORBER" value="Jade absorber"/>
+    <message name="HAT.BOSS_YAKUZA_STEEL" value="Steel's headband"/>
+    <message name="HAT.BOSS_YAKUZA_TIGER" value="Tiger's headband"/>
+    <message name="HAT.BOSS_YAKUZA_STORM" value="Storm's headband"/>
+    <message name="PREFIX.SET_ITEMS" value="Set"/>
+    <message name="LIGHT_VERSION" value="light version"/>
+    <message name="ARTIFACT.CURSED_BROOM" value="Cursed broom"/>
+    <message name="ARTIFACT.GATEKEEPER" value="Gatekeeper"/>
+    <message name="ARTIFACT.PLASMA_SHIELD" value="Plasma shield"/>
+    <message name="ARTIFACT.PIRATE_FLAG" value="Pirate flag"/>
+    <message name="ARTIFACT.BATTLE_PAN" value="Combat pan"/>
+    <message name="ARTIFACT.BATTLE_HOT_PAN" value="Red-hot pan"/>
+    <message name="ARTIFACT.CRYSTAL_SKULL" value="Crystal skull"/>
+    <message name="ARTIFACT.ZIRCON_SKULL" value="Zirconium skull"/>
+    <message name="BUNDLE_TIME_REMAINING" value="The set will disappear after {count} {days}"/>
+    <message name="BUNDLE_REMAINING_LAST_DAY" value="The last day is left!"/>
+
+    <!-- 1.46 -->
+    <message name="SET.ALSO_WORMIX" value="This is also Wormix"/>
+    <message name="SET.SEA_STORM" value="Sea storm"/>
+    <message name="SET.POWER_AZTECS" value="The Power of the Aztecs"/>
+    <message name="SET.SHERIFF_FUTURE" value="Sheriff of the future"/>
+    <message name="SET.HOT_REVENGE" value="Hot revenge"/>
+    <message name="SET.ILLUSION" value="Illusion"/>
+    <message name="SET.EASTERN_CUISINE" value="Eastern cuisine"/>
+    <message name="SET.SOVIET_TECHNOLOGIES" value="Soviet technologies"/>
+    <message name="SET.MAGIC_VOODOO" value="Magic voodoo"/>
+    <message name="SET.FUTURE_TECHNOLOGIES" value="Future technologies"/>
+    <message name="SET.CURSE_ZOMBIES" value="The Curse of the Zombies"/>
+    <message name="SET.PREDATOR" value="Predator"/>
+    <message name="SET.NECROMANCER" value="Necromancer"/>
+    <message name="SET.THAI_DRAGON" value="Thai dragon"/>
+    <message name="SET.FELT_TIP_PLASTER" value="Felt-tip plaster"/>
+    <message name="SET.POWER_NORTH" value="The power of the north"/>
+    <message name="SET.MASTER_HELL" value="Master of Hell"/>
+    <message name="SET.LIGHTNING_FORCE" value="Lightning Force"/>
+    <message name="SET.ARCTIC_EARTHQUAKE" value="Arctic earthquake"/>
+    <message name="SET.MAGIC_COLD" value="The magic of cold"/>
+    <message name="SET.MUTATION" value="Mutation"/>
+    <message name="IS_REVIVED" value="(revived)"/>
+    <message name="PREFIX.ANTISET_ITEMS" value="Anti-set"/>
+    <message name="HAT.ALIEN_SPINES" value="Spines of contemplation"/>
+    <message name="HAT.ALIEN_AMBER_LENSES" value="Amber lenses"/>
+    <message name="HAT.FALLING_PYROMANCER" value="Fallen pyromancer"/>
+    <message name="HAT.PHOENIX_COVER" value="Cover of Phoenix"/>
+    <message name="ARTIFACT.POLAR_SHARD" value="Polar shard"/>
+    <message name="ARTIFACT.NEPHRONOZH" value="Nephroknife"/>
+
+    <!-- 1.50 -->
+    <message name="HAT.HOLOGRAM" value="Hologram hat"/>
+    <message name="HAT.MAGMATIC_STETSON" value="Magma stetson"/>
+    <message name="HAT.HOKAGE_HELMET" value="Hokage helmet"/>
+    <message name="BONUS.LEECH_REGENERATION" value="Healing theft"/>
+    <message name="BONUS.REDUCE_HEALING" value="Antihealing"/>
+    <message name="BONUS.ATTACK_POWER_ADDITION" value="Pushback force"/>
+    <message name="BONUS.FORTITUDE" value="Weighting"/>
+    <message name="BONUS.FIRE_DEALER" value="After accumulating 150% of squad health in incoming and outgoing fire damage, sets all units on fire and is replaced by another item."/>
+    <message name="BONUS.PHYSICAL_DEFENSE" value="Physical protection"/>
+    <message name="BONUS.PHYSICAL_DAMAGE" value="Physical damage"/>
+
+    <!-- 1.51 -->
+    <message name="ARTIFACT.BOSS_SCORPION_STAFF" value="Scorpion staff"/>
+    <message name="ARTIFACT.ROBINHOOD_BOW" value="Robin Hood bow"/>
+    <message name="HAT.BOSS_TARANTUL_HELMET" value="Tarantula helmet"/>
+    <message name="HAT.ROBINHOOD_HAT" value="Robin Hood Hat"/>
+    <message name="SET.ROBINHOOD" value="Robin Hood"/>
+
+    <!-- 1.52 -->
+    <message name="ARTIFACT.BIOLAMP" value="Biolamp"/>
+
+    <!-- 1.53 -->
+    <message name="HAT.GUL_MASK" value="Ghoul mask"/>
+    <message name="HAT.COCKED_HAT" value="Cocked hat"/>
+    <message name="ARTIFACT.SPYGLASS" value="Spyglass"/>
+    <message name="ARTIFACT.BULLFIGHTERS_CLOAK" value="Toreador cloak"/>
+    <message name="HAT.RONINS_GARB" value="Ronin vestments"/>
+    <message name="HAT.RUSTY_BOILER" value="Rusty boiler"/>
+
+    <!-- 1.56 -->
+    <message name="ARTIFACT.SOUL_DESTROYER" value="Soul destroyer"/>
+    <message name="ARTIFACT.GLEFA" value="Glaive"/>
+    <message name="ARTIFACT.GLEFA_BLACK" value="Black glaive"/>
+    <message name="BONUS.ANTI_HEAL" value="Ruinousness"/>
+    <message name="BONUS.INVERTER" value="Inverter"/>
+    <message name="ARTIFACT.PULSAR" value="Pulsar"/>
+    <message name="ARTIFACT.DRAGON_STAFF" value="Dragon staff"/>
+    <message name="HAT.NEUROMANCER" value="Neuromancer"/>
+    <message name="BONUS.SQUAD_SPEED" value="Squad speed"/>
+
+    <!-- 1.57 -->
+    <message name="BONUS.DEATH_GRIP" value="Death grip"/>
+    <message name="ARTIFACT.GRIM_REAPER" value="Grim reaper"/>
+    <message name="SET.ARCHIVIST_GARB" value="Archivist's Garb"/>
+    <message name="BONUS.GROUND_DESTROY" value="Increases ground destruction radius with boar and rhino racial ability by {value}%"/>
+    <message name="BONUS.SQUAD_HP" value="Squad health"/>
+    <message name="HAT.INQUISITOR" value="Helm of the Inquisitor"/>
+    <message name="BONUS.ATTACK_BOOSTER" value="Dealing 200 damage per turn increases owner's attack by 3 until the end of battle (max {value} times per battle)"/>
+    <message name="ARTIFACT.SCYTHE" value="Hell Scythe"/>
+
+    <!-- 1.58 -->
+    <message name="BONUS.LEGENDARY_ITEM_FIRST_ACT" value="Replacement of an item when a fighter is first activated with a random legendary one"/>
+    <message name="BONUS.EPIC_ITEM_FIRST_ACT" value="Replacement of an item when a fighter is first activated with a random epic one"/>
+    <message name="HAT.GIFT_BAG" value="Gift bag"/>
+    <message name="ARTIFACT.CHRISTMAS_TREE" value="Christmas tree"/>
+    <message name="SET.CHRISTMAS_MAGIC" value="Christmas magic"/>
+    <message name="BONUS.CHRISTMAS_MOOD" value="Christmas mood"/>
+
+    <!-- 1.60 -->
+    <message name="ARTIFACT.ARCHIDEMON_SPEAR" value="Archdemon's Spear"/>
+    <message name="ARTIFACT.ARCHIDEMON_SCYTHE" value="Archdemon's Scythe"/>
+    <message name="ARTIFACT.ARCHIDEMON_MUG" value="Archdemon's Drink"/>
+    <message name="ARTIFACT.ARCHIDEMON_MUG_EMPTY" value="Archdemon's Mug"/>
+    <message name="HAT.CLOWN_HAIRCUT" value="Clown Wig"/>
+    <message name="HAT.KAMINA_HAIRSTYLE" value="Kamina's Hairstyle"/>
+    <message name="HAT.HURRICANE_HAIRSTYLE" value="Hurricane hairstyle"/>
+
+    <!-- 1.61 -->
+    <message name="ARTIFACT.ADJUSTABLE_WRENCH" value="Adjustable wrench"/>
+
+</dictionary>

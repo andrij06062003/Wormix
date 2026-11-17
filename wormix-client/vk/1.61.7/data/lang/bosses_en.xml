@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <message name="BOSS_PIRATE_NAME" value="Pirate Gang"/>
+    <message name="BOSS_PIRATE_DESCR"
+             value="The Pirate Captain has sunken so many times, that he is not afraid of water anymore."/>
+    <message name="TEAM_NAME_PIRATE1" value="Captain"/>
+    <message name="TEAM_NAME_PIRATE2" value="Cannon fodder"/>
+    <message name="BOT_NAME_PIRATE1" value="Captain"/>
+    <message name="BOT_NAME_PIRATE2" value="Sailor"/>
+    <message name="BOT_NAME_PIRATE3" value="Fallen sailor"/>
+
+    <message name="BOSS_ILLUSIONIST_NAME" value="The Illusionist"/>
+    <message name="BOSS_ILLUSIONIST_DESCR"
+             value="It's hard to kill the Illusionist, when you don't know which one of them is real."/>
+    <message name="TEAM_NAME_ILLUSIONIST1" value="The Illusionist"/>
+    <message name="BOT_NAME_ILLUSIONIST1" value="Illusionist"/>
+
+    <message name="BOSS_SHAMAN_NAME" value="Voodoo shaman"/>
+    <message name="BOSS_SHAMAN_DESCR"
+             value="Shaman relies on pesky demons, which may teleport anywhere, if you attack them"/>
+    <message name="TEAM_NAME_SHAMAN1" value="Voodoo shaman"/>
+    <message name="TEAM_NAME_SHAMAN2" value="Summoned forces"/>
+    <message name="BOT_NAME_SHAMAN1" value="Voodoo shaman"/>
+    <message name="BOT_NAME_SHAMAN2" value="Lesser demon"/>
+
+    <message name="BOSS_VIKING_NAME" value="Vikings"/>
+    <message name="BOSS_VIKING_DESCR" value="You're fighting against 3 veterans and your time leaks away."/>
+    <message name="TEAM_NAME_VIKING1" value="Baleog"/>
+    <message name="TEAM_NAME_VIKING2" value="Eric"/>
+    <message name="TEAM_NAME_VIKING3" value="Olaf"/>
+    <message name="BOT_NAME_VIKING1" value="Baleog"/>
+    <message name="BOT_NAME_VIKING2" value="Eric"/>
+    <message name="BOT_NAME_VIKING3" value="Olaf"/>
+
+    <message name="BOSS_WIND_MASTER_NAME" value="Wind Master"/>
+    <message name="BOSS_WIND_MASTER_DESCR" value="Wind is not an ally anymore - it serves the Wind Master!"/>
+    <message name="TEAM_NAME_WIND1" value="Wind Master"/>
+    <message name="TEAM_NAME_WIND2" value="Master's Guard"/>
+    <message name="BOT_NAME_WIND1" value="Wind Master"/>
+    <message name="BOT_NAME_WIND2" value="Lieutenant"/>
+    <message name="BOT_NAME_WIND3" value="Accolyte"/>
+
+    <message name="BOSS_SAMURAI_CAT_NAME" value="The Samurai"/>
+    <message name="BOSS_SAMURAI_CAT_DESCR"
+             value="This cat really has 9 lives! This duel's going to be a test of your endurance."/>
+    <message name="TEAM_NAME_SAMURAI_CAT" value="Samurai"/>
+    <message name="BOT_NAME_SAMURAI_CAT" value="Samurai"/>
+
+    <message name="BOSS_MINER_NAME" value="The Miner"/>
+    <message name="BOSS_MINER_DESCR" value="Genius of explosions, which base is well protected by enhanced mines."/>
+    <message name="TEAM_NAME_MINER" value="Miner"/>
+    <message name="BOT_NAME_MINER" value="Miner"/>
+
+    <message name="BOSS_BURNING_ZOMBIES_NAME" value="Burning zombies"/>
+    <message name="BOSS_BURNING_ZOMBIES_DESCR"
+             value="This zombies were possesed by some powerful force. Are you prepared to meteorite shower?"/>
+    <message name="TEAM_NAME_BURNING_ZOMBIES" value="Burning zombies"/>
+    <message name="BOT_NAME_DEMON" value="Zombie"/>
+
+    <message name="BOSS_SOUL_NAME" value="Wandering spirit"/>
+    <message name="BOSS_SOUL_DESCR"
+             value="The Spirit heals his carriers while trying to escape you. Don't give him a chance."/>
+    <message name="TEAM_NAME_SOUL_1" value="Carriers"/>
+    <message name="BOT_NAME_SOUL_1" value="Carrier"/>
+
+    <message name="BOSS_GHOST_NAME" value="Ancient ghost"/>
+    <message name="BOSS_GHOST_DESCR"
+             value="Malicious creature, who managed to subdue the energy of lightning. You simply don't have a chance."/>
+    <message name="TEAM_NAME_GHOST_MAIN" value="Ancient ghost"/>
+    <message name="BOT_NAME_GHOST_MAIN" value="Ancient ghost"/>
+    <message name="TEAM_NAME_GHOST_ACOLYTE" value="Servants"/>
+    <message name="BOT_NAME_GHOST_ACOLYTE" value="Servant"/>
+
+    <message name="BOSS_YAKUZA_NAME" value="Yakuza"/>
+    <message name="BOSS_YAKUZA_DESCR"
+             value="The gang members are tightly linked to each other. By killing one of them, you make others stronger."/>
+    <message name="TEAM_NAME_YAKUZA_TIGER" value="Tiger"/>
+    <message name="BOT_NAME_YAKUZA_TIGER" value="Tiger"/>
+    <message name="TEAM_NAME_YAKUZA_STEEL" value="Steel"/>
+    <message name="BOT_NAME_YAKUZA_STEEL" value="Steel"/>
+    <message name="TEAM_NAME_YAKUZA_STORM" value="Storm"/>
+    <message name="BOT_NAME_YAKUZA_STORM" value="Storm"/>
+
+    <message name="BOSS_ROMEO_JULIET_NAME" value="Romeo and Juliet"/>
+    <message name="BOSS_ROMEO_JULIET_DESCR"
+             value="One of the best mercenary teams. Noone has unraveled their secret yet."/>
+    <message name="TEAM_NAME_ROMEO" value="Romeo"/>
+    <message name="BOT_NAME_ROMEO" value="Romeo"/>
+    <message name="TEAM_NAME_JULIET" value="Juliet"/>
+    <message name="BOT_NAME_JULIET" value="Juliet"/>
+
+    <message name="BOSS_KING_DEAD_NAME" value="Zombie King"/>
+    <message name="BOSS_KING_DEAD_DESCR" value="You think you can handle the horde of zombies and King's black magic?"/>
+    <message name="TEAM_KING_DEAD_MINIONS" value="King's guard"/>
+    <message name="BOT_KING_DEAD_SUMMONER" value="Summoner"/>
+    <message name="BOT_KING_DEAD_MINION" value="Minion"/>
+
+    <message name="BOSS_REVIVED_CAPTAIN_NAME" value="Revived Captain"/>
+    <message name="BOSS_REVIVED_CAPTAIN_DESCR" value="The Old Pirate has returned with extra powers! Revenge!"/>
+
+    <message name="BOSS_SERGEANT_NAME" value="Sergeant"/>
+    <message name="BOSS_SERGEANT_DESCR"
+             value="Sergeant is protected by the loyal guard and brand new invisible guarding bots!"/>
+    <message name="TEAM_SERGEANT_NAME_1" value="Sergeant"/>
+    <message name="BOT_SERGEANT_NAME_1" value="Sergeant"/>
+    <message name="TEAM_SERGEANT_NAME_2" value="Guard"/>
+    <message name="BOT_SERGEANT_NAME_2" value="Corporal"/>
+
+    <message name="BOSS_FARMER_NAME" value="Farmer"/>
+    <message name="BOSS_FARMER_DESCR"
+             value="It's not known exactly, what is grown by this Farmer, but he must be interrupted."/>
+    <message name="BOT_NAME_FARMER" value="Farmer"/>
+    <message name="ENHANCEMENT_APPLE_NAME" value="Strange apple"/>
+
+    <message name="BOSS_HUNTER_NAME" value="Hunter"/>
+    <message name="BOSS_HUNTER_DESCR"
+             value="The Hunter relies on his laser traps, which are impossible to escape from (as he thinks)."/>
+    <message name="BOT_NAME_HUNTER" value="Hunter"/>
+
+    <message name="BOSS_MANIACS_NAME" value="Maniacs"/>
+    <message name="BOSS_MANIACS_DESCR"
+             value="This creatures are skilled with their dreadful hooks - so keep the distance!"/>
+    <message name="BOT_NAME_MANIAC_1" value="Freddy"/>
+    <message name="BOT_NAME_MANIAC_2" value="Jack"/>
+
+    <message name="BOSS_GUARDIANS_DEPTHS_NAME" value="Guardians of depths"/>
+    <message name="BOSS_GUARDIANS_DEPTHS_DESCR"
+             value="The Earth itself fights for the Guardians! Don't even try to attack without a strong team!"/>
+    <message name="TEAM_GUARDIANS_DEPTHS_NAME" value="Guardians"/>
+    <message name="BOT_GUARDIANS_DEPTHS" value="Guardian"/>
+    <message name="PROGRESS_BAR_GUARDIANS_DEPTHS" value="earthquake"/>
+
+    <message name="BOSS_ENGINEER_NAME" value="Engineer"/>
+    <message name="BOSS_ENGINEER_DESCR"
+             value="Inventor, who created a vault in ancient tomb. First wrong action will lead to your defeat!"/>
+    <message name="BOT_NAME_ENGINEER_BOSS" value="Engineer"/>
+    <message name="BOT_NAME_ENGINEER_DROID" value="Protective Droid"/>
+    <message name="PROGRESS_BAR_ENGINEER" value="next droid"/>
+
+    <message name="BOSS_DARK_KNIGHT_NAME" value="Dark knight"/>
+    <message name="BOSS_DARK_KNIGHT_DESCR"
+             value="Superior warrior protected by twilight. He creates his own army of acolytes with the only aim to destroy you!"/>
+    <message name="BOSS_DARK_KNIGHT_TEAM_ACOLYTES" value="Dark acolytes"/>
+    <message name="BOSS_DARK_KNIGHT_ACOLYTE" value="Acolyte"/>
+
+    <message name="BOSS_PALADIN_NAME" value="Paladin"/>
+    <message name="BOSS_PALADIN_DESCR"
+             value="Warrior of light, wielding powerful magic for both attack and defense. Still you have advantage in numbers."/>
+
+    <message name="BOSS_HACKER_NAME" value="Hacker"/>
+    <message name="BOSS_HACKER_DESCR"
+             value="When engaged in combat, hacker relies on his protective field heavily. Seize control over generators and destroy him!"/>
+    <message name="BOSS_HACKER_TEAM_PUPILS" value="Students"/>
+    <message name="BOSS_HACKER_PUPILS" value="Student"/>
+
+    <message name="BOSS_THIEVES_NAME" value="Master thieves"/>
+    <message name="BOSS_THIEVES_DESCR"
+             value="They'll strip you of your weapons in a nick of time. And then you'll have to fight them with few remaining guns."/>
+    <message name="BOSS_THIEF_BOT_1_NAME" value="Snatcher"/>
+    <message name="BOSS_THIEF_BOT_2_NAME" value="Burglar"/>
+    <message name="BOSS_THIEF_KEY" value="Key"/>
+    <message name="BOSS_THIEF_BOX" value="Stolen item"/>
+
+    <message name="BOSS_PSIONICS_NAME" value="Telepathist"/>
+    <message name="BOSS_PSIONICS_DESCR"
+             value="Telepathist creates black holes, instantly destroying your units. Only ally's reflexes can save you!"/>
+    <message name="BOSS_PSIONICS_BOT_NAME_1" value="Telepathist"/>
+    <message name="BOSS_PSIONICS_TEAM_BOT_2" value="Biotics"/>
+    <message name="BOSS_PSIONICS_BOT_NAME_2" value="Biotic"/>
+
+    <message name="BOSS_PHANTOMS_NAME" value="Phantoms"/>
+    <message name="BOSS_PHANTOMS_DESCR"
+             value="These ghosts cause panic just with their presence! Even if you overcome a fear, what about clones of yourself?"/>
+    <message name="BOSS_PHANTOMS_BOT_NAME" value="Phantom"/>
+
+    <message name="BOSS_ARCHDEMON_NAME" value="Archdemon"/>
+    <message name="BOSS_ARCHDEMON_DESCR"
+             value="Lord of the local hell. Don't surprise, when you find yourself trapped and bound, on this territory he is almighty."/>
+
+    <!-- 1.13 -->
+
+    <message name="BOSS_ASSASSIN_NAME" value="Assassin"/>
+    <message name="BOSS_ASSASSIN_DESCR"
+             value="Master of knife combat and stealth movement. You have to find a way to escape his deadly attacks."/>
+
+    <message name="BOSS_ALCHEMIST_NAME" value="Alchemist"/>
+    <message name="BOSS_ALCHEMIST_DESCR"
+             value="Alchemist is extremely dangerous in combat but only if he has some reagents to use."/>
+    <message name="BOSS_ALCHEMIST_ASISSTANT_TEAM" value="Assistants"/>
+    <message name="BOSS_ALCHEMIST_ASISSTANT" value="Assistant"/>
+
+    <!-- 1.15 -->
+
+    <message name="BOSS_DRUID_NAME" value="Druid"/>
+    <message name="BOSS_DRUID_DESCR"
+             value="You're not allowed to stay still in this fight. Otherwise, you'll be overwhelmed by the force of the nature!"/>
+    <message name="BOSS_DRUID_HELPER_TEAM" value="Keepers"/>
+    <message name="BOSS_DRUID_HELPER_FIRE" value="Keeper of fire"/>
+    <message name="BOSS_DRUID_HELPER_POISON" value="Keeper of earth"/>
+    <message name="BOSS_DRUID_TOTEM_FIRE" value="Fire totem"/>
+    <message name="BOSS_DRUID_TOTEM_POISION" value="Poison totem"/>
+
+    <message name="BOSS_PHARAOH_NAME" value="Pharaoh"/>
+    <message name="BOSS_PHARAOH_DESCR"
+             value="Ancient priest, master of transmutation. A decent enemy, a bit overconfident though."/>
+    <message name="BOSS_PHARAOH_MINION_NAME" value="Kamikaze dead"/>
+    <message name="BOSS_PHARAOH_SARCOPHAGUS" value="Sarcophagus"/>
+
+    <message name="BOSS_CYBORG_NAME" value="Cyborg"/>
+    <message name="BOSS_CYBORG_MINION_NAME" value="Terminator"/>
+    <message name="BOSS_CYBORG_DESCR"
+             value="This magnificent snowy glen has been captured by alien technology. You have to burn this place out!"/>
+
+    <!--1.16-->
+    <message name="BOSS_JARL_NAME" value="Jarl"/>
+    <message name="BOSS_JARL_DESCR"
+             value="Jarl and his companions are protected from most kinds of attack. Your task is to break their shields by capturing the runes."/>
+    <message name="BOSS_JARL_HELPER_TEAM" value="Elemental thanes"/>
+    <message name="BOSS_JARL_HELPER_NAME" value="Thane"/>
+    <message name="BASE_RUNE_HINT" value="Physical damage"/>
+    <message name="FIRE_RUNE_HINT" value="Fire damage"/>
+    <message name="SHOCK_RUNE_HINT" value="Shock damage"/>
+    <message name="POISON_RUNE_HINT" value="Poison damage"/>
+
+    <message name="BOSS_ARCHBOT_NAME" value="Archbot"/>
+    <message name="BOSS_ARCHBOT_DESCR"
+             value="What can be worse than a robot, who practices magic? Protection from fire and lightning will surely help!"/>
+    <message name="BOSS_ARCHBOT_ASISSTANT_TEAM" value="Golems"/>
+    <message name="BOSS_ARCHBOT_GOLEM" value="Golem"/>
+
+    <!--1.19-->
+    <message name="BOSS_ENCHANTER_NAME" value="Enchanter"/>
+    <message name="BOSS_ENCHANTER_DESCR" value="Fire spirits and voodoo magic - you'll have to work really hard to defeat this shaman!"/>
+    <message name="BOSS_ENCHANTER_BOT_NAME_1" value="Enchanter"/>
+    <message name="BOSS_ENCHANTER_TEAM_BOT_2" value="Servants"/>
+    <message name="BOSS_ENCHANTER_BOT_NAME_2" value="Servant"/>
+    <message name="BOSS_ENCHANTER_FIRE_SOUL" value="Fire spirit"/>
+
+    <message name="BOSS_ARCHIVIST_NAME" value="Archivist"/>
+    <message name="BOSS_ARCHIVIST_DESCR" value="To be honest, you don't seem to have much chances. You won't even realize, what's killing you."/>
+    <message name="BOSS_ARCHIVIST_BOT_NAME_1" value="Archivist"/>
+    <message name="BOSS_ARCHIVIST_TEAM_BOT_2" value="Shadow squad"/>
+    <message name="BOSS_ARCHIVIST_BOT_NAME_2" value="Shadow"/>
+
+    <!--1.20-->
+    <message name="BOSS_EMPEROR_NAME" value="Emperor"/>
+    <message name="BOSS_EMPEROR_DESCR" value="All he commands now is a pile of terracotta soldiers. But don't think you can just come and claim his tresures."/>
+    <message name="BOSS_EMPEROR_BOT_NAME_1" value="Emperor"/>
+    <message name="BOSS_EMPEROR_ARCHER" value="Marksman"/>
+    <message name="BOSS_EMPEROR_SPEARMAN" value="Grunt"/>
+    <message name="BOSS_EMPEROR_GENERAL" value="General"/>
+    <message name="BOSS_EMPEROR_DEFENDER" value="Defender"/>
+
+    <message name="BOSS_SCIENTIST_NAME" value="Scientist"/>
+    <message name="BOSS_SCIENTIST_DESCR" value="Pretty soon you'll feel the power of science (and also of lightning and magnetism)!"/>
+    <message name="BOSS_SCIENTIST_BOT_NAME_1" value="Scientist"/>
+
+    <message name="BOSS_SYMBIOTE_NAME" value="Simbiot"/>
+    <message name="BOSS_SYMBIOTE_DESCR" value="Thrash your friends to hurt your foe - that's the only way to overcome this lifeform!"/>
+    <message name="BOSS_SYMBIOTE_BOT_NAME_1" value="Simbiot"/>
+    <message name="BOSS_SYMBIOTE_COCOON" value="Cocon"/>
+
+    <!--1.21-->
+    <message name="TEAM_NAME_PIRATE" value="Pirates"/>
+    <message name="TEAM_NAME_VIKING" value="Vikings"/>
+
+    <!--1.25-->
+    <message name="GRAVITY_MASTER_NAME" value="Gravity master"/>
+    <message name="GRAVITY_MASTER_DESCR"
+             value="Bends the space around himself. Be very cautious or he'll just flatten you out!"/>
+    <message name="GRAVITY_MASTER_ANOMALY" value="Anomaly"/>
+
+    <message name="BOSS_SOLAR_PRIEST_NAME" value="Solar priest"/>
+    <message name="BOSS_SOLAR_PRIEST_DESCR"
+             value="High and mighty cultist will shed some light on your incompetence as a player."/>
+    <message name="BOSS_SOLAR_PRIEST_TEAM_BOT" value="Neophytes"/>
+    <message name="BOSS_SOLAR_PRIEST_BOT_NAME" value="Neophyte"/>
+
+    <!--1.27-->
+    <message name="BOSS_ARCTIC_WARRIOR_NAME" value="Arctic warrior"/>
+    <message name="ARCTIC_WARRIOR_SUPPORT_NAME" value="Frozen zombie"/>
+
+    <!--1.29-->
+    <message name="BOSS_BLACKSMITH_NAME" value="Blacksmith"/>
+    <message name="BOSS_BLACKSMITH_DESCR" value="He's able to smash atoms with his strikes. Don't stand between hammer and anvil!"/>
+    <message name="BOSS_SOUL_MASTER_NAME" value="Soul master"/>
+    <message name="BOSS_SOUL_MASTER_DESCR" value="He lived for more than century changing his physical vessel. It's impossible to stop him for such brat as yourself."/>
+    <message name="BOSS_SOUL_PART_NAME" value="Soul fragment"/>
+    <message name="BOSS_SOUL_MASTER_PUPPET" value="Puppet"/>
+    <message name="BOSS_SOUL_MASTER_PUPPET_TEAM" value="Puppets"/>
+
+    <!--1.33-->
+    <message name="BOSS_REBEL_ROBOT_NAME" value="Rebellious robot"/>
+    <message name="BOSS_REBEL_ROBOT_DESCR" value="Rumor has it that this model was developed to deal with bosses effectively. Who could think this machine would join them."/>
+    <message name="BOSS_REBEL_ROBOT_SUPPORT" value="Bot"/>
+    <message name="BOSS_REBEL_ROBOT_SUPPORT_TEAM" value="Botnet"/>
+
+    <!--1.41-->
+    <message name="BOSS_FARMER.PROMPT" value="The Farmer has lots of protection, so it's better to use weapons that ignore armor.{br}Pick up apples before attacking - they are increasing yuor attack for a turn.{br}Don't let the boss pick up apples - they heal him!"/>
+    <message name="BOSS_HUNTER.PROMPT" value="Don't touch lasers around you, they deal high damage.{br}Destroy laser generators with weapons like rifle or shuriken to remove barriers and move around.{br}Be aware of guarding bot!"/>
+    <message name="BOSS_MANIACS.PROMPT" value="Hide behind the ground to evade hook attacks.{br}If you can't deal enough damage to kill bosses, try to sink them."/>
+    <message name="BOSS_MINER.PROMPT" value="Be careful with the mines — they jump on you!.{br}If it's hard for you to hit the boss with normal attacks, try to sink him."/>
+    <message name="BOSS_SAMURAI.PROMPT" value="Don't stay near water - the boss may teleport to you and drown you.{br}Use your jetpacks and teleports wisely, you'll have to run a lot after the boss."/>
+    <message name="BOSS_SERGEANT.PROMPT" value="The location is full with invisible guarding bots, don't walk around!{br}Boss's attack increases each turn, so you have to deal with him fast."/>
+    <message name="BOSS_BURNING.PROMPT" value="Be careful, the more zombies you kill, the more meteors will attack you next turn.{br}Try to hide in the bottom part of the map."/>
+    <message name="BOSS_SOUL.PROMPT" value="Each turn attack the enemy with the spirit to prevent their regeneration.{br}Don't waste time, the boss has high damage!"/>
+    <message name="BOSS_SHAMAN.PROMPT" value="The boss heals both himself and allies, kill him first to prevent it.{br}To kill the demons faster you may use high damage attacks and poison."/>
+    <message name="BOSS_ILLUSIONIST.PROMPT" value="When boss's health drops lower, he creates more copies — try to finish him with one powerful attack.{br}Clones disappear of any damage — poke them with weapons that don't waste a turn to find a real one."/>
+    <message name="BOSS_VIKINGS.PROMPT" value="Hurry up, each turn you'll be given less time.{br}Destroy the ground towards the water and try to sink the enemies."/>
+    <message name="BOSS_PIRATE.PROMPT" value="Stay away from water — the ground goes down fast, and enemies use destructive weapons.{br}Don't try to drown the Captain, he will jump out of the water each time."/>
+    <message name="BOSS_WIND_MASTER.PROMPT" value="The wind makes your jumps unpredictable, but you may use teleports to move.{br}Kill the main boss first to stop the menacing wind."/>
+    <message name="BOSS_YAKUZA.PROMPT" value="Try to push enemies to one place and attack them together.{br}Don't leave Steel the last one, as he gets huge regeneration in this case."/>
+    <message name="BOSS_REVIVED_CAPTAIN.PROMPT" value="Don't spend weapons carelessly, you'll need them at the end of combat.{br}Try to get on a higher ground to evade meteor attacks."/>
+    <message name="BOSS_ROMEO_JULIET.PROMPT" value="To win you must finish the bosses on one turn, first leave them as little health as possible.{br}Watch out the poisonous revenge attack after you kill one of the bosses!"/>
+    <message name="BOSS_KING_DEAD.PROMPT" value="It's wise to kill the main boss first to stop shadow bolt attacks.{br}Bring down the Summoner before trying to destroy the remaining zombies."/>
+    <message name="BOSS_GHOST.PROMPT" value="Cold protection will help you, decreasing freeze duration, and allowing you to evade the cloud.{br}You may use enemies as shields against lightning attacks."/>
+    <message name="BOSS_ENGINEER.PROMPT" value="Each turn you have to escape electric storm that appears on your character.{br}Look for safe places where lasers don't appear and attack the Engineer from there."/>
+    <message name="BOSS_GUARDIANS.PROMPT" value="Watch the earthquake bar, you must hide on a shelter platform when it's filled.{br}You can't use shelters if there are enemies nearby.{br}It's better to have full team to guard the shelters."/>
+    <message name="BOSS_DARK_KNIGHT.PROMPT" value="Don't leave the boss with little health, he may sacrifice an accolyte to heal.{br}Enemies fight back when hit, so don't attack from dangerous places."/>
+    <message name="BOSS_ALCHEMIST.PROMPT" value="Use undestructable ground to hide from attacks.{br}Reagents can be destroyed with any single attack."/>
+    <message name="BOSS_ARCHBOT.PROMPT" value="Boss may attack you by teleporting his assistants, so deal with him first.{br}Each turn you first have to dodge the homing energy bolt that may break your turn."/>
+    <message name="BOSS_EMPEROR.PROMPT" value="Do not attack strongly - the stronger you drop the boss, the faster he creates the warriors helping him.{br} Hide under the ground from any enemy attacks - you will be enough to be removed by his warriors."/>
+    <message name="BOSS_SCIENTIST.PROMPT" value="Damage control panels to disable the magnet.{br}Don't stay in air for too long, or you'll lose a turn.{br}Stay in the zone to evade lightning attacks."/>
+    <message name="BOSS_SYMBIOTE.PROMPT" value="The boss only looses health when you damage your own characters.{br}Destroy cocoons, they will heal you.{br}Watch out spawning flies when boss is low on health."/>
+    <message name="BOSS_BLACKSMITH.PROMPT" value="Don't hide deep in the ground, or it'll be hard to get out after anvil attack.{br}Don't stay near anvil - it explodes.{br}And don't approach the enemy, you'll lose a turn."/>
+    <message name="BOSS_SOUL_MASTER.PROMPT" value="Try to prevent the boss from gathering souls — they increase his health.{br}Hide from attacks under the ground, or your health will be depleted fast!."/>
+    <message name="BOSS_REBEL_ROBOT.PROMPT" value="Move frequently to evade attacks from mortars located on stage.{br}Weapons get a delay after you use one, so you may wish to adjust your backpack."/>
+
+    <message name="BOSS_PALADIN.PROMPT" value="Destroy the obelisk each turn to prevent boss from healing.{br}You can't evade sword attack, so hide from basic attacks to save your health."/>
+    <message name="BOSS_HACKER.PROMPT" value="Occupy control panels to remove protective field.{br}It's wise to have more characters than the number of control panels to be able to attack boss from any position."/>
+    <message name="BOSS_THIEVES.PROMPT" value="Attack enemies to get keys that can be used to unlock weapon crates.{br}Use the weapons with multiple attacks to get keys more effectively."/>
+    <message name="BOSS_TELEPATHIST.PROMPT" value="You must attack your allies with any weapon to save them from black holes.{br}Kill the Telepathist first to stop black holes and evade energy spheres!"/>
+    <message name="BOSS_PHANTOMS.PROMPT" value="You have to act fast - each turn Phantoms create clones of your units.{br}The damage you deal to clones is reflected back on your characters — you can only sink them."/>
+    <message name="BOSS_ARCHDEMON.PROMPT" value="Each turn attack cages and chains that trap your allies.{br}Don't try to destroy traps yourself — you'll be heavily punished!."/>
+    <message name="BOSS_DRUID.PROMPT" value="Destroy fire totems each turn, they deal significant damage.{br}Always keep moving to evade spores created by boss during your turn."/>
+    <message name="BOSS_PHARAOH.PROMPT" value="Each turn the boss morphs to a random race, which gives him unique abilities.{br}Don't stand near kamikaze zombies, they may detonate.{br}Rabbit sarcophagus are the most dangerous — they fully heal the boss."/>
+    <message name="BOSS_CYBORG.PROMPT" value="Attack inactive parts of the switch to create a field on that side next turn.{br}Destroy batteries hidden in the ground as fast as you can to greatly reduce enemies' health."/>
+    <message name="BOSS_JARL.PROMPT" value="Gather runes to remove protection from that type of attacks.{br}Try to attack several enemies at once by pushing them together."/>
+    <message name="BOSS_ENCHANTER.PROMPT" value="Each servant creates a fire spirit that attacks you.{br}Spirits also protect the boss from any damage.{br}You also get twice as much damage, as you deal to the Enchanter, it may be wise to use low health units for powerful attacks."/>
+    <message name="BOSS_ARCHIVIST.PROMPT" value="Try to destroy the shadows first to make the fight easier.{br}To remove the protection from the boss you have to seek and destroy seals, that are recreated each turn."/>
+    <message name="BOSS_SOLAR_PRIEST.PROMPT" value="Deal the maximal possible damage each turn — constant damage won't allow you to last long.{br}Be careful when you finish an enemy surrounded by an energy field — it'll emit lots of dangerous particles."/>
+    <message name="BOSS_ARCTIC_WARRIOR.PROMPT" value="Collect the torches and use them to free frozen allies.{br}Frozen zombies can be damaged only with fire, and their destruction will cause ice shower.{br}On low health boss freezes himself to restore health - prevent this!."/>
+
+    <!--1.44-->
+    <message name="BOSS_ARCTIC_WARRIOR_DESCR" value="Strange seismic activity and temperature volatility is registered at the North pole. Go settle down whatever happens there!"/>
+    <message name="BOSS_ASSASSIN.PROMPT" value="Assassin had lots of time to hone his dodge skills. Attack the boss with great caution!{br}Hide from the boss behind a ground, he may wipe your whole team with single attack.{br}The Assassin may suddenly teleport, watch your back!"/>
+    <message name="BOSS_GRAVITY_MASTER.PROMPT" value="Boss is protected by gravity circle that repells all missiles.{br}The boss will create more circles as his health drops lower.{br}Enter the circles only for a moment, to attack boss! The more you are pressed by Gravity Master's field — the more hit points villain gets!"/>
+
+    <message name="BOSS_DEVOTEE_NAME" value="Enslaver"/>
+    <message name="BOSS_DEVOTEE_MINION_NAME" value="UFO pilot"/>
+    <message name="BOSS_DEVOTEE_DESCR" value="He came to oppress and humiliate. Don't dare to resist!"/>
+    <message name="BOSS_DEVOTEE.PROMPT" value="Alien technology allows the boss to have infinite arsenal — don't be surprised by endless guarding bots, force fields and air strikes!{br}Hurry up — the land goes down fast, and your hit points are quickly depleted by lightning strikes!{br}And don't relax after you deal with the boss - you'll have to deal with reinforcements!"/>
+
+    <!--1.48-->
+    <message name="CRYSTAL_GREEN_HINT" value="Green reagent"/>
+    <message name="CRYSTAL_RED_HINT" value="Red reagent"/>
+    <message name="CRYSTAL_BLUE_HINT" value="Blue reagent"/>
+    <message name="CRYSTAL_WHITE_HINT" value="White reagent"/>
+    <message name="CRYSTAL_YELLOW_HINT" value="Yellow reagent"/>
+
+    <!--1.51-->
+    <message name="BOSS_QUEEN_SPIDERS_NAME" value="Queen of spiders"/>
+    <message name="BOSS_QUEEN_SPIDERS_MINION_NAME" value="Scorpius"/>
+    <message name="BOSS_QUEEN_SPIDERS_EGG" value="Scorpion egg"/>
+    <message name="BOSS_QUEEN_SPIDERS_DESCR" value="The experiment with spider genes ended in disaster, arthropod monsters broke free! It's time to stop them!"/>
+    <message name="BOSS_QUEEN_SPIDERS.PROMPT" value="Damage the traps to get your partner out of the cocoon and also to remove the defensive sphere from the Queen.{br}Be careful while attacking the Queen, if you don't want to attract the attention of the spider guard.{br}When the eggs appear, destroy them as soon as possible. Otherwise, additional minions will come out of them!"/>
+
+    <!--1.54-->
+    <message name="REVIVED_ZOMBIE_NAME" value="Rebel"/>
+    <message name="MARCH_ZOMBIE_NAME" value="Paratrooper"/>
+    <message name="DRILL_ZOMBIE_NAME" value="Driller"/>
+    <message name="PUMPKIN_ZOMBIE_NAME" value="Pumpkin Head"/>
+    <message name="REVENGE_ZOMBIE_NAME" value="Revenger"/>
+    <message name="FREEZE_ZOMBIE_NAME" value="Frostbitten"/>
+    <message name="TOXIC_ZOMBIE_NAME" value="Toxic"/>
+    <message name="RADIOACTIVE_ZOMBIE_NAME" value="Radioactive"/>
+    <message name="COMMANDER_ZOMBIE_NAME" value="Zombie commander"/>
+    <message name="COMMANDER_REVIVE_ZOMBIE_NAME" value="Rebel commander"/>
+    <message name="COMMANDER_MARCH_ZOMBIE_NAME" value="March commander"/>
+    <message name="COMMANDER_DRILL_ZOMBIE_NAME" value="Boring commander"/>
+    <message name="COMMANDER_PUMPKIN_ZOMBIE_NAME" value="Pumpkin commander"/>
+    <message name="MASTER_REVENGE_ZOMBIE_NAME" value="Master Revenger"/>
+    <message name="MASTER_FREEZE_ZOMBIE_NAME" value="Master Frozen"/>
+    <message name="MASTER_TOXIC_ZOMBIE_NAME" value="Master Toxic"/>
+    <message name="RADIOMASTER_ZOMBIE_NAME" value="Radiomaster"/>
+    <message name="HUNGRY_ZOMBIE_NAME" value="Hungry"/>
+    <message name="AQUALUNG_ZOMBIE_NAME" value="Submariner"/>
+    <message name="SUPER_AQUALUNG_ZOMBIE_NAME" value="Unsinkable"/>
+    <message name="NOT_SANTA_ZOMBIE_NAME" value="Unsanta"/>
+
+</dictionary>

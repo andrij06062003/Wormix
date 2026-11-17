@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <!-- 1.60 -->
+    <message name="PAGE0_TEXT" value="All of this and many other changes are exactly in the game right now!"/>
+    <message name="PAGE1_TEXT" value="We've made a number of fixes to make your gaming experience even better!"/>
+    <message name="PAGE2_TEXT" value="Unique equipment in rewards for weekly progress in tasks!"/>
+    <message name="PAGE3_TEXT" value="Complete various daily tasks to get cool rewards!"/>
+
+    <message name="SHOP_BTN" value="To the shop!"/>
+    <message name="ARMORY_BTN" value="To the armory!"/>
+    <message name="ARENA_BTN" value="To Arena!"/>
+</dictionary>

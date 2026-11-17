@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <message name="date_format" value="dd.mm.yyyy"/>
+    <message name="time_format" value="hh.MM"/>
+    <message name="date_full_format" value="dddd, d mmmm yyyy"/>
+    <message name="jan_short" value="Січ"/>
+    <message name="feb_short" value="Лют"/>
+    <message name="mar_short" value="Бер"/>
+    <message name="apr_short" value="Квіт"/>
+    <message name="may_short" value="Трав"/>
+    <message name="jun_short" value="Черв"/>
+    <message name="jul_short" value="Лип"/>
+    <message name="aug_short" value="Серп"/>
+    <message name="sep_short" value="Вер"/>
+    <message name="oct_short" value="Жовт"/>
+    <message name="nov_short" value="Лист"/>
+    <message name="dec_short" value="Груд"/>
+    <message name="jan_full" value="Січня"/>
+    <message name="feb_full" value="Лютого"/>
+    <message name="mar_full" value="Березня"/>
+    <message name="apr_full" value="Квітня"/>
+    <message name="may_full" value="Травня"/>
+    <message name="jun_full" value="Червня"/>
+    <message name="jul_full" value="Липня"/>
+    <message name="aug_full" value="Серпня"/>
+    <message name="sep_full" value="Вересня"/>
+    <message name="oct_full" value="Жовтня"/>
+    <message name="nov_full" value="Листопада"/>
+    <message name="dec_full" value="Грудня"/>
+    <message name="sun_short" value="Нд"/>
+    <message name="mon_short" value="Пн"/>
+    <message name="tue_short" value="Вт"/>
+    <message name="wed_short" value="Сер"/>
+    <message name="thu_short" value="Чт"/>
+    <message name="fri_short" value="Пт"/>
+    <message name="sat_short" value="Сб"/>
+    <message name="sun_full" value="Неділя"/>
+    <message name="mon_full" value="Понеділок"/>
+    <message name="tue_full" value="Вівторок"/>
+    <message name="wed_full" value="Середа"/>
+    <message name="thu_full" value="Четвер"/>
+    <message name="fri_full" value="П'ятниця"/>
+    <message name="sat_full" value="Субота"/>
+
+    <message name="jan_init" value="Січень"/>
+    <message name="feb_init" value="Лютий"/>
+    <message name="mar_init" value="Березень"/>
+    <message name="apr_init" value="Квітень"/>
+    <message name="may_init" value="Травень"/>
+    <message name="jun_init" value="Червень"/>
+    <message name="jul_init" value="Липень"/>
+    <message name="aug_init" value="Серпень"/>
+    <message name="sep_init" value="Вересень"/>
+    <message name="oct_init" value="Жовтень"/>
+    <message name="nov_init" value="Листопад"/>
+    <message name="dec_init" value="Грудень"/>
+</dictionary>

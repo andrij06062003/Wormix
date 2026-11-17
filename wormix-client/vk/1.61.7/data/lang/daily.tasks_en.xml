@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <!-- 1.60 -->
+    <message name="DAILY_TASKS" value="Daily tasks"/>
+    <message name="DAILY_TASKS_DAY_NUMBER" value="Day {dayNumber} / {totalDays}"/>
+    <message name="DAILY_TASKS_DAY_COOLDOWN" value="Remaining {remainingTime}"/>
+    <message name="DAILY_TASKS_DAY_TIME_IS_OUT" value="Day time is up!"/>
+    <message name="DAILY_TASKS_WEEK_TIME_IS_OUT" value="Week time is up!"/>
+    <message name="DAILY_TASKS_ERROR_LOAD" value="Error loading daily tasks."/>
+    <message name="DAILY_TASKS_ACCESS" value="Daily tasks will be available from level 5!"/>
+    <message name="DAILY_TASKS_OPENED" value="You have unlocked daily tasks! Open the tasks menu now?"/>
+    <message name="DAILY_TASKS_DESCR" value="Complete tasks to unlock rewards!"/>
+    <message name="DAILY_TASKS_AVAILABLE" value="Current tasks:"/>
+    <message name="DAILY_TASKS_RESET_QTIP" value="Reset progress on tasks."/>
+    <message name="DAILY_TASKS_INCREASE_SCORE_QTIP" value="Add progress."/>
+    <message name="DAILY_TASKS_NEXT_PARAM_QTIP" value="Toggle parameters in tasks."/>
+    <message name="DAILY_TASKS_NEXT_DAY_QTIP" value="Switch to the next day in the weekly cycle."/>
+    <message name="DAILY_TASK_REPLACE_SUCCESS" value='The task:{br}{task1}{br}{br}has been replaced with the task:{br}{task2}'/>
+    <message name="DAILY_TASK_REPLACE_FAIL" value='Task{br}{task}{br}replacement failed. Please try again later.'/>
+    <message name="DAILY_TASKS_CLEARED" value="Daily tasks progress has been reset!"/>
+    <message name="DAILY_TASKS_NEXT_PARAM" value="The task parameters have been switched!"/>
+    <message name="DAILY_TASKS_NEXT_DAY" value="The day switch in the weekly cycle has been completed!"/>
+    <message name="DAILY_TASKS_CHEST_QTIP" value="{chestSize} winged chest with a reward."/>
+    <message name="DAILY_TASKS_CHEST_SMALL" value="Small"/>
+    <message name="DAILY_TASKS_CHEST_MEDIUM" value="Medium"/>
+    <message name="DAILY_TASKS_CHEST_LARGE" value="Large"/>
+    <message name="DAILY_TASKS_REWARD_READY_QTIP" value="Collect the task reward to unlock the winged chests!"/>
+    <message name="DAILY_TASKS_REWARD_UNLOCK_QTIP" value="Complete the task to unlock the reward chest!"/>
+    <message name="DAILY_TASKS_REWARD_EMPTY_QTIP" value="The chest is empty! Open all the task chests to unlock the winged chests!"/>
+    <message name="DAILY_TASKS_CHEST_EMPTY_QTIP" value="The award has been received."/>
+    <message name="DAILY_TASKS_REWARD_GETNOW_QTIP" value="Take it quickly!"/>
+    <message name="DAILY_TASKS_CHEST_MORE_QTIP" value="Collect rewards from the task chests to unlock the small winged chest."/>
+    <message name="DAILY_TASKS_CHEST_MEDIUM_MORE_QTIP" value="Collect rewards from the task chests to unlock the medium winged chest."/>
+    <message name="DAILY_TASKS_CHEST_LARGE_MORE_QTIP" value="Collect rewards from the task chests to unlock the large winged chest."/>
+    <message name="DAILY_TASKS_TAKE_REWARD" value="It's time to get rewards for completed daily tasks!"/>
+    <message name="DAILY_TASKS_TAKE_CHEST_REWARD" value="It's time to get rewards for your daily task progress!"/>
+    <message name="BUY_TASK_REPLACE_QUESTION" value="Do you want to replace the task?"/>
+    <message name="BUY_TASK_REPLACE_TEXT" value="Task replacement"/>
+    <message name="DAILY_TASKS_STARTED" value="A new run of daily tasks has begun! Good luck in your battles, fighter!"/>
+    <message name="DAILY_TASKS_INFO" value="You are looking at the menu of daily tasks. For completing them you can get valuable rewards: game currency, experience, resources, weapons and even temporary equipment!{br}Each day you will have access to 5 tasks randomly selected based on your level. Once you receive the tasks, you will have 24 hours to complete them. Rewards for completed tasks are automatically awarded at the end of the day, if they have not already been received earlier.{br}Partially completed tasks are not carried over to the next day - they will be changed to other tasks when the new game day starts. Try not to skip tasks, because completing each of them not only rewards you, but also brings you closer to opening chests with weekly rewards."/>
+    <message name="DAILY_TASKS_QTIP" value="Information about daily tasks."/>
+    <message name="DAILY_TASKS_REPLACE_QTIP" value="If the task does not suit you, you can replace it. Three task replacements are available every day: the first one is free, the rest - for game currency. The replaced task will not appear until the end of the week, but a similar one may appear."/>
+
+    <message name="PROMPT_AVAILABLE_TASKS" value="The following daily quests are available for completion in battle:"/>
+
+    <message name="TASK_CRAFT_CHEST" value="Open the supply crate"/>
+    <message name="TASK_EQUIP_FROM_CRAFT_CHEST" value="Get seasonal gear from the supply crate"/>
+    <message name="TASK_UPGRADES" value="Assemble or reassemble a weapon upgrade"/>
+    <message name="TASK_MISSION_WIN" value="Complete any mission"/>
+    <message name="TASK_ANY_SOLO_BOSS_WIN" value="Defeat any single boss"/>
+    <message name="TASK_ANY_REWARDED_BATTLE" value="Play any battle that has a reward"/>
+    <message name="TASK_ANY_REWARDED_BATTLE_WIN" value="Win any battle that has a reward"/>
+    <message name="TASK_ANY_HEROIC_WIN" value="Defeat any superbosses"/>
+    <message name="TASK_DUEL_WAGER_WIN" value='Win a fight on the "Simple Duel" wager'/>
+    <message name="TASK_ANY_WAGER_WIN" value="Win a fight at any wager"/>
+    <message name="TASK_MERCENARIES_BATTLE" value="Play a fight in Mini-Colosseum"/>
+    <message name="TASK_GLADIATOR_BATTLE" value="Play a fight in Colosseum"/>
+    <message name="TASK_WAGER_CHEST_OPEN" value="Open the chest received for winning the wager"/>
+    <message name="TASK_PVP_RATING" value="Get a rating points for winning the wagers"/>
+    <message name="TASK_EXP" value="Gain experience"/>
+    <message name="TASK_LEVELUP" value="Rise your account level"/>
+    <message name="TASK_BOSS_EXTRA_REWARD" value="Get additional reward for defeating the boss"/>
+    <message name="TASK_PROMOCODE" value="Find the promo code in the official game VK-group and activate it"/>
+    <message name="TASK_PUMP_REACTION" value="Pump your friend's or clanmate's reaction"/>
+    <message name="TASK_SUCCESSFULLY_RUMMAGE_HOME_FRIEND" value="Conduct a successful search of a friend's or clanmate's house"/>
+    <message name="TASK_ANY_COOP_BOSS_WIN" value="Defeat any co-op boss"/>
+    <message name="TASK_CONCRETE_BOSS_WIN" value="Defeat the boss: {bossName}"/>
+    <message name="TASK_PICKUP_STAR" value="Pick up a star in the mission"/>
+    <message name="TASK_PICKUP_REAGENT_CRATE" value="Pick up a resource box in a mission"/>
+    <message name="TASK_WAGER_CHEST_MEDIUM" value="Get a rare chest for winning a wager"/>
+    <message name="TASK_WAGER_CHEST_LARGE" value="Get an epic chest for winning a wager"/>
+    <message name="TASK_ANY_REWARDED_COOP_WIN" value="Win any battle that has a reward with a friend or clanmate"/>
+
+    <message name="TASK_CONCRETE_HEROICS_WIN" value='Defeat the superbosses "{difficulty1}" or "{difficulty2}"'/>
+    <message name="TASK_WAGER_2X2_WIN" value='Win a fight on a "2x2" wager {withPartnerType}'/>
+    <message name="TASK_ROPE_RACE_WIN" value='Win in Rope Racing mode {withPartnerType}'/>
+    <message name="TASK_BATTLE_TYPE_WIN_SERIES" value="Win 2 fights in a row {inBattleType}"/>
+    <message name="INTASK_WITH_RANDOM_PARTNER" value="with a random teammate"/>
+    <message name="INTASK_WITH_FRIEND" value="with a friend or clanmate"/>
+
+    <message name="TASK_DESTROY_GROUND_ONCE" value="Destroy {squares} square meters of land in one battle"/>
+    <message name="TASK_DESTROY_GROUND" value="Destroy square meters of land in battles"/>
+    <message name="TASK_MASSIVE_DAMAGE" value="Deal more than {damage} damage to enemies in one turn"/>
+    <message name="TASK_ROPE_MOVING" value="Run meters on the rope"/>
+    <message name="TASK_PICKUP_WEAPON_CRATE" value="Pick up a weapon box in battles with a reward"/>
+    <message name="TASK_PICKUP_MEDKIT" value="Pick up a medkit in battles with a reward"/>
+    <message name="TASK_ANTIFREEZE_HEAL" value="Heal {count} health points using the antifreeze weapon or its upgrades"/>
+    <message name="TASK_DOUBLE_KILL_BY_TURN" value="Kill or drown two enemies in one turn"/>
+    <message name="TASK_TRIPLE_KILL_BY_TURN" value="Kill or drown three enemies in one turn"/>
+    <message name="TASK_DROWN_FIRST_TURN" value="Drown the enemy on the first turn"/>
+    <message name="TASK_DOUBLE_DROWN_FIRST_TURN" value="Drown two enemies on the first turn"/>
+    <message name="TASK_WEAPONS_HEAL" value="Heal {count} health points using weapons: antifreeze, medical teleporter, empathic soul thrower or regenerator"/>
+    <message name="TASK_EQUIP_BONUS_HEAL" value="Heal {count} health points via vampirism, regeneration, healing theft"/>
+    <message name="TASK_DESTROY_SUPPLY" value="Blow up a weapon box or a medkit in battles with a reward"/>
+    <message name="TASK_DESTROY_USE_THUNDERBOLT" value="Destroy an enemy object using a thunderstrike in PvP battles"/>
+    <message name="TASK_CRITICAL_WITH_HAMMER" value="Deal critical damage with any modification of a sledgehammer"/>
+    <message name="TASK_KNOCKHAT_USE_BOOMERANG" value="Knock your opponent's hat off with a deadly boomerang"/>
+    <message name="TASK_MERC_THROW_ZONE" value='Push an enemy into the killing zone in Mini Colosseum mode'/>
+    <message name="TASK_MERC_KILL_ZONE" value='Kill an enemy with a killing zone in Mini Colosseum mode'/>
+    <message name="TASK_MERC_DAMAGE_ZONE" value='Damage enemies with a killing zone in Mini Colosseum mode'/>
+    <message name="TASK_PICKUP_HAT" value="Pick up the hat of a killed enemy in PvP battle"/>
+    <message name="TASK_ROPE_RACE_DEFUSE_MINE" value='Activate a sticky mine in Rope Racing mode.'/>
+    <message name="TASK_ROPE_RACE_ACTIVATE_SPOT" value='Activate a checkpoint in Rope Racing with a random partner'/>
+    <message name="TASK_ROPE_RACE_WIN_HP_LOST" value='Win Rope Racing with a random partner, taking no more than {lostHP} total damage'/>
+
+    <message name="TASK_LEADER_BOXER_ATTACK">
+        <![CDATA[Use the boxer's "Inspearing Cry" to gain bonus attack]]>
+    </message>
+    <message name="TASK_ZOMBIE_REVENGE_DAMAGE">
+        <![CDATA[Deal {count} damage to an enemy with the zombie's "Revenge from the grave" ability]]>
+    </message>
+    <message name="TASK_ZOMBIE_RISE_ENEMY" value="Make an enemy rise from the grave using the zombie's racial abilities"/>
+    <message name="TASK_ZOMBIE_REVIVED_DAMAGE" value="Deal damage to enemies while playing as a rebellious zombie"/>
+    <message name="TASK_LEADER_RABBIT_CARROT" value="Share the rabbit's healing carrot with allies"/>
+    <message name="TASK_DEMON_POISON_DAMAGE" value="Poison an enemy while playing as a demon"/>
+    <message name="TASK_LEADER_CAT_DAMAGE">
+        <![CDATA[Deal {count} damage to an enemy with the cat's "Sharp сlaws" ability]]>
+    </message>
+    <message name="TASK_DRAGON_FLY_METERS" value="Fly meters using the dragon's racial ability"/>
+    <message name="TASK_DRAGON_FIRE_PATH">
+        <![CDATA[Leave a trail of embers on the ground using the dragon's "Fiery stride" ability]]>
+    </message>
+    <message name="TASK_LEADER_DRAGON_FIRE">
+        <![CDATA[Use the dragon's "Healing Flame" ability to heal an ally]]>
+    </message>
+    <message name="TASK_ROBOT_STATIC_DAMAGE">
+        <![CDATA[Damage different enemies with the robot's "Static charge" ability]]>
+    </message>
+    <message name="TASK_ROBOT_DROID_DAMAGE" value="Make your enemy lose his turn on your robot's protective droid"/>
+    <message name="TASK_LEADER_ROBOT_ARMOR">
+        <![CDATA[Reduce the enemy's armor using the robot's "Battle analysis" ability]]>
+    </message>
+    <message name="TASK_BOAR_FART_POISON">
+        <![CDATA[Cause various enemies to become poisoned by the boar's "Suffocating Stench" ability]]>
+    </message>
+    <message name="TASK_BOAR_DESTROY_GROUND">
+        <![CDATA[Destroy square meters of land with the boar's "Powerful Charge" ability]]>
+    </message>
+    <message name="TASK_RHINO_DESTROY_GROUND">
+        <![CDATA[Destroy square meters of land with the rhino's "Shattering Stomp" ability]]>
+    </message>
+    <message name="TASK_ALIEN_INVUL_WIN">
+        <![CDATA[Use the alien's "Crystal Block" ability and win the fight]]>
+    </message>
+
+    <message name="TASK_KILL_ELEMENT" value="Kill an enemy with element: {element}"/>
+    <message name="TASK_DAMAGE_ELEMENT" value="Damage enemies with element: {element}"/>
+    <message name="TASK_KILL_WEAPON" value="Kill an enemy with {weaponName} or any its modifications"/>
+    <message name="TASK_KILL_RACE_CHAR" value="Kill or drown an enemy of a specific race: {raceName}"/>
+    <message name="TASK_DROWN_WEAPON" value="Drown an enemy with {weaponName} or any its modifications"/>
+    <message name="TASK_MISSION_FOR_TURNS">
+        <![CDATA[Complete mission "{difficult}" in {turnsCount} {turnsPlural} (bots' moves count)]]>
+    </message>
+    <message name="TASK_MERC_WIN_WITH" value='Win in Mini Colosseum mode with mercenary {mercenaryName} in your team'/>
+    <message name="TASK_DROWN_BATTLE_TYPE" value="Drown an enemy {inBattleType}"/>
+    <message name="TASK_KILL_BATTLE_TYPE" value="Kill an enemy {inBattleType}"/>
+    <message name="TASK_DAMAGE_BATTLE_TYPE" value="Deal damage to enemies {inBattleType}"/>
+    <message name="INTASK_BATTLE_ANY_REWARDED" value="in any fight"/>
+    <message name="INTASK_BATTLE_WAGER" value="on wagers"/>
+    <message name="INTASK_BATTLE_WAGER_DUEL" value='on the "Simple duel" wager'/>
+    <message name="INTASK_BATTLE_GLADIATOR" value='in the "Coliseum" mode'/>
+    <message name="INTASK_BATTLE_MERCENARIES" value='in the "Mini-Coliseum" mode'/>
+
+</dictionary>

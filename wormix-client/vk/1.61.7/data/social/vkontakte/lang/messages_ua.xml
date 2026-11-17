@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+    <message name="VOTES_PLURALS" value="Голос,Голосів,Голоси"/>
+    <message name="COUNT_ITEMS_FOR" value="{count} {items} за {price}"/>
+
+    <message name="VOTES" value="Голоси"/>
+    <message name="VOTES_ALT_END" value="Голосів"/>
+    <message name="VOTES_NO_END" value="Голос"/>
+
+    <message name="RUBY_PRICE" value="{count} рубінів за {price}"/>
+    <message name="RUBY_PRICE_ALT_END" value="{count} рубіна за {price}"/>
+    <message name="RUBY_PRICE_NO_END" value="{count} рубін за {price}"/>
+
+    <!-- gifts -->
+    <message name="FRIEND_GIFT_MENU" value="Відправити другові"/>
+    <message name="FRIEND_GIFT_TITLE" value="Подарунок другові"/>
+    <message name="FRIEND_GIFT_DESCRIPTION" value="Подарунок буде розміщено на стіні друга"/>
+
+    <!-- posts -->
+
+    <message name="VIRAL_KICK_TEAM_MATE_TITLE" value="Kick team mate!"/>
+    <message name="VIRAL_KICK_TEAM_MATE" value="Kick team mate message"/>
+    <message name="VIRAL_NEW_TEAM_MATE_TITLE" value="New team mate!"/>
+    <message name="VIRAL_NEW_TEAM_MATE" value="New team mate message"/>
+
+    <!-- 1.20 -->
+    <message name="PHOTO_STUDIO_UPDATE_QTIP" value="Змінити аватар"/>
+
+    <!-- 1.22 -->
+    <message name="CURRENCY_PLURALS" value="голос,голоса,голосів"/>
+</dictionary>

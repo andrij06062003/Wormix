@@ -1,0 +1,1085 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+    <!-- SHURIKEN -->
+
+    <message name="SHURIKEN.NAME.U1" value="Light shurikens"/>
+    <message name="SHURIKEN.DISTINCT.U1" value="You can throw one additional shuriken."/>
+    <message name="SHURIKEN.DESCR.U1">
+        <![CDATA[Compact and effective weapon. There are 5 shurikens per turn. The first direct hit on every enemy deals double damage.]]>
+    </message>
+    <message name="SHURIKEN.DAMAGE.U1" value="17 hp per throw. The first direct hit at a target deals double damage."/>
+
+    <message name="SHURIKEN.NAME.U2A" value="Master knives"/>
+    <message name="SHURIKEN.DISTINCT.U2A" value="Improved targeting. The damage of each knife is increased by 5 hp"/>
+    <message name="SHURIKEN.DESCR.U2A">
+        <![CDATA[There are 5 knives per turn. The first direct hit on every enemy deals double damage. Additionally, targeting is highlighted.]]>
+    </message>
+    <message name="SHURIKEN.DAMAGE.U2A" value="22 hp per throw. The first direct hit at a target deals double damage."/>
+
+    <message name="SHURIKEN.NAME.U2B" value="Master shurikens"/>
+    <message name="SHURIKEN.DISTINCT.U2B"
+             value="No bonus damage for the first hit. Instead, master shurikens go through several enemies, dealing high damage."/>
+    <message name="SHURIKEN.DESCR.U2B">
+        <![CDATA[Shurikens saw through enemies, dealing massive damage, and dissapear only when they hit the ground. There are 5 shurikens per turn.]]>
+    </message>
+    <message name="SHURIKEN.DAMAGE.U2B" value="12-36 hp on each target."/>
+
+    <!-- MORTAR -->
+
+    <message name="MORTAR.NAME.U1" value="Siege mortar"/>
+    <message name="MORTAR.DISTINCT.U1"
+             value="Explosion damage increased by 10 hp. Improved targeting. Shards always fly towards an enemy."/>
+    <message name="MORTAR.DESCR.U1">
+        <![CDATA[Shoots with powerful missile, unaffected by the wind. The initial speed can't be regualted. The missile emits 5 shards at the direction of an enemy when exploding.  Additionally, targeting is highlighted.]]>
+    </message>
+    <message name="MORTAR.DAMAGE.U1" value="45 hp from explosion, 5 fragments, 25 hp each."/>
+
+    <message name="MORTAR.NAME.U2A" value="Siege destroyer"/>
+    <message name="MORTAR.DISTINCT.U2A"
+             value="Explosion damage increased by 5 hp more, damage from each shard - by 10 hp. Explosion radius is also increased."/>
+    <message name="MORTAR.DESCR.U2A">
+        <![CDATA[Shoots with destructive missile, unaffected by the wind. Missile and shards have large explosion radius. Shards fly towards an enemy. Targeting is highlighted.]]>
+    </message>
+    <message name="MORTAR.DAMAGE.U2A" value="50 hp from explosion, 5 fragments, 35 hp each."/>
+
+    <message name="MORTAR.NAME.U2B" value="Multicharged mortar"/>
+    <message name="MORTAR.DISTINCT.U2B" value="Shoots additional missile after the first one."/>
+    <message name="MORTAR.DESCR.U2B">
+        <![CDATA[Shoots two missiles at once! The initial speed can't be regualted. Shards fly towards an enemy. Targeting is highlighted.]]>
+    </message>
+    <message name="MORTAR.DAMAGE.U2B" value="40 hp from explosion, 5 fragments, 25 hp each."/>
+
+    <!-- CLUSTER GRENADE -->
+
+    <message name="CL_GRENADE.NAME.U1" value="F-1 grenade"/>
+    <message name="CL_GRENADE.DISTINCT.U1"
+             value="Can be triggered by hitting SPACE. Emits additional fragment on explosion. Damage from explosion increased by 5 hp."/>
+    <message name="CL_GRENADE.DESCR.U1">
+        <![CDATA[Grenade is unaffected by the wind. Deals massive damage with its fragments. Can be triggered by hitting SPACE.]]>
+    </message>
+    <message name="CL_GRENADE.DAMAGE.U1" value="45 hp from explosion, 9 fragments, 15 hp each."/>
+
+    <message name="CL_GRENADE.NAME.U2A" value="Piranha grenade"/>
+    <message name="CL_GRENADE.DISTINCT.U2A" value="Fragments automatically target the nearest enemies. In case of a miss, it remains on the ground."/>
+    <message name="CL_GRENADE.DESCR.U2A">
+        <![CDATA[Grenade is unaffected by the wind. Emits 9 fragments on explosion, which automatically target on one of the nearest enemies in 0.33 sec. Can be triggered by hitting SPACE. In case of a miss, it remains on the ground.]]>
+    </message>
+    <message name="CL_GRENADE.DAMAGE.U2A" value="10 hp from explosion, 9 fragments, 16 hp each."/>
+
+    <message name="CL_GRENADE.NAME.U2B" value="Sensory grenade"/>
+    <message name="CL_GRENADE.DISTINCT.U2B"
+             value="Explodes automatically near the enemy, timer is absent. Fragments float to nearest enemy."/>
+    <message name="CL_GRENADE.DESCR.U2B">
+        <![CDATA[Grenade is unaffected by the wind. Explodes automatically near the enemy. Can be triggered by hitting SPACE.]]>
+    </message>
+    <message name="CL_GRENADE.DAMAGE.U2B" value="45 hp from explosion, 9 fragments, 15 hp each."/>
+
+    <!-- STICKY BOMB -->
+
+    <message name="STICKY_GRENADE.NAME.U1" value="Biomass"/>
+    <message name="STICKY_GRENADE.DISTINCT.U1" value="Emits additional fragment on explosion."/>
+    <message name="STICKY_GRENADE.DESCR.U1">
+        <![CDATA[Sticks to any surface. Releases 8 fragments that are unaffected by the wind and fly to the air.]]>
+    </message>
+    <message name="STICKY_GRENADE.DAMAGE.U1" value="40 hp from explosion, 8 fragments, 20 hp each."/>
+
+    <message name="STICKY_GRENADE.NAME.U2A" value="Sticky poison"/>
+    <message name="STICKY_GRENADE.DISTINCT.U2A" value="Grenade and its fragments place poison for 8 turns."/>
+    <message name="STICKY_GRENADE.DESCR.U2A">
+        <![CDATA[Sticks to any surface. Releases 8 fragments that are unaffected by the wind. Grenade and its fragments place poison for 8 turns.]]>
+    </message>
+    <message name="STICKY_GRENADE.DAMAGE.U2A" value="40 hp from explosion, 8 fragments, 25 hp each."/>
+
+    <message name="STICKY_GRENADE.NAME.U2B" value="Sticky mines"/>
+    <message name="STICKY_GRENADE.DISTINCT.U2B"
+             value="Damage from the fragments increased by 5 hp. Fragments that don't hit an enemy stay on the ground."/>
+    <message name="STICKY_GRENADE.DESCR.U2B">
+        <![CDATA[Sticks to any surface. Releases 8 fragments that are unaffected by the wind. Fragments that don't hit an enemy stay on the ground until your next turn.]]>
+    </message>
+    <message name="STICKY_GRENADE.DAMAGE.U2B" value="40 hp from explosion, 8 fragments, 25 hp each."/>
+
+    <!-- SHOTGUN -->
+
+    <message name="SHOTGUN.NAME.U1" value="Combat shotgun"/>
+    <message name="SHOTGUN.DISTINCT.U1" value="Two additional pellets."/>
+    <message name="SHOTGUN.DESCR.U1">
+        <![CDATA[Shoots 9 pellets in a volley. Effective in close combat.]]>
+    </message>
+    <message name="SHOTGUN.DAMAGE.U1" value="9x13 hp."/>
+
+    <message name="SHOTGUN.NAME.U2A" value="Remington"/>
+    <message name="SHOTGUN.DISTINCT.U2A"
+             value="Added one more pellet in a volley. Damage of each pellet increased by 2 hp. Damaged enemies are slowed for 2 turns."/>
+    <message name="SHOTGUN.DESCR.U2A">
+        <![CDATA[Remington shots deal massive damage at close combat and slows enemies for 2 turns.]]>
+    </message>
+    <message name="SHOTGUN.DAMAGE.U2A" value="10x15 hp."/>
+
+    <message name="SHOTGUN.NAME.U2B" value="Jackhammer"/>
+    <message name="SHOTGUN.DISTINCT.U2B" value="Allows to make 2 shots, 6 pellets each. Damage of each pellet increased by 1 hp."/>
+    <message name="SHOTGUN.DESCR.U2B">
+        <![CDATA[Devastating weapon for close combat, which shoots twice per turn.]]>
+    </message>
+    <message name="SHOTGUN.DAMAGE.U2B" value="2 shots, 6x14 hp each."/>
+
+    <!-- MINIGUN -->
+
+    <message name="MINIGUN.NAME.U1" value="Chain gun"/>
+    <message name="MINIGUN.DISTINCT.U1"
+             value="Damage of each bullet increased by 2 hp. No spread for first 5 bullets."/>
+    <message name="MINIGUN.DESCR.U1">
+        <![CDATA[Powerful minigun, capable of turning your enemy into a sieve. Shoots 20 bullets with high damage. No spread for first 5 bullets.]]>
+    </message>
+    <message name="MINIGUN.DAMAGE.U1" value="20 bullets, 8 hp each."/>
+
+    <message name="MINIGUN.NAME.U2A" value="Big Lewis"/>
+    <message name="MINIGUN.DISTINCT.U2A"
+             value="Each direct hit at the enemy lowers his armor by 2 till the end of turn."/>
+    <message name="MINIGUN.DESCR.U2A">
+        <![CDATA[Heavy weapon, specially created to take down armored targets. Each direct hit lowers the enemy's armor by 2 till the end of turn. No spread for first 5 bullets.]]>
+    </message>
+    <message name="MINIGUN.DAMAGE.U2A" value="20 bullets, 8 hp each."/>
+
+    <message name="MINIGUN.NAME.U2B" value="Rocket minigun"/>
+    <message name="MINIGUN.DISTINCT.U2B"
+             value="Shoots rockets instead of bulets, which are capable to aim at enemies."/>
+    <message name="MINIGUN.DESCR.U2B">
+        <![CDATA[Shoots a volley of 10 missiles, which has high damage and explosion radius, and also are capable to correct the trajectory and aim directly at the enemy.]]>
+    </message>
+    <message name="MINIGUN.DAMAGE.U2B" value="10 missiles, 20 hp each."/>
+
+    <!-- BAZOOKA -->
+
+    <message name="BAZOOKA.NAME.U1" value="Faustpatron"/>
+    <message name="BAZOOKA.DISTINCT.U1" value="Damage increased by 10 hp."/>
+    <message name="BAZOOKA.DESCR.U1">
+        <![CDATA[Improved standard weapon. Affected by the wind.]]>
+    </message>
+    <message name="BAZOOKA.DAMAGE.U1"
+             value="70 hp."/>
+
+    <message name="BAZOOKA.NAME.U2" value="Cumulative missile"/>
+    <message name="BAZOOKA.DISTINCT.U2"
+             value="Allows to destroy up to 2 obstacles with one shot. Makes 2 explosions, with the damage of 40 hp."/>
+    <message name="BAZOOKA.DESCR.U2">
+        <![CDATA[Allows to take out an enemy, who cowardly hid behind a wall. Missile destroys up to 2 obstacles. Affected by the wind.]]>
+    </message>
+    <message name="BAZOOKA.DAMAGE.U2"
+             value="2 explosions, 40 hp each."/>
+
+    <!-- GRENADE -->
+
+    <message name="GRENADE.NAME.U1" value="Hand bomb"/>
+    <message name="GRENADE.DISTINCT.U1" value="Two additional minor explosions with 20 hp damage."/>
+    <message name="GRENADE.DESCR.U1">
+        <![CDATA[Improved grenade. Isn't affected by the wind. When bomb explodes, it produces 2 minor explosions with slight delay.]]>
+    </message>
+    <message name="GRENADE.DAMAGE.U1"
+             value="60 hp from first explosion, 20 hp from 2 minor explosions."/>
+
+    <message name="GRENADE.NAME.U2" value="Concussive grenade"/>
+    <message name="GRENADE.DISTINCT.U2" value="Slows damaged units for 1 turn, additional minor explosion."/>
+    <message name="GRENADE.DESCR.U2">
+        <![CDATA[Units hit by this grenade are slowed by 1 turn. When bomb explodes, it produces 3 minor explosions with slight delay. Explodes on contact with enemy.]]>
+    </message>
+    <message name="GRENADE.DAMAGE.U2"
+             value="60 hp from first explosion, 20 hp from 3 additional."/>
+
+    <!-- RIFLE -->
+
+    <message name="RIFLE.NAME.U1" value="Hunting rifle"/>
+    <message name="RIFLE.DISTINCT.U1" value="Improved crosshair, damage from each bullet increased by 5 hp."/>
+    <message name="RIFLE.DESCR.U1">
+        <![CDATA[Perfect weapon for straight shots. Two shots per turn. Improved crosshair.]]>
+    </message>
+    <message name="RIFLE.DAMAGE.U1"
+             value="35 hp per shot, 2 shots."/>
+
+    <!-- HOMING -->
+
+    <message name="HOMING.NAME.U1" value="Heat missile"/>
+    <message name="HOMING.DISTINCT.U1" value="Damage is increased by the time of flying. Maximal bonus - 60 hp."/>
+    <message name="HOMING.DESCR.U1">
+        <![CDATA[Rocket reaches the target by the shortest flight path. It fits perfectly for long distances. Damage is increased by the time of flying.]]>
+    </message>
+    <message name="HOMING.DAMAGE.U1"
+             value="from 60 to 120 hp."/>
+
+    <message name="HOMING.NAME.U2" value="Infrared missile"/>
+    <message name="HOMING.DISTINCT.U2" value="Maximal bonus from the time of flying is increased to 120 hp."/>
+    <message name="HOMING.DESCR.U2">
+        <![CDATA[Rocket reaches the target by the shortest flight path. Damage is increased by the time of flying. Great at large and very large distances.]]>
+    </message>
+    <message name="HOMING.DAMAGE.U2"
+             value="from 60 to 180 hp."/>
+
+    <!-- HARPOON -->
+
+    <message name="HARPOON.NAME.U1" value="Whale gun"/>
+    <message name="HARPOON.DISTINCT.U1" value="Damage on hit is increased by 15 hp, improved crosshair."/>
+    <message name="HARPOON.DESCR.U1">
+        <![CDATA[Hooks up and pulls an enemy, doing damage by electricity while dragging. Improved crosshair.]]>
+    </message>
+    <message name="HARPOON.DAMAGE.U1" value="45 hp when hits a target, 10 hp each 0.25s while dragging."/>
+
+    <message name="HARPOON.NAME.U2A" value="Trident"/>
+    <message name="HARPOON.DISTINCT.U2A" value="Damage on hit is reduced by 20 hp and damage from lugging increased by 6 hp."/>
+    <message name="HARPOON.DESCR.U2A">
+        <![CDATA[Hooks up and pulls an enemy, dealing massive damage by electricity while dragging. Improved crosshair.]]>
+    </message>
+    <message name="HARPOON.DAMAGE.U2A" value="25 hp when hits a target, 16 hp each 0.25s while dragging."/>
+
+    <!-- BLOW_TORCH -->
+
+    <message name="BLOW_TORCH.NAME.U1" value="Improved auger"/>
+    <message name="BLOW_TORCH.DISTINCT.U1" value="Dig distance increased by 30%."/>
+    <message name="BLOW_TORCH.DESCR.U1">
+        <![CDATA[Allows you to dig tunnels under the ground (either horizontally or angularly). Slightly injures and pushes the enemy.]]>
+    </message>
+    <message name="BLOW_TORCH.DAMAGE.U1"
+             value="24 hp per second."/>
+
+    <!-- MINE -->
+
+    <message name="MINE.NAME.U1" value="Antipersonnel mine"/>
+    <message name="MINE.DISTINCT.U1" value="Damage increased by 5 hp."/>
+    <message name="MINE.DAMAGE.U1"
+             value="50 hp."/>
+
+    <message name="MINE.NAME.U2" value="Destruction mine"/>
+    <message name="MINE.DISTINCT.U2" value="Explosion radius increased, damage increased by additional 5 hp."/>
+    <message name="MINE.DAMAGE.U2"
+             value="55 hp."/>
+
+    <!-- UZI -->
+
+    <message name="UZI.NAME.U1" value="Modernized Uzi"/>
+    <message name="UZI.DISTINCT.U1" value="The damage of each bullet is increased by 1 hp."/>
+    <message name="UZI.DESCR.U1">
+        <![CDATA[Shoots in short bursts, almost no disperse. Can be controlled while shooting.]]>
+    </message>
+    <message name="UZI.DAMAGE.U1"
+             value="16 bullets, 6 hp each."/>
+
+    <!-- BARRIER -->
+
+    <message name="BARRIER.NAME.U1" value="Laser defense"/>
+    <message name="BARRIER.DISTINCT.U1" value="You may use 1 additional generator."/>
+
+    <!-- HOLY_GRENADE -->
+
+    <message name="HOLY_GRENADE.NAME.U1" value="Cursed grenade"/>
+    <message name="HOLY_GRENADE.DISTINCT.U1" value="Damage increased by 20 hp., also explosion radius is increased."/>
+    <message name="HOLY_GRENADE.DAMAGE.U1"
+             value="135 hp."/>
+
+    <!-- SPIDER -->
+
+    <message name="SPIDER.NAME.U1A" value="Tarantula"/>
+    <message name="SPIDER.DISTINCT.U1A"
+             value="Shoots a poison bolt in its victim, aside from explosion. The bolt deals 10 damage and always hits target."/>
+    <message name="SPIDER.DESCR.U1A">
+        <![CDATA[Tarantula crawls up to an enemy and stands on it. If the enemy moves out, the spider will detonate and shoot a poison bolt.]]>
+    </message>
+    <message name="SPIDER.DAMAGE.U1A"
+             value="65 hp from explosion, 10 hp from poison bolt."/>
+
+    <!-- DYNAMITE -->
+
+    <message name="DYNAMITE.NAME.U1A" value="Dynamite bundle"/>
+    <message name="DYNAMITE.DISTINCT.U1A" value="On explosion 2 sticks fly away and explode on collision."/>
+    <message name="DYNAMITE.DESCR.U1A">
+        <![CDATA[Detonates in 3 seconds after setup, leaving a large hole in the ground. On explosion 2 sticks fly away and explode on collision with ground or unit.]]>
+    </message>
+    <message name="DYNAMITE.DAMAGE.U1A"
+             value="75 hp from the first explosion, 65 hp from each stick."/>
+
+    <message name="DYNAMITE.NAME.U1B" value="Kamikaze belt"/>
+    <message name="DYNAMITE.DISTINCT.U1B"
+             value="The unit explodes at the end of a turn, dealing 70 hp damage. Belt activation doesn't spend a turn."/>
+    <message name="DYNAMITE.DESCR.U1B">
+        <![CDATA[Kamikaze belt gives a chance to heavily wounded units to deal decent damage at their last turn. Activation doesn't spend a turn. At the end of a turn unit explodes, dealing damage to nearby units and to the ground.]]>
+    </message>
+    <message name="DYNAMITE.DAMAGE.U1B"
+             value="70 hp at the end of a turn"/>
+
+    <!-- SHOCKER -->
+
+    <message name="SHOCKER.NAME.U1" value="Paralyzer"/>
+    <message name="SHOCKER.DISTINCT.U1" value="Slows the damaged targets for 2 turns, increased damage."/>
+    <message name="SHOCKER.DESCR.U1">
+        <![CDATA[Close combat weapon based on the direct impact of electric charge on the biological target. Damaged units are slowed for 2 turns.]]>
+    </message>
+    <message name="SHOCKER.DAMAGE.U1"
+             value="50 hp + fall damage."/>
+
+    <!-- GIRDER -->
+
+    <message name="GIRDER.NAME.U1" value="Elastic girder"/>
+    <message name="GIRDER.DISTINCT.U1" value="Enables to change girder size before placement."/>
+    <message name="GIRDER.NOTE.U1"
+             value="Cannot be placed on the ground or near other objects. You may change the size before placement by up/down buttons."/>
+
+    <!-- Controlled Sheep -->
+    <message name="SHEEP.NAME.U1A" value="Controlled swine"/>
+    <message name="SHEEP.DISTINCT.U1A" value="Controlled movement. Increased damage and explosion radius."/>
+    <message name="SHEEP.DESCR.U1A" value="Robotic swine, which can be controlled by left/right keys."/>
+    <message name="SHEEP.DAMAGE.U1A" value="140 hp."/>
+
+    <!-- Burned Sheep -->
+    <message name="SHEEP.NAME.U1B" value="Burning swine"/>
+    <message name="SHEEP.DISTINCT.U1B" value="Throws fire while running. Explosion damage reduced and depends on fire bonuses."/>
+    <message name="SHEEP.DESCR.U1B"
+             value="Moves at the pointed direction but can turn around if runs into an obstacle or try to jump over it. Throws fire while running."/>
+    <message name="SHEEP.DAMAGE.U1B" value="30 hp out of explosion, fire damage: 30 hp per second."/>
+
+    <!-- EMERGENCY TELEPORT -->
+    <message name="EMERGENCY_TELEPORT.NAME.U1" value="Emergency teleport mk2"/>
+    <message name="EMERGENCY_TELEPORT.DISTINCT.U1" value="Increased travel radius."/>
+
+    <message name="EMERGENCY_TELEPORT.NAME.U2" value="Evacuator"/>
+    <message name="EMERGENCY_TELEPORT.DESCR.U2"
+             value="Instantly transfers unit to a random point at a middle range. Doesn't waste a turn. Can be used in the air. Avoids mines and laser beams."/>
+    <message name="EMERGENCY_TELEPORT.DISTINCT.U2" value="Always avoids mines and laser beams."/>
+
+    <!-- BOOMERANG -->
+    <message name="BOOMERANG.NAME.U1" value="Balanced boomerang"/>
+    <message name="BOOMERANG.DISTINCT.U1" value="Damage from second hit increased by 15 hp."/>
+    <message name="BOOMERANG.DAMAGE.U1" value="65 hp from first hit, 80 hp from second."/>
+
+    <message name="BOOMERANG.NAME.U2" value="Deadly boomerang"/>
+    <message name="BOOMERANG.DISTINCT.U2" value="Damage increased by 10 hp, second hit knocks enemy's hat down."/>
+    <message name="BOOMERANG.DAMAGE.U2" value="75 hp from first hit, 90 hp from second."/>
+    <message name="BOOMERANG.DESCR.U2">
+        <![CDATA[When boomerang hits the enemy or the ground, it bounces, and you may try to catch it and throw again. For the second throw, boomerang won't bounce. Greatly affected by the wind. Knocks enemy's hat down.]]>
+    </message>
+
+    <!-- PORTABLE TELEPORT -->
+    <message name="TELE_THROWER.NAME.U1" value="Translocator"/>
+    <message name="TELE_THROWER.DESCR.U1">
+        <![CDATA[Behaves just like a grenade. Allows the user to relocate to the place, where the teleport happened to stop after a toss. You may press SPACE to teleport before full stop with 1 second delay.]]>
+    </message>
+    <message name="TELE_THROWER.DISTINCT.U1" value="Allows to teleport before full stop by pressing SPACE."/>
+
+
+    <!-- ANTIFREEZE -->
+    <message name="ANTIFREEZE.NAME.U1" value="Mixture"/>
+    <message name="ANTIFREEZE.DESCR.U1">
+        <![CDATA[Removes ice from the user and protects him from freezing and slowing for 2 turns. Also heals 60 hp and cures poison. Spends a turn!]]>
+    </message>
+    <message name="ANTIFREEZE.DISTINCT.U1" value="Cures poison, health gain increased by 10 hp."/>
+
+    <message name="ANTIFREEZE.NAME.U2A" value="Broth of berserk"/>
+    <message name="ANTIFREEZE.DESCR.U2A">
+        <![CDATA[Drink of true berserker! Removes ice from the user, increases attack by 30% and protects him from freezing and slowing for 2 turns. Also heals 70 hp and cures poison. Spends a turn!]]>
+    </message>
+    <message name="ANTIFREEZE.DISTINCT.U2A"
+             value="Increases attack by 30%, health gain increased by additional 10 hp."/>
+
+    <message name="ANTIFREEZE.NAME.U2B" value="Potion of stoneskin"/>
+    <message name="ANTIFREEZE.DESCR.U2B">
+        <![CDATA[Removes ice from the user, increases armor by 30% and protects him from freezing and slowing for 2 turns. Also heals 70 hp and cures poison. Spends a turn!]]>
+    </message>
+    <message name="ANTIFREEZE.DISTINCT.U2B" value="Increases armor by 30%, health gain increased by additional 10 hp."/>
+
+    <!-- 1.13.0 -->
+    <message name="PARASITE.NAME.U1" value="Leech"/>
+    <message name="PARASITE.DISTINCT.U1"
+             value="If the leech kills an enemy, it restores 100% of final damage to its owner."/>
+    <message name="PARASITE.DESCR.U1"
+             value="Latches to an enemy instead of exploding. On the next turn leech will slow its victim and then explode in 10 seconds. If the leech kills an enemy, it restores 100% of final damage to its owner."/>
+
+    <message name="RIFLE.NAME.U2" value="Combat rifle"/>
+    <message name="RIFLE.DISTINCT.U2" value="Each direct hit reduces victim's armor by 8 till the end of a turn."/>
+    <message name="RIFLE.DESCR.U2">
+        <![CDATA[Perfect weapon for straight shots. Two shots per turn. Improved crosshair. Each direct hit reduces victim's armor by 8 till the end of a turn.]]>
+    </message>
+
+    <!-- 1.15 -->
+
+    <message name="AIR_STRIKE.NAME.U1" value="Homing strike"/>
+    <message name="AIR_STRIKE.DISTINCT.U1" value="Damage of rockets increased by 10 hp. Rockets aim on target while flying."/>
+    <message name="AIR_STRIKE.DESCR.U1" value="Drops 5 rockets to the selected point. Rockets aim on target while flying!"/>
+    <message name="AIR_STRIKE.DAMAGE.U1" value="5 rockets, 60 hp each."/>
+
+    <message name="THUNDERBOLT.NAME.U1" value="Thunderstrike"/>
+    <message name="THUNDERBOLT.DISTINCT.U1"
+             value="Damage increased by 10 hp. Destroys all objects (mines, barriers, etc) in an area of explosion."/>
+    <message name="THUNDERBOLT.DESCR.U1"
+             value="Caution! Shoots a powerful energy ball affected by the wind. When it explodes, it shoots lightning bolts to each unit in a large range. Destroys all objects (mines, barriers, etc) in an area of explosion."/>
+    <message name="THUNDERBOLT.DAMAGE.U1" value="Ball damage: 105 hp, lightning damage: 70 hp."/>
+
+    <!--1.16-->
+    <message name="TELEPORT.NAME.U1A" value="Teleport mk2"/>
+    <message name="TELEPORT.DISTINCT.U1A" value="Additional 35 damage at initial point."/>
+    <message name="TELEPORT.DESCR.U1A"
+             value="Allows the unit to shift to any area, and even under the ground. Deals small damage both at initial and target points. Spends a turn."/>
+    <message name="TELEPORT.DAMAGE.U1A" value="35 hp."/>
+
+    <message name="GAS_GRENADE.NAME.U1A" value="Corroding gas"/>
+    <message name="GAS_GRENADE.DISTINCT.U1A" value="Can be activated by pressing SPACE. Gas cloud radius increased by 50%. Maximum damage increased by 15 hp."/>
+    <message name="GAS_GRENADE.DESCR.U1A"
+             value="Gas grenade emits a cloud on explosion, which deals poison damage to all units it covers at the end of a turn, ignoring armor, attack, and dodge chance. Lasts for 6 turns. Can be activated in midair by pressing space."/>
+    <message name="GAS_GRENADE.DAMAGE.U1A" value="50-75 hp each turn"/>
+
+    <message name="SHOCKER.NAME.U2" value="Arc lightning"/>
+    <message name="SHOCKER.DAMAGE.U2"
+             value="50 hp + fall damage, 1 bounce"/>
+
+    <message name="BUNKER_BUSTER.NAME.U1" value="Bunker crusher"/>
+    <message name="BUNKER_BUSTER.DISTINCT.U1"
+             value="Landscape penetration increased by 15%, damage increased by 5 hp, ignores 30% of target's armor."/>
+    <message name="BUNKER_BUSTER.DESCR.U1"
+             value="Special missile that digs the way down and detonates once it encounters any unit or reaches the water. Ignores 30% of target's armor."/>
+    <message name="BUNKER_BUSTER.DAMAGE.U1" value="45 hp out of explosion, fire damage: 30 hp per second."/>
+
+    <message name="METEOR.NAME.U1" value="Meteorite shower"/>
+    <message name="METEOR.DISTINCT.U1"
+             value="Invokes 3 meteorites, each breaking into 2 fragments. Meteorite damage: 55 hp., fragment damage: 35 hp. Delay is increased to 3 turns."/>
+    <message name="METEOR.DESCR.U1"
+             value="Invokes 3 meteorites which fall on the ground at random angles. On impact they break into 2 fragments."/>
+    <message name="METEOR.DAMAGE.U1" value="55 hp impact damage, 4 fragments, 35 hp each."/>
+
+    <!--1.17-->
+    <message name="MOLOTOV.NAME.U1" value="Napalm grenade"/>
+    <message name="MOLOTOV.DISTINCT.U1" value="The amount of burning oil increased by 40%. Can be activated by pressing SPACE."/>
+    <message name="MOLOTOV.DESCR.U1" value="Explodes on collision with ground, emitting a ring of burning oil. Can be detonated in midair by pressing SPACE."/>
+
+    <!--1.18-->
+    <message name="AK_47.NAME.U1A" value="AKM"/>
+    <message name="AK_47.DISTINCT.U1A" value="Performs 3 bursts of 3 bullets each. Ignores 10% of victim's armor."/>
+    <message name="AK_47.DAMAGE.U1A" value="3 bursts with 3 bullets. Each bullet deals damage of 16 hp."/>
+
+    <message name="CARPET_STRIKE.NAME.U1" value="Double cat strike"/>
+    <message name="CARPET_STRIKE.DISTINCT.U1" value="For this strike 2 targets are selected, and 2 explosive cats are dropped at each point. Delay is increased to 3 turns."/>
+    <message name="CARPET_STRIKE.DESCR.U1" value="For this strike 2 targets are selected, and 2 cats are dropped at each point. Cats are not influenced by the wind. When hitting the ground, cats bounce to the random direction."/>
+    <message name="CARPET_STRIKE.DAMAGE.U1" value="4 cats, 2 bounces, 50 hp of damage from every strike."/>
+
+    <message name="LASER_GUN.NAME.U1" value="Laser rifle mk2"/>
+    <message name="LASER_GUN.DISTINCT.U1" value="Ignores 25% of target's armor."/>
+    <message name="LASER_GUN.DESCR.U1" value="Laser beam easily cuts through both ground and your enemies! The beam can be controlled by up/down keys. Ignores 25% of target's armor."/>
+
+    <message name="LASER_GUN.NAME.U2A" value="Heavy laser"/>
+    <message name="LASER_GUN.DISTINCT.U2A" value="Laser duration increased by 25%. Ignores 40% of target's armor."/>
+    <message name="LASER_GUN.DAMAGE.U2A" value="120 hp."/>
+    <message name="LASER_GUN.DESCR.U2A" value="Laser beam easily cuts through both ground and your enemies! The beam can be controlled by up/down keys. Ignores 40% of target's armor."/>
+
+    <message name="LASER_GUN.NAME.U2B" value="Incinerator"/>
+    <message name="LASER_GUN.DISTINCT.U2B" value="Depends on fire bonuses. Laser length decreased by 30%, damage increased by 32 hp."/>
+    <message name="LASER_GUN.DESCR.U2B" value="Laser beam easily cuts through both ground and your enemies! The beam can be controlled by up/down keys."/>
+    <message name="LASER_GUN.DAMAGE.U2B" value="128 hp."/>
+
+    <message name="NAPALM_STRIKE.NAME.U1" value="Napalm bombs"/>
+    <message name="NAPALM_STRIKE.DISTINCT.U1" value="Additional bomb, damage increased by 5 hp."/>
+    <message name="NAPALM_STRIKE.DAMAGE.U1" value="6 bombs, 25 hp each, fire damage: 30 hp per second."/>
+
+    <message name="ROPE.NAME.U1" value="Ninja rope"/>
+    <message name="ROPE.DISTINCT.U1" value="Increased length and rope speed."/>
+
+    <!-- 1.19 -->
+
+    <message name="GRAVITY_GUN.NAME.U1" value="Gravity rifle"/>
+    <message name="GRAVITY_GUN.DISTINCT.U1" value="Improved targeting, damage increased by 10 hp."/>
+    <message name="GRAVITY_GUN.DAMAGE.U1" value="2 shots, 30 hp each"/>
+
+    <!-- 1.20 -->
+
+    <message name="UFO.NAME.U1" value="Visitor"/>
+    <message name="UFO.DISTINCT.U1" value="Damage increased by 5 hp. Fuel increased by 20%."/>
+    <message name="UFO.DAMAGE.U1" value="Explosion damage: 85 hp."/>
+
+    <message name="UFO.NAME.U2" value="Abductor"/>
+    <message name="UFO.DISTINCT.U2" value="Damage increased by 10 hp. Can carry allied units."/>
+    <message name="UFO.DESCR.U2"
+             value="Carries allied units and all kinds of mines: fly above the object, press E or SPACE to capture it, then press E or SPACE again to release. If you press SPACE above the enemy, UFO falls on him end explodes."/>
+    <message name="UFO.DAMAGE.U2" value="Explosion damage: 95 hp."/>
+
+    <message name="SUPER_SHEEP.NAME.U1" value="Raging boar"/>
+    <message name="SUPER_SHEEP.DISTINCT.U1" value="Damage increased by 10 hp. Slows damaged units for 1 turn."/>
+    <message name="SUPER_SHEEP.DESCR.U1"
+             value="A controllable flying boar. It starts flying upwards when launched and explodes when bumps into the ground or any unit. Slows damaged unit for 1 turn."/>
+    <message name="SUPER_SHEEP.DAMAGE.U1" value="100 hp."/>
+
+    <message name="SUPER_SHEEP.NAME.U2" value="Thunder boar"/>
+    <message name="SUPER_SHEEP.DISTINCT.U2" value="Damage increased by 10 hp. Smashes through thin ground layer."/>
+    <message name="SUPER_SHEEP.DESCR.U2"
+             value="A controllable flying boar. It starts flying upwards when launched and explodes when bumps into the ground or any unit. Slows damaged unit for 1 turn. Can smash through thin ground layer."/>
+    <message name="SUPER_SHEEP.DAMAGE.U2" value="110 hp."/>
+
+    <message name="AK_47.NAME.U2A" value="Assault rifle"/>
+    <message name="AK_47.DISTINCT.U2A" value="Damage increased by 4 hp per bullet. Ignores 30% of victim's armor."/>
+    <message name="AK_47.DESCR.U2A"
+             value="Shots with bursts, one bullet can hit 2 enemies. Ignores 30% of victim's armor."/>
+    <message name="AK_47.DAMAGE.U2A" value="3 bursts with 3 bullets. Each bullet deals damage of 18 hp."/>
+
+    <!-- 1.21 -->
+
+    <message name="BLOW_TORCH.NAME.U2" value="Tactical torch"/>
+    <message name="BLOW_TORCH.DISTINCT.U2"
+             value="Tunnel made by torch gets covered by the hatch, which explodes on the next turn."/>
+    <message name="BLOW_TORCH.DESCR.U2">
+        <![CDATA[Allows you to dig tunnels under the ground. You can control the angle by up/down keys. Tunnel made by torch gets covered by the hatch, which explodes on the next turn.]]>
+    </message>
+
+    <message name="PNEUMATIC_DRILL.NAME.U1" value="Secure drill"/>
+    <message name="PNEUMATIC_DRILL.DISTINCT.U1" value="Tunnel made by drill gets covered by the hatch, which explodes on the next turn."/>
+    <message name="PNEUMATIC_DRILL.DESCR.U1"
+             value="Drill is used to dig down vertical tunnels. Tunnel made by drill gets covered by the hatch, which explodes on the next turn."/>
+
+    <message name="PNEUMATIC_DRILL.NAME.U2" value="Miner's kit"/>
+    <message name="PNEUMATIC_DRILL.DISTINCT.U2" value="You may use your auger after using the drill."/>
+    <message name="PNEUMATIC_DRILL.DESCR.U2"
+             value="Drill is used to dig down vertical tunnels. Tunnel made by drill gets covered by the hatch, which explodes on the next turn. You may use your auger after using the drill on the same turn."/>
+
+    <message name="BARRIER.NAME.U2" value="Laser matrix"/>
+    <message name="BARRIER.DISTINCT.U2" value="You may use 1 additional generator. Increased binding distance."/>
+    <message name="BARRIER.DAMAGE.U2" value="10 hp."/>
+
+    <message name="BUNKER_BUSTER.NAME.U2" value="Concussive bunker crusher"/>
+    <message name="BUNKER_BUSTER.DISTINCT.U2"
+             value="Damage increased by 15 hp, ignores 50% of armor and slows the target."/>
+    <message name="BUNKER_BUSTER.DESCR.U2"
+             value="Special missile that digs the way down and detonates once it encounters any unit or reaches the water. Ignores 50% of armor and slows the target."/>
+    <message name="BUNKER_BUSTER.DAMAGE.U2" value="60 hp out of explosion, fire damage: 30 hp per second."/>
+
+    <message name="HOLY_GRENADE.NAME.U2A" value="Eyebomb"/>
+    <message name="HOLY_GRENADE.DISTINCT.U2A" value="Unit can move away after throwing. Damage increased by 25 hp, restores 30 hp to injured allies in a large radius."/>
+    <message name="HOLY_GRENADE.DESCR.U2A">
+        <![CDATA[Very powerful grenade. Explodes only after full stop. Restores 30 hp to injured allies in a large radius.]]>
+    </message>
+    <message name="HOLY_GRENADE.DAMAGE.U2A" value="160 hp."/>
+
+    <!-- 1.23 -->
+
+    <message name="FREEZER.NAME.U1" value="Cryogenic bazooka"/>
+    <message name="FREEZER.DISTINCT.U1" value="Direct hit on frozen unit has damage and freeze time increased by 50%"/>
+    <message name="FREEZER.DESCR.U1">
+        <![CDATA[Shoots special missile which freezes units within area of effect. Missile is affected by the wind. Direct hit on frozen unit has damage and freeze time increased by 50%.]]>
+    </message>
+
+    <!-- 1.26 -->
+
+    <message name="PUSHING_MINE.NAME.U1" value="Tactical stunt mine"/>
+    <message name="PUSHING_MINE.DISTINCT.U1" value="You can place the mine on empty space and push enemies onto it."/>
+    <message name="PUSHING_MINE.DESCR.U1">
+        <![CDATA[This mine can be put under the enemy and it tosses him up in 3 seconds, so you can attack him in midair. If you place it one empty space, it'll trigger when enemy moves or flies above it (or will disappear automatically in 5 seconds). Doesn't deal damage and doesn't waste a turn.]]>
+    </message>
+
+    <message name="SLEDGEHAMMER.NAME.U1" value="Bashing hammer"/>
+    <message name="SLEDGEHAMMER.DISTINCT.U1" value="Increased battering depth."/>
+
+    <message name="BAT.NAME.U1" value="Reinforced bat"/>
+    <message name="BAT.DISTINCT.U1" value="Target destroys a small amount of landmass on collision."/>
+    <message name="BAT.DESCR.U1">
+        <![CDATA[A unit attacked by this weapon, is sent flying with a very high speed. If target unit hits the ground, it destroys a small amount of landmass and takes damage.]]>
+    </message>
+
+    <message name="WATERMELON.NAME.U1" value="Hellmelon"/>
+    <message name="WATERMELON.DISTINCT.U1" value="Can be activated by pressing space."/>
+    <message name="WATERMELON.DESCR.U1"
+             value="Explodes in 5 seconds or by pressing SPACE. When exploding, breaks into 6 smaller fragments, which explode on contacting the ground."/>
+
+    <message name="EMERGENCY_TELEPORT.NAME.U3" value="Medevac"/>
+    <message name="EMERGENCY_TELEPORT.DESCR.U3"
+             value="Teleports the user to nearby medkit. If there are no medkits around, moves unit to a random safe point."/>
+    <message name="EMERGENCY_TELEPORT.DISTINCT.U3" value="Teleports to nearby medkit."/>
+
+    <message name="GRAVITY_GUN.NAME.U2" value="Grabber"/>
+    <message name="GRAVITY_GUN.DISTINCT.U2" value="Allows to pull and throw various objects."/>
+    <message name="GRAVITY_GUN.DESCR.U2">
+        <![CDATA[Pulls and throws away objects within crosshair reach. Medkits and weapon crates explode if thrown this way. If there are no valid objects to pull, shoots 2 missiles that push an enemy with great force.]]>
+    </message>
+    <message name="GRAVITY_GUN.NOTE.U2" value="To grab an object hold SHIFT when attacking."/>
+
+    <message name="DOWNGRADE_ON_SHIFT.NOTE" value="If you hold SHIFT when attacking, weapon will act as in normal mode."/>
+
+    <!-- 1.28 -->
+
+    <message name="NEGATOR.NAME.U1" value="Heal blocker mk2"/>
+    <message name="NEGATOR.DISTINCT.U1" value="Duration increased by 2 turns."/>
+    <message name="NEGATOR.DESCR.U1">
+        <![CDATA[Device that can be attached to any surface, which disables common healing methods for your enemy. Doesn't affect most bosses and rabbit regeneration. If an enemy destroys the blocker, he gets considerable damage. Lasts for 8 turns.]]>
+    </message>
+
+    <message name="NEGATOR.NAME.U2A" value="Negator"/>
+    <message name="NEGATOR.DISTINCT.U2A" value="Deals 10 damage to all enemies every turn. Doesn't harm badly injured enemies (hp less than 10%)."/>
+    <message name="NEGATOR.DESCR.U2A">
+        <![CDATA[Device that can be attached to any surface, which disables common healing methods for your enemy. Doesn't affect most bosses and rabbit regeneration. If an enemy destroys the blocker, he gets considerable damage. Lasts for 8 turns. Damages enemies with more than 10% hit points.]]>
+    </message>
+    <message name="NEGATOR.DAMAGE.U2A" value="10 hp each turn."/>
+
+    <message name="NEGATOR.NAME.U2B" value="Regenerator"/>
+    <message name="NEGATOR.DISTINCT.U2B"
+             value="Each turn restores 10 hp to allies if their health is below 80%, and 15 hp when the health is below 40%."/>
+    <message name="NEGATOR.DESCR.U2B">
+        <![CDATA[Device that can be attached to any surface, which disables common healing methods for your enemy. Doesn't affect most bosses and rabbit regeneration. If an enemy destroys the blocker, he gets considerable damage. Lasts for 8 turns. Each turn restores 10 hp to allies if their health is below 80%, and 15 hp when the health is below 40%.]]>
+    </message>
+
+    <message name="SNIPER_RIFLE.NAME.U1" value="Tactical rifle"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U1" value="Damage increased to 110 hp. Laser beam fluctuations are lowered, and its length is increased."/>
+    <message name="SNIPER_RIFLE.DAMAGE.U1" value="110 hp for the first target."/>
+
+    <message name="SNIPER_RIFLE.NAME.U2A" value="Anti-tank rifle"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U2A" value="Ignores 40% of victim's armor, damage increased to 110 hp."/>
+    <message name="SNIPER_RIFLE.DESCR.U2A">
+        <![CDATA[Powerful heavy rifle capable to pierce several enemies with one shot, but each subsequent target gets lower damage. Ignores 40% of victim's armor.]]>
+    </message>
+    <message name="SNIPER_RIFLE.DAMAGE.U2A" value="130 hp for the first target."/>
+
+    <message name="SNIPER_RIFLE.NAME.U2B" value="Fly slayer"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U2B" value="Damage increased to 120 hp. The shot can't be dodged, almost no beam fluctuations. If there is a critical damage ability, it always works. Reduced damage penalty for each subsequent target by 30%."/>
+    <message name="SNIPER_RIFLE.DESCR.U2B">
+        <![CDATA[Accurate and deadly rifle capable to pierce several enemies with one shot, but each subsequent target gets lower damage. The shot can't be dodged by an enemy! Always deals critical damage when the ability is available!]]>
+    </message>
+    <message name="SNIPER_RIFLE.DAMAGE.U2B" value="120 hp for the first target."/>
+
+    <!-- 1.29 -->
+
+    <message name="GIRDER.NAME.U2" value="Tactical girder"/>
+    <message name="GIRDER.DISTINCT.U2" value="Girder can be placed more precisely."/>
+
+    <message name="ROPE.NAME.U2" value="Engineer rope"/>
+    <message name="ROPE.DISTINCT.U2" value="Automatically shoots in the direction of a nearby supply and picks it."/>
+    <message name="ROPE.DESCR.U2">
+        <![CDATA[This rope can be used not only to climb obstacles, but also to gather supplies.]]>
+    </message>
+    <message name="ROPE.NOTE.U2" value="To shoot a rope towards supply press SHIFT+Space while in the air."/>
+
+    <message name="SLEDGEHAMMER.NAME.U1B" value="Warhammer"/>
+    <message name="SLEDGEHAMMER.DISTINCT.U1B" value="Enemies hit lose 20% of their attack and armor for 2 turns."/>
+    <message name="SLEDGEHAMMER.DESCR.U1B">
+        <![CDATA[The most powerful strike, it drives an enemy to depression, taking the 35% of their current hit points and burying him in the ground, also reducing attack and armor by 20% for 2 turns.]]>
+    </message>
+
+    <message name="SUPER_SHEEP.NAME.U2B" value="Greedy boar"/>
+    <message name="SUPER_SHEEP.DISTINCT.U2B" value="When the boar picks a supply, its damage is increased by 55 (up to 5 times per launch)."/>
+    <message name="SUPER_SHEEP.DESCR.U2B">
+        <![CDATA[A controllable flying boar. It starts flying upwards when launched and explodes when bumps into the ground or any unit. Slows damaged unit for 1 turn. When the boar picks a supply, its damage is increased by 55 up to 5 times per launch.]]>
+    </message>
+
+    <message name="SNOWFLAKE_STRIKE.NAME.U1" value="Snowfall"/>
+    <message name="SNOWFLAKE_STRIKE.DISTINCT.U1" value="The number of snowflakes increased by 2."/>
+    <message name="SNOWFLAKE_STRIKE.DESCR.U1">
+        <![CDATA[Forms 9 snowflakes above pointed location, which fall on the ground. Snowflakes can be cast away by the wind! On collision with ground they deal damage and freeze enemies for 3 turns, while landscape stays untouched.]]>
+    </message>
+
+    <message name="SNOWFLAKE_STRIKE.NAME.U2A" value="Hailstorm"/>
+    <message name="SNOWFLAKE_STRIKE.DISTINCT.U2A" value="Snowflakes are replaced with ice shards that are not affected by the wind. Damage reduced."/>
+    <message name="SNOWFLAKE_STRIKE.DESCR.U2A">
+        <![CDATA[Forms 9 ice shards above pointed location, which fall on the ground. Shards are not affected by the wind. On collision with ground they deal damage and freeze enemies for 3 turns.]]>
+    </message>
+    <message name="SNOWFLAKE_STRIKE.DAMAGE.U2A" value="35 hp."/>
+
+    <message name="SNOWFLAKE_STRIKE.NAME.U2B" value="Snowstorm"/>
+    <message name="SNOWFLAKE_STRIKE.DISTINCT.U2B" value="Freezing duration increased by 1 turn. The number of snowflakes increased by 2. Ignoring the force field."/>
+    <message name="SNOWFLAKE_STRIKE.DESCR.U2B">
+        <![CDATA[Forms 11 snowflakes above pointed location, which fall on the ground. Snowflakes can be cast away by the wind! On collision with ground they deal damage and freeze enemies for 3 turns, while landscape stays untouched.]]>
+    </message>
+
+    <!-- 1.33 -->
+
+    <message name="TELEPORT_ANCHOR.NAME.U1" value="Anchor mk2"/>
+    <message name="TELEPORT_ANCHOR.DISTINCT.U1" value="Duration increased by 2 seconds."/>
+    <message name="TELEPORT_ANCHOR.DESCR.U1">
+        <![CDATA[Places a special mark on your unit's position. The unit then is teleported on this mark at the end of a turn. The mark lasts for 10 seconds.]]>
+    </message>
+
+    <message name="TELEPORT_ANCHOR.NAME.U2" value="Anchor mk3"/>
+    <message name="TELEPORT_ANCHOR.DISTINCT.U2" value="Duration increased by 4 seconds more."/>
+    <message name="TELEPORT_ANCHOR.DESCR.U2">
+        <![CDATA[Places a special mark on your unit's position. The unit then is teleported on this mark at the end of a turn. The mark lasts for 14 seconds.]]>
+    </message>
+
+    <message name="GIRDER_GUN.NAME.U1" value="Girder thrower"/>
+    <message name="GIRDER_GUN.DISTINCT.U1" value="+1 usage per combat."/>
+
+    <message name="FIRE_THROWER.NAME.U1" value="Controlled flamethrower"/>
+    <message name="FIRE_THROWER.DISTINCT.U1" value="Can be controlled while shooting, increased amount of drops by 3 and drop damage by 1."/>
+    <message name="FIRE_THROWER.DESCR.U1">
+        <![CDATA[Throws streams of a burning napalm, which smolders on the ground for some time, burning the enemy. Can be controlled while shooting.]]>
+    </message>
+    <message name="FIRE_THROWER.DAMAGE.U1" value="15 drops, 4 hp each, fire damage: 30 hp per second."/>
+
+    <message name="DRILL.NAME.U1" value="Piercing missile"/>
+    <message name="DRILL.DISTINCT.U1" value="Damage increased by 15, ignores 20% of target's armor."/>
+    <message name="DRILL.DESCR.U1">
+        <![CDATA[A missile, which can get an enemy hiding under the ground or behind an obstacle. Ignores 20% of target's armor. It is influenced by the wind!]]>
+    </message>
+    <message name="DRILL.DAMAGE.U1" value="75 hp."/>
+
+    <message name="DRILL.NAME.U2" value="Drill seeker"/>
+    <message name="DRILL.DISTINCT.U2" value="Damage increased by 15. Aims on nearest enemy while burrowing."/>
+    <message name="DRILL.DESCR.U2">
+        <![CDATA[A missile, which can get an enemy hiding under the ground or behind an obstacle. Ignores 20% of target's armor. It is influenced by the wind! Aims on nearest enemy while burrowing. Is most effective against a single target.]]>
+    </message>
+    <message name="DRILL.DAMAGE.U2" value="90 hp."/>
+
+    <message name="PARASITE.NAME.U2" value="Slime"/>
+    <message name="PARASITE.DISTINCT.U2" value="Prevents target from using turn switch."/>
+    <message name="PARASITE.DESCR.U2">
+        <![CDATA[Latches to an enemy instead of exploding. On the next turn leech will slow its victim, prevents it from using turn switch and then explode in 10 seconds. If the slime kills an enemy, it restores 100% of final damage to its owner.]]>
+    </message>
+    <message name="PARASITE.HINT.U2">
+        <![CDATA[Parasite damage isn't the greatest, but its main purpose is to trouble your opponent on his next turn. Your enemy won't be able to use turn switch to escape interruption!]]>
+    </message>
+
+    <message name="BOULDER.NAME.U1" value="Crushing boulder"/>
+    <message name="BOULDER.DISTINCT.U1" value="When the boulder deals damage it blocks random weapon for 1-3 turns."/>
+    <message name="BOULDER.DESCR.U1">
+        <![CDATA[A huge boulder, which tumbles chaotically over the map! Throws units into the air, dealing damage depending on boulder's speed. When the boulder deals damage it blocks random weapon for 1-3 turns.]]>
+    </message>
+
+    <message name="TELEPORT.NAME.U1B" value="Medical teleport"/>
+    <message name="TELEPORT.DISTINCT.U1B" value="Doesn't allow to move underground, but restores 40 hp with each use and allow to use antifreeze if available."/>
+    <message name="TELEPORT.NOTE.U1B" value="Double click on an open space to teleport."/>
+    <message name="TELEPORT.DESCR.U1B">
+        <![CDATA[Allows the unit to move to open area. Does small damage. Spends a turn. Restores 40 hp with each use and allow to use antifreeze if available.]]>
+    </message>
+    <message name="TELEPORT.HINT.U1B">
+        <![CDATA[Teleports your unit to any empty location on the map. Better to use it when all other options aren't going to help. To use just double click on desired point.]]>
+    </message>
+
+    <!--1.36-->
+
+    <message name="AIR_BLOCKER.NAME.U1" value="Magnet grounding bot"/>
+    <message name="AIR_BLOCKER.DISTINCT.U1"
+             value="Grounding bot also affects flying objects, such as: UFO, helicopter, super boar."/>
+    <message name="AIR_BLOCKER.DESCR.U1">
+        <![CDATA[Device which can be attached to any surface to damage nearby enemies and destroy flying objects that stay in the air for too long. Stays for 10 turns, increasing its radius every turn. Doesn't spend a turn.]]>
+    </message>
+
+    <message name="GUARDING_BOT.NAME.U1A" value="Cloaked guardian"/>
+    <message name="GUARDING_BOT.DISTINCT.U1A"
+             value="Becomes invisible for enemy on your next turn, briefly reveals itself at the beginning of enemy's turn."/>
+    <message name="GUARDING_BOT.DESCR.U1A">
+        <![CDATA[Defensive device, jumps into the air when enemy approaches and attacks it. Can be triggered only by enemies standing on the ground. If there was no unit nearby while installing the guardian, the turn is not spent. Becomes invisible for enemy on your next turn.]]>
+    </message>
+
+    <message name="GUARDING_BOT.NAME.U1B" value="Spiky guardian"/>
+    <message name="GUARDING_BOT.DISTINCT.U1B"
+             value="The guardian can be thrown at a distance, also it attaches to any surface."/>
+    <message name="GUARDING_BOT.DESCR.U1B">
+        <![CDATA[Defensive device, jumps into the air when enemy approaches and attacks it. Can be triggered only by enemies standing on the ground. If there was no unit nearby while installing the guardian, the turn is not spent. The guardian can be thrown at a distance, also it attaches to any surface.]]>
+    </message>
+
+    <!--1.38-->
+
+    <message name="BOULDER.NAME.U2" value="Gentle boulder"/>
+    <message name="BOULDER.DISTINCT.U2" value="Hitting allies deals less damage and doesn't block weapons."/>
+    <message name="BOULDER.DESCR.U2">
+        <![CDATA[A huge boulder, which tumbles chaotically over the map! Throws units into the air, dealing damage depending on boulder's speed. When the boulder deals damage it blocks random weapon for 1-3 turns. Hitting allies deals less damage and doesn't block weapons.]]>
+    </message>
+
+    <message name="SHOCKER.DISTINCT.U2" value="The charge bounces to nearest enemy in medium radius. Doesn't bounce, if you hold SHIFT while attacking."/>
+    <message name="SHOCKER.DESCR.U2"
+             value="Close combat weapon based on the direct impact of electric charge on the target. Damaged units are slowed for 2 turns. The charge bounces to nearest enemy in medium radius. Doesn't bounce, if you hold SHIFT while attacking."/>
+
+    <!--1.39-->
+
+    <message name="FREEZER.NAME.U2A" value="Ice spike"/>
+    <message name="FREEZER.DISTINCT.U2A" value="Damage increased by 20, missile aims on enemies. Deals bonus damage to slowed targets and increased by 30%."/>
+    <message name="FREEZER.DESCR.U2A">
+        <![CDATA[Shoots a missile which aims on nearest enemy and freezes units within area of effect. Missile is affected by the wind. Direct hit on frozen or slowed unit has damage increased by 80% and freeze time increased by 50%.]]>
+    </message>
+    <message name="FREEZER.DAMAGE.U2A" value="60 hp"/>
+
+    <message name="FREEZER.NAME.U1B" value="Snow thrower"/>
+    <message name="FREEZER.DISTINCT.U1B" value="You can shoot 2 times per turn, but damage is decreased by 20, and first shot freeze duration by 1 turn."/>
+    <message name="FREEZER.DESCR.U1B">
+        <![CDATA[Shoots missiles that freeze units within area of effect. Missile is affected by the wind. You may perform 2 shots per turn.]]>
+    </message>
+    <message name="FREEZER.DAMAGE.U1B" value="2 shots, 20 hp per shot."/>
+
+    <message name="FREEZER.NAME.U2B" value="Snow launcher"/>
+    <message name="FREEZER.DISTINCT.U2B" value="Improved crosshair and fixed shot power, damage increased by 10."/>
+    <message name="FREEZER.DESCR.U2B">
+        <![CDATA[Shoots missiles that freeze units within area of effect. Missile is affected by the wind. You may perform 2 shots per turn. Improved crosshair.]]>
+    </message>
+    <message name="FREEZER.DAMAGE.U2B" value="2 shots, 30 hp per shot."/>
+
+    <message name="GAS_GRENADE.NAME.U1B" value="Freezing gas"/>
+    <message name="GAS_GRENADE.DISTINCT.U1B" value="The cloud deals cold damage and slows enemies for 1 turn, but lasts for 5 turns."/>
+    <message name="GAS_GRENADE.DESCR.U1B">
+        <![CDATA[Gas grenade emits a cloud on explosion, which deals cold damage to all units it covers at the end of a turn. Also slows targets for 1 turn. Cloud damage can't be dodged. Lasts for 5 turns.]]>
+    </message>
+
+    <message name="SPIDER.NAME.U1B" value="Frost spider"/>
+    <message name="SPIDER.DISTINCT.U1B" value="Spider shoots an ice missile that freezes enemy for 1 turn. Ignores bonuses to duration of freeze time in equipment."/>
+    <message name="SPIDER.DESCR.U1B">
+        <![CDATA[The spider crawls up to an enemy and stands on it. If the enemy moves out, the spider will detonate and shoot an ice missile that freezes enemy for 1 turn. Ignores bonuses to duration of freeze time in equipment.]]>
+    </message>
+    <message name="SPIDER.DAMAGE.U1B" value="65 hp explosion damage, 25 hp ice spike damage."/>
+
+    <message name="HOLY_GRENADE.NAME.U2B" value="Polar plague"/>
+    <message name="HOLY_GRENADE.DISTINCT.U2B" value="Unit can move away after throwing. Shoots ice spikes to enemies in large radius, but damage and land destruction are greatly reduced. Enemies caught in explosion are frozen for 3 turns."/>
+    <message name="HOLY_GRENADE.DESCR.U2B">
+        <![CDATA[Very powerful grenade. Explodes only after full stop. Shoots ice spikes to enemies in large radius. Enemies caught in explosion are frozen for 3 turns.]]>
+    </message>
+    <message name="HOLY_GRENADE.DAMAGE.U2B" value="80 hp explosion damage, 80 hp spike damage."/>
+
+    <message name="AIR_BLOCKER.NAME.U1B" value="Winter guardian"/>
+    <message name="AIR_BLOCKER.DISTINCT.U1B" value="Extinguishes fire in large radius, freezes damaged enemies for 1 turn. Protects the squad from freezing."/>
+    <message name="AIR_BLOCKER.DESCR.U1B">
+        <![CDATA[Device which can be attached to any surface to damage nearby enemies that stay in the air for too long. Stays for 10 turns, increasing its radius every turn. Doesn't spend a turn. Extinguishes fire in large radius, freezes damaged enemies for 1 turn. Protects squad from freezing in range. Doesn't spend a turn.]]>
+    </message>
+
+    <!-- CANNON -->
+
+    <message name="CANNON.NAME.U1" value="Hand cannon"/>
+    <message name="CANNON.DISTINCT.U1" value="Shooting unit gets an opportunity to run away after the shot, damage increased by 10."/>
+    <message name="CANNON.DESCR.U1">
+        <![CDATA[Shoots with the cannon ball which detonates only after full stop. The shot power is not regulated.]]>
+    </message>
+    <message name="CANNON.DAMAGE.U1" value="100 hp"/>
+
+    <message name="CANNON.NAME.U2" value="Bombard"/>
+    <message name="CANNON.DISTINCT.U2" value="Improved crosshair, damage increased by 15, slows targets"/>
+    <message name="CANNON.DESCR.U2">
+        <![CDATA[Shoots with the cannon ball which detonates only after full stop. The shot power is not regulated. Slows damaged enemies. Improved crosshair.]]>
+    </message>
+    <message name="CANNON.DAMAGE.U2" value="115 hp"/>
+
+    <!-- CARPET_BAZOOKA -->
+
+    <message name="CARPET_BAZOOKA.NAME.U1" value="Cat thrower"/>
+    <message name="CARPET_BAZOOKA.DISTINCT.U1" value="Cats aims first damaged target."/>
+    <message name="CARPET_BAZOOKA.DESCR.U1">
+        <![CDATA[Shoots a cat which bounces several times at a random direction. After the bounce carpet aims on the first target hit.]]>
+    </message>
+    <message name="CARPET_BAZOOKA.DAMAGE.U1" value="2 bounces, 50 hp."/>
+
+    <message name="CARPET_BAZOOKA.NAME.U2A" value="Chaotic cat thrower"/>
+    <message name="CARPET_BAZOOKA.DISTINCT.U2A" value="Cats get additional bounce."/>
+    <message name="CARPET_BAZOOKA.DAMAGE.U2A" value="3 bounces, 50 hp."/>
+
+    <message name="CARPET_BAZOOKA.NAME.U2B" value="Burning cat thrower"/>
+    <message name="CARPET_BAZOOKA.DISTINCT.U2B" value="Damage depends on fire bonus. Ignites the ground on hit."/>
+    <message name="CARPET_BAZOOKA.DESCR.U2B">
+        <![CDATA[Shoots a cat which bounces several times at a random direction. After the bounce cat aims on the first target hit. Cat ignite the land on impact.]]>
+    </message>
+    <message name="CARPET_BAZOOKA.DAMAGE.U2B" value="2 bounces, 40 hp., fire damage: 30 hp per second."/>
+
+    <!--1.43-->
+
+    <message name="SOUL_GUN.NAME.U1" value="Severe soulgun"/>
+    <message name="SOUL_GUN.DISTINCT.U1" value="Increased range and low hit points bonus damage."/>
+    <message name="SOUL_GUN.DAMAGE.U1" value="16 souls, from 4 to 9 hp each."/>
+
+    <message name="SOUL_GUN.NAME.U2A" value="Empathic soulgun"/>
+    <message name="SOUL_GUN.DISTINCT.U2A" value="Increased average soul damage by 1. Ignores dodge, reflection, and damage block. The first target hit by 3 souls will receive additional damage. Allied units are healed instead of getting damaged. Decreased low hit points bonus damage."/>
+    <message name="SOUL_GUN.DAMAGE.U2A" value="16 souls, from 5 to 10 hp each."/>
+    <message name="SOUL_GUN.HINT.U2A">
+        <![CDATA[Just point towards enemy and shoot. The shot can't be dodged. Allies hit by souls will be healed instead. And if all other units are too far, souls will attack the shooter!]]>
+    </message>
+    <message name="SOUL_GUN.DESCR.U2A">
+        <![CDATA[Releases swarm of hungry spirits towards a target. Ignores dodge, reflection, and damage block. The first target hit by 3 souls will receive additional damage. Spirits pick random ally or enemy unit and rush through the ground to it. Enemies are damaged and allies are healed by spirits, effect increases, if the weapon user is wounded. If a spirit doesn't find a target, it attacks the user!]]>
+    </message>
+
+    <message name="SOUL_GUN.NAME.U2B" value="Noxious soulgun"/>
+    <message name="SOUL_GUN.DISTINCT.U2B" value="Depends on poison bonuses. First target hit by 3 souls will get additional damage and become poisoned."/>
+    <message name="SOUL_GUN.DAMAGE.U2B" value="16 souls, from 4 to 6 hp each."/>
+    <message name="SOUL_GUN.DESCR.U2B">
+        <![CDATA[Releases swarm of hungry spirits towards a target. Spirits pick random ally or enemy unit and rush through the ground to it. Damage of spirits increases, if the weapon user is wounded. If a spirit doesn't find a target, it attacks the user! The first target they hit 3 soul, get extra damage and poisoning.]]>
+    </message>
+
+    <message name="BAT.NAME.U2A" value="Soul smasher"/>
+    <message name="BAT.DISTINCT.U2A" value="Knocks out enemy's soul, turning them to rebellious Zombies (without abilities) until 6 turns. The effect works only on previously-active fighters, otherwise it works like a previous upgrade."/>
+    <message name="BAT.DESCR.U2A">
+        <![CDATA[Delivers a powerful blow to an enemy, knocking out his soul - enemy is turned to rebellious Zombies (without abilities). The effect works only on previously-active fighters, otherwise it works like a previous upgrade.]]>
+    </message>
+
+    <message name="BAT.NAME.U2B" value="Skull cracker"/>
+    <message name="BAT.DISTINCT.U2B" value="Knocks a hat off the enemy. The effect works only on previously-active fighters, otherwise it works like a previous upgrade."/>
+    <message name="BAT.DESCR.U2B">
+        <![CDATA[A unit attacked by this weapon, is sent flying with a very high speed. A blow also knocks a hatt of the enemy. The effect works only on previously-active fighters, otherwise it works like a previous upgrade.]]>
+    </message>
+
+    <!-- 1.48 -->
+    <message name="AK_47.NAME.U1B" value="Snow spitter"/>
+    <message name="AK_47.DISTINCT.U1B" value="Shoots snowballs instead of bullets. They don’t pass through the target. Depends on cold bonuses."/>
+    <message name="AK_47.DESCR.U1B" value="Fires snowballs in short bursts. Depends on cold bonuses."/>
+    <message name="AK_47.DAMAGE.U1B" value="2 bursts of 5 snowballs. Damage one snowball - 12 hp."/>
+
+    <message name="AK_47.NAME.U2B" value="Frost spitter"/>
+    <message name="AK_47.DISTINCT.U2B" value="Shoots ice shards instead of bullets. They don’t pass through the target. Slows enemies. Damage increased by 2, depends on cold bonuses."/>
+    <message name="AK_47.DESCR.U2B" value="Fires ice shards in short bursts. Units hit by ice shards are slowed. Depends on cold bonuses."/>
+    <message name="AK_47.DAMAGE.U2B" value="2 bursts of 5 shards. Damage one shard - 14 hp."/>
+
+    <message name="GRAVITY_GUN.NAME.U3" value="Kinesis"/>
+    <message name="GRAVITY_GUN.DISTINCT.U3" value="Tossed objects deal high shock damage on impact, shots damage increased by 10."/>
+    <message name="GRAVITY_GUN.DESCR.U3" value="Tossed objects deal high shock damage on impact. Damage doesn’t depend on attack or armor values."/>
+    <message name="GRAVITY_GUN.DAMAGE.U3" value="2 shots, 40 hp each. Tossed objects hit for 180 hp."/>
+
+    <message name="HARPOON.NAME.U2B" value="Harpoon breaker"/>
+    <message name="HARPOON.DISTINCT.U2B" value="Arrowhead breaks through the ground. Damage on hit is reduced by 15 hp and damage from lugging increased by 2 hp. The length of the cable is reduced by 30%."/>
+    <message name="HARPOON.DESCR.U2B">
+        <![CDATA[Hooks up and pulls an enemy to the attacker, doing damage by electricity while dragging. Can break through thin ground layer. Improved crosshair. The length of the cable is reduced by 30%.]]>
+    </message>
+    <message name="HARPOON.DAMAGE.U2B" value="30 hp when hits a target, 12 hp each 0.25s while dragging."/>
+
+    <message name="GROUNDBREAKER.NAME.U1" value="Kaiten predator"/>
+    <message name="GROUNDBREAKER.DISTINCT.U1" value="Shards become heavier, so they tend to cluster at the bottom of the pit."/>
+    <message name="GROUNDBREAKER.HINT.U1">
+        <![CDATA[Kaiten predator is more predictable than ground breaker, and has the same destructive power. Angle-up/down arrows. Increase the power - SPACE. Consider the strength of the wind!]]>
+    </message>
+
+    <message name="EMERGENCY_TELEPORT.NAME.U3B" value="Antitrap teleport"/>
+    <message name="EMERGENCY_TELEPORT.DESCR.U3B" value="Instantly transfers unit to a random point at a middle range. Doesn't waste a turn. Can be used in the air. Avoids mines and laser beams. Causes explosion at initial point, that destroys nearest guardians."/>
+    <message name="EMERGENCY_TELEPORT.DISTINCT.U3B" value="Causes explosion at initial point, that destroys guardians."/>
+
+    <message name="BOULDER.NAME.U3" value="Sky crasher"/>
+    <message name="BOULDER.DISTINCT.U3" value="Boulder falls down from the sky. Causes explosion upon impact and another one after full stop."/>
+    <message name="BOULDER.DESCR.U3">
+        <![CDATA[A huge boulder that falls down from the sky and tumbles chaotically over the map! Throws units into the air, dealing damage depending on boulder's speed. auses explosion upon impact and another one after full stop.]]>
+    </message>
+    <message name="BOULDER.DAMAGE.U3" value="Totally unpredictable!"/>
+    <message name="BOULDER.HINT.U3">
+        <![CDATA[Very chaotic. You can cause serious damage to enemy, if you surround them with girders.]]>
+    </message>
+
+    <!-- 1.49 -->
+    <message name="ENERGY_RIFLE.NAME.U1" value="Energy rifle 2000"/>
+    <message name="ENERGY_RIFLE.DISTINCT.U1" value="Victim bounces 2 times after being damaged."/>
+    <message name="ENERGY_RIFLE.DAMAGE.U1" value="70 hp from shot, 20 hp from each bounce"/>
+    <message name="ENERGY_RIFLE.DESCR.U1">
+        <![CDATA[Shoots an energy bullet, which damages victim and makes them bounce into the air several times, dealing extra damage. Damage isn't dependant on attack and armor.]]>
+    </message>
+
+    <message name="ENERGY_RIFLE.NAME.U2" value="Energy rifle 3000"/>
+    <message name="ENERGY_RIFLE.DISTINCT.U2" value="Victim bounces 3 times after being damaged."/>
+    <message name="ENERGY_RIFLE.DAMAGE.U2" value="65 hp from shot, 20 hp each bounce"/>
+
+    <message name="ENERGY_RIFLE.NAME.U3" value="Energy rifle 4000"/>
+    <message name="ENERGY_RIFLE.DISTINCT.U3" value="Victim bounces 4 times under this receiving damage."/>
+    <message name="ENERGY_RIFLE.DAMAGE.U3" value="60 hp from shot, 20 hp from each bounce"/>
+
+    <message name="SNIPER_RIFLE.NAME.U3A" value="Dino slayer"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U3A" value="Ignores 60% of victim's armor, damage increased to 140 hp. Laser beam fluctuations are lowered by 33%. Increased beam length, ground piercing distance, and distance of maximal damage."/>
+    <message name="SNIPER_RIFLE.DESCR.U3A">
+        <![CDATA[It's capable to piercing several enemies with one shot, but each subsequent target gets lower damage. Ignores 60% of victim's armor.]]>
+    </message>
+    <message name="SNIPER_RIFLE.DAMAGE.U3A" value="140 hp for the first target."/>
+
+    <message name="SNIPER_RIFLE.NAME.U3B" value="Wasp slayer"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U3B" value="Damage increased to 130 hp. Laser beam fluctuations are lowered by 50%. Increased beam length, ground piercing distance, and distance of maximal damage. Reduced damage penalty for each subsequent target by 60%."/>
+    <message name="SNIPER_RIFLE.DESCR.U3B">
+        <![CDATA[Very accurate and powerful rifle, capable of piercing several enemies with one shot, but each subsequent target gets lower damage. Enemy can't dodge from attack! Always deals critical damage when the ability is available!]]>
+    </message>
+    <message name="SNIPER_RIFLE.DAMAGE.U3B" value="130 hp for the first target."/>
+
+    <message name="GAS_GRENADE.NAME.U2A" value="Bioshock"/>
+    <message name="GAS_GRENADE.DISTINCT.U2A" value="When activated, damages units with additional poison explosion. Units hit by the explosion lose 3 points of the 'Poison duration (self)' parameter (up to 0) for 8 turns. The radius of the gas cloud has been increased by another 25%."/>
+    <message name="GAS_GRENADE.DESCR.U2A" value="When activated, damages units with poison explosion and emits a cloud, which deals poison damage to all units it covers at the end of a turn. Units hit by the explosion lose 3 points of the 'Poisoning' parameter (up to 0) for 8 turns. Unit can't dodge this damage. Cloud lasts for 6 turns. Can be activated by pressing SPACE."/>
+    <message name="GAS_GRENADE.DAMAGE.U2A" value="50 hp from explosion, 50-75 hp each turn"/>
+
+    <message name="GAS_GRENADE.NAME.U2B" value="Krioshock"/>
+    <message name="GAS_GRENADE.DISTINCT.U2B" value="When activated, damages units with additional frost explosion."/>
+    <message name="GAS_GRENADE.DESCR.U2B">
+        <![CDATA[When activated, damages units with frost explosion and emits a cloud, which deals frost damage to all units it covers at the end of a turn, slows enemies for 1 turn. Unit can't dodge this damage. Cloud lasts for 6 turns.]]>
+    </message>
+    <message name="GAS_GRENADE.DAMAGE.U2B" value="50 hp from explosion, 50 hp each turn"/>
+
+    <message name="FIREWORK.NAME.U1" value="Dragon's breath"/>
+    <message name="FIREWORK.DISTINCT.U1" value="Increased drill distance. Improved targeting."/>
+    <message name="FIREWORK.NAME.U2" value="Storm fury"/>
+    <message name="FIREWORK.DISTINCT.U2" value="Damage decreased by 15, and depends on shock bonuses. Ignores force field."/>
+    <message name="FIREWORK.DAMAGE.U2" value="35 hp from explosion. Units, that were impaled by the firework, also get 20 hp of damage plus the damage of falling to ground."/>
+
+    <!-- 1.52 -->
+    <message name="PUPPET.NAME.U1" value="Anna and Belly"/>
+    <message name="PUPPET.DISTINCT.U1" value="You can throw one more doll per fight, but their health is reduced to 120 hp."/>
+    <message name="PUPPET.DESCR.U1" value="The doll is attached to the fighter and intercepts health gains, it can be removed only by self or allied damage, the health of the doll 120 hp."/>
+
+    <message name="PUPPET.NAME.U2A" value="The cursed child"/>
+    <message name="PUPPET.DISTINCT.U2A" value="Bites off 10 hp for each allied treatment."/>
+    <message name="PUPPET.DESCR.U2A" value="The doll is attached to the fighter and intercepts health gains. Bites for 10 hp each time one of the allies of the doll bearer restores health."/>
+    <message name="PUPPET.DAMAGE.U2A" value="10 hp when hit, 10 hp when destroyed, 10 hp for each ally health gain"/>
+
+    <message name="PUPPET.NAME.U2B" value="Ghostly Mandy"/>
+    <message name="PUPPET.DISTINCT.U2B" value="Passes through ground, has slight homing on enemies."/>
+    <message name="PUPPET.DESCR.U2B" value="The doll is attached to the fighter and intercepts health gains. Can be thrown through the ground, and has a slight homing on enemies."/>
+
+    <message name="THEIF_ATTACK.NAME.U1" value="Angry mimicry"/>
+    <message name="THEIF_ATTACK.DISTINCT.U1" value="Added significant damage on direct hit depending on the number of removed attack points. Added improved scope. A direct hit removes attack points for 4 more turns, and a hit on the ground near a enemy takes 2 more turns."/>
+    <message name="THEIF_ATTACK.DESCR.U1" value="Reduces the attack points of a target or group of targets within a small radius. Direct hit increases damage. Improved scope."/>
+    <message name="THEIF_ATTACK.DAMAGE.U1" value="10 hp, +4 hp for each deducted point for direct hits"/>
+
+    <message name="THEIF_ATTACK.NAME.U2A" value="Fatal mimicry"/>
+    <message name="THEIF_ATTACK.DISTINCT.U2A" value="Additionally blocks all attack bonus gains by the target."/>
+    <message name="THEIF_ATTACK.DESCR.U2A" value="Reduces the attack points of a target or a group of targets in a small radius, also forbids any attack increase."/>
+
+    <message name="THEIF_ATTACK.NAME.U2B" value="Inverse mimicry"/>
+    <message name="THEIF_ATTACK.DISTINCT.U2B" value="Decreases armor instead of attack, up to 40 points from direct hit, or up to 50 points for a group of targets. The armor reduction when hitting ground near enemy lasts 2 more turns longer."/>
+    <message name="THEIF_ATTACK.DESCR.U2B" value="Reduces the armor of a target by 40 on direct hit, or by 50 for a group of targets."/>
+
+    <!-- 1.54 -->
+    <message name="CIRCUS_CANNON.NAME.U1" value="Circus cannon mk2"/>
+    <message name="CIRCUS_CANNON.DESCR.U1">
+        <![CDATA[Launches your fighter over a long distance. When they hit the ground there is a powerful explosion, also dealing minor damage to your fighter. Improved crosshair.]]>
+    </message>
+    <message name="CIRCUS_CANNON.DISTINCT.U1" value="Added improved crosshair. Explosion damage increased by 60 hp, damage to your fighter decreased by 10 hp."/>
+    <message name="CIRCUS_CANNON.DAMAGE.U1" value="180 hp, 30 hp to your unit."/>
+
+    <message name="DISC_LAUNCHER.NAME.U1" value="Improved disc launcher"/>
+    <message name="DISC_LAUNCHER.DESCR.U1">
+        <![CDATA[Shoots sharpened discs that bounce off any surface. The disc explodes either when it hits the enemy, or after 4 bounces. Disk damage increases with every bounce. Improved crosshair with an approximate trajectory after the first bounce.]]>
+    </message>
+    <message name="DISC_LAUNCHER.DISTINCT.U1" value="Added improved crosshair. Minimal damage increased by 30 hp, maximal by 50 hp."/>
+    <message name="DISC_LAUNCHER.DAMAGE.U1" value="80-180 hp."/>
+
+    <!-- 1.56 -->
+    <message name="HELICOPTER.NAME.U1A" value="Attack helicopter"/>
+    <message name="HELICOPTER.DESCR.U1A">
+        <![CDATA[It's now possible to attack enemy without leaving your hideout! Helicopter carries 6 bombs. Press SPACE, to drop them. If you press SPACE after using all of your bombs, helicopter falls and explodes. Picking a weapon crate with helicopter gives it additional bomb.]]>
+    </message>
+    <message name="HELICOPTER.DISTINCT.U1A">
+        <![CDATA[Helicopter carries 2 more bombs. Fuel increased by 50%.]]>
+    </message>
+
+    <message name="HELICOPTER.NAME.U1B" value="Armored helicopter"/>
+    <message name="HELICOPTER.DESCR.U1B">
+        <![CDATA[It's now possible to attack enemy without leaving your hideout! Helicopter carries 4 bombs. Press SPACE, to drop them. If you press SPACE after using all of your bombs, helicopter falls and explodes.]]>
+    </message>
+    <message name="HELICOPTER.DISTINCT.U1B">
+        <![CDATA[Does not explode when dropping bombs close to an obstacle. Fuel increased by 20%.]]>
+    </message>
+
+    <message name="SOUL_GUN.ON_SHIFT.NOTE" value="While holding SHIFT, the hungry souls of your chosen allies first."/>
+
+    <message name="VACUUM_GRENADE.NAME.U1" value="Anti-Grenade"/>
+    <message name="VACUUM_GRENADE.DESCR.U1">
+        <![CDATA[Must be used near one of the enemy characters. When the grenade explodes, it creates a black hole that attracts surrounding fighters and objects. Fighters affected by the black hole take damage from impact with the ground and also destroy a small area of ground as they fall. The black hole ignores weight and knockback bonuses. After three seconds, the black hole disappears, dealing a small amount of damage.]]>
+    </message>
+    <message name="VACUUM_GRENADE.DISTINCT.U1">
+        <![CDATA[Ignores the Weighting and Pushback force bonuses. Increased maximum attraction radius and knockback, added improved aim. Must be used next to one of the enemy characters. When falling, the fighters pierce a small area of the ground, and after being in the centre of the hole, they are no longer attracted. Automatically triggers after some time after throwing, no timer and no SPACE activation.]]>
+    </message>
+
+    <!-- 1.57 -->
+    <message name="CANNON.NAME.U3A" value="Portable cannon"/>
+    <message name="CANNON.DISTINCT.U3A" value="Added second shot, can move between shots. Projectile damage reduced by 25, explosion radius also reduced."/>
+    <message name="CANNON.DESCR.U3A">
+        <![CDATA[The cannon fires a cannonball that bounces off walls and only explodes when it comes to a complete stop. The cannon has 2 shots, you can move between shots.]]>
+    </message>
+    <message name="CANNON.DAMAGE.U3A" value="2 shots by 90 hp each"/>
+
+    <message name="CANNON.NAME.U3B" value="Contact cannon"/>
+    <message name="CANNON.DISTINCT.U3B" value="Projectile sticks to surface and explodes with a delay."/>
+    <message name="CANNON.DESCR.U3B">
+        <![CDATA[The cannon fires a cannonball that sticks to the surface and detonates after a delay.]]>
+    </message>
+    <message name="CANNON.DAMAGE.U3B" value="115 hp"/>
+    <message name="CANNON.DAMAGE.U3B.ON_SHIFT.NOTE" value="Holding SHIFT still bounces off walls and explodes after coming to a complete stop."/>
+
+    <!-- 1.59 -->
+    <message name="FORCE_FIELD.NAME.U1" value="Throwing field"/>
+    <message name="FORCE_FIELD.DESCR.U1" value="A device that creates a force field that repels most types of projectiles. Works for 10 turns. Can be activated by pressing SPACEBAR. Cannot be moved by any UFO modification."/>
+    <message name="FORCE_FIELD.DISTINCT.U1" value="The field can be thrown over a distance and activated by pressing SPACEBAR. Cannot be moved by any UFO modification."/>
+    <message name="FORCE_FIELD.NAME.U2A" value="Singular field"/>
+    <message name="FORCE_FIELD.DESCR.U2A" value="A device that creates a reverse force field that attracts most types of projectiles. Works for 10 turns. The field's range is displayed when you hover over it."/>
+    <message name="FORCE_FIELD.DISTINCT.U2A" value="Instead of repelling projectiles, attracts them. The field's range is displayed when you hover over it."/>
+    <message name="FORCE_FIELD.NAME.U2B" value="Atlas Palm"/>
+    <message name="FORCE_FIELD.DESCR.U2B" value="A device that creates a powerful force field that repels most types of projectiles. Works for 10 turns."/>
+    <message name="FORCE_FIELD.DISTINCT.U2B" value="Increased gravitational influence."/>
+
+</dictionary>

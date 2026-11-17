@@ -72,8 +72,11 @@ type mainSession struct {
 	authKey       string
 	token         *string // the API session key ("{userId}.{key}"), nil before login
 	wipeRequested bool
-	// v125: the player uses the 1.25.0 client (its Login was signed with the 1.25.0 salt).
+	// v125: the player uses the 1.25.0 client (its Login was signed with the 1.25.0 salt), or the 1.61.7 one.
 	v125 atomic.Bool
+	// v161: the player uses the 1.61.7 client (its Login was signed with the 1.61.7 salt). v125 is set too:
+	// what 1.61.7 didn't change is answered as for 1.25.0.
+	v161 atomic.Bool
 }
 
 func newMainSession(c *conn) *mainSession { return &mainSession{conn: c} }
@@ -128,7 +131,9 @@ func (s *mainSession) stop() {
 }
 
 func (s *mainSession) out(b []byte) {
-	if s.v125.Load() {
+	if s.v161.Load() {
+		b = proto.Resign161(b)
+	} else if s.v125.Load() {
 		b = proto.Resign125(b)
 	}
 	s.write(b)
@@ -148,7 +153,16 @@ func (s *mainSession) refuseBattle() {
 			locked = proto.DecodeArenaLocked(dataBangObj(o))
 		}
 	}
-	locked.Emit(s.out)
+	s.emitLocked(locked)
+}
+
+// emitLocked sends ArenaLocked in the client's layout.
+func (s *mainSession) emitLocked(l proto.ArenaLocked) {
+	if s.v161.Load() {
+		l.Emit161(s.out)
+		return
+	}
+	l.Emit(s.out)
 }
 
 // rootObject is the answer's ToObject<JObject>(): nil for a JSON null, an error for a non-object.
@@ -196,6 +210,12 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 	r := wire.NewReader(body)
 	switch cmd {
 	case proto.CmdLogin:
+		if proto.IsLogin161(body) {
+			s.v125.Store(true)
+			s.v161.Store(true)
+			s.login(proto.ReadLogin125(r))
+			break
+		}
 		if proto.IsLogin125(body) {
 			s.v125.Store(true)
 			s.login(proto.ReadLogin125(r))
@@ -238,15 +258,17 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		switch typ {
 		case "ArenaResult":
 			res := proto.DecodeArenaResult(dataBangObj(o))
-			if cmd == proto.CmdGetArena125 {
+			if s.v161.Load() {
+				res.Emit161(s.out)
+			} else if cmd == proto.CmdGetArena125 {
 				res.Emit125(s.out)
 			} else {
 				res.Emit(s.out)
 			}
 		case "ArenaLocked":
-			proto.DecodeArenaLocked(dataBangObj(o)).Emit(s.out)
+			s.emitLocked(proto.DecodeArenaLocked(dataBangObj(o)))
 		default:
-			proto.ArenaLocked{Delay: 2147483647, ErrorCode: 1}.Emit(s.out)
+			s.emitLocked(proto.ArenaLocked{Delay: 2147483647, ErrorCode: 1})
 		}
 	case proto.CmdStartBattle:
 		req := proto.ReadStartBattle(r)
@@ -258,6 +280,10 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 			break
 		}
 		res := proto.DecodeStartBattleResult(dataBang(v))
+		if s.v161.Load() {
+			res.Emit161(s.out)
+			break
+		}
 		res.Emit(s.out)
 	case proto.CmdBuyBattle:
 		s.shortReply("account/buy/battles", proto.ReadBuyBattle(r).JSON(), proto.CmdBuyBattleResult)
@@ -328,7 +354,9 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		proto.DecodePumpReactionTheHouseResult(dataBang(s.post("house/pump_reaction", req.JSON()))).Emit(s.out)
 	case proto.CmdEndBattle:
 		var req proto.EndBattle
-		if s.v125.Load() {
+		if s.v161.Load() {
+			req = proto.ReadEndBattle161(r)
+		} else if s.v125.Load() {
 			req = proto.ReadEndBattle125(r)
 		} else {
 			req = proto.ReadEndBattle(r)
@@ -465,6 +493,11 @@ func (s *mainSession) login(req proto.Login) {
 		s.userID.Store(req.ID)
 		pvp.Register(s)
 		account.PutOnlineFirst(func(id uint32) bool { return id != req.ID && pvp.Find(id) != nil })
+		if s.v161.Load() {
+			log.Printf("[main %s] user %d logged in (1.61.7 client)", s.short(), req.ID)
+			account.Emit161(s.write, int32(time.Now().Unix()))
+			break
+		}
 		if s.v125.Load() {
 			log.Printf("[main %s] user %d logged in (1.25.0 client)", s.short(), req.ID)
 			account.Emit125(s.write, int32(time.Now().Unix()))
@@ -483,7 +516,11 @@ func (s *mainSession) login(req proto.Login) {
 // loginFailed sends the error, waits and closes the connection.
 func (s *mainSession) loginFailed(id uint32, e *proto.LoginError) {
 	log.Printf("[main %s] login of %d refused (error %d)", s.short(), id, e.Result)
-	e.Emit(s.out)
+	if s.v161.Load() {
+		e.Emit161(s.out)
+	} else {
+		e.Emit(s.out)
+	}
 	time.Sleep(LoginErrorDelay)
 	s.Close()
 }

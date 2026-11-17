@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- фрази у бою-->
+<!-- у фразах %source% хто стріляв/чий зараз хід, %target% у кого влучили-->
+<taunts>
+    <!-- початок ходу-->
+    <onNextTurn>
+        <message>Хто з мечем до нас прийде - тих легше застрелити</message>
+        <message>Є тільки ми: ти, я і мортира!</message>
+        <message>Прийшов час подивитись, з чого ти зроблений!</message>
+        <message>Хочеш миру, готуйся до війни!</message>
+        <message>%source% жадає крові!</message>
+        <message>%source% налаштований дуже рішуче</message>
+        <message>%source% лютує!!</message>
+        <message>Все ще живі? Тоді ми йдемо до вас!</message>
+        <message>Я живу для того, аби мститися!</message>
+        <message>%source% задумав якусь гидоту</message>
+        <message>%source% сьогодні не твій день</message>
+        <message>Найкраща оборона - це напад!</message>
+        <message>Настає вирішальна мить!</message>
+        <message>Час складати заповіт...</message>
+        <message>Можливо сьогодні %source% влучить!</message>
+    </onNextTurn>
+    <!-- влучив у супротивника-->
+    <onDamage>
+        <message>Добрий, поганий... головне у кого рушниця!</message>
+        <message>Нема сенсу воювати без бажання перемоги</message>
+        <message>Ех, труни подорожчають!</message>
+        <message>Оце по-козацьки!</message>
+        <message>Ми не вбиваємо тварин, ми скорочуємо їх чисельність.</message>
+        <message>Іще живий? От і добре...</message>
+        <message>Хто сказав: 'Народжений повзати літати не може?'</message>
+        <message>Твої права тобі зачитають на похороні</message>
+        <message>Мені вас щиро шкода</message>
+        <message>Я вам глибоко співчуваю</message>
+        <message>Залишається тільки пожаліти тебе</message>
+
+        <message>Красавчег</message>
+        <message>%target%, Як тобі смакує мій порох?</message>
+        <message>%target%, Бійся мене, бо я твоя смерть!</message>
+        <message>HeadShot</message>
+        <message>Для тебе набоїв не шкода!</message>
+        <message>%target% отримав по потилиці</message>
+        <message>%source% навішав пряників</message>
+        <message>%target%, пограв і досить</message>
+        <message>%target%, здавайся!</message>
+        <message>%source%, Я помщуся!</message>
+        <message>%target%, від мене не сховаєшся, не втечеш, не вповзеш!</message>
+        <message>%source% нарешті влучив</message>
+        <message>%source%, повтори, ми усе прогавили</message>
+        <message>%source% ти про це пошкодуєш</message>
+        <message>%target%, благай про спасіння!</message>
+    </onDamage>
+    <!-- влучив у себе-->
+    <onSelfDamage>
+        <message>І де я був, коли Бог руки видавав?</message>
+        <message>%target% довбень</message>
+        <message>Своїх вбивай, чужих не чіпай</message>
+        <message>Ось моя тобі порада - цілься у голову</message>
+        <message>Я працюю над собою, працюю!!!</message>
+        <message>%target% поквапився хробакам на сміх!</message>
+        <message>Я тебе породив, я тебе і вб'ю!</message>
+        <message>Це я тренуюся</message>
+        <message>Ай-яй-яй! Ви зі мною згодні?</message>
+        <message>Без коментарів</message>
+        <message>%target% усе наплутав!</message>
+    </onSelfDamage>
+</taunts>

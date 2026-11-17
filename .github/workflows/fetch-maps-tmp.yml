@@ -1,0 +1,32 @@
+# Temporary: downloads the map files we lack from the original game's CDN (not reachable from here).
+name: Fetch maps (temporary)
+on:
+  pull_request:
+    paths: ['.github/maps-to-fetch.txt', '.github/workflows/fetch-maps-tmp.yml']
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download
+        run: |
+          B=https://tesla.rmart.ru/engine/storage
+          mkdir -p out/levels
+          for p in sound/music_theme_1.swf levels/liberty/map.swf levels/liberty/map1.swf; do
+            echo "probe $p $(curl -s -m 60 -o /dev/null -w '%{http_code} %{size_download}' $B/$p)"
+          done
+          while read id name ver; do
+            [ -n "$name" ] || continue
+            for f in "map$ver.swf" map.swf map1.swf; do
+              d=out/levels/$name; mkdir -p $d
+              code=$(curl -s -m 120 -o "$d/$f" -w '%{http_code}' "$B/levels/$name/$f")
+              if [ "$code" = 200 ]; then echo "ok   $id $name $f $(stat -c%s $d/$f)"; break; fi
+              rm -f "$d/$f"; rmdir "$d" 2>/dev/null; echo "miss $id $name $f $code"
+            done
+          done < .github/maps-to-fetch.txt
+          du -sh out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maps
+          path: out
+          if-no-files-found: warn

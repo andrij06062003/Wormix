@@ -90,3 +90,26 @@ item are in `data/lang/messages_ru.xml` (`RETURN_FRIEND_BTN_QTIP`, `USER_PAGE`).
         FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
             client-patches/standalone-125/${p##*:}.as Wormix.swf Wormix.new.swf "${p%%:*}" && mv Wormix.new.swf Wormix.swf
     done
+
+## `standalone-161/`: the 1.61.7 client without its preloader
+
+In `wormix-client/vk/1.61.7/Wormix.swf` since build 2026-11-17.2, when 1.61.7 became the default client.
+The page starts `Wormix.swf` directly (its preloader is built for VK and the original servers), and three
+things the preloader or Flash Player gave it were missing. Each file is a whole method in FFDec's P-code
+(from `method` to `end ; method`), put in with `-replace` and the method body's index:
+
+- `Application.onAddedToStage.pcode` (`Application`, body 16): the params object built from the flashvars
+  has no `clientVersion` (the client stopped on it) and no `showBanner` function (the VK preloader's; the main
+  menu calls it in `activate()`, threw "Error #1006: value is not a function", and stayed blank). It adds
+  `clientVersion: "1.61.7"` and `showBanner: Application.§&]§`, an empty function of the client.
+- `LoginParams.pcode` (`§&%X§.§5F§`, body 7326): the Login's extra strings read `Capabilities` and `System`
+  values that Ruffle returns as null; it sends `"-"` for each instead.
+- `WeaponUpgrades.pcode` (`§8#o§.§1@§`, body 5944): building an upgrade whose base weapon isn't loaded yet
+  threw at start; it skips that upgrade instead.
+
+    cp Wormix.orig.swf a.swf
+    java -jar ffdec-cli.jar -replace a.swf b.swf '§8#o§.§1@§' client-patches/standalone-161/WeaponUpgrades.pcode 5944
+    java -jar ffdec-cli.jar -replace b.swf c.swf Application client-patches/standalone-161/Application.onAddedToStage.pcode 16
+    java -jar ffdec-cli.jar -replace c.swf Wormix.swf '§&%X§.§5F§' client-patches/standalone-161/LoginParams.pcode 7326
+
+`Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).

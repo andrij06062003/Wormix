@@ -248,7 +248,7 @@ func TestAssembleEquipResult125(t *testing.T) {
 }
 
 func TestSplitCraftedHat(t *testing.T) {
-	for _, c := range [][3]int{{2005, 2, 1005}, {3, 3, 0}, {20000 + 2*200 + 1, 2, 1501}, {20000 + 5*200 + 147, 5, 1647}} {
+	for _, c := range [][3]int{{2005, 2, 1005}, {3, 3, 0}, {20000 + 2*200 + 1, 2, 1501}, {20000 + 5*200 + 147, 5, 1647}, {26000 + 9*200 + 136, 9, 1836}} {
 		if r, h := splitHat(int16(c[0])); r != c[1] || h != c[2] {
 			t.Fatalf("splitHat(%d) = %d %d, want %d %d", c[0], r, h, c[1], c[2])
 		}

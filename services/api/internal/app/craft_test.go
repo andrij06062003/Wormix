@@ -8,7 +8,7 @@ import (
 )
 
 func TestCraftedHatPacking(t *testing.T) {
-	for _, c := range [][2]int64{{2, 0}, {2, 1005}, {3, 1499}, {2, 1501}, {5, 1647}, {0, 1500}} {
+	for _, c := range [][2]int64{{2, 0}, {2, 1005}, {3, 1499}, {2, 1501}, {5, 1647}, {0, 1500}, {0, 1700}, {9, 1836}, {13, 1699}} {
 		race, hat := c[0], c[1]
 		packed := hatByRaceAndHat(hat, race)
 		if r, h := raceAndHat(packed); r != race || h != hat || packed > 32767 {

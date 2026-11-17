@@ -26,7 +26,7 @@ func achAPI(t *testing.T) *server {
 		case strings.HasSuffix(r.URL.Path, "/login"):
 			w.Write([]byte(`{"ok":true,"session_id":"s","login_time":7}`))
 		case strings.HasSuffix(r.URL.Path, "/get"):
-			w.Write([]byte(`{"profile_id":"p","indexes":[1],"values":[2],"invested":3}`))
+			w.Write([]byte(`{"profile_id":"p","indexes":[1,35,100],"values":[2,40,6],"invested":3}`))
 		case strings.HasSuffix(r.URL.Path, "/increase"):
 			w.Write([]byte(`{"indexes":[],"values":[],"threshold_indexes":[],"threshold_old_values":[],"time_sequence":5,"invested":0}`))
 		case strings.HasSuffix(r.URL.Path, "/choose_bonus"):
@@ -78,8 +78,8 @@ func TestGetAchievements125(t *testing.T) {
 	id, body := reply(t, out.Bytes(), achSecretKey125)
 	var want writer
 	want.utf("p")
-	want.byteArray([]int{1})
-	want.u16Array([]int{2})
+	want.byteArray([]int{1, 100}) // 35 is the 1.61.7 client's
+	want.u16Array([]int{2, 6})
 	want.byteArray(nil)
 	want.u8(3)
 	if id != cmdGetAchievementsResult || !bytes.Equal(body, want.Bytes()) {
@@ -100,6 +100,47 @@ func TestGetAchievements125(t *testing.T) {
 	// A wrong hash is refused.
 	if err := s.handleAchievement(context.Background(), cmdGetAchievements, signed(old.Bytes(), "x"), &sid, &out); err == nil {
 		t.Fatal("bad hash accepted")
+	}
+}
+
+func TestAchievements161(t *testing.T) {
+	s := achAPI(t)
+	sid := "s"
+	var wr writer
+	wr.utf("p")
+	wr.u8(0) // investedAwardPoints
+	var out bytes.Buffer
+	if err := s.handleAchievement(context.Background(), cmdGetAchievements, signed(wr.Bytes(), achSecretKey161), &sid, &out); err != nil {
+		t.Fatal(err)
+	}
+	id, body := reply(t, out.Bytes(), achSecretKey161)
+	var want writer
+	want.utf("p")
+	want.i32Array([]int{1, 35, 100})
+	want.i32Array([]int{2, 40, 6})
+	want.i32Array(nil)
+	want.u8(3)
+	if id != cmdGetAchievementsResult || !bytes.Equal(body, want.Bytes()) {
+		t.Fatalf("get: got %d %x, want %x", id, body, want.Bytes())
+	}
+
+	// IncreaseAchievements: ints for the indexes, rises and boolAchievements.
+	var inc writer
+	inc.utf("s")
+	inc.u16(1)
+	inc.i32(35)
+	inc.u16(1)
+	inc.i32(300)
+	inc.u16(1) // boolAchievements
+	inc.i32(1)
+	inc.u32(100)
+	out.Reset()
+	if err := s.handleAchievement(context.Background(), cmdIncreaseAchievements, signed(inc.Bytes(), achSecretKey161), &sid, &out); err != nil {
+		t.Fatal(err)
+	}
+	id, body = reply(t, out.Bytes(), achSecretKey161)
+	if wantInc := []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0}; id != cmdIncreaseAchievementResult || !bytes.Equal(body, wantInc) {
+		t.Fatalf("increase: got %d %x", id, body)
 	}
 }
 

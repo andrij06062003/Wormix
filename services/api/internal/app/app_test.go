@@ -119,14 +119,17 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	if a, b := schemaOf(t, ref.DB), schemaOf(t, d.DB); !reflect.DeepEqual(a, b) {
 		t.Fatalf("schema differs:\nref %q\ngo  %q", a, b)
 	}
-	// The crafted equipment (1.25.0) came after the PHP API: check it, then leave it out of the comparison.
+	// The crafted equipment (1.25.0: 128 rows, 1.61.7: 188 more) came after the PHP API: check it, then leave
+	// it out of the comparison.
 	var crafted int
 	d.QueryRow(`select count(*) from wormix_weapons where ((id > 1500 and id < 2000) or id > 2500) and hide_in_shop = 1 and infinity = 1`).Scan(&crafted)
-	if crafted != 128 {
-		t.Errorf("crafted equipment rows %d, want 128", crafted)
+	if crafted != 316 {
+		t.Errorf("crafted equipment rows %d, want 316", crafted)
 	}
 	d.Exec(`delete from wormix_weapons where (id > 1500 and id < 2000) or id > 2500`)
-	d.Exec(`delete from migrations where migration = '2026_11_08_120000_add_wormix_crafted_equip'`)
+	d.Exec(`delete from migrations where migration in ('2026_11_08_120000_add_wormix_crafted_equip', '2026_11_18_120000_add_wormix_crafted_equip_161')`)
+	// The owner's 1.61.7 grant changes no game data (and there is no such account here).
+	d.Exec(`delete from migrations where migration = '2026_11_18_130000_grant_owner_161'`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_180000_grant_owner_account'`)
 	// So did the hats of the 1.25.0 client (1062+).
 	var hats125 int

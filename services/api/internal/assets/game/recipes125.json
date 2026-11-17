@@ -1,5 +1,5 @@
 {
- "_comment": "Weapon upgrade recipes of the 1.25.0 client (from its recipe config): 52 new ones (38+) and new costs/levels for 17 of 1.05.0's. Applied to wormix_craft by applyRecipes125 (the 2026_11_09_130000_add_wormix_recipes_125 migration, and game:init after recipes.json).",
+ "_comment": "Weapon upgrade recipes of the 1.25.0 client (from its recipe config): 54 new ones (38+) and new costs/levels for 17 of 1.05.0's. Applied to wormix_craft by applyRecipes125 (the 2026_11_09_130000_add_wormix_recipes_125 and 2026_11_17_120000_add_wormix_recipes_125_girder_freezer migrations, and game:init after recipes.json).",
  "recipes": [
   {
    "id": 1,
@@ -988,6 +988,28 @@
    "level": 2
   },
   {
+   "id": 46,
+   "description": "GIRDER.DISTINCT.U1",
+   "prevUpgradeId": 53,
+   "upgradeId": 346,
+   "reagents": [
+    [
+     1,
+     20
+    ],
+    [
+     24,
+     15
+    ],
+    [
+     44,
+     5
+    ]
+   ],
+   "requiredLevel": 12,
+   "level": 1
+  },
+  {
    "id": 47,
    "description": "SHEEP.DISTINCT.U1A",
    "prevUpgradeId": 40,
@@ -1954,6 +1976,28 @@
    ],
    "requiredLevel": 18,
    "level": 2
+  },
+  {
+   "id": 91,
+   "description": "FREEZER.DISTINCT.U1",
+   "prevUpgradeId": 54,
+   "upgradeId": 391,
+   "reagents": [
+    [
+     4,
+     25
+    ],
+    [
+     20,
+     15
+    ],
+    [
+     40,
+     10
+    ]
+   ],
+   "requiredLevel": 14,
+   "level": 1
   }
  ]
 }

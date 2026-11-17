@@ -136,6 +136,9 @@ var Migrations = []Migration{
 	{Name: "2026_11_17_120000_add_wormix_recipes_125_girder_freezer", Fn: migrateRecipes125},
 	// The 1.61.7 client's weapon upgrades (recipes 92-159) and the levels and reagents it differs in.
 	{Name: "2026_11_17_210000_add_wormix_recipes_161", Fn: migrateRecipes161},
+	// The crafted hats and artifacts of the 1.61.7 client (ids only: they can be owned and worn).
+	{Name: "2026_11_18_120000_add_wormix_crafted_equip_161", Fn: migrateCraftedEquip161},
+	{Name: "2026_11_18_130000_grant_owner_161", Fn: migrateGrantOwner161},
 }
 
 func tableExists(ctx context.Context, q interface {

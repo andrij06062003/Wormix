@@ -26,10 +26,16 @@ import (
 )
 
 const (
-	// SecuritySettings.SECRET_KEY: the 1.05.0 client's salt, then the 1.25.0 one's.
+	// SecuritySettings.SECRET_KEY: the 1.05.0 client's salt, then the 1.25.0 and 1.61.7 ones'.
 	achSecretKey     = "ygfA69i3Uz6bDO8"
 	achSecretKey125  = "Uzg4IbZnpskiY73hqnjkPsnRY03H"
+	achSecretKey161  = "s0PaWHUokZZMlhtKVyj3S1n5BruorNmk"
 	achSessionHeader = "X-PRAGMATIX-CORP-SID"
+
+	// achLast125 is the last achievement the 1.05.0 and 1.25.0 clients know; 29-49 are the 1.61.7
+	// client's (the statistics counters, 100+, are the same).
+	achLast125    = 28
+	achStatsFirst = 100
 )
 
 // The prefix comes from the preloader ("wormix_achieve") or the client default ("wormix_achievements").
@@ -181,10 +187,19 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 		}
 		var wr writer
 		wr.utf(res.str("profile_id"))
-		wr.byteArray(res.ints("indexes"))
-		wr.u16Array(res.ints("values"))
-		if key == achSecretKey125 {
-			wr.byteArray(nil) // boolAchievements
+		indexes, values := res.ints("indexes"), res.ints("values")
+		if key == achSecretKey161 {
+			// 1.61.7: every array is of ints
+			wr.i32Array(indexes)
+			wr.i32Array(values)
+			wr.i32Array(nil) // boolAchievements
+		} else {
+			indexes, values = known125(indexes, values)
+			wr.byteArray(indexes)
+			wr.u16Array(values)
+			if key == achSecretKey125 {
+				wr.byteArray(nil) // boolAchievements
+			}
 		}
 		wr.u8(res.int32("invested"))
 		if res.err == nil {
@@ -199,15 +214,24 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 		}
 		rd := reader{data: body[:len(body)-16]}
 		bodySession := rd.utf()
+		// 1.61.7: indexes and rises are ints (a byte and a short before)
 		indexes := make([]int, rd.u16())
 		for i := range indexes {
-			indexes[i] = rd.u8()
+			if key == achSecretKey161 {
+				indexes[i] = rd.i32()
+			} else {
+				indexes[i] = rd.u8()
+			}
 		}
 		rises := make([]int, rd.u16())
 		for i := range rises {
-			rises[i] = rd.i16()
+			if key == achSecretKey161 {
+				rises[i] = rd.i32()
+			} else {
+				rises[i] = rd.i16()
+			}
 		}
-		if key == achSecretKey125 {
+		if key == achSecretKey125 || key == achSecretKey161 {
 			// 1.25.0: boolAchievements (ints), not kept
 			for range rd.u16() {
 				rd.i32()
@@ -231,12 +255,20 @@ func (s *server) handleAchievement(ctx context.Context, id int, body []byte, ses
 			return err
 		}
 		var wr writer
-		wr.byteArray(res.ints("indexes"))
-		wr.u16Array(res.ints("values"))
-		wr.byteArray(res.ints("threshold_indexes"))
-		wr.u16Array(res.ints("threshold_old_values"))
-		if key == achSecretKey125 {
-			wr.u16(0) // boolAchievements (ints)
+		if key == achSecretKey161 {
+			wr.i32Array(res.ints("indexes"))
+			wr.i32Array(res.ints("values"))
+			wr.i32Array(res.ints("threshold_indexes"))
+			wr.i32Array(res.ints("threshold_old_values"))
+			wr.i32Array(nil) // boolAchievements
+		} else {
+			wr.byteArray(res.ints("indexes"))
+			wr.u16Array(res.ints("values"))
+			wr.byteArray(res.ints("threshold_indexes"))
+			wr.u16Array(res.ints("threshold_old_values"))
+			if key == achSecretKey125 {
+				wr.u16(0) // boolAchievements (ints)
+			}
 		}
 		wr.u32(res.uint32("time_sequence"))
 		wr.u8(res.int32("invested"))
@@ -487,13 +519,13 @@ func achHash(data []byte, key string) [16]byte {
 	return md5.Sum(append(data[:len(data):len(data)], key...))
 }
 
-// checkSecure checks a signed command's hash and returns the salt it was signed with: the 1.05.0 or
-// the 1.25.0 client's (its replies are signed with the same).
+// checkSecure checks a signed command's hash and returns the salt it was signed with: the 1.05.0, 1.25.0
+// or 1.61.7 client's (its replies are signed with the same).
 func checkSecure(body []byte) (string, error) {
 	if len(body) < 16 {
 		return "", fmt.Errorf("%w: bad command hash", errBadData)
 	}
-	for _, key := range []string{achSecretKey, achSecretKey125} {
+	for _, key := range []string{achSecretKey, achSecretKey125, achSecretKey161} {
 		h := achHash(body[:len(body)-16], key)
 		if bytes.Equal(h[:], body[len(body)-16:]) {
 			return key, nil
@@ -581,6 +613,25 @@ func (w *writer) byteArray(values []int) {
 	for _, v := range values {
 		w.u8(v)
 	}
+}
+
+func (w *writer) i32Array(values []int) {
+	w.u16(len(values))
+	for _, v := range values {
+		w.i32(v)
+	}
+}
+
+// known125 leaves out the achievements the 1.05.0 and 1.25.0 clients don't have (the 1.61.7 client's).
+func known125(indexes, values []int) ([]int, []int) {
+	var ki, kv []int
+	for i, x := range indexes {
+		if (x <= achLast125 || x >= achStatsFirst) && i < len(values) {
+			ki = append(ki, x)
+			kv = append(kv, values[i])
+		}
+	}
+	return ki, kv
 }
 
 func (w *writer) u16Array(values []int) {

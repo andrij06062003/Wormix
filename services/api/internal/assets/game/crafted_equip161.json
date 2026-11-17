@@ -1,0 +1,627 @@
+{
+ "_comment": "Crafted hats and artifacts of the 1.61.7 client that crafted_equip.json doesn't have (its config §8#<§.§1\"k§; only the ids: crafting them isn't on the server yet). migrateCraftedEquip161 gives each family and prefix a hidden wormix_weapons row (id = familyId + prefix), so a player can own and wear them. best is the top prefix of every 1.61.7 family, old ones too.",
+ "families": [
+  {
+   "familyId": 1650,
+   "name": "HAT.SITH_HOOD",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1660,
+   "name": "HAT.SURGEON_BAND",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1670,
+   "name": "HAT.SPORTS_CAP",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1680,
+   "name": "HAT.WOLF_PELT",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1690,
+   "name": "HAT.HOCKEY_HELM",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1700,
+   "name": "HAT.KNIGHT_HELM",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "familyId": 1710,
+   "name": "HAT.STRATEGIST_HAT",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "familyId": 1720,
+   "name": "HAT.PYROMANCER",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1730,
+   "name": "HAT.FALLING_PYROMANCER",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1740,
+   "name": "HAT.PHOENIX_COVER",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1750,
+   "name": "HAT.HOLOGRAM",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1760,
+   "name": "HAT.MAGMATIC_STETSON",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1770,
+   "name": "HAT.HOKAGE_HELMET",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1790,
+   "name": "HAT.COCKED_HAT",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1800,
+   "name": "HAT.RONINS_GARB",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1810,
+   "name": "HAT.RUSTY_BOILER",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 1820,
+   "name": "HAT.NEUROMANCER",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 1830,
+   "name": "HAT.INQUISITOR",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2580,
+   "name": "ARTIFACT.DEATH_HAMMER",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2590,
+   "name": "ARTIFACT.CRAFTED_2590",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2600,
+   "name": "ARTIFACT.CRAFTED_2600",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2610,
+   "name": "ARTIFACT.HEALER_STAFF",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2620,
+   "name": "ARTIFACT.STRATEGIST_FAN",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2630,
+   "name": "ARTIFACT.MIRAGE",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2640,
+   "name": "ARTIFACT.ABSORBER",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2650,
+   "name": "ARTIFACT.POLAR_SHARD",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2660,
+   "name": "ARTIFACT.NEPHRONOZH",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2670,
+   "name": "ARTIFACT.BIOLAMP",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2680,
+   "name": "ARTIFACT.SPYGLASS",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 2690,
+   "name": "ARTIFACT.BULLFIGHTERS_CLOAK",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "familyId": 2700,
+   "name": "ARTIFACT.SOUL_DESTROYER",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2710,
+   "name": "ARTIFACT.PULSAR",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "familyId": 2720,
+   "name": "ARTIFACT.DRAGON_STAFF",
+   "prefixes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  }
+ ],
+ "best": [
+  {
+   "familyId": 1500,
+   "best": 5
+  },
+  {
+   "familyId": 1510,
+   "best": 4
+  },
+  {
+   "familyId": 1520,
+   "best": 5
+  },
+  {
+   "familyId": 1530,
+   "best": 6
+  },
+  {
+   "familyId": 1540,
+   "best": 5
+  },
+  {
+   "familyId": 1550,
+   "best": 5
+  },
+  {
+   "familyId": 1560,
+   "best": 6
+  },
+  {
+   "familyId": 1570,
+   "best": 6
+  },
+  {
+   "familyId": 1580,
+   "best": 6
+  },
+  {
+   "familyId": 1590,
+   "best": 6
+  },
+  {
+   "familyId": 1600,
+   "best": 6
+  },
+  {
+   "familyId": 1610,
+   "best": 5
+  },
+  {
+   "familyId": 1620,
+   "best": 6
+  },
+  {
+   "familyId": 1630,
+   "best": 6
+  },
+  {
+   "familyId": 1640,
+   "best": 6
+  },
+  {
+   "familyId": 1650,
+   "best": 6
+  },
+  {
+   "familyId": 1660,
+   "best": 6
+  },
+  {
+   "familyId": 1670,
+   "best": 6
+  },
+  {
+   "familyId": 1680,
+   "best": 6
+  },
+  {
+   "familyId": 1690,
+   "best": 6
+  },
+  {
+   "familyId": 1700,
+   "best": 4
+  },
+  {
+   "familyId": 1710,
+   "best": 4
+  },
+  {
+   "familyId": 1720,
+   "best": 6
+  },
+  {
+   "familyId": 1730,
+   "best": 6
+  },
+  {
+   "familyId": 1740,
+   "best": 6
+  },
+  {
+   "familyId": 1750,
+   "best": 6
+  },
+  {
+   "familyId": 1760,
+   "best": 6
+  },
+  {
+   "familyId": 1770,
+   "best": 5
+  },
+  {
+   "familyId": 1790,
+   "best": 5
+  },
+  {
+   "familyId": 1800,
+   "best": 5
+  },
+  {
+   "familyId": 1810,
+   "best": 5
+  },
+  {
+   "familyId": 1820,
+   "best": 6
+  },
+  {
+   "familyId": 1830,
+   "best": 6
+  },
+  {
+   "familyId": 2500,
+   "best": 6
+  },
+  {
+   "familyId": 2510,
+   "best": 5
+  },
+  {
+   "familyId": 2520,
+   "best": 6
+  },
+  {
+   "familyId": 2530,
+   "best": 6
+  },
+  {
+   "familyId": 2540,
+   "best": 6
+  },
+  {
+   "familyId": 2550,
+   "best": 5
+  },
+  {
+   "familyId": 2560,
+   "best": 6
+  },
+  {
+   "familyId": 2570,
+   "best": 4
+  },
+  {
+   "familyId": 2580,
+   "best": 6
+  },
+  {
+   "familyId": 2590,
+   "best": 6
+  },
+  {
+   "familyId": 2600,
+   "best": 6
+  },
+  {
+   "familyId": 2610,
+   "best": 6
+  },
+  {
+   "familyId": 2620,
+   "best": 6
+  },
+  {
+   "familyId": 2630,
+   "best": 6
+  },
+  {
+   "familyId": 2640,
+   "best": 6
+  },
+  {
+   "familyId": 2650,
+   "best": 6
+  },
+  {
+   "familyId": 2660,
+   "best": 6
+  },
+  {
+   "familyId": 2670,
+   "best": 6
+  },
+  {
+   "familyId": 2680,
+   "best": 5
+  },
+  {
+   "familyId": 2690,
+   "best": 5
+  },
+  {
+   "familyId": 2700,
+   "best": 6
+  },
+  {
+   "familyId": 2710,
+   "best": 6
+  },
+  {
+   "familyId": 2720,
+   "best": 6
+  }
+ ]
+}

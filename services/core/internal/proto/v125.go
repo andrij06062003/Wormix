@@ -6,11 +6,14 @@ import (
 )
 
 // Crafted equipment (1.25.0): hats 1500..1699 and artifacts 2500..2999. The API packs a crafted hat
-// into WormStructure.Hat as craftedHatBase + race*craftedHatRace + (id - craftedHatStart).
+// into WormStructure.Hat as craftedHatBase + race*craftedHatRace + (id - craftedHatStart); the 1.61.7
+// client's hats 1700..1999 as craftedHat2Base + race*craftedHatRace + (id - craftedHat2Start).
 const (
 	craftedHatStart      = 1500
 	craftedHatBase       = 20000
 	craftedHatRace       = 200
+	craftedHat2Start     = 1700
+	craftedHat2Base      = 26000
 	craftedArtifactStart = 2500
 )
 
@@ -72,6 +75,9 @@ func splitHat(hat int16) (race, hatID int) {
 	h := int(hat)
 	if h < 50 {
 		return h, 0
+	}
+	if h >= craftedHat2Base {
+		return (h - craftedHat2Base) / craftedHatRace, craftedHat2Start + (h-craftedHat2Base)%craftedHatRace
 	}
 	if h >= craftedHatBase {
 		return (h - craftedHatBase) / craftedHatRace, craftedHatStart + (h-craftedHatBase)%craftedHatRace

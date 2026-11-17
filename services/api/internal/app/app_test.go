@@ -164,12 +164,13 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	d.Exec(`delete from migrations where migration = '2026_11_10_120000_add_wormix_award_weapons_125'`)
 	// The owner's grant changes no game data (and there is no such account here).
 	d.Exec(`delete from migrations where migration = '2026_11_10_130000_grant_owner_crafted_hats'`)
-	// And the weapon upgrades of the 1.25.0 client: 52 new recipes, and its costs for the old ones.
-	var recipes, sheep int
+	// And the weapon upgrades of the 1.25.0 client: 54 new recipes, and its costs for the old ones.
+	var recipes, sheep, girderFreezer int
 	d.QueryRow(`select count(*) from wormix_craft`).Scan(&recipes)
 	d.QueryRow(`select count(*) from wormix_craft where id in (47, 48) and prev_upgrade_id = 40 and required_level = 12`).Scan(&sheep)
-	if recipes != 89 || sheep != 2 {
-		t.Errorf("1.25.0 recipes %d (sheep %d), want 89 (2)", recipes, sheep)
+	d.QueryRow(`select count(*) from wormix_craft where (id = 46 and prev_upgrade_id = 53 and upgrade_id = 346) or (id = 91 and prev_upgrade_id = 54 and upgrade_id = 391)`).Scan(&girderFreezer)
+	if recipes != 91 || sheep != 2 || girderFreezer != 2 {
+		t.Errorf("1.25.0 recipes %d (sheep %d, girder/freezer %d), want 91 (2, 2)", recipes, sheep, girderFreezer)
 	}
 	var reagents string
 	d.QueryRow(`select reagents from wormix_craft where id = 3`).Scan(&reagents)
@@ -188,7 +189,7 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 		d.Exec(`update wormix_craft set reagents = ?, required_level = ? where id = ?`, rg, lvl, id)
 	}
 	rr.Close()
-	d.Exec(`delete from migrations where migration = '2026_11_09_130000_add_wormix_recipes_125'`)
+	d.Exec(`delete from migrations where migration in ('2026_11_09_130000_add_wormix_recipes_125', '2026_11_17_120000_add_wormix_recipes_125_girder_freezer')`)
 	// And the races of the 1.25.0 client: dragon, robot, rhino and boar, and its prices for the old ones.
 	var races, dragon int
 	d.QueryRow(`select count(*) from wormix_races`).Scan(&races)

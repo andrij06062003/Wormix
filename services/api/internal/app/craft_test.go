@@ -257,7 +257,7 @@ func TestBuyWeapon125(t *testing.T) {
 	var money, count int64
 	d.QueryRow(`select money from wormix_user_profiles where user_id = 1`).Scan(&money)
 	d.QueryRow(`select count from wormix_users_weapons where owner_id = 1 and weapon_id = 94`).Scan(&count)
-	if money != 800 || count != -1 {
+	if money != 5000-2100 || count != -1 { // the 1.61.7 price
 		t.Fatalf("money %d, count %d", money, count)
 	}
 }

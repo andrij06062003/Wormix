@@ -24,6 +24,9 @@ func Secure(payload []byte) []byte {
 // has "qlLZmjqXfZiKcJVj" too, but replaces it with this one when it starts.
 const SecretKey125 = "Uzg4IbZnpskiY73hqnjkPsnRY03H"
 
+// SecretKey161 is the salt of the 1.61.7 client.
+const SecretKey161 = "s0PaWHUokZZMlhtKVyj3S1n5BruorNmk"
+
 // SecureWith is Secure with another salt.
 func SecureWith(payload []byte, key string) []byte {
 	h := md5.New()

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+    <!-- CRAFTED HATS AND ARTIFACTS -->
+
+    <message name="PREFIX.NORMAL" value="Common"/>
+    <message name="PREFIX.SUPERIOR" value="Superior"/>
+    <message name="PREFIX.AGGRESSIVE" value="Aggressive"/>
+    <message name="PREFIX.VIOLENT" value="Violent"/>
+    <message name="PREFIX.EPIC" value="Epic"/>
+    <message name="PREFIX.LEGENDARY" value="Legendary"/>
+
+    <!-- REAGENTS -->
+
+    <message name="BATTERY" value="Battery"/>
+    <message name="GEAR" value="Gear"/>
+    <message name="WOOD" value="Wood"/>
+    <message name="STONE" value="Stone"/>
+    <message name="METAL_PLATE" value="Metal plate"/>
+    <message name="SAND" value="Sand"/>
+    <message name="COAL" value="Coal"/>
+    <message name="SCREW_BOLT" value="Screw bolt"/>
+    <message name="SCREW_NUT" value="Screw nut"/>
+    <message name="PIPE" value="Pipe"/>
+    <message name="SPRING" value="Spring"/>
+    <message name="UMBRELLA" value="Umbrella"/>
+    <message name="ACCUMULATOR" value="Accumulator"/>
+    <message name="HAMMER" value="Hammer"/>
+    <message name="GUNPOWDER" value="Gunpowder"/>
+    <message name="STEEL_BAR" value="Steel bar"/>
+    <message name="SCREWDRIVER" value="Screwdriver"/>
+    <message name="WRENCH" value="Wrench"/>
+    <message name="CRYSTAL" value="Crystal"/>
+    <message name="GENERATOR" value="Generator"/>
+    <message name="MICROCHIP" value="Microchip"/>
+    <message name="SNIPER_SCOPE" value="Sniper scope"/>
+    <message name="TITAN_BAR" value="Titan bar"/>
+
+    <message name="RECIPE.NAME" value="Recipe"/>
+
+    <message name="CRAFT_CRATE" value="Resources"/>
+    <message name="CRAFT_QTIP" value="Armory"/>
+    <message name="CRAFT_DISABLE_QTIP" value="Armory will be opened when you get {level} level"/>
+    <message name="COLLECT_FOR_REAGENT_BTN" value="upgrade"/>
+    <message name="COLLECT_FOR_RUBY_BTN" value="upgrade for"/>
+    <message name="CRAFT_REWARD_TITLE" value="Received items"/>
+
+    <message name="CONFIRMATION_COLLECT_FOR_RUBIES_TEXT"
+             value="Are you sure, you want to buy this upgrade for rubies?"/>
+    <message name="CONFIRMATION_COLLECT_TEXT" value="Are you sure, you want to make this upgrade?"/>
+    <message name="REQUIRED_LEVEL_HINT" value="You need {level} level to make this upgrade"/>
+    <message name="DOWNGRADE_BTN" value="downgrade"/>
+    <message name="CONFIRMATION_DOWNGRADE_TEXT"
+             value="You get 80% of the resources when you disassemble the weapon. Are you sure, you want to downgrade?"/>
+
+    <message name="SEARCH_ZONE_GRADE_D"
+             value="The best way to get it is to destroy the ground in missions, or to collect crates on low wagers."/>
+    <message name="SEARCH_ZONE_GRADE_C"
+             value="Can be found in the ground in missions, drops from boxes on any wagers. There's good chance to get it as a reward for beating a boss."/>
+    <message name="SEARCH_ZONE_GRADE_B"
+             value="Drops from the sky on high wagers, also can be got as a reward for a boss. There's a very small chance to get it in mission or on low wager."/>
+
+    <message name="REAGENT_DEMAND" value="Required for:"/>
+    <message name="BOX_REAGENTS" value="Your resources"/>
+
+    <message name="GRADE_S_DEMAND" value="Required for hats and artifacts crafting."/>
+    <message name="BADGE" value="Wormix badge"/>
+    <message name="EQUIP_IS_ON_BOSS" value="This item is a reward for defeating the {bossName}"/>
+    <message name="ADDITIONAL_BONUSES" value="Additional bonuses"/>
+
+    <message name="CRAFT_BTN" value="Forge"/>
+    <message name="REBUILD_BTN" value="Reforge"/>
+    <message name="ALREADY_CRAFTED" value="Crafted"/>
+    <message name="CRAFT_CHANCE" value="Chance:"/>
+    <message name="CRAFT_VARIATION_HINT" value="Craft machine works unpredictably! Item quality depends on pure luck!"/>
+    <message name="CRAFT_EQUIP_NOT_ENOUGH_REGS" value="Not enough reagents to craft for fuzzes"/>
+
+    <message name="NEW_ITEM_CRAFTED_1" value="Great! I've just created {item}!"/>
+    <message name="NEW_ITEM_CRAFTED_2" value="What a masterpiece! I've created {item}!"/>
+    <message name="NEW_ITEM_CRAFTED_3" value="Hey, take a look at what I've got: {item}!"/>
+
+    <message name="TRY_YOUR_LUCK" value="Test your luck!"/>
+    <message name="DETAILS_FOR_CRAFT" value="Materials"/>
+    <message name="CRAFT_PRICE" value="Crafting cost:"/>
+    <message name="CHRISTMAS_KEY" value="Key"/>
+    <message name="CHRISTMAS_KEY_DESCRIPTION" value="Use the key to open the gift chest!"/>
+
+    <message name="WEAPON_CRAFT_BTN" value="Weapons"/>
+    <message name="EQUIP_CRAFT_BTN" value="Equipment"/>
+    <message name="REAGENTS_CRAFT_BTN" value="Resources"/>
+
+    <message name="GREAT_LUCK" value="Great luck!"/>
+    <message name="RECRAFT_VARIATION_HINT" value="Reforging an item gives you a chance to increase its quality."/>
+
+    <message name="RECRAFT_FAIL_POPUP1" value="You've bashed into the anvil."/>
+    <message name="RECRAFT_FAIL_POPUP2" value="You've put too much effort and broke the pincers."/>
+    <message name="RECRAFT_FAIL_POPUP3" value="You've hit a finger with a hammer."/>
+    <message name="RECRAFT_FAIL_POPUP4" value="You've pinched your ear with a gripe."/>
+    <message name="RECRAFT_FAIL_POPUP5" value="Dire rats ate you gunpowder."/>
+    <message name="RECRAFT_FAIL_POPUP6" value="All the metal got consumed by vermin."/>
+    <message name="RECRAFT_FAIL_POPUP01" value="You failed to reforge."/>
+    <message name="RECRAFT_FAIL_POPUP02" value="Try again."/>
+
+    <message name="CRAFTED_MAX_QUALITY" value="You've got the best item of this kind!"/>
+    <message name="SEARCH_ZONE_GRADE_T" value="This item is given as a reward for getting into a top."/>
+
+    <!-- 1.37 -->
+    <message name="MUTAGEN_DESCRIPTION" value="Use the mutagen to unlock race skins!"/>
+
+    <!-- 1.38 -->
+    <message name="BEST_CRAFT_CHANCE" value="A chance to get:"/>
+    <message name="GUARANTEED_SUCCESS" value="Guaranteed success"/>
+
+    <!-- 1.44 -->
+    <message name="SEARCH_ZONE_GRADE_S" value="Can be rewarded for beating superbosses, playing on the Coliseum, finishing a season in top clan, and in game's group and for levelup."/>
+    <message name="SEARCH_ZONE_GRADE_A" value="Can be found in Supply crate and for 9+ wins on the Coliseum."/>
+
+    <!-- 1.50 -->
+    <message name="EQUIP_AVAILABLE_IN_BUNDLE" value="This item can be purchased as a bundle ({name}) for {count} {currency}."/>
+
+    <!-- 1.54 -->
+    <message name="SEARCH_ZONE_GRADE_W" value="Can be chosen as a reward for achievement points."/>
+    <message name="SEARCH_ZONE_GRADE_Z" value="Can be obtained in Zombie Uprising."/>
+
+    <!-- 1.56 -->
+    <message name="SEARCH_ZONE_GRADE_R" value="Sometimes, if you're lucky, you might get it as a boss reward: {bossName}"/>
+
+    <!-- 1.57 -->
+    <message name="DOWNGRADES_LEFT" value="{count} {downgrades} until the end of the day."/>
+    <message name="DOWNGRADES_PLURALS" value="downgrade,downgrades"/>
+    <message name="DOWNGRADES_LIMIT_REACHED" value="Downgraded upgrade limit reached! Try again tomorrow."/>
+
+</dictionary>

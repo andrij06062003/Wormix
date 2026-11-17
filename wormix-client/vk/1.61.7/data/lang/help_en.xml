@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dictionary>
+    <message name="HELP_CONTROL_TITLE1" value="Movement"/>
+    <message name="HELP_CONTROL_DESCR1"><![CDATA[<font color="#3C98FF"><b>Left/Right arrows</b></font>, or <font color="#3C98FF"><b>A</b></font> and <font color="#3C98FF"><b>D</b></font> keys]]></message>
+
+    <message name="HELP_CONTROL_TITLE2" value="Jump forward"/>
+    <message name="HELP_CONTROL_DESCR2"><![CDATA[<font color="#3C98FF"><b>Enter</b></font> key or <font color="#3C98FF"><b>F</b></font> key]]></message>
+
+    <message name="HELP_CONTROL_TITLE3" value="Jump backwards"/>
+    <message name="HELP_CONTROL_DESCR3"><![CDATA[<font color="#3C98FF"><b>Backspace</b></font> key or <font color="#3C98FF"><b>R</b></font> key<br>Backflip is higher than a regular jump.]]></message>
+
+    <message name="HELP_CONTROL_TITLE4" value="Aim"/>
+    <message name="HELP_CONTROL_DESCR4"><![CDATA[<font color="#3C98FF"><b>Up/Down</b></font> keys, or <font color="#3C98FF"><b>W</b></font> and <font color="#3C98FF"><b>S</b></font> keys]]></message>
+
+    <message name="HELP_CONTROL_TITLE5" value="Shoot"/>
+    <message name="HELP_CONTROL_DESCR5"><![CDATA[<font color="#3C98FF"><b>Space</b></font> key<br>Hold the key to increase the power of the shot.]]></message>
+
+    <message name="HELP_CONTROL_TITLE6" value="Backpack"/>
+    <message name="HELP_CONTROL_DESCR6"><![CDATA[<font color="#3C98FF"><b>Q</b></font> or <font color="#3C98FF"><b>I</b></font> key to open<br><font color="#3C98FF"><b>W, A, S, D</b></font> to navigate<br><font color="#3C98FF"><b>Space</b></font> or <font color="#3C98FF"><b>E</b></font> to pick weapon]]></message>
+
+    <message name="HELP_CONTROL_BUFF1"><![CDATA[<b>Poison</b><br>Unit loses health every turn.]]></message>
+    <message name="HELP_CONTROL_BUFF2"><![CDATA[<b>Freeze</b><br>Unit is unable to walk or jump.]]></message>
+    <message name="HELP_CONTROL_BUFF3"><![CDATA[<b>Slow</b><br>Unit's walking speed is reduced.]]></message>
+    <message name="HELP_CONTROL_BUFF4"><![CDATA[<b>Armor reduction</b><br>Unit's armor is reduced.]]></message>
+    <message name="HELP_CONTROL_BUFF5"><![CDATA[<b>Antitoxin</b><br>Unit is protected from poison and healed every turn.]]></message>
+    <message name="HELP_CONTROL_BUFF6"><![CDATA[<b>Antifreeze</b><br>Unit is protected from freezing.]]></message>
+</dictionary>

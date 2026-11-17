@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <!-- VIRAL -->
+    <message name="VIRAL_NEW_LEVEL" value="I got the {level} level in Wormix!"/>
+    <message name="VIRAL_NEW_RACE_TITLE" value="New race!"/>
+    <message name="VIRAL_NEW_RACE" value="Now I'm fighting as {race}!"/>
+    <message name="VIRAL_NEW_ARTIFACT_TITLE" value="New artifact!"/>
+    <message name="VIRAL_NEW_ARTIFACT" value="I've got new shiny artifact: {artifact}!"/>
+    <message name="VIRAL_NEW_HAT_TITLE" value="New hat!"/>
+    <message name="VIRAL_NEW_HAT" value="I've got brand new hat: {hat}!"/>
+    <message name="VIRAL_NEW_WEAPON_TITLE" value="New weapon!"/>
+    <message name="VIRAL_NEW_WEAPON" value="Hurray! I've got a new weapon: {weapon}!"/>
+
+    <message name="VIRAL_5DAY_SEQUENCE_TITLE" value="7 day bonus!"/>
+    <message name="VIRAL_5DAY_SEQUENCE" value="I've played Wormix for 7 days and got {reward}"/>
+    <message name="VIRAL_5DAY_RUBIES_REWARD" value="rubies! Yahoo!"/>
+
+    <message name="VIRAL_QUESTION_NEW_TEAMMATE" value="Tell a friend that he was now in your team?"/>
+
+    <message name="VIRAL_QUESTION_PUMP_REACTION_POST" value="Ask your friend to pump the reaction in response?"/>
+    <message name="VIRAL_PUMPQUESTION_EMPTYLIST" value="You haven't picked anyone to ask for reaction pumping."/>
+    <message name="VIRAL_PUMPREACTION" value="Pump my reaction and I will pump yours in response!"/>
+
+    <message name="VIRAL_QUESTION_ENEMY_LOSED" value="Leave a reminder of your victory?"/>
+    <message name="VIRAL_ENEMY_LOSED" value="You've lost in the fair fight! Want a rematch?"/>
+    <message name="VIRAL_QUESTION_CHALLENGE_POST" value="Challenge him?"/>
+    <message name="VIRAL_LETSFIGHT" value="My rating in Wormix: {rating}. I am ready to fight!"/>
+
+    <message name="VIRAL_SHARE" value="Tell your friends!"/>
+    <message name="VIRAL_FOUND_RUBY" value="I searched the house of {name} and got a ruby in Wormix!"/>
+    <message name="VIRAL_FOUND_RUBY_TITLE" value="Ruby found"/>
+
+    <!-- VIRAL notification -->
+    <message name="NOTIFY_SPAM_ERROR" value="{userName} got too many invitations today. Try to send an invitation tomorrow!"/>;
+    <message name="NOTIFY_LOOSER_TEXT" value="You lose!"/>
+    <message name="NOTIFY_FRIEND_QUESTION" value="Notify friend?"/>
+    <message name="NOTIFY_NEW_TEAMMATE" value="I've hired you to my Wormix squad!"/>
+    <message name="NOTIFY_RETURN_FRIEND" value="Don't hesitate, return to Wormix! And get your reward!"/>
+    <message name="NOTIFY_QUESTION" value="Tell your friend?"/>
+    <message name="NOTIFY_FOUND_RUBY" value="Ruby found in your house!"/>
+    <message name="NOTIFY_СALL_TO_PVP" value="My rating in Wormix: {rating}. {name}, come on, let's fight!"/>
+    <message name="NOTIFY_СALL_TO_PVP_NO_RATING" value="{name}, come on, let's fight!"/>
+
+    <!-- VIRAL activity -->
+    <message name="ACTIVITY_BOUGHT_ITEMS" value="Got a new gun: {weaponName}"/>
+    <message name="ACTIVITY_WIN_PVP_WAGER" value="Defeated {enemyName} in Wormix and got {rating} rating."/>
+    <message name="ACTIVITY_WIN_PVP_NO_RATING" value="Defeated {enemyName} in Wormix."/>
+    <message name="ACTIVITY_NEW_TEAMMATE" value="{name} joined your Wormix squad!"/>
+    <message name="ACTIVITY_СALL_TO_PVP" value="My rating in Wormix: {rating}. {name}, come on, let's fight!"/>
+    <message name="ACTIVITY_СALL_TO_PVP_NO_RATING" value="{name}, come on, let's fight!"/>
+    <message name="ACTIVITY_NEW_PHOTO" value="Made new Wormix photo."/>
+    <message name="ACTIVITY_PUMP_FRIENDS_REACTION" value="Pumped {name}'s reaction"/>
+    <message name="ACTIVITY_PUMP_FRIENDS_REACTION_W" value="Pumped {name}'s reaction"/>
+    <message name="ACTIVITY_FOUND_RUBY" value="Searched {name}'s house in Wormix and found a ruby!"/>
+    <message name="ACTIVITY_NEW_LEVEL" value="On {level} level"/>
+    <message name="ACTIVITY_FEED_NEW_LEVEL" value="I got the {level} level in Wormix!"/>
+    <message name="ACTIVITY_RACE_CHANGED" value="Changed race for {race}"/>
+
+    <message name="ACTIVITY_CHANGE_RACE_ON_ZOMBIE" value="Now I'm fighting as Zombie"/>
+    <message name="ACTIVITY_CHANGE_RACE_ON_RABBIT" value="Now I'm fighting as Rabbit"/>
+    <message name="ACTIVITY_CHANGE_RACE_ON_CAT" value="Now I'm fighting as Cat"/>
+    <message name="ACTIVITY_CHANGE_RACE_ON_BOXER" value="Now I'm fighting as Boxer"/>
+    <message name="ACTIVITY_CHANGE_RACE_ON_DEMON" value="Now I'm fighting as Demon"/>
+    <message name="ACTIVITY_CHANGE_RACE_ON_DRAGON" value="Now I'm fighting as Dragon"/>
+    <message name="ACTIVITY_CHANGE_RACE_ON_ROBOT" value="Now I'm fighting as Robot"/>
+    <message name="ACTIVITY_CHANGE_RACE_ON_RHINO" value="Now I'm fighting as Rhinoceros"/>
+    <message name="ACTIVITY_CHANGE_RACE_ON_BOAR" value="Now I'm fighting as Boar"/>
+
+    <!-- VIRAL clans -->
+    <message name="NOTIFY_ABOUT_INVITATION_QUESTION" value="Tell your friend you invited him to clan?"/>
+    <message name="NOTIFY_ABOUT_INVITATION_TO_CLAN" value="{friendName}, I invite you to join {clanName} clan!"/>
+    <message name="WALL_POST_NEW_CLAN" value="New clan {clanName}!"/>
+    <message name="WALL_POST_CLAN_CREATE" value="I rule the clan {clanName}. And what about you?"/>
+    <message name="WALL_POST_JOINED_TO_CLAN_TITLE" value="I've joined a clan {clanName}!"/>
+    <message name="WALL_POST_JOINED_TO_CLAN" value="Now I am the legion! I've joined the clan {clanName}."/>
+    <message name="WALL_POST_CLAN_EXTENDED_TITLE" value="I expanded my clan {clanName}!"/>
+    <message name="WALL_POST_CLAN_EXTENDED" value="Mine's grown bigger. Shall we measure?"/>
+    <message name="WALL_POST_OPENED_CLAN_TITLE" value="I've opened the clan {clanName}"/>
+    <message name="WALL_POST_OPENED_CLAN" value="Drop in at my place! My clan {clanName} is now opened."/>
+
+    <!-- VIRAL bosses -->
+    <message name="WALL_POST_PLAYER_WIN_BOSS_FARMER" value="I've defeated the Farmer!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_HUNTER" value="I've defeated the Hunter!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_MANIACS" value="I've defeated the Maniacs!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ENGINEER" value="I've defeated the Engineer!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_GUARDIANS_DEPTHS" value="I've defeated Guardians of the Depths!"/>
+
+    <message name="WALL_POST_PLAYER_WIN_BOSS_PIRATE" value="I defeated the pirate Captain! So who's the terror of the sea now?"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ILLUSIONIST" value="I defeated the Illusionist! No more ridiculous tricks!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_SHAMAN" value="I win! Shaman, they said. Even his demons are so pathetic."/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_VIKING" value="Vikings are best fighters? I've totally owned them, though they had an advantage."/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_WINDMASTER" value="So where's the Wind Master now? Blown away, as I came for him."/>
+
+    <message name="WALL_POST_PLAYER_WIN_BOSS_MINER" value="I got rid of the Miner! Eventually, each miner meets his sapper."/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_SAMURAI_CAT" value="I defeated this cat. Nine times, to be exact!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_SERGEANT" value="Sergeant... I would've win even if he had 10 healers!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_BURNING_DEAD" value="Told them numerous times not to play with fire. Useless - had to handle it again!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_WANDERING_SOUL" value="Maybe if it would be Warrior, not Wandering Spirit, it could have a chance. Hmpf."/>
+
+    <message name="WALL_POST_PLAYER_WIN_BOSS_YAKUZA" value="I defeated Yakuza! Not all of them, of course, but at least three bastards."/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_REVIVED_CAPTAIN" value="Water, meteorites, ice spikes? Ha! Tactics, skill, flawless victory!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ROMEO_JULIET" value="They say love kills... They don't know me yet."/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_KING_DEAD" value="I waited for him to explode himself for so long... but he didn't. Had to help him."/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ANCIENT_GHOST" value="Finally, a tough opponent!.. Unfortunately for him, I'm not afraid of the storm!"/>
+
+    <message name="WALL_POST_PLAYER_WIN_BOSS_DARK_KNIGHT" value="I've defeated the Dark Knight!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_PALADIN" value="I've defeated the Paladin!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_HACKER" value="I've defeated the Hacker!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_THIEVES" value="I've defeated Master thieves!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_PSIONIC" value="I've defeated Telepathist!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_PHANTOMS" value="I've defeated Phantoms!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ARCHIDEMON" value="I've defeated Archdemon!"/>
+
+    <message name="WALL_POST_WIN_BOSS_DRUID" value="I've defeated the Druid!"/>
+    <message name="WALL_POST_WIN_BOSS_PHARAOH" value="I've defeated the Pharaoh!"/>
+    <message name="WALL_POST_WIN_BOSS_CYBORG" value="I've defeated the Cyborg!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ASSASSIN" value="I've defeated the Assassin!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ALCHEMIST" value="I've defeated the Alchemist!"/>
+
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ARCHBOT" value="I've defeated the Archbot!"/>
+    <message name="WALL_POST_WIN_BOSS_JARL" value="I've defeated the Jarl!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ENCHANTER" value="I've defeated the Enchanter!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ARCHIVIST" value="I've defeated the Archivist!"/>
+
+    <message name="WALL_POST_PLAYER_WIN_BOSS_EMPEROR" value="I've defeated the Emperor!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_SCIENTIST" value="I've defeated the Scientist!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_SYMBIOTE" value="I've defeated the Simbiot!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_ARCTIC_WARRIOR" value="I've defeated the Arctic Warrior!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_SPIDERS_QUEEN" value="I've defeated the Spider's Queen!"/>
+
+    <!-- VIRAL bosses -->
+    <message name="COOPERATIVE_WIN_GAMEOVER_BOSS_MESSAGE" value="{userName} and {friendName} defeated boss {bossName}"/>
+    <message name="WIN_GAMEOVER_BOSS_MESSAGE" value="{userName} defeated boss {bossName}"/>
+
+    <message name="COOPERATIVE_LOSE_GAMEOVER_BOSS_MESSAGE" value="Boss {bossName} turned out to be stronger than I and {friendName}"/>
+    <message name="LOSE_GAMEOVER_BOSS_MESSAGE" value="Boss {bossName} turned out to be stronger than {userName}"/>
+
+    <message name="COOPERATIVE_WIN_GAMEOVER_SUPERBOSS_MESSAGE" value="{userName} and {friendName} defeated superboss {bossName} + {bossName2}"/>
+    <message name="WIN_GAMEOVER_SUPERBOSS_MESSAGE" value="{userName} defeated superboss {bossName} + {bossName2}"/>
+
+    <message name="COOPERATIVE_LOSE_GAMEOVER_SUPERBOSS_MESSAGE" value="Superboss {bossName} + {bossName2} turned out to be stronger than I and {friendName}"/>
+    <message name="LOSE_GAMEOVER_SUPERBOSS_MESSAGE" value="Superboss {bossName} + {bossName2} turned out to be stronger than {userName}"/>
+
+    <!-- VIRAL battle -->
+    <message name="VIRAL_WIN_PVP_WAGER_SURVIVE" value="I defeated {enemyName} and {enemyName2} in battle for survival in {hashtag}Wormix, and now my rating {rating}!"/>
+    <message name="VIRAL_WIN_PVP_WAGER" value="I defeated {enemyName} in {hashtag}Wormix and now my rating {rating}!"/>
+    <message name="VIRAL_WIN_PVP_NO_RATING" value="I defeated {enemyName} in {hashtag}Wormix!"/>
+    <message name="VIRAL_WIN_PVP_WAGER_WITH_ALLY" value="I and {allyName} defeated in battle 2 by 2 in {hashtag}Wormix!"/>
+    <message name="VIRAL_LOOSE_PVP" value="{enemyName} defeated me in {hashtag}Wormix!"/>
+    <message name="VIRAL_LOOSE_PVP_EMENIES" value="{enemyName} and {enemyName2} defeated me in {hashtag}Wormix!"/>
+
+    <!-- VIRAL clans -->
+    <message name="WALL_POST_CLAN_MEMBER_PROMOTE_TITLE" value="{userName} raised in the title!"/>
+    <message name="WALL_POST_CLAN_MEMBER_PROMOTE" value="Fighter {userName}, I raised you to the rank of officer in our clan {clanName}!"/>
+    <message name="WALL_POST_CLAN_MEMBER_PROMOTE_LEADER" value="Fighter {userName}, I gave you lead the clan {clanName}!"/>
+    <message name="WALL_POST_CLAN_MEDALS_EXCHANGE_TITLE" value="Traded medals at the rubies!"/>
+    <message name="WALL_POST_CLAN_MEDALS_EXCHANGE" value="Traded medals at the rubies in the clan {clanName}!"/>
+    <message name="WALL_POST_CLAN_DISSOLUTION_TITLE" value="Disband the clan {clanName}!"/>
+    <message name="WALL_POST_CLAN_DISSOLUTION" value="Clan {clanName} no more! I dismissed it."/>
+    <message name="WALL_POST_CLAN_MEMBER_EXIT_TITLE" value="Left the clan {clanName}!"/>
+    <message name="WALL_POST_CLAN_MEMBER_EXIT" value="I left the clan {clanName} and now the lone wolf!"/>
+
+    <message name="ACTIVITY_MISSION_COMPLETE" value="Carried out the mission '{name_mission}' in Wormix!"/>
+    <message name="ACTIVITY_MISSION_FAIL" value="Lost mission '{name_mission}' in Wormix"/>
+
+    <!-- 1.29 -->
+    <message name="WALL_POST_TOP_RATING_REWARD_WAGER" value='Награждён за {place} место среди игроков на ставке "{wager}" !'/>
+    <message name="WALL_POST_TOP_RATING_REWARD_COMMON" value='Награждён за {place} место среди лучших игроков в общем зачёте!'/>
+
+    <message name="WALL_POST_PLAYER_WIN_BOSS_GRAVITY_MASTER" value="I've defeated the Gravity Master!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_SOLAR_PRIEST" value="I've defeated the Solar Priest!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_BLACKSMITH" value="I've defeated the Blacksmith!"/>
+    <message name="WALL_POST_PLAYER_WIN_BOSS_SOUL_MASTER" value="I've defeated the Soul Master!"/>
+
+    <!-- 1.33 -->
+    <message name="WALL_POST_PLAYER_WIN_BOSS_REBEL_ROBOT" value="I've defeated the Rebel Robot!"/>
+
+    <!-- 1.34 -->
+    <message name="VIRAL_NEW_RANK" value="I've reached rank {rank} in Wormix!"/>
+    <message name="VIRAL_RUBY_LEAGUE" value="I've reached the Ruby League in Wormix!"/>
+
+    <!-- 1.35 -->
+    <message name="VIRAL_RANK_SEASON_BONUS_TEXT" value="I've reached rank {rank} in this season!"/>
+    <message name="VIRAL_RANK_SEASON_RUBY_TEXT" value="This season I've reached the Ruby league {rubyPlace}"/>
+    <message name="VIRAL_RANK_SEASON_PLACE_TEXT" value="and took {place} place!"/>
+
+    <!-- 1.37 -->
+    <message name="VIRAL_NEW_SKIN_TITLE" value="New skin!"/>
+    <message name="VIRAL_NEW_SKIN" value="I've chosen the new skin for battle - {skin}!"/>
+
+    <!-- 1.38 -->
+    <message name="VIRAL_WIN_ROPE_RACE_COOP" value="Me and {allyName} beat the Rope race in Wormix!"/>
+    <message name="VIRAL_WIN_ROPE_RACE_VS_FRIEND" value="{enemyName} lost me in the Rope race in Wormix!"/>
+    <message name="VIRAL_LOOSE_ROPE_RACE" value="i lost the Rope race in Wormix :("/>
+
+    <!-- 1.44 -->
+    <message name="WALL_POST_PLAYER_WIN_BOSS_DEVOTEE" value="I've defeated the Enslaver!"/>
+
+</dictionary>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <!-- bank -->
+    <message name="ZERO_BALANCE">
+        <![CDATA[<font color="#A20000"><b>There are no votes on your account.</font><font color="#524336">To top up your account, please click </font> <font color="#0069D5"><u><a href="event:changeBalance">here</a></u></b></font>.]]>
+    </message>
+    <message name="NOT_ZERO_BALANCE">
+        <![CDATA[<font color="#A20000"><b>Votes on your account : {votes}.</font> <font color="#524336">Are they not enough? Click </font> <font color="#0069D5"><u><a href="event:changeBalance"> here .</a></u></font></b>]]>
+    </message>
+
+
+    <message name="VOTES_PLURALS" value="Vote,Votes"/>
+    <message name="COUNT_ITEMS_FOR" value="{count} {items} for {price}"/>
+
+    <message name="VOTES" value="Votes"/>
+    <message name="VOTES_ALT_END" value="Votes"/>
+    <message name="VOTES_NO_END" value="Vote"/>
+
+    <message name="RUBY_PRICE_ALT_END" value="{count} rubies for {price}"/>
+    <message name="RUBY_PRICE_NO_END" value="{count} rubies for {price}"/>
+
+    <message name="BANK_RUBY_EXCHANGE" value="Course of exchange: 1 vote = {exchange} rubies "/>
+    <message name="BANK_COIN_EXCHANGE" value="Exchange course: 1 vote = {exchange} fuzzes"/>
+
+    <message name="VIRAL_KICK_TEAM_MATE_TITLE" value="Kick team mate!"/>
+    <message name="VIRAL_KICK_TEAM_MATE" value="Kick team mate message"/>
+    <message name="VIRAL_NEW_TEAM_MATE_TITLE" value="New team mate!"/>
+    <message name="VIRAL_NEW_TEAM_MATE" value="New team mate message"/>
+
+    <!-- house -->
+    <message name="PHOTOSTUDIO_QTIP" value="Photo studio"/>
+
+    <!-- photostudio -->
+    <message name="PHOTO_STUDIO_QTIP1" value="Change background"/>
+    <message name="PHOTO_STUDIO_QTIP2" value="Change hat"/>
+    <message name="PHOTO_STUDIO_QTIP3" value="Change description"/>
+    <message name="PHOTO_STUDIO_TITLE" value="Your avatar"/>
+    <message name="PHOTO_STUDIO_BUTTON" value="Set as avatar"/>
+
+    <!-- album -->
+    <message name="ALBUM_PHOTO_STATUS_TITLE" value="Wormix - Photo status"/>
+    <message name="ALBUM_PHOTO_STATUS_DESCRIPTION"
+             value="The best photo statuses only in Wormix!  Come in, let's fight: {app_link}"/>
+    <message name="PHOTO_STATUS_DESCRIPTION" value="Photostatus created in Wormix application! {app_link}"/>
+
+    <!-- 1.20 -->
+    <message name="PHOTO_STUDIO_UPDATE_QTIP" value="Change avatar"/>
+
+    <!-- 1.22 -->
+    <message name="CURRENCY_PLURALS" value="vote,votes"/>
+</dictionary>

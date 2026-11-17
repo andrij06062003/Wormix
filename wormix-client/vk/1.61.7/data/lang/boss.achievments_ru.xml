@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <!-- common -->
+    <message name="BOSS_ACHIEVE" value="Достижения босса"/>
+    <message name="ACHIEVE" value="Достижение"/>
+    <message name="COMPLETED" value="выполнено, осталось победить босса!"/>
+    <message name="FAILED" value="провалено!"/>
+    <message name="CREDITED" value="зачтено!"/>
+    <message name="PROGRESS" value="прогресс"/>
+
+    <!-- farmer -->
+    <message name="IRON_FARMER_NAME" value="Железный фермер"/>
+    <message name="IRON_FARMER" value="Победить Фермера, не собирая яблок"/>
+    <message name="PICK_APPLES_FARMER_NAME" value="Яблочник"/>
+    <message name="PICK_APPLES_FARMER" value="Собрать 12 яблок подряд, не пропустив ни одного"/>
+    <message name="FARMER_MANIPULATOR_NAME" value="Манипулятор"/>
+    <message name="FARMER_MANIPULATOR" value="Заставить Фермера взять {value} яблок"/>
+    <message name="FARMER_TOTAL_NAME" value="Достижения фермера"/>
+    <message name="FARMER_TOTAL" value="Выполнить все достижения фермера"/>
+
+    <!-- hunter -->
+    <message name="NOT_DESTROY_GENERATION_HUNTER_NAME" value="Аккуратный"/>
+    <message name="NOT_DESTROY_GENERATION_HUNTER" value="Не разрушить ни одного генератора за весь бой"/>
+    <message name="DESTROY_ACTIVATOR_HUNTER_NAME" value="Беспредельщик"/>
+    <message name="DESTROY_ACTIVATOR_HUNTER" value="Уничтожить {value} генераторов за ход"/>
+    <message name="NOT_GET_DAMAGE_HUNTER_NAME" value="Неуловимый"/>
+    <message name="NOT_GET_DAMAGE_HUNTER" value="Не получить урона за весь бой"/>
+    <message name="HUNTER_TOTAL_NAME" value="Достижения охотника"/>
+    <message name="HUNTER_TOTAL" value="Выполнить все достижения охотника"/>
+
+    <!-- maniacs -->
+    <message name="DODGE_HOOK_MANIACS_NAME" value="Проворный"/>
+    <message name="DODGE_HOOK_MANIACS" value="Не попасться ни на один крюк"/>
+    <message name="KILL_TOGETHER_MANIACS_NAME" value="Расчетливый"/>
+    <message name="KILL_TOGETHER_MANIACS" value="Добить маньяков на одном ходу"/>
+    <message name="FLOODING_BOSSES_MANIACS_NAME" value="Днища"/>
+    <message name="FLOODING_BOSSES_MANIACS" value="Утопить обоих боссов"/>
+    <message name="MANIACS_TOTAL_NAME" value="Достижения маньяков"/>
+    <message name="MANIACS_TOTAL" value="Выполнить все достижения маньяков"/>
+
+    <!-- miner -->
+    <message name="DESTROYER_MINER_NAME" value="Сапер"/>
+    <message name="DESTROYER_MINER" value="Разрушить {value} мин за ход"/>
+    <message name="DODGER_MINER_NAME" value="Легкий шаг"/>
+    <message name="DODGER_MINER" value="Не попасться ни на одну мину"/>
+    <message name="SCOUNDREL_MINER_NAME" value="Предательство"/>
+    <message name="SCOUNDREL_MINER" value="Убить босса с помощью мины"/>
+    <message name="MINER_TOTAL_NAME" value="Достижения минера"/>
+    <message name="MINER_TOTAL" value="Выполнить все достижения минера"/>
+
+    <!-- samurai -->
+    <message name="SINK_ALL_SAMURAI_NAME" value="Водные процедуры"/>
+    <message name="SINK_ALL_SAMURAI" value="Утопить самурая {value} раз"/>
+    <message name="FIRE_KILL_SAMURAI_NAME" value="Прижигатель"/>
+    <message name="FIRE_KILL_SAMURAI" value="Добить самурая огнем {value} раз"/>
+    <message name="DODGER_SAMURAI_NAME" value="Сёгун"/>
+    <message name="DODGER_SAMURAI" value="Получить не более {value} единиц урона"/>
+    <message name="SAMURAI_TOTAL_NAME" value="Достижения самурая"/>
+    <message name="SAMURAI_TOTAL" value="Выполнить все достижения самурая"/>
+
+    <!-- sergeant -->
+    <message name="KILL_SERGEANT_ON_FIRST_TURN_NAME" value="Гамбит"/>
+    <message name="KILL_SERGEANT_ON_FIRST_TURN" value="Убить сержанта на первом ходу"/>
+    <message name="KILL_SERGEANT_LATEST_NAME" value="Отложенная месть"/>
+    <message name="KILL_SERGEANT_LATEST" value="Убить сержанта последним"/>
+    <message name="DODGER_SERGEANT_NAME" value="Крепкая память"/>
+    <message name="DODGER_SERGEANT" value="Ни разу за весь бой не попасться на охранника"/>
+    <message name="SERGEANT_TOTAL_NAME" value="Достижения сержанта"/>
+    <message name="SERGEANT_TOTAL" value="Выполнить все достижения сержанта"/>
+
+    <!-- zombie -->
+    <message name="DODGER_BURNING_DEAD_NAME" value="Скрытный"/>
+    <message name="DODGER_BURNING_DEAD" value="Не попадитесь ни на один метеорит"/>
+    <message name="FAIL_DROP_THREE_METEORS_NAME" value="Не все сразу"/>
+    <message name="FAIL_DROP_THREE_METEORS" value="Не допустить падения 3 метеоритов за 1 ход"/>
+    <message name="METEOR_ON_ZOMBIE_NAME" value="Все средства хороши"/>
+    <message name="METEOR_ON_ZOMBIE" value="Заставить метеориты попасть на зомби {value} раз"/>
+    <message name="BURNING_DEAD_TOTAL_NAME" value="Достижения зомби"/>
+    <message name="BURNING_DEAD_TOTAL" value="Выполнить все достижения пылающих зомби"/>
+
+    <!-- wandering soul -->
+    <message name="DONT_LET_REGENERATE_NAME" value="Прерыватель"/>
+    <message name="DONT_LET_REGENERATE" value="Не дать духам ни разу регенерироваться"/>
+    <message name="WIN_WITH_MORE_THAN_HALF_HP_NAME" value="Живучий"/>
+    <message name="WIN_WITH_MORE_THAN_HALF_HP" value="Победить, не потеряв более половины здоровья"/>
+    <message name="KILL_FOES_IN_ONE_TURN_NAME" value="Связанные духом"/>
+    <message name="KILL_FOES_IN_ONE_TURN" value="Убить всех врагов за 1 ход"/>
+    <message name="WANDERING_SOUL_TOTAL_NAME" value="Достижения блуждающего духа"/>
+    <message name="WANDERING_SOUL_TOTAL" value="Выполнить все достижения блуждающего духа"/>
+
+    <!-- voodoo shaman -->
+    <message name="KILL_SUPPORT_AFTER_TELEPORT_NAME" value="Проворней демона"/>
+    <message name="KILL_SUPPORT_AFTER_TELEPORT" value="Убить ранее не тронутого помощника за 2 удара и в 1 ход"/>
+    <message name="LAST_BOSS_STANDING_NAME" value="На десерт"/>
+    <message name="LAST_BOSS_STANDING" value="Убить шамана вуду последним"/>
+    <message name="SHAMAN_KILL_IN_TWO_TURNS_NAME" value="Жизнь - мгновенье"/>
+    <message name="SHAMAN_KILL_IN_TWO_TURNS" value="Убить шамана за 2 первых хода"/>
+    <message name="SHAMAN_TOTAL_NAME" value="Достижения шамана вуду"/>
+    <message name="SHAMAN_TOTAL" value="Выполнить все достижения шамана вуду"/>
+
+    <!-- illusionist -->
+    <message name="ILLUSIONIST_DROWN_FIVE_TIMES_NAME" value="Подводный номер"/>
+    <message name="ILLUSIONIST_DROWN_FIVE_TIMES" value="Утопить иллюзиониста 5 раз за бой"/>
+    <message name="DONT_LET_SPAWN_3_ILLS_NAME" value="Сорванное выступление"/>
+    <message name="DONT_LET_SPAWN_3_ILLS" value="Не дать иллюзионисту создать 3 копии"/>
+    <message name="KILL_ALL_CLONES_NAME" value="Клонофоб"/>
+    <message name="KILL_ALL_CLONES" value="Пройти иллюзиониста, уничтожая всех клонов"/>
+    <message name="ILLUSIONIST_TOTAL_NAME" value="Достижения иллюзиониста"/>
+    <message name="ILLUSIONIST_TOTAL" value="Выполнить все достижения иллюзиониста"/>
+
+    <!-- vikings -->
+    <message name="VIKINGS_DROWN_ALL_NAME" value="Забыли про драккар"/>
+    <message name="VIKINGS_DROWN_ALL" value="Утопить всех викингов"/>
+    <message name="VIKINGS_KILL_TWO_IN_TURN_NAME" value="Вместе в Вальхаллу"/>
+    <message name="VIKINGS_KILL_TWO_IN_TURN" value="Убить двух викингов за один ход"/>
+    <message name="VIKINGS_WIN_WITH_FULL_HP_NAME" value="Неприкасаемый"/>
+    <message name="VIKINGS_WIN_WITH_FULL_HP" value="Победить не получив урона"/>
+    <message name="VIKINGS_TOTAL_NAME" value="Достижения викингов"/>
+    <message name="VIKINGS_TOTAL" value="Выполнить все достижения викингов"/>
+
+    <!-- pirate -->
+    <message name="PIRATE_DROWN_SUPPORTS_NAME" value="Больше нет вопросов"/>
+    <message name="PIRATE_DROWN_SUPPORTS" value="Утопить всех матросов"/>
+    <message name="PIRATE_KILL_LAST_NAME" value="Последний на корабле"/>
+    <message name="PIRATE_KILL_LAST" value="Убить пирата в последнюю очередь"/>
+    <message name="PIRATE_DONT_SINK_NAME" value="Гидрофобия"/>
+    <message name="PIRATE_DONT_SINK" value="Ни разу не коснуться воды за весь бой"/>
+    <message name="PIRATE_TOTAL_NAME" value="Достижения пиратов"/>
+    <message name="PIRATE_TOTAL" value="Выполнить все достижения пиратов"/>
+
+    <!-- wind master -->
+    <message name="WIND_MASTER_DROWN_GUARDIANS_NAME" value="Изворотливый"/>
+    <message name="WIND_MASTER_DROWN_GUARDIANS" value="Утопить все охранники за 7 ходов, не получив от них урона"/>
+    <message name="WIND_MASTER_KILL_LAST_NAME" value="Лишь с ветром по пути"/>
+    <message name="WIND_MASTER_KILL_LAST" value="Убить мастера ветра последним"/>
+    <message name="WIND_MASTER_DONT_DROWN_ENEMIES_NAME" value="На зло рыбам"/>
+    <message name="WIND_MASTER_DONT_DROWN_ENEMIES" value="Убить всех врагов без выноса в воду или космос"/>
+    <message name="WIND_MASTER_TOTAL_NAME" value="Достижения мастера ветра"/>
+    <message name="WIND_MASTER_TOTAL" value="Выполнить все достижения мастера ветра"/>
+
+    <!-- yakuza -->
+    <message name="YAKUZA_KILL_STEEL_LAST_NAME" value="Железный вызов"/>
+    <message name="YAKUZA_KILL_STEEL_LAST" value="Убить Сталь последним"/>
+    <message name="YAKUZA_KILL_TWO_IN_TURN_NAME" value="Гроза подполья"/>
+    <message name="YAKUZA_KILL_TWO_IN_TURN" value="Убить двух врагов за 1 ход"/>
+    <message name="YAKUZA_DO_MONSTER_THREE_TIMES_NAME" value="Праведное безумие"/>
+    <message name="YAKUZA_DO_MONSTER_THREE_TIMES" value="Сделать МОНСТРа 3 раза за бой"/>
+    <message name="YAKUZA_TOTAL_NAME" value="Достижения якудза"/>
+    <message name="YAKUZA_TOTAL" value="Выполнить все достижения якудза"/>
+
+    <!-- dead pirate -->
+    <message name="PIRATE_REVENGE_DROWN_SUPPORTS_NAME" value="Все еще нет вопросов"/>
+    <message name="PIRATE_REVENGE_DROWN_SUPPORTS" value="Утопить всех матросов"/>
+    <message name="PIRATE_REVENGE_AVOID_METEORS_NAME" value="Сам себе бункер"/>
+    <message name="PIRATE_REVENGE_AVOID_METEORS" value="Не получить урона от метеоритов"/>
+    <message name="PIRATE_REVENGE_DROWN_THREE_TIMES_NAME" value="Непотопляемый"/>
+    <message name="PIRATE_REVENGE_DROWN_THREE_TIMES" value="Утопить ожившего капитана 3 раза за бой"/>
+    <message name="PIRATE_REVENGE_TOTAL_NAME" value="Достижения ожившего капитана"/>
+    <message name="PIRATE_REVENGE_TOTAL" value="Выполнить все достижения ожившего капитана"/>
+
+    <!--1.31-->
+    <!-- romeo -->
+    <message name="ROMEO_KILL_WITH_ONE_SHOT_NAME" value="Связующая пуля"/>
+    <message name="ROMEO_KILL_WITH_ONE_SHOT" value="Убить обоих боссов одним выстрелом"/>
+    <message name="ROMEO_DONT_LET_DODGE_NAME" value="Повезет в любви"/>
+    <message name="ROMEO_DONT_LET_DODGE" value="Не допустить ни одного уворота у Ромео за весь бой"/>
+    <message name="ROMEO_KILL_AS_ZOMBIES_NAME" value="Загробная любовь"/>
+    <message name="ROMEO_KILL_AS_ZOMBIES" value="Убить обоих врагов в состоянии зомби"/>
+    <message name="ROMEO_TOTAL_NAME" value="Достижения Ромео и Джульетта"/>
+    <message name="ROMEO_TOTAL" value="Выполнить все достижения Ромео и Джульетта"/>
+
+    <!-- king dead -->
+    <message name="KING_DEAD_LET_SPAWN_10_ZOMBIES_NAME" value="Королевское войско"/>
+    <message name="KING_DEAD_LET_SPAWN_10_ZOMBIES" value="Дождаться воскрешения десяти зомби"/>
+    <message name="KING_DEAD_DONT_LET_RES_FIVE_TIMES_NAME" value="Оставайтесь в могилах"/>
+    <message name="KING_DEAD_DONT_LET_RES_FIVE_TIMES" value="Не дать возродиться 5 и более зомби за бой"/>
+    <message name="KING_DEAD_KILL_IN_ONE_TURN_NAME" value="Совместный крах"/>
+    <message name="KING_DEAD_KILL_IN_ONE_TURN" value="Убить Короля и Заклинателя за 1 ход"/>
+    <message name="KING_DEAD_TOTAL_NAME" value="Достижения Короля мертвых"/>
+    <message name="KING_DEAD_TOTAL" value="Выполнить все достижения Короля мертвых"/>
+
+    <!-- ancient ghost -->
+    <message name="ANCIENT_GHOST_AVOID_CLOUDS_NAME" value="Под зонтом"/>
+    <message name="ANCIENT_GHOST_AVOID_CLOUDS" value="Ни один персонаж не должен получить урон от тучи"/>
+    <message name="ANCIENT_GHOST_DONT_MOVE_NAME" value="Прикованный"/>
+    <message name="ANCIENT_GHOST_DONT_MOVE" value="Пройти босса, не двигаясь с места ни одним бойцом"/>
+    <message name="ANCIENT_GHOST_KILL_WITH_CLOUD_NAME" value="Призрачный разряд"/>
+    <message name="ANCIENT_GHOST_KILL_WITH_CLOUD" value="Убить Призрака молнией из тучи"/>
+    <message name="ANCIENT_GHOST_TOTAL_NAME" value="Достижения Древнего призрака"/>
+    <message name="ANCIENT_GHOST_TOTAL" value="Выполнить все достижения Древнего призрака"/>
+
+    <!-- engineer -->
+    <message name="ENGINEER_AVOID_LASERS_NAME" value="Ловкач"/>
+    <message name="ENGINEER_AVOID_LASERS" value="Ни разу не попасться на лазеры"/>
+    <message name="ENGINEER_KILL_WITH_ROCKETS_NAME" value="Ложная наводка"/>
+    <message name="ENGINEER_KILL_WITH_ROCKETS" value="Убить Инженера его же ракетами"/>
+    <message name="ENGINEER_DONT_LET_SPAWN_2_DRONES_NAME" value="Сбой систем"/>
+    <message name="ENGINEER_DONT_LET_SPAWN_2_DRONES" value="Не дать Инженеру создать больше 1 дроида"/>
+    <message name="ENGINEER_TOTAL_NAME" value="Достижения Инженера"/>
+    <message name="ENGINEER_TOTAL" value="Выполнить все достижения Инженера"/>
+
+    <!-- 1.42 -->
+    <!-- paladin -->
+    <message name="PALADIN_SURVIVE_ALL_NAME" value="Вместе до конца"/>
+    <message name="PALADIN_SURVIVE_ALL" value="Все ваши бойцы должны дожить до победы"/>
+    <message name="PALADIN_MERMAN_NAME" value="Водяной"/>
+    <message name="PALADIN_MERMAN" value="Утопить Паладина 10 раз"/>
+    <message name="PALADIN_OLD_GOD_NAME" value="Старый Бог"/>
+    <message name="PALADIN_OLD_GOD" value="Победить босса, не разрушая обелиски"/>
+    <message name="PALADIN_TOTAL_NAME" value="Достижения Паладина"/>
+    <message name="PALADIN_TOTAL" value="Выполнить все достижения Паладина"/>
+
+    <!-- 1.43 -->
+    <!-- hacker -->
+    <message name="HACKER_DO_MONSTER_NAME" value="Силовик"/>
+    <message name="HACKER_DO_MONSTER" value="Сделать МОНСТРа 4 раза за бой"/>
+    <message name="HACKER_FIREWALL_NAME" value="Брандмауэр"/>
+    <message name="HACKER_FIREWALL" value="Вы с напарником не должны получить урона от Учеников"/>
+    <message name="HACKER_NUMERATOR_NAME" value="Вычислитель"/>
+    <message name="HACKER_NUMERATOR" value="Не дать Хакеру вернуть свой силовой щит"/>
+    <message name="HACKER_TOTAL_NAME" value="Достижения Хакера"/>
+    <message name="HACKER_TOTAL" value="Выполнить все достижения Хакера"/>
+    <!-- thieves -->
+    <message name="THIEVES_GANG_LEADER_NAME" value="Главарь шайки"/>
+    <message name="THIEVES_GANG_LEADER" value="Открыть 35 сундучков"/>
+    <message name="THIEVES_DIGGER_NAME" value="Копатель"/>
+    <message name="THIEVES_DIGGER" value="Утопить 3 ящика с оружием"/>
+    <message name="THIEVES_AUTHORITY_NAME" value="Авторитет"/>
+    <message name="THIEVES_AUTHORITY" value="Не подобрать ни одного ключика"/>
+    <message name="THIEVES_TOTAL_NAME" value="Достижения Ворюг"/>
+    <message name="THIEVES_TOTAL" value="Выполнить все достижения Ворюг"/>
+    <!-- telepathist -->
+    <message name="TELEPATHIST_PEDANT_NAME" value="Педант"/>
+    <message name="TELEPATHIST_PEDANT" value="Не попасться ни на одну из сфер Биотиков"/>
+    <message name="TELEPATHIST_LIFESAVER_NAME" value="Спасатель"/>
+    <message name="TELEPATHIST_LIFESAVER" value="Ни разу за бой не нанести урона своему союзнику"/>
+    <message name="TELEPATHIST_PSIONIC_NAME" value="Псионик"/>
+    <message name="TELEPATHIST_PSIONIC" value="Заставить Биотиков телепортироваться к вам каждый ход"/>
+    <message name="TELEPATHIST_TOTAL_NAME" value="Достижения Телепата"/>
+    <message name="TELEPATHIST_TOTAL" value="Выполнить все достижения Телепата"/>
+    <!-- phantoms -->
+    <message name="PHANTOMS_FANTOMAS_NAME" value="Фантомас"/>
+    <message name="PHANTOMS_FANTOMAS" value="Не попасть при стрельбе по своим призракам"/>
+    <message name="PHANTOMS_POLTERGEIST_NAME" value="Полтергейст"/>
+    <message name="PHANTOMS_POLTERGEIST" value="Уничтожить одного Фантома за первые 2 хода"/>
+    <message name="PHANTOMS_GHOSTBUSTER_NAME" value="Охотник за привидениями"/>
+    <message name="PHANTOMS_GHOSTBUSTER" value="Уничтожить 18 призраков"/>
+    <message name="PHANTOMS_TOTAL_NAME" value="Достижения Фантомов"/>
+    <message name="PHANTOMS_TOTAL" value="Выполнить все достижения Фантомов"/>
+
+    <!-- 1.58 -->
+    <message name="GUARDIANS_ALARM_NAME" value="Раннее оповещение"/>
+    <message name="GUARDIANS_ALARM" value="Не получить урона от землетрясений ни разу за бой"/>
+    <message name="GUARDIANS_CATACLYSM_NAME" value="Переживший катаклизм"/>
+    <message name="GUARDIANS_CATACLYSM" value="Получить суммарно более 4000 ед. урона от землетрясений"/>
+    <message name="GUARDIANS_TELEPORT_NAME" value="Смертельная телепортация"/>
+    <message name="GUARDIANS_TELEPORT" value="Убить 3 стражей уроном от платформ"/>
+    <message name="GUARDIANS_TOTAL_NAME" value="Достижения Стражей недр"/>
+    <message name="GUARDIANS_TOTAL" value="Выполнить все достижения Стражей недр"/>
+
+    <message name="DARK_KNIGHT_UNDERWATER_NAME" value="Подводное захоронение"/>
+    <message name="DARK_KNIGHT_UNDERWATER" value="Утопить 2 гроба за 1 ход"/>
+    <message name="DARK_KNIGHT_RITUAL_NAME" value="Тёмный ритуал"/>
+    <message name="DARK_KNIGHT_RITUAL" value="Заставить рыцаря пожертвовать тремя прислужниками"/>
+    <message name="DARK_KNIGHT_DOWNWITH_NAME" value="Долой оруженосцев!"/>
+    <message name="DARK_KNIGHT_DOWNWITH" value="Не позволить рыцарю призвать ни одного прислужника"/>
+    <message name="DARK_KNIGHT_TOTAL_NAME" value="Достижения Тёмного рыцаря"/>
+    <message name="DARK_KNIGHT_TOTAL" value="Выполнить все достижения Тёмного рыцаря"/>
+
+    <message name="ASSASSIN_SHREDDER_NAME" value="Кромсатель в спину"/>
+    <message name="ASSASSIN_SHREDDER" value="Заставить Ассасина телепортироваться в свой ход 10 раз"/>
+    <message name="ASSASSIN_JUMPS_NAME" value="Прыжки веры"/>
+    <message name="ASSASSIN_JUMPS" value="Утопить Ассасина 5 раз за бой"/>
+    <message name="ASSASSIN_DANCER_NAME" value="Помеха для танцора"/>
+    <message name="ASSASSIN_DANCER" value="Пережить 20 танцев Ассасина"/>
+    <message name="ASSASSIN_TOTAL_NAME" value="Достижения Ассасина"/>
+    <message name="ASSASSIN_TOTAL" value="Выполнить все достижения Ассасина"/>
+
+    <message name="ALCHEMIST_SAFETY_NAME" value="Техника безопасности"/>
+    <message name="ALCHEMIST_SAFETY" value="Не получить урона от Ассистентов"/>
+    <message name="ALCHEMIST_ELEMENTS_NAME" value="Лабораторная работа"/>
+    <message name="ALCHEMIST_ELEMENTS" value="Разрушать хотя бы один реагент каждый ход"/>
+    <message name="ALCHEMIST_EMPLOYEE_NAME" value="Сотрудник месяца"/>
+    <message name="ALCHEMIST_EMPLOYEE" value="Позволить ассистентам создать 40 реагентов"/>
+    <message name="ALCHEMIST_TOTAL_NAME" value="Достижения Алхимика"/>
+    <message name="ALCHEMIST_TOTAL" value="Выполнить все достижения Алхимика"/>
+
+    <message name="ARCHBOT_LAST_NAME" value="Персидский эндшпиль"/>
+    <message name="ARCHBOT_LAST" value="Убить Архибота последним"/>
+    <message name="ARCHBOT_DROID_NAME" value="Критическая ошибка"/>
+    <message name="ARCHBOT_DROID" value="Не дать Архиботу создать защитный дроид ни разу за бой"/>
+    <message name="ARCHBOT_MAGIC_NAME" value="Антимаг"/>
+    <message name="ARCHBOT_MAGIC" value="Получить урон от каждой магической атаки Големов"/>
+    <message name="ARCHBOT_TOTAL_NAME" value="Достижения Архибота"/>
+    <message name="ARCHBOT_TOTAL" value="Выполнить все достижения Архибота"/>
+
+</dictionary>

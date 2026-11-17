@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+    <!-- SHURIKEN -->
+
+    <message name="SHURIKEN.NAME.U1" value="Полегшені сюрікени"/>
+    <message name="SHURIKEN.DISTINCT.U1" value="Можна кинути ще один додатковий сюрікен."/>
+    <message name="SHURIKEN.DESCR.U1">
+        <![CDATA[Компактна і ефективна зброя. За хід можна кинути 5 сюрікенів. Перше попадання по кожному ворогові завдає подвійної шкоду.]]>
+    </message>
+    <message name="SHURIKEN.DAMAGE.U1" value="17 од. за кидок. Перше попадання в ціль завдає подвійної шкоду."/>
+
+    <message name="SHURIKEN.NAME.U2A" value="Ножі майстра"/>
+    <message name="SHURIKEN.DISTINCT.U2A" value="Покращений приціл. Шкода від кожного кидка збільшена на 5 од."/>
+    <message name="SHURIKEN.DESCR.U2A">
+        <![CDATA[За хід можна кинути 5 ножів. Перше попадання по кожному ворогові завдає подвійної шкоду. Траєкторія польоту додатково підсвічується.]]>
+    </message>
+    <message name="SHURIKEN.DAMAGE.U2A" value="22 од. за кидок. Перше попадання в ціль завдає подвійної шкоду."/>
+
+    <message name="SHURIKEN.NAME.U2B" value="Сюрікени майстра"/>
+    <message name="SHURIKEN.DISTINCT.U2B"
+             value="Не завдають бонусної шкоду при першому попаданні. Замість цього сюрікени майстра можуть пролетіти крізь кількох ворогів, завдаючи великі пошкодження."/>
+    <message name="SHURIKEN.DESCR.U2B">
+        <![CDATA[Пропилюють ворогів наскрізь, завдаючи значних втрат. Зникають тільки при ударі об землю. За хід можна кинути 5 сюрікени.]]>
+    </message>
+    <message name="SHURIKEN.DAMAGE.U2B" value="12-36 од. по кожній цілі."/>
+
+    <!-- MORTAR -->
+
+    <message name="MORTAR.NAME.U1" value="Облогова мортира"/>
+    <message name="MORTAR.DISTINCT.U1" value="Шкоду від вибуху збільшено на 10 од. Покращений приціл."/>
+    <message name="MORTAR.DESCR.U1">
+        <![CDATA[Випускає потужний, не схильний до вітру снаряд. Не можна змінювати початкову швидкість. При вибуху снаряд випускає кілька осколків. Траєкторія польоту додатково підсвічується.]]>
+    </message>
+    <message name="MORTAR.DAMAGE.U1" value="45 од. від вибуху, 5 осколків по 25 од."/>
+
+    <message name="MORTAR.NAME.U2A" value="Осколковий руйнівник"/>
+    <message name="MORTAR.DISTINCT.U2A"
+             value="Шкоду від вибуху збільшено ще на 5 од., від кожного осколка - на 10 од. Збільшено радіус вибуху."/>
+    <message name="MORTAR.DESCR.U2A">
+        <![CDATA[Стріляє руйнівними, не схильними вітром снарядами. Великий радіус вибуху снаряда і осколків. Траєкторія польоту додатково підсвічується.]]>
+    </message>
+    <message name="MORTAR.DAMAGE.U2A" value="50 од. від вибуху, 5 осколків по 35 од."/>
+
+    <message name="MORTAR.NAME.U2B" value="Багатозарядна мортира"/>
+    <message name="MORTAR.DISTINCT.U2B" value="Випускає додаткову ракету слідом за першою."/>
+    <message name="MORTAR.DESCR.U2B">
+        <![CDATA[Випускає відразу два снаряди за постріл! Початкову швидкість міняти не можна. Траєкторія польоту додатково підсвічується.]]>
+    </message>
+    <message name="MORTAR.DAMAGE.U2B" value="40 од. від вибуху, 5 осколків по 25 од."/>
+
+    <!-- CLUSTER GRENADE -->
+
+    <message name="CL_GRENADE.NAME.U1" value="Граната Ф-1"/>
+    <message name="CL_GRENADE.DISTINCT.U1"
+             value="Під час вибуху випускає додатковий осколок. Шкоду від основного вибуху збільшено на 5 од."/>
+    <message name="CL_GRENADE.DESCR.U1">
+        <![CDATA[Граната не схильна вітрові. Завдає значної шкоду своїми осколками. Дуже ефективна в замкнутих просторах.]]>
+    </message>
+    <message name="CL_GRENADE.DAMAGE.U1" value="45 од. від вибуху, 9 осколків по 15 од."/>
+
+    <message name="CL_GRENADE.NAME.U2A" value="Граната Піранья"/>
+    <message name="CL_GRENADE.DISTINCT.U2A" value="Осколки автоматично наводяться на одного з найближчих ворогів. У разі промаху залишається лежати на землі, не реагуючи на союзників."/>
+    <message name="CL_GRENADE.DESCR.U2A">
+        <![CDATA[Граната не схильна вітрові. При вибуху випускає 9 осколків, які через 0.33 сек. автоматично наводяться на найближчого ворога. У разі промаху залишається лежати на землі, не реагуючи на союзників.]]>
+    </message>
+    <message name="CL_GRENADE.DAMAGE.U2A" value="10 од. від вибуху, 9 осколків по 16 од."/>
+
+    <message name="CL_GRENADE.NAME.U2B" value="Сенсорна граната"/>
+    <message name="CL_GRENADE.DISTINCT.U2B"
+             value="Вибухає автоматично поруч з ворогом, таймер відсутній. Осколки від вибуху летять у бік ворога."/>
+    <message name="CL_GRENADE.DESCR.U2B">
+        <![CDATA[Граната не схильна вітрові. Снаряд вибухає автоматично поруч з ворогом.]]>
+    </message>
+    <message name="CL_GRENADE.DAMAGE.U2B" value="45 од. від вибуху, 9 осколків по 15 од."/>
+
+    <!-- STICKY BOMB -->
+
+    <message name="STICKY_GRENADE.NAME.U1" value="Біомаса"/>
+    <message name="STICKY_GRENADE.DISTINCT.U1" value="При вибуху випускає один додатковий осколок."/>
+    <message name="STICKY_GRENADE.DESCR.U1">
+        <![CDATA[Прилипає до будь-якої поверхні. Вибухаючи, випускає 8 не схильних вітрові осколків, що летять вгору.]]>
+    </message>
+    <message name="STICKY_GRENADE.DAMAGE.U1" value="40 од. від вибуху, 8 осколків по 20 од."/>
+
+    <message name="STICKY_GRENADE.NAME.U2A" value="Липуча отрута"/>
+    <message name="STICKY_GRENADE.DISTINCT.U2A" value="Граната та її осколки отруюють на 8 ходів."/>
+    <message name="STICKY_GRENADE.DESCR.U2A">
+        <![CDATA[Прилипає до будь-якої поверхні. Вибухаючи, випускає 8 не схильних вітрові осколків. Граната та її осколки отруюють ворога на 8 ходів.]]>
+    </message>
+    <message name="STICKY_GRENADE.DAMAGE.U2A" value="40 од. від вибуху, 8 осколків по 25 од."/>
+
+    <message name="STICKY_GRENADE.NAME.U2B" value="Липуча вибухівка"/>
+    <message name="STICKY_GRENADE.DISTINCT.U2B"
+             value="Шкода від осколків збільшена на 5 од. Осколки, які не потрапили на ворога, залишаються лежати на землі протягом двох ходів."/>
+    <message name="STICKY_GRENADE.DESCR.U2B">
+        <![CDATA[Прилипає до будь-якої поверхні. Вибухаючи, випускає 8 не схильних вітрові осколків. Якщо осколки не потрапили у ворога, вони залишаються лежати на землі до кінця вашого наступного ходу.]]>
+    </message>
+    <message name="STICKY_GRENADE.DAMAGE.U2B" value="40 од. від вибуху, 8 осколків по 25 од."/>
+
+    <!-- SHOTGUN -->
+
+    <message name="SHOTGUN.NAME.U1" value="Бойовий дробовик"/>
+    <message name="SHOTGUN.DISTINCT.U1" value="Дві додаткові дробинки."/>
+    <message name="SHOTGUN.DESCR.U1">
+        <![CDATA[Стріляє дробом, яка має великий розкид. Ефективний в ближньому бою. В залпі 9 дробинок.]]>
+    </message>
+    <message name="SHOTGUN.DAMAGE.U1" value="9 дробинок по 13 од."/>
+
+    <message name="SHOTGUN.NAME.U2A" value="Ремінгтон"/>
+    <message name="SHOTGUN.DISTINCT.U2A"
+             value="Додана ще одна дробинка. Шкоду від кожної дробинки збільшено ще на 2 од. Попадання у ворога уповільнює його на 2 ходи."/>
+    <message name="SHOTGUN.DESCR.U2A">
+        <![CDATA[Ремінгтон дозволяє зробити потужний залп, який завдає значної шкоду і уповільнює ворога на 2 хода.]]>
+    </message>
+    <message name="SHOTGUN.DAMAGE.U2A" value="10 дробинок по 15 од."/>
+
+    <message name="SHOTGUN.NAME.U2B" value="Джекхаммер"/>
+    <message name="SHOTGUN.DISTINCT.U2B" value="Дозволяє зробити два постріли по 6 дробинок кожен. Шкоду від кожної дробинки збільшено на 1 од."/>
+    <message name="SHOTGUN.DESCR.U2B">
+        <![CDATA[Спустошлива зброя ближнього бою, що дозволяє зробити два постріли за хід.]]>
+    </message>
+    <message name="SHOTGUN.DAMAGE.U2B" value="6 дробинок по 14 од., 2 постріла"/>
+
+    <!-- MINIGUN -->
+
+    <message name="MINIGUN.NAME.U1" value="Ланцюговий кулемет"/>
+    <message name="MINIGUN.DISTINCT.U1" value="Шкода від кожної кулі збільшена на 2 од."/>
+    <message name="MINIGUN.DESCR.U1">
+        <![CDATA[Потужний кулемет, здатний перетворити вашого ворога в решето. Виробляє 20 пострілів з ​​посиленою втратою.]]>
+    </message>
+    <message name="MINIGUN.DAMAGE.U1" value="20 куль по 8 од."/>
+
+    <message name="MINIGUN.NAME.U2A" value="Великий Левіс"/>
+    <message name="MINIGUN.DISTINCT.U2A" value="Кожне потрапляння у ворога знижує його броню на 2 од. до кінця ходу."/>
+    <message name="MINIGUN.DESCR.U2A">
+        <![CDATA[Важка зброя, створена спеціально проти броньованих цілей. Кожне попадання у ворога знижує його броню на 2 од. до кінця ходу.]]>
+    </message>
+    <message name="MINIGUN.DAMAGE.U2A" value="20 куль по 8 од."/>
+
+    <message name="MINIGUN.NAME.U2B" value="Ракетомет"/>
+    <message name="MINIGUN.DISTINCT.U2B" value="Замість куль стріляє ракетами, які здатні наводитися на ворогів."/>
+    <message name="MINIGUN.DESCR.U2B">
+        <![CDATA[За один залп ракетомети випускає 10 ракет, які завдають великої шкоду і руйнують мапу, а також здатні підправити власну траєкторію польоту і потрапити точно на ворога.]]>
+    </message>
+    <message name="MINIGUN.DAMAGE.U2B" value="10 ракет по 20 од."/>
+
+    <!-- BAZOOKA -->
+
+    <message name="BAZOOKA.NAME.U1" value="Фаустпатрон"/>
+    <message name="BAZOOKA.DISTINCT.U1" value="Шкода збільшена на 10 од."/>
+    <message name="BAZOOKA.DESCR.U1">
+        <![CDATA[Покращена стандартна зброя. Схильна до дії вітру.]]>
+    </message>
+    <message name="BAZOOKA.DAMAGE.U1"
+             value="70 од."/>
+
+    <message name="BAZOOKA.NAME.U2" value="Кумулятивний снаряд"/>
+    <message name="BAZOOKA.DISTINCT.U2"
+             value="Дозволяє підривати дві перешкоду за постріл. при кожному пострілі наноситься 40 од. шкоду."/>
+    <message name="BAZOOKA.DESCR.U2">
+        <![CDATA[Дозволяє легко дістати ворогів, які сховалися за стіною. Снаряд підриває до двох перешкод. Схильний до дії вітру.]]>
+    </message>
+    <message name="BAZOOKA.DAMAGE.U2"
+             value="2 вибуха по 40 од."/>
+
+    <!-- GRENADE -->
+
+    <message name="GRENADE.NAME.U1" value="Ручна вибухівка"/>
+    <message name="GRENADE.DISTINCT.U1" value="Двоє додаткових мінівибухів зі шкодою 20 од."/>
+    <message name="GRENADE.DESCR.U1">
+        <![CDATA[Покращений варіант гранати. Не схильний до дії вітру. Після вибуху бомби з невеликою задержкою відбуваються ще два додаткових вибухи.]]>
+    </message>
+    <message name="GRENADE.DAMAGE.U1"
+             value="60 од. від основного вибуху, 20 од. від 2 додаткових."/>
+
+    <message name="GRENADE.NAME.U2" value="Контузяща граната"/>
+    <message name="GRENADE.DISTINCT.U2" value="Уповільнює пошкоджених персонажів на 1 хід, один додатковий мінівибух."/>
+    <message name="GRENADE.DESCR.U2">
+        <![CDATA[Бійці, пошкоджені цієї гранатою, сповільнюються на 1 хід. Граната не схильна до дії вітру. Після вибуху бомби з невеликою затримкою відбуваються ще 3 додаткових вибуха.]]>
+    </message>
+    <message name="GRENADE.DAMAGE.U2"
+             value="60 од. від основного вибуху, 20 од. від 3 додаткових."/>
+
+    <!-- RIFLE -->
+
+    <message name="RIFLE.NAME.U1" value="Мисливська рушниця"/>
+    <message name="RIFLE.DISTINCT.U1" value="Покращений приціл, шкоду від кожної кулі збільшено на 5 од."/>
+    <message name="RIFLE.DESCR.U1">
+        <![CDATA[За один хід можна зробити два постріла, при цьому між пострілами можна переміщатися. Покращений приціл.]]>
+    </message>
+    <message name="RIFLE.DAMAGE.U1"
+             value="35 од. за постріл, 2 постріла."/>
+
+    <!-- HOMING -->
+
+    <message name="HOMING.NAME.U1" value="Теплова ракета"/>
+    <message name="HOMING.DISTINCT.U1"
+             value="Чим більше часу ракета проводить в польоті, тим точніше вона наводиться, і тим більше шкоду вона завдає. Максимальний бонус - 60 од."/>
+    <message name="HOMING.DESCR.U1">
+        <![CDATA[Ракета летить до цілі по найкоротшій траєкторії. Відмінно підходить для великих дистанцій. Шкода збільшується з часом, проведеним в польоті.]]>
+    </message>
+    <message name="HOMING.DAMAGE.U1"
+             value="від 60 до 120 од."/>
+
+    <message name="HOMING.NAME.U2" value="Інфрачервона ракета"/>
+    <message name="HOMING.DISTINCT.U2" value="Максимальний бонус від наведення збільшено до 120 од."/>
+    <message name="HOMING.DESCR.U2">
+        <![CDATA[Ракета летить до цілі по найкоротшій траєкторії. Шкода збільшується з часом, проведеним в польоті. Максимально ефективна на великих і дуже великих дистанціях.]]>
+    </message>
+    <message name="HOMING.DAMAGE.U2"
+             value="від 60 до 180 од."/>
+
+    <!-- HARPOON -->
+
+    <message name="HARPOON.NAME.U1" value="Китобій"/>
+    <message name="HARPOON.DISTINCT.U1" value="Шкода від попадання збільшена на 15 од., покращений приціл."/>
+    <message name="HARPOON.DESCR.U1">
+        <![CDATA[Чіпляє і тягне ворога до себе, при цьому завдаючи шкоду електрикою. Покращений приціл.]]>
+    </message>
+    <message name="HARPOON.DAMAGE.U1" value="45 од. при влученні, далі по 10 од. 4 рази за секунду."/>
+
+    <message name="HARPOON.NAME.U2A" value="Тризуб"/>
+    <message name="HARPOON.DISTINCT.U2A" value="Шкода від попадання зменшена на 20 од., а шкода від притягування збільшена на 6 од."/>
+    <message name="HARPOON.DESCR.U2A">
+        <![CDATA[Чіпляє і тягне ворога до себе, при цьому завдаючи значної шкоду електрикою. Покращений приціл.]]>
+    </message>
+    <message name="HARPOON.DAMAGE.U2A" value="25 од. при попаданні, далі по 16 од. 4 рази за секунду."/>
+
+    <!-- BLOW_TORCH -->
+
+    <message name="BLOW_TORCH.NAME.U1" value="Покращена зварювалка"/>
+    <message name="BLOW_TORCH.DISTINCT.U1" value="Прохідну відстань збільшено на 30%."/>
+    <message name="BLOW_TORCH.DESCR.U1">
+        <![CDATA[Дозволяє проривати в землі тунелі (горизонтально або під невеликим кутом), наносити невеликі пошкодження ворогові і підштовхувати його.]]>
+    </message>
+    <message name="BLOW_TORCH.DAMAGE.U1"
+             value="24 од. в секунду."/>
+
+    <!-- MINE -->
+
+    <message name="MINE.NAME.U1" value="Протипіхотна міна"/>
+    <message name="MINE.DISTINCT.U1" value="Шкоду збільшено на 5 од."/>
+    <message name="MINE.DAMAGE.U1"
+             value="50 од."/>
+
+    <message name="MINE.NAME.U2" value="Міна-руйнівник"/>
+    <message name="MINE.DISTINCT.U2" value="Збільшено радіус вибуху, шкода збільшена ще на 5 одиниць."/>
+    <message name="MINE.DAMAGE.U2"
+             value="55 од."/>
+
+    <!-- UZI -->
+
+    <message name="UZI.NAME.U1" value="Модернізований узі"/>
+    <message name="UZI.DISTINCT.U1" value="Шкоду від кожної кулі збільшено на 1 од."/>
+    <message name="UZI.DESCR.U1">
+        <![CDATA[Стріляє короткими чергами, практично не має розкиду.]]>
+    </message>
+    <message name="UZI.DAMAGE.U1"
+             value="16 пуль по 6 од."/>
+
+    <!-- BARRIER -->
+
+    <message name="BARRIER.NAME.U1" value="Лазерний захист"/>
+    <message name="BARRIER.DISTINCT.U1" value="У кожному бою можна використовувати 1 додатковий генератор."/>
+
+    <!-- HOLY_GRENADE -->
+
+    <message name="HOLY_GRENADE.NAME.U1" value="Проклята граната"/>
+    <message name="HOLY_GRENADE.DISTINCT.U1" value="Шкоду збільшено на 20 од., також збільшений радіус вибуху."/>
+    <message name="HOLY_GRENADE.DAMAGE.U1"
+             value="135 од."/>
+
+    <!-- SPIDER -->
+
+    <message name="SPIDER.NAME.U1A" value="Тарантул"/>
+    <message name="SPIDER.DISTINCT.U1A"
+             value="Крім вибуху випускає в свою жертву отруйний струмінь з шкодою 10 од., від якої неможливо ухилитися."/>
+    <message name="SPIDER.DESCR.U1A">
+        <![CDATA[Підповзає до найближчого ворога і завмирає біля нього. Якщо ворог зрушить з місця, міна негайно вибухне, а також випустить отруйний струмінь.]]>
+    </message>
+    <message name="SPIDER.DAMAGE.U1A"
+             value="65 од. від вибуху, 10 од. від отрути."/>
+
+    <!-- DYNAMITE -->
+
+    <message name="DYNAMITE.NAME.U1A" value="Зв'язка динаміту"/>
+    <message name="DYNAMITE.DISTINCT.U1A"
+             value="Під час вибуху відлітають дві шашки, які детонують при зіткненні з землею або ворогом."/>
+    <message name="DYNAMITE.DESCR.U1A">
+        <![CDATA[Вибухає через три секунди після установки, наносить шкоду місцевості. Під час вибуху відлітають дві шашки, які детонують при зіткненні з землею або ворогом.]]>
+    </message>
+    <message name="DYNAMITE.DAMAGE.U1A"
+             value="75 од. від першого вибуху, 65 од. від кожної шашки."/>
+
+    <message name="DYNAMITE.NAME.U1B" value="Пояс камікадзе"/>
+    <message name="DYNAMITE.DISTINCT.U1B"
+             value="Персонаж підриває себе в кінці ходу, наносячи шкоду 70 од. Активація поясу не тратить хід."/>
+    <message name="DYNAMITE.DESCR.U1B">
+        <![CDATA[Пояс дає можливість приреченим бійцям нанести шкоду ворогові. Не тратить хід. В кінці ходу ваш боєць вибухає, наносячи шкоду всьму, що було поряд.]]>
+    </message>
+    <message name="DYNAMITE.DAMAGE.U1B"
+             value="70 од. в кінці ходу"/>
+
+    <!-- SHOCKER -->
+
+    <message name="SHOCKER.NAME.U1" value="Паралайзер"/>
+    <message name="SHOCKER.DISTINCT.U1" value="Уповільнює поранених ворогів на два хода. Збільшена шкода."/>
+    <message name="SHOCKER.DESCR.U1">
+        <![CDATA[Зброя ближньго бою, яка пошкоджує ворога електричним струмом. Уповільнює поранених ворогів на два хода.]]>
+    </message>
+    <message name="SHOCKER.DAMAGE.U1"
+             value="50 од."/>
+
+    <!-- GIRDER -->
+
+    <message name="GIRDER.NAME.U1" value="Еластична балка"/>
+    <message name="GIRDER.DISTINCT.U1" value="Дає можливість змінювати розмір балки."/>
+    <message name="GIRDER.NOTE.U1"
+             value="Неможна ставити на землю або біля персонажів. Перед встановленням балки можна змінювати розмір кнопками вгору/вниз."/>
+
+    <!-- Controlled Sheep -->
+    <message name="SHEEP.NAME.U1A" value="Керований свин"/>
+    <message name="SHEEP.DISTINCT.U1A" value="Можна керувати рухом. Збільшено шкоду і радіус вибуху."/>
+    <message name="SHEEP.DESCR.U1A" value="Роботизований свин, рухом якого можна керувати стрілками вліво/вправо."/>
+    <message name="SHEEP.DAMAGE.U1A" value="140 од."/>
+
+    <!-- Burned Sheep -->
+    <message name="SHEEP.NAME.U1B" value="Пекельний свин"/>
+    <message name="SHEEP.DISTINCT.U1B" value="Розкидає вогонь під час руху. Шкоду від вибуху зменшено и підпорядковано силі вогню."/>
+    <message name="SHEEP.DESCR.U1B"
+             value="Рухається в зазначеному вами напрямку, якщо зустрічає перешкоду, то або перестрибує її, або змінює напрямок руху. Розкидає вогонь під час руху."/>
+    <message name="SHEEP.DAMAGE.U1B" value="30 од. від вибуху, підпалює землю"/>
+
+    <!-- EMERGENCY TELEPORT -->
+    <message name="EMERGENCY_TELEPORT.NAME.U1" value="Екстрений телепорт mk2"/>
+    <message name="EMERGENCY_TELEPORT.DISTINCT.U1" value="Збільшений радіус переміщення."/>
+
+    <message name="EMERGENCY_TELEPORT.NAME.U2" value="Евакуатор"/>
+    <message name="EMERGENCY_TELEPORT.DESCR.U2"
+             value="Миттєво переносить персонажа у випадкову точку в середньому радіусі. Не витрачає хід. Можна використовувати в стрибку. Уникає мін та лазерних променів."/>
+    <message name="EMERGENCY_TELEPORT.DISTINCT.U2" value="Завжди уникає міни та лазерні промені."/>
+
+    <!-- BOOMERANG -->
+    <message name="BOOMERANG.NAME.U1" value="Збалансований бумеранг"/>
+    <message name="BOOMERANG.DISTINCT.U1" value="Шкоду від другого попадання збільшено на 15 од."/>
+    <message name="BOOMERANG.DAMAGE.U1" value="65 од. за перший кидок, 80 од. за другий."/>
+
+    <message name="BOOMERANG.NAME.U2" value="Смертоносний бумеранг"/>
+    <message name="BOOMERANG.DISTINCT.U2"
+             value="Шкоду збільшено на 10 од., друге попадання по ворогу збиває з нього шапку."/>
+    <message name="BOOMERANG.DAMAGE.U2" value="75 од. за перший кидок, 90 од. за другий."/>
+    <message name="BOOMERANG.DESCR.U2">
+        <![CDATA[Після першого удару об ворога або землю відскакує в вашу сторону, його можна зловити і кинути ще раз. Другий раз бумеранг не відскакує. Сильно схильний вітровi. Друге попадання по ворогу збиває шапку.]]>
+    </message>
+
+    <!-- PORTABLE TELEPORT -->
+    <message name="TELE_THROWER.NAME.U1" value="Керований телепорт"/>
+    <message name="TELE_THROWER.DESCR.U1">
+        <![CDATA[Дозволяє бійцеві переміститися на те місце, куди потрапив телепорт після кидка. Кидається так само, як звичайна граната. Натиснувши на ПРОБІЛ, можна переміститися під час польоту снаряда із затримкою в 1 секунду.]]>
+    </message>
+    <message name="TELE_THROWER.DISTINCT.U1"
+             value="Дозволяє, натиснувши на пробіл, переміститися під час польоту снаряда."/>
+
+
+    <!-- ANTIFREEZE -->
+    <message name="ANTIFREEZE.NAME.U1" value="Мiкстура"/>
+    <message name="ANTIFREEZE.DESCR.U1">
+        <![CDATA[Розморожує персонажа і на два ходи захищає його від повторної заморозки і уповільнення. Додає 60 од. життя і знімає отруту. Витрачає хід!]]>
+    </message>
+    <message name="ANTIFREEZE.DISTINCT.U1" value="Додатково знімає отруту, лікування збільшено на 10 од."/>
+
+    <message name="ANTIFREEZE.NAME.U2A" value="Відвар берсерка"/>
+    <message name="ANTIFREEZE.DESCR.U2A">
+        <![CDATA[Напій істинного берсерка! Розморожує бійця, на два ходи збільшує атаку на 30% і дає захист від повторної заморозки і уповільнення. Додає 70 од. життя і знімає отруту. Витрачає хід!]]>
+    </message>
+    <message name="ANTIFREEZE.DISTINCT.U2A" value="Додатково збільшує атаку на 30%, лікування збільшено ще на 10 од."/>
+
+    <message name="ANTIFREEZE.NAME.U2B" value="Захисний розчин"/>
+    <message name="ANTIFREEZE.DESCR.U2B">
+        <![CDATA[Ефективний захисний засіб! Розморожує бійця, на два ходи збільшує броню на 30% і дає захист від повторної заморозки і уповільнення. Додає 70 од. життя і знімає отруту. Витрачає хід!]]>
+    </message>
+    <message name="ANTIFREEZE.DISTINCT.U2B" value="Додатково збільшує захист на 30%, лікування збільшено ще на 10 од."/>
+
+    <!-- 1.13.0 -->
+    <message name="PARASITE.NAME.U1" value="П'явка"/>
+    <message name="PARASITE.DISTINCT.U1"
+             value="Якщо п'явка вбиває ворога, то запас здоров'я запустившого її бійця збільшується на величину завданої шкоду."/>
+    <message name="PARASITE.DESCR.U1"
+             value="П'явка при попаданні в бійця намертво прикріплюється до нього. Уповільнює ворога і вибухає через 10 секунд після початку наступного ходу. Якщо п'явка вбиває ворога, то запас здоров'я бійця, який запустив її, збільшується на величину завданої шкоду."/>
+
+    <message name="RIFLE.NAME.U2" value="Бронебійна гвинтівка"/>
+    <message name="RIFLE.DISTINCT.U2" value="Знижує броню жертви на 8 одиниць після кожного попадання до кінця ходу."/>
+    <message name="RIFLE.DESCR.U2">
+        <![CDATA[Відмінна зброя для пострілів по прямій. За один хід можна зробити 2 постріли. Покращений приціл. Знижує броню ворога на 8 одиниць після кожного попадання, ефект діє до кінця ходу.]]>
+    </message>
+
+    <!-- 1.15 -->
+
+    <message name="AIR_STRIKE.NAME.U1" value="Точковий удар"/>
+    <message name="AIR_STRIKE.DISTINCT.U1" value="Шкоди ракет збільшено на 10 од. Ракети під час польоту наводяться на ціль."/>
+    <message name="AIR_STRIKE.DESCR.U1" value="Скидає 5 ракет у вказану точку. Ракети під час польоту наводяться на ціль!"/>
+    <message name="AIR_STRIKE.DAMAGE.U1" value="5 ракет по 60 од."/>
+
+    <message name="THUNDERBOLT.NAME.U1" value="Громобій"/>
+    <message name="THUNDERBOLT.DISTINCT.U1"
+             value="Шкоду збільшено на 10 од. Руйнує всі об'єкти (міни, бар'єри тощо) в області вибуху."/>
+    <message name="THUNDERBOLT.DESCR.U1"
+             value="Застосовувати тільки здалеку! При вибуху випускає додаткові розряди у всіх персонажів у великому радіусі. Снаряд схильний до вітру. Руйнує всі об'єкти (міни, бар'єри тощо) в області вибуху."/>
+    <message name="THUNDERBOLT.DAMAGE.U1" value="Основний снаряд: 105 од., розряди: 70 од."/>
+
+    <!--1.16-->
+    <message name="TELEPORT.NAME.U1A" value="Телепорт mk2"/>
+    <message name="TELEPORT.DISTINCT.U1A" value="Додаткові 35 од. шкоду у вихідній точці."/>
+    <message name="TELEPORT.DESCR.U1A"
+             value="Дозволяє бійцеві переміститися в будь-яку ділянку місцевості, у тому числі і під землю. Завдає шкоду у вихідній і цільовій точках. Витрачає хід."/>
+    <message name="TELEPORT.DAMAGE.U1A" value="35 од."/>
+
+    <message name="GAS_GRENADE.NAME.U1A" value="Роз'їдаючий газ"/>
+    <message name="GAS_GRENADE.DISTINCT.U1A" value="Можна активувати, натиснувши пробіл. Радіус газової хмари збільшений на 50%. Максимальна шкода збільшена на 15 одиниць."/>
+    <message name="GAS_GRENADE.DESCR.U1A"
+             value="Граната при вибуху випускає хмару газу, яка завдає шкоду отрутою всім, хто потрапив до неї. Ухилитися від газу неможливо. Хмара тримається 6 ходів. Можна активувати в повітрі, натиснувши пробіл."/>
+    <message name="GAS_GRENADE.DAMAGE.U1A" value="50-75 од. за хід"/>
+
+    <message name="SHOCKER.NAME.U2" value="Дуговий шокер"/>
+    <message name="SHOCKER.DAMAGE.U2"
+             value="50 од. + втрат від падіння, 1 відскік"/>
+
+    <message name="BUNKER_BUSTER.NAME.U1" value="Бронебійний бункеролом"/>
+    <message name="BUNKER_BUSTER.DISTINCT.U1"
+             value="Прохідність збільшена на 15%, шкода збільшена на 5 од., ігнорує 30% броні цілі."/>
+    <message name="BUNKER_BUSTER.DESCR.U1"
+             value="Падаюча з неба торпеда, буряща землю вглиб у зазначеній точці. Вибухає при контакті з ворогом, або через деякий час після буріння. Ігнорує 30% броні ворога."/>
+    <message name="BUNKER_BUSTER.DAMAGE.U1" value="45 од. від вибуху, втрати від вогню 30 од. в секунду."/>
+
+    <message name="METEOR.NAME.U1" value="Метеоритний дощ"/>
+    <message name="METEOR.DISTINCT.U1"
+             value="Викликає 3 метеорита, кожен з яких розпадається на 2 осколка. Шкода метеорита: 55 од., осколків: 35 од. Затримка збільшена до 3 ходів."/>
+    <message name="METEOR.DESCR.U1"
+             value="Викликає падіння 3 метеоритів, що падають під випадковим кутом. При ударі кожен метеорит розпадається на 2 шматки."/>
+    <message name="METEOR.DAMAGE.U1" value="55 од. від удару, 2 шматка по 35 од."/>
+
+    <!--1.17-->
+    <message name="MOLOTOV.NAME.U1" value="Напалмова граната"/>
+    <message name="MOLOTOV.DISTINCT.U1" value="Кількість горючої суміші збільшено на 40%. Можна активувати, натиснувши пробіл."/>
+    <message name="MOLOTOV.DESCR.U1" value="Вибухає від зіткнення з землею або за допомогою натискання на пробіл, випускаючи кільце з горючої суміші."/>
+
+    <!--1.18-->
+    <message name="AK_47.NAME.U1A" value="АКМ"/>
+    <message name="AK_47.DISTINCT.U1A" value="Здійснює 3 черги по 3 кулі. Ігнорує 10% броні жертви."/>
+    <message name="AK_47.DAMAGE.U1A" value="3 черги по 3 постріли. Шкода від однієї кулі - 16 од."/>
+
+    <message name="CARPET_STRIKE.NAME.U1" value="Подвійний котоудар"/>
+    <message name="CARPET_STRIKE.DISTINCT.U1" value="Для удару встановлюються 2 цілі, у кожну прилітає 2 коти. Затримка - 3 ходи."/>
+    <message name="CARPET_STRIKE.DESCR.U1" value="Для удару встановлюються 2 цілі, у кожну скидається по 2 коти. Коти не схильні до вітру. При ударах об землю коти відскакують у довільному напрямку."/>
+    <message name="CARPET_STRIKE.DAMAGE.U1" value="4 коти, 2 відскоки, 50 од. шкоду від кожного удару."/>
+
+    <message name="LASER_GUN.NAME.U1" value="Лазерна гвинтівка mk2"/>
+    <message name="LASER_GUN.DISTINCT.U1" value="Ігнорує 25% броні жертви."/>
+    <message name="LASER_GUN.DESCR.U1"
+             value="Лазер з однаковою легкістю пропалює наскрізь як землю, так і ваших ворогів! Променем можна керувати під час стрільби. Ігнорує 25% броні жертви."/>
+
+    <message name="LASER_GUN.NAME.U2A" value="Важкий лазер"/>
+    <message name="LASER_GUN.DISTINCT.U2A" value="Час дії збільшено на 25%. Ігнорує 40% броні жертви."/>
+    <message name="LASER_GUN.DAMAGE.U2A" value="120 од."/>
+    <message name="LASER_GUN.DESCR.U2A"
+             value="Лазер з однаковою легкістю пропалює наскрізь як землю, так і ваших ворогів! Променем можна керувати під час стрільби. Ігнорує 40% броні жертви."/>
+
+    <message name="LASER_GUN.NAME.U2B" value="Випалювач"/>
+    <message name="LASER_GUN.DISTINCT.U2B" value="Підпорядкована силі вогню. Довжина променя зменшена на 30%, шкоду збільшено на 32 од."/>
+    <message name="LASER_GUN.DESCR.U2B"
+             value="Лазер з однаковою легкістю пропалює наскрізь як землю, так і ваших ворогів! Променем можна керувати під час стрільби."/>
+    <message name="LASER_GUN.DAMAGE.U2B" value="128 од."/>
+
+    <message name="NAPALM_STRIKE.NAME.U1" value="Напалмове бомбардування"/>
+    <message name="NAPALM_STRIKE.DISTINCT.U1" value="Додаткова ракета, шкоду збільшено на 5 од."/>
+    <message name="NAPALM_STRIKE.DAMAGE.U1" value="6 ракет по 25 од., шкода від вогню 30 од. в секунду."/>
+
+    <message name="ROPE.NAME.U1" value="Кішка"/>
+    <message name="ROPE.DISTINCT.U1" value="Збільшена довжина і швидкість пострілу мотузки."/>
+
+    <!-- 1.19 -->
+
+    <message name="GRAVITY_GUN.NAME.U1" value="Гравітаційна рушниця"/>
+    <message name="GRAVITY_GUN.DISTINCT.U1" value="Покращений приціл, шкоду збільшено на 10 од."/>
+    <message name="GRAVITY_GUN.DAMAGE.U1" value="2 постріли по 30 од."/>
+
+    <!-- 1.20 -->
+
+    <message name="UFO.NAME.U1" value="Бойова тарілка"/>
+    <message name="UFO.DISTINCT.U1" value="Шкоду від вибуху збільшено на 5 од. Запас палива збільшено на 20%."/>
+    <message name="UFO.DAMAGE.U1" value="Втрати від вибуху - 85 од."/>
+
+    <message name="UFO.NAME.U2" value="Викрадач"/>
+    <message name="UFO.DESCR.U2"
+             value="Тарілка здатна переносити союзників і об'єкти, що лежать на землі: полетiть до об'єкта, натисніть E або ПРОБІЛ, щоб захопити його. Потім перелетiть в місце, де хочете скинути вантаж, натисніть E або ПРОБІЛ ще раз. Якщо натиснути ПРОБІЛ над ворогом, тарілка впаде на нього і вибухне."/>
+    <message name="UFO.DISTINCT.U2"
+             value="Шкоду від вибуху збільшено на 10 од. З'являється можливість переносити союзників."/>
+    <message name="UFO.DAMAGE.U2" value="Втрати від вибуху - 95 од."/>
+
+    <message name="SUPER_SHEEP.NAME.U1" value="Дикий кабан"/>
+    <message name="SUPER_SHEEP.DISTINCT.U1"
+             value="Шкоду збільшено на 10 од. Уповільнює пошкоджених персонажів на 1 хід."/>
+    <message name="SUPER_SHEEP.DESCR.U1"
+             value="Літаючий кабан, польотом якого можна управляти. Після запуску починає летіти вертикально вгору, вибухає при зіткненні із землею або персонажем. Уповільнює пошкодженого бійця на 1 хід."/>
+    <message name="SUPER_SHEEP.DAMAGE.U1" value="100 од."/>
+
+    <message name="SUPER_SHEEP.NAME.U2" value="Грозовий кабан"/>
+    <message name="SUPER_SHEEP.DISTINCT.U2" value="Шкоду збільшено на 10 од. Пробиває невелику ділянку землі."/>
+    <message name="SUPER_SHEEP.DESCR.U2"
+             value="Літаючий кабан, польотом якого можна керувати. Після запуску починає летіти вертикально вверх, вибухає при зіткненні з землею або персонажем. Уповільнює пошкодженого персонажа на 1 хід. Може пробити невелику ділянку землі."/>
+    <message name="SUPER_SHEEP.DAMAGE.U2" value="110 од."/>
+
+    <message name="AK_47.NAME.U2A" value="Штурмова гвинтівка"/>
+    <message name="AK_47.DISTINCT.U2A" value="Шкоду збільшено на 4 од. Ігнорує 30% броні жертви."/>
+    <message name="AK_47.DESCR.U2A"
+             value="Стріляє короткими чергами, одна куля може прошити двох ворогів. Ігнорує 30% броні жертви."/>
+    <message name="AK_47.DAMAGE.U2A" value="3 черги по 3 постріли. Шкода від однієї кулі - 18 од."/>
+
+    <!-- 1.21 -->
+
+    <message name="BLOW_TORCH.NAME.U2" value="Тактична зварювалка"/>
+    <message name="BLOW_TORCH.DISTINCT.U2"
+             value="Тунель від зварювалки прикривається заслінкою, яка вибухає на початку вашого наступного ходу!"/>
+    <message name="BLOW_TORCH.DESCR.U2">
+        <![CDATA[Дозволяє проривати горизонтальні тунелі в землі. Тунель від зварювалки прикривається заслінкою, яка вибухає на початку вашого наступного ходу.]]>
+    </message>
+
+    <message name="PNEUMATIC_DRILL.NAME.U1" value="Безпечний дриль"/>
+    <message name="PNEUMATIC_DRILL.DISTINCT.U1"
+             value="Тунель від дриля прикривається заслінкою, яка вибухає на початку вашого наступного ходу."/>
+    <message name="PNEUMATIC_DRILL.DESCR.U1"
+             value="Дозволяє проривати в землі вертикальні тунелі. Тунель від дриля прикривається заслінкою, яка вибухає на початку вашого наступного ходу."/>
+
+    <message name="PNEUMATIC_DRILL.NAME.U2" value="Набір шахтаря"/>
+    <message name="PNEUMATIC_DRILL.DISTINCT.U2"
+             value="Після використання дрилі ви додатково можете застосувати зварювання."/>
+    <message name="PNEUMATIC_DRILL.DESCR.U2"
+             value="Дозволяє проривати в землі вертикальні тунелі. Тунель від дриля прикривається заслінкою, яка вибухає на початку вашого наступного ходу. Після використання ви можете застосувати зварювання на той самий хід."/>
+
+    <message name="BARRIER.NAME.U2" value="Лазерний загороджувач"/>
+    <message name="BARRIER.DISTINCT.U2"
+             value="В кожному бою можна використовувати 1 додатковий генератор. Збільшений радіус зв'язування."/>
+    <message name="BARRIER.DAMAGE.U2" value="10 од."/>
+
+    <message name="BUNKER_BUSTER.NAME.U2" value="Контузящий бункеролом"/>
+    <message name="BUNKER_BUSTER.DISTINCT.U2"
+             value="Шкода збільшена на 15 од., ігнорує 50% броні цілі та уповільнює її."/>
+    <message name="BUNKER_BUSTER.DESCR.U2"
+             value="Падаюча з неба торпеда, що буре землю вглиб у зазначеній точці. Вибухає при контакті з ворогом, або через деякий час після буріння. Ігнорує 50% броні цілі та уповільнює її."/>
+    <message name="BUNKER_BUSTER.DAMAGE.U2" value="60 од. від вибуху, втрати від вогню 30 од. в секунду."/>
+
+    <message name="HOLY_GRENADE.NAME.U2A" value="Окобомба"/>
+    <message name="HOLY_GRENADE.DISTINCT.U2A" value="Можна відійти після кидка. Шкоду збільшено на 25 од., відновлює 30 од. здоров'я союзникам."/>
+    <message name="HOLY_GRENADE.DESCR.U2A">
+        <![CDATA[Дуже потужна граната. Вибух відбувається тільки після повної зупинки. Відновлює 30 од. здоров'я союзникам у великому радіусі.]]>
+    </message>
+    <message name="HOLY_GRENADE.DAMAGE.U2A" value="160 од."/>
+
+    <!-- 1.23 -->
+
+    <message name="FREEZER.NAME.U1" value="Кріогенна базука"/>
+    <message name="FREEZER.DISTINCT.U1"
+             value="Пряме попадання по замороженому персонажу збільшує шкоду і час заморозки на 50%"/>
+    <message name="FREEZER.DESCR.U1">
+        <![CDATA[Стріляє снарядами, заморозюючими ворогів в радiусi дiї. Снаряди піддаються дії вітру. Пряме попадання по замороженому персонажу збільшує втрати і час заморозки на 50%.]]>
+    </message>
+
+    <!-- 1.26 -->
+
+    <message name="PUSHING_MINE.NAME.U1" value="Тактична гравiмiна"/>
+    <message name="PUSHING_MINE.DISTINCT.U1"
+             value="Міну можна встановити на порожнє місце і зіштовхнути на неї ворогів."/>
+    <message name="PUSHING_MINE.DESCR.U1">
+        <![CDATA[Прилад, який закладається під ворожого бійця і через 3 секунди підкидає його вгору. Якщо поставити міну на порожнє місце, вона спрацює, коли над нею виявиться ворог, або автоматично через 5 секунд. Не завдає шкоду і не витрачає хід.]]>
+    </message>
+
+    <message name="SLEDGEHAMMER.NAME.U1" value="Пробивний молот"/>
+    <message name="SLEDGEHAMMER.DISTINCT.U1" value="Збільшена глибина забивання цiлi."/>
+
+    <message name="BAT.NAME.U1" value="Посилена бита"/>
+    <message name="BAT.DISTINCT.U1" value="В польотi ворог пробиває невелику ділянку землі, втрачаючи швидкiсть."/>
+    <message name="BAT.DESCR.U1">
+        <![CDATA[Боєць, проти якого буде використана ця зброя, полетить у напрямку удару з дуже високою швидкістю. Якщо ворог вріжеться в землю, він зруйнує невелику ділянку і отримає шкоду.]]>
+    </message>
+
+    <message name="WATERMELON.NAME.U1" value="Пекельний кавун"/>
+    <message name="WATERMELON.DISTINCT.U1" value="Можна активувати, натиснувши пробіл."/>
+    <message name="WATERMELON.DESCR.U1"
+             value="Вибухає через 5 секунд після натискання на пробіл. При вибуху випускає 6 менших шматків, які вибухають від зіткнення із землею."/>
+
+    <message name="EMERGENCY_TELEPORT.NAME.U3" value="Медвак"/>
+    <message name="EMERGENCY_TELEPORT.DESCR.U3"
+             value="Переносить персонажа до аптечки, що знаходиться в радіусі дії пристрою. Якщо поблизу її немає, переносить у випадкову безпечну точку."/>
+    <message name="EMERGENCY_TELEPORT.DISTINCT.U3" value="Переносить гравця до аптечки."/>
+
+    <message name="GRAVITY_GUN.NAME.U2" value="Граббер"/>
+    <message name="GRAVITY_GUN.DISTINCT.U2" value="Дозволяє притягувати і відштовхувати об'єкти."/>
+    <message name="GRAVITY_GUN.DESCR.U2">
+        <![CDATA[В режимі тяжіння здатний захопити і запустити об'єкт в зоні досяжності прицілу. Якщо підходящих об'єктів немає, робить два постріли, які сильно відштовхують ворогів.]]>
+    </message>
+    <message name="GRAVITY_GUN.NOTE.U2" value="Щоб притягнути предмет, затисніть SHIFT при атаці."/>
+
+    <message name="DOWNGRADE_ON_SHIFT.NOTE" value="При затиснутій клавіші SHIFT зброя працює в стандартному режимі."/>
+
+    <!-- 1.28 -->
+
+    <message name="NEGATOR.NAME.U1" value="Блокіратор mk2"/>
+    <message name="NEGATOR.DISTINCT.U1" value="Час дії збільшено на 2 хода."/>
+    <message name="NEGATOR.DESCR.U1">
+        <![CDATA[Прилад, який можна закріпити на будь-якій поверхні, вiн не дозволяє ворогові лікуватися стандартними способами. Не діє на більшість босів і регенерацію кроликів. Ворог, який руйнує блокіратор, отримує велику шкоду. Працює протягом 8 ходів.]]>
+    </message>
+
+    <message name="NEGATOR.NAME.U2A" value="Негатор"/>
+    <message name="NEGATOR.DISTINCT.U2A"
+             value="Кожен хід завдає 10 од. шкоду ворогам. Не діє на сильно пошкоджених ворогів (менше 10%)."/>
+    <message name="NEGATOR.DESCR.U2A">
+        <![CDATA[Прилад, який можна закріпити на будь-якій поверхні, не дозволяє ворогові лікуватися стандартними способами. Не діє на більшість босів і регенерацію кроликів. Ворог, який руйнує блокіратор, отримує великi втрати. Діє 8 ходів. Кожен хід завдає шкоду ворогам з запасом життя більше 10%.]]>
+    </message>
+    <message name="NEGATOR.DAMAGE.U2A" value="10 од. кожен хід."/>
+
+    <message name="NEGATOR.NAME.U2B" value="Регенератор"/>
+    <message name="NEGATOR.DISTINCT.U2B"
+             value="Відновлює союзникам 10 од. кожен хід, якщо їх здоров'я нижче 80%, і 15 од., якщо здоров'я нижче 40%."/>
+    <message name="NEGATOR.DESCR.U2B">
+        <![CDATA[Прилад, який можна закріпити на будь-якій поверхні, не дозволяє ворогові лікуватися стандартними способами. Не діє на більшість босів і регенерацію кроликів. Ворог, який руйнує блокіратор, отримує великi втрати. Діє 8 ходів. Відновлює союзникам 10 од. кожен хід, якщо їх здоров'я нижче 80%, і 15 од., якщо здоров'я нижче 40%.]]>
+    </message>
+
+    <message name="SNIPER_RIFLE.NAME.U1" value="Тактична гвинтівка"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U1" value="Шкоду збільшено до 110 од. Коливання прицілу зменшені, а довжина променя збільшена."/>
+    <message name="SNIPER_RIFLE.DAMAGE.U1" value="110 од. першiй цiлi."/>
+
+    <message name="SNIPER_RIFLE.NAME.U2A" value="Слонобiй"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U2A" value="Ігнорує 40% броні жертви, шкоду збільшено до 130 од."/>
+    <message name="SNIPER_RIFLE.DESCR.U2A">
+        <![CDATA[Потужна важка гвинтівка, здатна пробивати кілька ворогів однією кулею, але кожна ціль після першої отримає зменшену шкоду. Ігнорує 40% броні жертви.]]>
+    </message>
+    <message name="SNIPER_RIFLE.DAMAGE.U2A" value="130 од. першiй цiлi."/>
+
+    <message name="SNIPER_RIFLE.NAME.U2B" value="Мухобийка"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U2B" value="Шкоду збільшено до 120 од. Ігнорує увороти, практично відсутні коливання прицілу. Якщо є здатність до критичної шкоди, то вона завжди спрацьовує. Зменшено штраф втрат кожної наступної мети на 30%."/>
+    <message name="SNIPER_RIFLE.DESCR.U2B">
+        <![CDATA[Точна і потужна гвинтівка, здатна пробивати кілька ворогів однією кулею, але кожна ціль після першої отримає зменшену шкоду. Ворог не буде здатний ухилитися від атаки! Завжди завдає критичну шкоду, якщо вона присутня!]]>
+    </message>
+    <message name="SNIPER_RIFLE.DAMAGE.U2B" value="120 од. першiй цiлi."/>
+
+    <!-- 1.29 -->
+
+    <message name="GIRDER.NAME.U2" value="Тактична балка"/>
+    <message name="GIRDER.DISTINCT.U2" value="Балку можна розташувати більш точно."/>
+
+    <message name="ROPE.NAME.U2" value="Інженерний канат"/>
+    <message name="ROPE.DISTINCT.U2"
+             value="Автоматично прицілюється і випускає канат в бік припаса, якщо дозволяють кут і радіус дії, підбираючи його."/>
+    <message name="ROPE.DESCR.U2">
+        <![CDATA[З допомогою цього каната можна не тільки забратися на будь-яку перешкоду, але і підбирати припаси.]]>
+    </message>
+    <message name="ROPE.NOTE.U2" value="Щоб вистрілити в припас, затисніть клавішу Shift."/>
+
+    <message name="SLEDGEHAMMER.NAME.U1B" value="Бойовий молот"/>
+    <message name="SLEDGEHAMMER.DISTINCT.U1B" value="Атакований ворог втрачає 20% атаки і броні на 2 ходи."/>
+    <message name="SLEDGEHAMMER.DESCR.U1B">
+        <![CDATA[Найпотужніший удар вганяє ворога в землю, знімаючи 35% поточного здоров'я, а також 20% атаки і броні на 2 хода.]]>
+    </message>
+
+    <message name="SUPER_SHEEP.NAME.U2B" value="Жадібний кабан"/>
+    <message name="SUPER_SHEEP.DISTINCT.U2B"
+             value="При підборі припаса шкода збільшується на 55 од. (до 5 разів на запуск)."/>
+    <message name="SUPER_SHEEP.DESCR.U2B">
+        <![CDATA[Літаючий кабан, польотом якого можна керувати. Після запуску починає летіти вертикально вгору, вибухає при зіткненні із землею або персонажем. Уповільнює пошкодженого бійця на 1 хід. При підборі припасів, шкода збільшується на 55 од. до 5 разів за запуск.]]>
+    </message>
+
+    <message name="SNOWFLAKE_STRIKE.NAME.U1" value="Крижана злива"/>
+    <message name="SNOWFLAKE_STRIKE.DISTINCT.U1" value="Число крижинок збільшено на 2."/>
+    <message name="SNOWFLAKE_STRIKE.DESCR.U1">
+        <![CDATA[Над зазначеною точкою утворюються 9 крижинок, які починають опускатися на землю під впливом вітру! При зіткненні з землею завдають шкоду і заморожують ворогів на 3 ходи, не руйнуючи землю.]]>
+    </message>
+
+    <message name="SNOWFLAKE_STRIKE.NAME.U2A" value="Крижаний град"/>
+    <message name="SNOWFLAKE_STRIKE.DISTINCT.U2A" value="Крижинки не схильні до вітру. Втрати знижений."/>
+    <message name="SNOWFLAKE_STRIKE.DESCR.U2A">
+        <![CDATA[Над зазначеною точкою утворюються 9 крижинок, які починають опускатися на землю. Крижинки не схильні до вітру. При зіткненні з землею завдають шкоду і заморожують ворогів на 3 ходи.]]>
+    </message>
+    <message name="SNOWFLAKE_STRIKE.DAMAGE.U2A" value="35 од."/>
+
+    <message name="SNOWFLAKE_STRIKE.NAME.U2B" value="Морозний дощ"/>
+    <message name="SNOWFLAKE_STRIKE.DISTINCT.U2B" value="Заморожування збільшено на 1 хід. Число крижинок збільшено на 2. Ігнорує силове поле."/>
+    <message name="SNOWFLAKE_STRIKE.DESCR.U2B">
+        <![CDATA[Над зазначеною точкою утворюються 11 крижинок, які починають опускатися на землю. Крижинки схильні до вітру! При зіткненні з землею завдають шкоду і заморожують ворогів на 4 ходи, не руйнуючи землю.]]>
+    </message>
+
+    <!-- 1.33 -->
+
+    <message name="TELEPORT_ANCHOR.NAME.U1" value="Якір mk2"/>
+    <message name="TELEPORT_ANCHOR.DISTINCT.U1" value="Час збільшено на 2 секунди."/>
+    <message name="TELEPORT_ANCHOR.DESCR.U1">
+        <![CDATA[Залишає за собою мітку на поточній позиції вашого бійця, на яку він буде телепортований в кінці ходу. Мітка діє 10 секунд після установки.]]>
+    </message>
+
+    <message name="TELEPORT_ANCHOR.NAME.U2" value="Якір mk3"/>
+    <message name="TELEPORT_ANCHOR.DISTINCT.U2" value="Час збільшено ще на 4 секунди."/>
+    <message name="TELEPORT_ANCHOR.DESCR.U2">
+        <![CDATA[Залишає за собою мітку на поточній позиції вашого бійця, на яку він буде телепортований в кінці ходу. Мітка діє 14 секунд після установки.]]>
+    </message>
+
+    <message name="GIRDER_GUN.NAME.U1" value="Балкокидач"/>
+    <message name="GIRDER_GUN.DISTINCT.U1" value="+1 використання за бій."/>
+
+    <message name="FIRE_THROWER.NAME.U1" value="Керований вогнемет"/>
+    <message name="FIRE_THROWER.DISTINCT.U1"
+             value="Збільшено кількість крапель струменя на 3 і шкоди крапель на 1. Можна регулювати кут нахилу під час пострілу."/>
+    <message name="FIRE_THROWER.DESCR.U1">
+        <![CDATA[Випускає вогненний струмінь, який ще деякий час тліє на землі, підсмажуючи ворога. Можна регулювати кут нахилу під час пострілу.]]>
+    </message>
+    <message name="FIRE_THROWER.DAMAGE.U1" value="15 крапель струменя по 4 од., шкода від вогню 30 од. в секунду"/>
+
+    <message name="DRILL.NAME.U1" value="Свердлячий таран"/>
+    <message name="DRILL.DISTINCT.U1" value="Шкоду збільшено на 15 од., ігнорує 20% броні."/>
+    <message name="DRILL.DESCR.U1">
+        <![CDATA[Ракета, якою можна стріляти в супротивника, що знаходиться під землею або за перешкодою. Снаряд ігнорує 20% броні. Схильна до впливу вітру!]]>
+    </message>
+    <message name="DRILL.DAMAGE.U1" value="75 од."/>
+
+    <message name="DRILL.NAME.U2" value="Свердлячий шукач"/>
+    <message name="DRILL.DISTINCT.U2"
+             value="Шкоду збільшено ще на 15 од. Підземне самонаведення на найближчого ворога."/>
+    <message name="DRILL.DESCR.U2">
+        <![CDATA[Ракета, якою можна стріляти в супротивника, що знаходиться під землею або за перешкодою. Снаряд ігнорує 20% броні. Схильна до впливу вітру! Поки ракета знаходиться під землею, наводиться на найближчого ворога, найбільш ефективна проти поодинокої цілі.]]>
+    </message>
+    <message name="DRILL.DAMAGE.U2" value="90 од."/>
+
+    <message name="PARASITE.NAME.U2" value="Слимак"/>
+    <message name="PARASITE.DISTINCT.U2" value="Блокує передачу ходу на 1 хід."/>
+    <message name="PARASITE.DESCR.U2">
+        <![CDATA[Слимак запускається як граната, але при попаданні в бійця намертво прикріплюється до нього. Слимак уповільнює ворога і вибухає через 10 секунд після початку наступного ходу. Блокує передачу ходу на 1 хід.]]>
+    </message>
+    <message name="PARASITE.HINT.U2">
+        <![CDATA[Шкода слимака не найбільша, але його головна ціль - ускладнити наступний хід ворогу. Врахуйте, що з цим апгрейдом ворог не може використовувати передачу хода, щоб обійти дію слимака.]]>
+    </message>
+
+    <message name="BOULDER.NAME.U1" value="Подрібнювач"/>
+    <message name="BOULDER.DISTINCT.U1"
+             value="Кожне нанесення шкоду супроводжується блокуванням випадкової зброї на 1-3 ходи."/>
+    <message name="BOULDER.DESCR.U1">
+        <![CDATA[Величезний камінь, хаотично літаючий по карті! Розкидає бійців, завдаючи при цьому шкоду, що залежить від швидкості каменю. При кожному нанесенні шкоду подрібнювач блокує випадкову зброю в арсеналі жертви на 1-3 ходи.]]>
+    </message>
+
+    <message name="TELEPORT.NAME.U1B" value="Медичний телепорт"/>
+    <message name="TELEPORT.DISTINCT.U1B"
+             value="Не можна переміщуватися в землю, але після застосування відновлює 40 од. здоров'я і дає можливість використовувати антифриз."/>
+    <message name="TELEPORT.NOTE.U1B"
+             value="Щоб переміститися, двічі клікніть на будь-яку вільну від землі ділянку місцевості, куди поміститься персонаж."/>
+    <message name="TELEPORT.DESCR.U1B">
+        <![CDATA[Дозволяє персонажу переміститися в будь-яку вільну від землі ділянку місцевості, куди поміститься персонаж. Після застосування боєць відновлює 40 од. здоров'я і має можливість використовувати антифриз.]]>
+    </message>
+    <message name="TELEPORT.HINT.U1B">
+        <![CDATA[Переміщує вашого бійця на будь-яку вільну ділянку місцевості. Використовуйте, коли немає іншого способу переміститися. Двічі клікніть в те місце, куди хочете телепортуватися.]]>
+    </message>
+
+    <!--1.36-->
+
+    <message name="AIR_BLOCKER.NAME.U1" value="Магнітний заземлювач"/>
+    <message name="AIR_BLOCKER.DISTINCT.U1"
+             value="Дія заземлювача поширюється на інші літаючі об'єкти, такі як: НЛО, вертоліт, суперсвин."/>
+    <message name="AIR_BLOCKER.DESCR.U1">
+        <![CDATA[Прилад, який можна закріпити на будь-якій поверхні, що не дозволяє ворогам та іншим літаючим об'єктам навколо себе довго перебувати в повітрі. Працює 10 ходів, кожен хід радіус дії збільшується. Установка не витрачає хід.]]>
+    </message>
+
+    <message name="GUARDING_BOT.NAME.U1A" value="Прихований охоронець"/>
+    <message name="GUARDING_BOT.DISTINCT.U1A"
+             value="Стає невидимим на наступний хід вашої команди, проявляється на початку кожного ходу ворога на декілька секунд."/>
+    <message name="GUARDING_BOT.DESCR.U1A">
+        <![CDATA[Захисне пристосування, при наближенні супротивників злітає в повітря і обстрілює їх. Реагує лише на цілі, які стоять на землі. Не витрачає хід, якщо при установці поруч не було ворогів. Стає невидимим на наступний хід вашої команди.]]>
+    </message>
+
+    <message name="GUARDING_BOT.NAME.U1B" value="Шипастий охоронець"/>
+    <message name="GUARDING_BOT.DISTINCT.U1B"
+             value="Охоронця можна кидати на відстань, також він прилипає до поверхні."/>
+    <message name="GUARDING_BOT.DESCR.U1B">
+        <![CDATA[Захисне пристосування, при наближенні супротивників обстрілює їх. Реагує лише на цілі, які стоять на землі. Не витрачає хід, якщо при установці поруч не було ворогів. Можна кидати на відстань, прилипає до поверхонь.]]>
+    </message>
+
+    <!--1.38-->
+
+    <message name="BOULDER.NAME.U2" value="Акуратний подрібнювач"/>
+    <message name="BOULDER.DISTINCT.U2" value="Попадання в союзних бійців наносять менше шкоду і не блокують зброю."/>
+    <message name="BOULDER.DESCR.U2">
+        <![CDATA[Величезний камінь, хаотично літаючий по карті! Розкидає бійців і блокує зброю, завдаючи при цьому шкоду, що залежить від швидкості каменю. При кожному нанесенні шкоду подрібнювач блокує випадкову зброю в арсеналі жертви на 1-3 ходи. Попадання в союзних бійців наносять менше шкоду і не блокують зброю.]]>
+    </message>
+
+    <message name="SHOCKER.DISTINCT.U2" value="Розряд може відскочити на найближчого ворога в середньому радіусі. З затиснутим SHIFT заряд не відскакує."/>
+    <message name="SHOCKER.DESCR.U2"
+             value="Вражає струмом ворогів у ближньому бою. Пошкоджені вороги сповільнюються на 2 ходи. Розряд відскакує на найближчого ворога в середньому радіусі. При використанні з затиснутим SHIFT заряд не відскакує."/>
+
+    <!--1.39-->
+
+    <message name="FREEZER.NAME.U2A" value="Льодяний шип"/>
+    <message name="FREEZER.DISTINCT.U2A" value="Шкода збільшена на 20 од., снаряд наводиться на найближчу ціль. Бонусна шкода наноситься також по сповільнених цілях і збільшені ще на 30%."/>
+    <message name="FREEZER.DESCR.U2A">
+        <![CDATA[Стріляє снарядами, що заморожують ворогів у радіусі ураження. Снаряди наводяться на найближчу ціль, але схильні до впливу вітру. Пряме попадання по замороженому чи сповільненому ворогу збільшує шкоду на 80% і час заморозки на 50%.]]>
+    </message>
+    <message name="FREEZER.DAMAGE.U2A" value="60 од."/>
+
+    <message name="FREEZER.NAME.U1B" value="Снігомет"/>
+    <message name="FREEZER.DISTINCT.U1B" value="Можна зробити 2 постріли за хід, але шкода зменшена на 20 од., а час заморозки першого пострілу на 1 хід."/>
+    <message name="FREEZER.DESCR.U1B">
+        <![CDATA[Стріляє снарядами, що заморожують ворогів в радіусі ураження на 1 хід. Снаряди схильні до впливу вітру. За один хід можна зробити 2 постріли.]]>
+    </message>
+    <message name="FREEZER.DAMAGE.U1B" value="20 од. за постріл, 2 постріли."/>
+
+    <message name="FREEZER.NAME.U2B" value="Прицільний снігомет"/>
+    <message name="FREEZER.DISTINCT.U2B" value="Покращений приціл і фіксована сила пострілу, шкода збільшена на 10 од."/>
+    <message name="FREEZER.DESCR.U2B">
+        <![CDATA[Стріляє снарядами, що заморожують ворогів в радіусі ураження на 1 хід. Снаряди схильні до впливу вітру. За один хід можна зробити 2 постріли. Покращений приціл.]]>
+    </message>
+    <message name="FREEZER.DAMAGE.U2B" value="30 од. за постріл, 2 постріли."/>
+
+    <message name="GAS_GRENADE.NAME.U1B" value="Морозячий газ"/>
+    <message name="GAS_GRENADE.DISTINCT.U1B" value="Хмара наносить шкоду холодом і сповільнює пошкоджених ворогів на 1 хід, але діє 5 ходів."/>
+    <message name="GAS_GRENADE.DESCR.U1B">
+        <![CDATA[Граната під час вибуху випускає хмару газу, яка в кінці ходу наносить шкоду холодом всім бійцям, які в неї потрапили, а також сповільнює на 1 хід. Ухилитися від шкоду хмари неможливо. Хмара тримається 5 ходів.]]>
+    </message>
+
+    <message name="SPIDER.NAME.U1B" value="Льодяний павук"/>
+    <message name="SPIDER.DISTINCT.U1B" value="Павук випускає льодяний шип, який заморожує ворога на 1 хід. Ігнорує бонуси до тривалості часу заморожування в екіпіруванні."/>
+    <message name="SPIDER.DESCR.U1B">
+        <![CDATA[Підповзає до найближчого ворога і завмирає біля нього. Якщо цей ворог рушить з місця, павук негайно вибухне, а також випустить льодяной шип, який заморожує ворога на 1 хід. Ігнорує бонуси до тривалості часу заморожування в екіпіруванні.]]>
+    </message>
+    <message name="SPIDER.DAMAGE.U1B" value="65 од. від вибуху, 25 од. від шипа."/>
+
+    <message name="HOLY_GRENADE.NAME.U2B" value="Полярна чума"/>
+    <message name="HOLY_GRENADE.DISTINCT.U2B" value="Можна відійти після кидка. Випускає льодяні шипи у всіх ворогів у великому радіусі, але руйнування землі і шкода сильно знижені. Пошкоджені вороги заморожуються на 3 ходи."/>
+    <message name="HOLY_GRENADE.DESCR.U2B">
+        <![CDATA[Дуже потужна граната. Вибух відбувається тільки після повної зупинки. Випускає льодяні шипи, що наносять шкоду холодом, у всіх ворогів у великому радіусі. Пошкоджені вороги заморожуються на 3 ходи.]]>
+    </message>
+    <message name="HOLY_GRENADE.DAMAGE.U2B" value="80 од. від вибуху, 80 од. від шипів."/>
+
+    <message name="AIR_BLOCKER.NAME.U1B" value="Зимовий страж"/>
+    <message name="AIR_BLOCKER.DISTINCT.U1B" value="Гасить вогонь у великому радіусі, заморожує підбитих ворогів на 1 хід. Защищает отряд от заморозки."/>
+    <message name="AIR_BLOCKER.DESCR.U1B">
+        <![CDATA[Пристрій, який можна закріпити на будь-якій поверхні, не дозволяє ворогам навколо себе довго знаходитися в повітрі. Працює 10 ходів, кожен хід радіус дії збільшується. Гасить вогонь у великому радіусі, заморожує підбитих ворогів на 1 хід. В радіусі дії захищає відряд від заморозки. Установка не витрачає хід.]]>
+    </message>
+
+    <!-- CANNON -->
+
+    <message name="CANNON.NAME.U1" value="Ручна гармата"/>
+    <message name="CANNON.DISTINCT.U1" value="Боєць отримує можливість відійти після пострілу, шкода збільшена на 10 од."/>
+    <message name="CANNON.DESCR.U1">
+        <![CDATA[Гармата стріляє ядром, яке відскакує від стін і вибухає тільки після повної зупинки. Силу пострілу змінити не можна.]]>
+    </message>
+    <message name="CANNON.DAMAGE.U1" value="100 од."/>
+
+    <message name="CANNON.NAME.U2" value="Бомбарда"/>
+    <message name="CANNON.DISTINCT.U2" value="Підсвічує траєкторію польоту снаряду, шкода збільшена на 15 од., сповільнює ціль."/>
+    <message name="CANNON.DESCR.U2">
+        <![CDATA[Гармата стріляє ядром, яке відскакує від стін і вибухає тільки після повної зупинки. Силу пострілу змінити не можна. Покращений приціл, сповільнює пошкоджених ворогів.]]>
+    </message>
+    <message name="CANNON.DAMAGE.U2" value="115 од."/>
+
+    <!-- CARPET_BAZOOKA -->
+
+    <message name="CARPET_BAZOOKA.NAME.U1" value="Котомет"/>
+    <message name="CARPET_BAZOOKA.DISTINCT.U1" value="Шкода кота збільшується з кожним відскоком."/>
+    <message name="CARPET_BAZOOKA.DESCR.U1">
+        <![CDATA[Стріляє котами, які відскакують декілька разів після першого попадання. При відскоках коти наводяться на першу пошкоджену ціль.]]>
+    </message>
+    <message name="CARPET_BAZOOKA.DAMAGE.U1" value="2 відскоки по 50 од."/>
+
+    <message name="CARPET_BAZOOKA.NAME.U2A" value="Хаотичний котомет"/>
+    <message name="CARPET_BAZOOKA.DISTINCT.U2A" value="Коти отримують додатковий відскок."/>
+    <message name="CARPET_BAZOOKA.DAMAGE.U2A" value="3 відскоки по 50 од."/>
+
+    <message name="CARPET_BAZOOKA.NAME.U2B" value="Вогневий котомет"/>
+    <message name="CARPET_BAZOOKA.DISTINCT.U2B" value="Коти підпорядковані силі і вогню підпалюють землю в місцях вибуху."/>
+    <message name="CARPET_BAZOOKA.DESCR.U2B">
+        <![CDATA[Стріляє котами, які відскакують декілька разів після першого попадання. При відскоках коти наводяться на першу пошкоджену ціль. Коти підпалюють землю в місцях вибуху.]]>
+    </message>
+    <message name="CARPET_BAZOOKA.DAMAGE.U2B" value="2 відскоки по 40 од., втрати від вогню 30 од. в секунду."/>
+
+    <!--1.43-->
+
+    <message name="SOUL_GUN.NAME.U1" value="Суворий душемет"/>
+    <message name="SOUL_GUN.DISTINCT.U1" value="Збільшено дальність стрільби і бонусний шкоду за низький рівень здоров'я стрілка."/>
+    <message name="SOUL_GUN.DAMAGE.U1" value="16 душ, від 4 до 9 од."/>
+
+    <message name="SOUL_GUN.NAME.U2A" value="Емпатичний душемет"/>
+    <message name="SOUL_GUN.DISTINCT.U2A" value="Збільшено середню шкоду душі на 1 од. Ігнорує увороти, відображення та блокування збитків. Перша мета, в яку потраплять 3 душі, отримає додаткову шкоду. Союзні юніти замість шкоду отримують зцілення."/>
+    <message name="SOUL_GUN.DAMAGE.U2A" value="16 душ, від 5 до 10 од."/>
+    <message name="SOUL_GUN.HINT.U2A">
+        <![CDATA[Досить навести приціл в сторону ворога і вистрілити. Союзники, що потрапили в зону ураження, замість шкоду отримають зцілення. А якщо інші юніти знаходяться занадто далеко, вся шкода буде завдана вашому бійцю!]]>
+    </message>
+    <message name="SOUL_GUN.DESCR.U2A">
+        <![CDATA[Випускає безліч голодних душ в напрямку прицілу. Душі вибирають випадкову ціль, і на шляху до неї можуть пройти крізь землю. Ігнорує увороти, відображення та блокування збитків. Перша мета, в яку потраплять 3 душі, отримає додаткову шкоду. Союзники замість шкоду отримають зцілення. Чим менше життя у стрільця, тим більше шкоду і лікування кожної душі. А якщо інші юніти знаходяться занадто далеко, вся шкода буде завдана вашому бійцю!]]>
+    </message>
+
+    <message name="SOUL_GUN.NAME.U2B" value="Отруйний душемет"/>
+    <message name="SOUL_GUN.DISTINCT.U2B" value="Підпорядкований силі отрути. Перша ціль, в яку попаде 3 душі, отримає додатковий урон і отруєння. Зменшений бонусний шкоду за низький рівень здоров'я стрілка."/>
+    <message name="SOUL_GUN.DAMAGE.U2B" value="16 душ, від 4 до 6 од."/>
+    <message name="SOUL_GUN.DESCR.U2B">
+        <![CDATA[Випускає безліч голодних душ в напрямку прицілу. Душі вибирають випадкову ціль, не розбираючи своїх і чужих, і на шляху до неї можуть пройти крізь землю. Чим менше життя у стрільця, тим більше шкода кожної душі. Якщо душа не знаходить мети, вона накидається на самого стрільця! Перша ціль, в яку попаде 3 душі, отримає додатковий урон і отруєння.]]>
+    </message>
+
+    <message name="BAT.NAME.U2A" value="Вибивач душі"/>
+    <message name="BAT.DISTINCT.U2A" value="Вибиває душу з супротивника, перетворюючи його в повсталого Зомбі (без здібностей) на 6 ходів. Діє тільки на активованих бійців (які вже походили), інакше працює як попереднє поліпшення."/>
+    <message name="BAT.DESCR.U2A">
+        <![CDATA[Наносить дуже сильний удар по ворогу, вибиваючи з нього душу - ворог перетвориться в повсталого Зомбі (без здібностей). Діє тільки на активованих бійців (які вже походили), інакше працює як попереднє поліпшення.]]>
+    </message>
+
+    <message name="BAT.NAME.U2B" value="Вибивач мізків"/>
+    <message name="BAT.DISTINCT.U2B" value="Збиває шапку з противника. Діє тільки на активованих бійців (які вже походили), інакше працює як попереднє поліпшення."/>
+    <message name="BAT.DESCR.U2B">
+        <![CDATA[Боєць, проти якого буде використано цю зброю, полетить в напрямку удару з дуже високою швидкістю. Удар також збиває шапку з ворога. Діє тільки на активованих бійців (які вже походили), інакше працює як попереднє поліпшення.]]>
+    </message>
+
+    <!-- 1.48 -->
+    <message name="AK_47.NAME.U1B" value="Сніжкостріл"/>
+    <message name="AK_47.DISTINCT.U1B" value="Випускає сніжки замість куль. Сніжки не проходять крізь ціль. Підпорядкований силі холоду."/>
+    <message name="AK_47.DESCR.U1B" value="Стріляє короткими чергами. Підпорядкований силі холоду."/>
+    <message name="AK_47.DAMAGE.U1B" value="2 черги по 5 пострілів. Шкода кожної сніжки - 12 од."/>
+
+    <message name="AK_47.NAME.U2B" value="АК Морозко"/>
+    <message name="AK_47.DISTINCT.U2B" value="Випускає бурульки замість куль. Бурульки не проходять крізь ціль. Сповільнює жертву. Шкоду збільшено на 2 од., підпорядкований силі холоду."/>
+    <message name="AK_47.DESCR.U2B" value="Стріляє чергами. Сповільнює жертву. Підпорядкований силі холоду."/>
+    <message name="AK_47.DAMAGE.U2B" value="2 очереди по 5 выстрелов. Шкода однієї бурульки - 14 од."/>
+
+    <message name="GRAVITY_GUN.NAME.U3" value="Кінезис"/>
+    <message name="GRAVITY_GUN.DISTINCT.U3" value="Кинуті об'єкти наносять сильну шкоду током, шкоди пострілів збільшений на 10 од."/>
+    <message name="GRAVITY_GUN.DESCR.U3" value="Кинуті об'єкти наносять сильну шкоду током, яка не залежить від атаки і броні."/>
+    <message name="GRAVITY_GUN.DAMAGE.U3" value="2 постріли по 40 од., або 180 од. від кинутого предмета"/>
+
+    <message name="HARPOON.NAME.U2B" value="Гарпунна пушка"/>
+    <message name="HARPOON.DISTINCT.U2B" value="Наконечник пробиває землю. Шкода від попадання зменшена на 15 од., а шкода від притягування збільшена на 2 од. Довжина троса зменшена на 30%."/>
+    <message name="HARPOON.DESCR.U2B">
+        <![CDATA[Небагато пробиває землю, чіпляє і тягне ворога до себе, при цьому завдаючи ворогові шкоду електрикою. Покращений приціл. Довжина троса зменшена на 30%.]]>
+    </message>
+    <message name="HARPOON.DAMAGE.U2B" value="30 од. при влученні, далі по 12 од. 4 рази за секунду."/>
+
+    <message name="GROUNDBREAKER.NAME.U1" value="Кайтеновий хижак"/>
+    <message name="GROUNDBREAKER.DISTINCT.U1" value="Осколки стали важчими - слабше відлітають в сторону, швидше кучкуються на дні ями."/>
+    <message name="GROUNDBREAKER.HINT.U1">
+        <![CDATA[Кайтеновий хижак більш передбачуваний ніж фугасна ракета і має таку ж величезну руйнівну силу. Кут - стрілки вгору/вниз. Сила пострілу - ПРОБІЛ. Враховуйте силу вітру!]]>
+    </message>
+
+    <message name="EMERGENCY_TELEPORT.NAME.U3B" value="Антитрап"/>
+    <message name="EMERGENCY_TELEPORT.DESCR.U3B" value="У вихідній точці відбувається вибух, що знищує найближчих ворожих охоронців."/>
+    <message name="EMERGENCY_TELEPORT.DISTINCT.U3B" value="Знищує ворожих охоронців у вихідній точці."/>
+
+    <message name="BOULDER.NAME.U3" value="Небесний подрібнювач"/>
+    <message name="BOULDER.DISTINCT.U3" value="Падає з неба як метеорит. Завдає додаткову шкоду вибухом від падіння і після зупинки."/>
+    <message name="BOULDER.DESCR.U3">
+        <![CDATA[Величезний камінь, що падає з неба і хаотично переміщується по карті! Розкидає бійців, завдаючи при цьому шкоду, що залежить від швидкості каменю.]]>
+    </message>
+    <message name="BOULDER.DAMAGE.U3" value="абсолютно непередбачувана!"/>
+    <message name="BOULDER.HINT.U3">
+        <![CDATA[Траєкторія не піддається розрахунку. Можна нанести гарантовано хорошу шкоду ворогу, якщо поставити довгі вертикальні балки поруч з ним.]]>
+    </message>
+
+    <!-- 1.49 -->
+    <message name="ENERGY_RIFLE.NAME.U1" value="Енерго 2000"/>
+    <message name="ENERGY_RIFLE.DISTINCT.U1" value="Жертва відпригує додатково 2 рази, отримуючи при цьому шкоду."/>
+    <message name="ENERGY_RIFLE.DAMAGE.U1" value="70 од. від пострілу, 20 од. від кожного відбивання"/>
+    <message name="ENERGY_RIFLE.DESCR.U1">
+        <![CDATA[Стріляє енергетичною кулею, яка завдає шкоду при попаданні і підкидає жертву в повітря кілька разів, наносячи додаткових втрат. Додаткова шкода не залежить від атаки і броні.]]>
+    </message>
+
+    <message name="ENERGY_RIFLE.NAME.U2" value="Енерго 3000"/>
+    <message name="ENERGY_RIFLE.DISTINCT.U2" value="Жертва відпригує додатково 3 рази, отримуючи при цьому шкоду."/>
+    <message name="ENERGY_RIFLE.DAMAGE.U2" value="65 од. від пострілу, 20 од. від кожного відбивання"/>
+
+    <message name="ENERGY_RIFLE.NAME.U3" value="Енерго 4000"/>
+    <message name="ENERGY_RIFLE.DISTINCT.U3" value="Жертва відпригує додатково 4 рази, отримуючи при цьому шкоду."/>
+    <message name="ENERGY_RIFLE.DAMAGE.U3" value="60 од. від пострілу, 20 од. від кожного відбивання"/>
+
+    <message name="SNIPER_RIFLE.NAME.U3A" value="Дінобій"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U3A" value="Ігнорує 60% броні жертви, шкода збільшена до 140 од. Коливання прицілу уповільнені на 33%. Збільшено довжину променя, пробивання землі і дистанцію накопичення максимальної шкоди."/>
+    <message name="SNIPER_RIFLE.DESCR.U3A">
+        <![CDATA[Дуже потужна гвинтівка, здатна пробивати кількох ворогів однією кулею, але кожна наступна ціль після першої отримує зменшену шкоду. Ігнорує 60% броні жертви.]]>
+    </message>
+    <message name="SNIPER_RIFLE.DAMAGE.U3A" value="140 од. по першій цілі."/>
+
+    <message name="SNIPER_RIFLE.NAME.U3B" value="Особійка"/>
+    <message name="SNIPER_RIFLE.DISTINCT.U3B" value="Шкода збільшена до 130 од. Коливання прицілу уповільнені на 50%. Збільшено довжину променя, пробивання землі і дистанцію накопичення максимальної шкоди. Зменшено штраф втрат кожної наступної мети на 60%."/>
+    <message name="SNIPER_RIFLE.DESCR.U3B">
+        <![CDATA[Дуже потужна гвинтівка, здатна пробивати кількох ворогів однією кулею, але кожна наступна ціль після першої отримує зменшену шкоду. Ворог не може ухилитися від атаки! Завжди завдає критичну шкоду, якщо вона присутня!]]>
+    </message>
+    <message name="SNIPER_RIFLE.DAMAGE.U3B" value="130 од. по першій цілі."/>
+
+    <message name="GAS_GRENADE.NAME.U2A" value="Біошок"/>
+    <message name="GAS_GRENADE.DISTINCT.U2A" value="При активації наносить додаткову шкоду від вибуху отрути. Бойці, які отримали урон від вибуху, на 8 годин залишаються 3 одиниці параметра «Отравленность» (максимум до 0). Радіус газової хмари збільшився ще на 25%."/>
+    <message name="GAS_GRENADE.DESCR.U2A" value="Граната при активації завдає шкоду від вибуху отрути і залишає хмару газу, яка пошкоджує всіх бійців, які потрапили в кінці ходу. Бойці, які отримали урон від вибуху, на 8 годин залишаються 3 одиниці параметра «Отравленность» (максимум до 0). Ухилитися від шкоди неможливо. Хмара тримається 6 ходів. Можна активувати в повітрі, натиснувши на пробіл."/>
+    <message name="GAS_GRENADE.DAMAGE.U2A" value="50 од. від вибуху, 50-75 од. за хід"/>
+
+    <message name="GAS_GRENADE.NAME.U2B" value="Криошок"/>
+    <message name="GAS_GRENADE.DISTINCT.U2B" value="При активації наносить додаткову шкоду від вибуху холоду."/>
+    <message name="GAS_GRENADE.DESCR.U2B">
+        <![CDATA[Граната при активації завдає шкоду від вибуху холоду і залишає хмару газу, яка пошкоджує всіх бійців, які потрапили в кінці ходу, а також уповільнює на 1 хід. Ухилитися від шкоди хмари неможливо. Хмара тримається 5 ходів.]]>
+    </message>
+    <message name="GAS_GRENADE.DAMAGE.U2B" value="50 од. від вибуху, 50 од. за хід"/>
+
+    <message name="FIREWORK.NAME.U1" value="Подих дракона"/>
+    <message name="FIREWORK.DISTINCT.U1" value="Збільшено буріння землі. Покращений приціл."/>
+    <message name="FIREWORK.NAME.U2" value="Грозова фурія"/>
+    <message name="FIREWORK.DISTINCT.U2" value="Шкода зменшена на 15 од. і підпорядкована силі струму. Ігнорує силове поле."/>
+    <message name="FIREWORK.DAMAGE.U2" value="35 од. від вибуху. Також персонажі, яких підчепив феєрверк, отримують 20 од. шкоду + шкоду від падіння."/>
+
+    <!-- 1.52 -->
+    <message name="PUPPET.NAME.U1" value="Анна і Беллі"/>
+    <message name="PUPPET.DISTINCT.U1" value="Можна кинути ще 1 ляльку за бій, але їх здоров`я зменшено до 120 од."/>
+    <message name="PUPPET.DESCR.U1" value="Лялька прикріплюється до бійця і перехоплює прибавки до здоров`я, зняти її можна тільки власною або союзниою шкодою, здоров`я ляльки 120 од."/>
+
+    <message name="PUPPET.NAME.U2A" value="Прокляте дитя"/>
+    <message name="PUPPET.DISTINCT.U2A" value="Відкушує по 10 од. здоров`я за кожне союзне лікування."/>
+    <message name="PUPPET.DESCR.U2A" value="Лялька прикріплюється до бійця і перехоплює прибавки до здоров`я. Здійснює укуси з шкодою в 10 од. кожен раз, коли хтось із союзників носія ляльки відновлює здоров`я."/>
+    <message name="PUPPET.DAMAGE.U2A" value="10 од. при попаданні, ще 10 од. при знищенні, 10 од. за кожне союзне лікування"/>
+
+    <message name="PUPPET.NAME.U2B" value="Примарна Менді"/>
+    <message name="PUPPET.DISTINCT.U2B" value="Пролітає крізь землю, додано слабке самонаведення."/>
+    <message name="PUPPET.DESCR.U2B" value="Лялька прикріплюється до бійця і перехоплює прибавки до здоров`я. Можна кидати крізь землю, а також має слабке самонаведення на ворожих бійців."/>
+
+    <message name="THEIF_ATTACK.NAME.U1" value="Злий мімік"/>
+    <message name="THEIF_ATTACK.DISTINCT.U1" value="Додана значна шкода за пряме попадання, яка залежить від кількості знятих очок атаки. Покращений приціл. Пряме влучення знімає очки атаки на 4 ходи довше, а влучання в землю біля бійця — на 2 ходи довше."/>
+    <message name="THEIF_ATTACK.DESCR.U1" value="Зменшує очки атаки цілі або групі цілей у невеликому радіусі. Пряме попадання збільшує шкоду. Покращений приціл."/>
+    <message name="THEIF_ATTACK.DAMAGE.U1" value="10 од., + 4 од. за кожну од. відібраних очок при прямому попаданні"/>
+
+    <message name="THEIF_ATTACK.NAME.U2A" value="Фатальний мімік"/>
+    <message name="THEIF_ATTACK.DISTINCT.U2A" value="Додатково блокує збільшення очок атаки у цілі."/>
+    <message name="THEIF_ATTACK.DESCR.U2A" value="Зменшує очки атаки цілі або групі цілей у невеликому радіусі, а також блокує будь-які способи збільшення очок атаки."/>
+
+    <message name="THEIF_ATTACK.NAME.U2B" value="Інверсний мімік"/>
+    <message name="THEIF_ATTACK.DISTINCT.U2B" value="Замість очок атаки знижує очки броні, до 40 прямим попаданням чи до 50 по групі цілей. Зниження броні при попаданні в землю біля бійця триває ще на 2 ходи довше."/>
+    <message name="THEIF_ATTACK.DESCR.U2B" value="Зменшує очки броні цілі до 40 од. прямим попаданням або групі цілей у невеликому радіусі до 50 од."/>
+
+    <!-- 1.54 -->
+    <message name="CIRCUS_CANNON.NAME.U1" value="Циркова пушка mk2"/>
+    <message name="CIRCUS_CANNON.DESCR.U1">
+        <![CDATA[Вистрілює вашим персонажем на велику відстань. При зіткненні з землею відбувається сильний вибух, від якого ваш персонаж також отримує невелику шкоду. Має покращений приціл.]]>
+    </message>
+    <message name="CIRCUS_CANNON.DISTINCT.U1" value="Доданий покращений приціл. Втрати при попаданні збільшений на 60 од., а шкоди стріляючому бійцю знижена на 10 од."/>
+    <message name="CIRCUS_CANNON.DAMAGE.U1" value="180 од., і 30 од. стріляючому бійцю"/>
+
+    <message name="DISC_LAUNCHER.NAME.U1" value="Покращений дискомет"/>
+    <message name="DISC_LAUNCHER.DESCR.U1">
+        <![CDATA[Стріляє гостро заточеними дисками, які рікошетять від будь-якої поверхні. Диск вибухає або при попаданні на ворога, або після 4х рікошетів. З кожним рікошетом шкода диска збільшується. Має покращений приціл з приблизною траєкторією після першого рікошета.]]>
+    </message>
+    <message name="DISC_LAUNCHER.DISTINCT.U1" value="Доданий покращений приціл з приблизною траєкторією після першого рікошету. Мінімальна шкода збільшена на 30 од., а максимальна на 50 од."/>
+    <message name="DISC_LAUNCHER.DAMAGE.U1" value="80-180 од."/>
+
+    <!-- 1.56 -->
+    <message name="HELICOPTER.NAME.U1A" value="Штурмовий вертоліт"/>
+    <message name="HELICOPTER.DESCR.U1A">
+        <![CDATA[Дозволить атакувати ворога, не залишаючи свого притулку! Вертоліт несе 6 бомб. Натискайте ПРОБІЛ, щоб їх скинути. Якщо натиснути ПРОБІЛ, коли бомби закінчилися, вертоліт впаде і вибухне. Кожен підібраний ящик зі зброєю дає додаткову бомбу.]]>
+    </message>
+    <message name="HELICOPTER.DISTINCT.U1A">
+        <![CDATA[Гвинтокрил несе на 2 бомби більше. Запас палива збільшено на 50%.]]>
+    </message>
+
+    <message name="HELICOPTER.NAME.U1B" value="Броньований вертоліт"/>
+    <message name="HELICOPTER.DESCR.U1B">
+        <![CDATA[Дозволить атакувати ворога, не залишаючи свого притулку! Вертоліт несе 4 бомби. Натискайте ПРОБІЛ, щоб їх скинути. Якщо натиснути ПРОБІЛ, коли бомби закінчилися, вертоліт впаде і вибухне.]]>
+    </message>
+    <message name="HELICOPTER.DISTINCT.U1B">
+        <![CDATA[Не вибухає, скидаючи бомби впритул до перешкоди. Запас палива збільшено на 20%.]]>
+    </message>
+
+    <message name="SOUL_GUN.ON_SHIFT.NOTE" value="При затиснутій клавіші SHIFT голодні душі спочатку обраних союзників."/>
+
+    <message name="VACUUM_GRENADE.NAME.U1" value="Антигравітаційна граната"/>
+    <message name="VACUUM_GRENADE.DESCR.U1">
+        <![CDATA[Необхідно використовувати поруч з одним із персонажів противника. Після вибуху граната створює чорну діру, що притягує навколишніх бійців і об'єкти. Бійці під дією діри отримують шкоду від зіткнень із землею, а також руйнують невелику ділянку землі при падінні. Чорна діра ігнорує бонуси обважнення та ударної сили. Через три секунди чорна діра зникає, завдаючи невеликої шкоди.]]>
+    </message>
+    <message name="VACUUM_GRENADE.DISTINCT.U1">
+        <![CDATA[Ігнорує обважнення й ударну силу. Збільшено максимальний радіус тяжіння і відкидання, додано покращений приціл. Необхідно використовувати поруч з одним із персонажів противника. Під час падіння бійці пробивають невелику ділянку землі, а, побувши в центрі діри, більше не притягуються. Автоматично спрацьовує через деякий час після кидка, відсутні таймер і активація по ПРОБІЛу.]]>
+    </message>
+
+    <!-- 1.57 -->
+    <message name="CANNON.NAME.U3A" value="Переносна зброя"/>
+    <message name="CANNON.DISTINCT.U3A" value="Додано другий постріл, між пострілами можна пересуватися. Втрата снаряда зменшена на 25 од., радіус вибуху також зменшено."/>
+    <message name="CANNON.DESCR.U3A">
+        <![CDATA[Гармата стріляє ядром, яке відскакує від стін і вибухає тільки після повної зупинки. У гармати 2 постріли, між пострілами можна пересуватися.]]>
+    </message>
+    <message name="CANNON.DAMAGE.U3A" value="2 постріли по 90 од."/>
+
+    <message name="CANNON.NAME.U3B" value="Контактна гармата"/>
+    <message name="CANNON.DISTINCT.U3B" value="Снаряд прилипає до поверхні та вибухає із затримкою."/>
+    <message name="CANNON.DESCR.U3B">
+        <![CDATA[Гармата стріляє ядром, яке прилипає до поверхні і вибухає із затримкою.]]>
+    </message>
+    <message name="CANNON.DAMAGE.U3B" value="115 од."/>
+    <message name="CANNON.DAMAGE.U3B.ON_SHIFT.NOTE" value="При затиснутій клавіші SHIFT снаряд, як і раніше, відскакує від стін і вибухає після повної зупинки."/>
+
+    <!-- 1.59 -->
+    <message name="FORCE_FIELD.NAME.U1" value="Метальне поле"/>
+    <message name="FORCE_FIELD.DESCR.U1" value="Прилад, що створює силове поле, яке відштовхує більшість видів снарядів. Не піддається переміщенню за допомогою літаючих тарілок будь-якої модифікації. Працює протягом 10 ходів. Можна активувати, натиснувши на ПРОБІЛ."/>
+    <message name="FORCE_FIELD.DISTINCT.U1" value="Поле можна кидати на відстань та активувати, натиснувши на ПРОБІЛ. Не піддається переміщенню за допомогою літаючих тарілок будь-якої модифікації."/>
+    <message name="FORCE_FIELD.NAME.U2A" value="Сингулярне поле"/>
+    <message name="FORCE_FIELD.DESCR.U2A" value="Прилад, що створює зворотне силове поле, яке притягує більшість видів снарядів. Працює протягом 10 ходів. Радіус дії поля відображається при наведенні курсору на нього."/>
+    <message name="FORCE_FIELD.DISTINCT.U2A" value="Замість відштовхування снарядів притягує їх. Радіус дії поля відображається при наведенні курсору на нього."/>
+    <message name="FORCE_FIELD.NAME.U2B" value="Долонь атланта"/>
+    <message name="FORCE_FIELD.DESCR.U2B" value="Прилад, що створює потужне силове поле, яке відштовхує більшість видів снарядів. Працює протягом 10 ходів."/>
+    <message name="FORCE_FIELD.DISTINCT.U2B" value="Посилено гравітаційний вплив."/>
+
+</dictionary>

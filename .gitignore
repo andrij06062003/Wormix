@@ -8,4 +8,6 @@ logs/
 .pids
 .env
 data/
+# ...except the game clients' data (texts, configs, asset packs)
+!wormix-client/vk/*/data/
 __pycache__/

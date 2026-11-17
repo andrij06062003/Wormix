@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <message name="BONUS.SPEED" value="Швидкість"/>
+    <message name="BONUS.POISON_DEFENSE" value="Захист від отрути"/>
+    <message name="BONUS.FROST_DEFENSE" value="Захист від холоду"/>
+    <message name="BONUS.MIGHTY_JUMP" value="Посилений стрибок"/>
+    <message name="BONUS.EXTRA_JUMP" value="Додатковий стрибок"/>
+    <message name="BONUS.EXTRA_DRAGON_FLY_UPSWING" value="Зліт дракона"/>
+    <message name="BONUS.WATER_BREATH" value="Підводне дихання"/>
+    <message name="BONUS.SLOW_PROTECTION" value="Захист від сповільнення"/>
+    <message name="BONUS.POISON_DAMAGE" value="Сила отрути"/>
+    <message name="BONUS.FIRE_DAMAGE" value="Сила вогню"/>
+    <message name="BONUS.FIRE_DEFENSE" value="Захист від вогню"/>
+    <message name="BONUS.LEECH" value="Вампіризм"/>
+    <message name="BONUS.DODGE" value="Уворот"/>
+    <message name="BONUS.REGENERATION" value="Регенерацiя"/>
+    <message name="BONUS.SHOCK_DAMAGE" value="Удар струмом"/>
+    <message name="BONUS.SHOCK_DEFENSE" value="Захист від струму"/>
+    <message name="BONUS.AIR_DAMAGE" value="Сила авіації"/>
+    <message name="BONUS.AIR_DEFENSE" value="Захист від авіації"/>
+    <message name="BONUS.HEAL" value="Лікування"/>
+    <message name="BONUS.EXPLOSION_DEATH" value="Вибухова хвиля після знищення"/>
+    <message name="BONUS.PENETRATION" value="Бронебійність"/>
+    <message name="BONUS.WATER_PROTECTION" value="Рятує від утоплення 1 раз за бій, ціною в 40% повного здоров'я бійця"/>
+    <message name="BONUS.FROST_DAMAGE" value="Сила холоду"/>
+    <message name="BONUS.SQUAD_ATTACK" value="Атака команди"/>
+    <message name="BONUS.SQUAD_ARMOR" value="Броня команди"/>
+    <message name="BONUS.REACTION_ADDITION" value="Рівень реакції"/>
+    <message name="BONUS.REACTION_REDUCTION" value="Реакція противника"/>
+    <message name="BONUS.CRITICAL_HIT" value="Шкода кожної 4й атаки збільшена на {value}%"/>
+    <message name="BONUS.CRITICAL_HIT2" value="Шкода кожної 2й атаки збільшена на {value}%"/>
+    <message name="BONUS.CRITICAL_HIT3" value="Шкода кожної 3й атаки збільшена на {value}%"/>
+    <message name="BONUS.CRITICAL_HIT10" value="Шкода кожної 10й атаки збільшена на {value}%"/>
+    <message name="BONUS.DAMAGE_BLOCK" value="Блокує {value} шкоди кожну 3ю атаку"/>
+    <message name="BONUS.REPELL" value="Відображення"/>
+    <message name="BONUS.CIRCUS_WEAPON_DAMAGE" value="Втрата від циркової гармати"/>
+    <message name="BONUS.REVENGE_DAMAGE" value="Сила помсти"/>
+    <message name="BONUS.REVIVAL_HP" value="Здоров'я повсталих"/>
+    <message name="BONUS.HAM_HEAL" value="При рівні життя нижче 30% відновлює {value} од. здоров'я і замінюється на інший предмет"/>
+    <message name="BONUS.HAM_HEAL05" value="При рівні життя нижче 50% відновлює {value} од. здоров'я і замінюється на інший предмет"/>
+    <message name="BONUS.HAM_HEAL06" value="При рівні життя нижче 60% відновлює {value} од. здоров'я і замінюється на інший предмет"/>
+    <message name="BONUS.WATER_PROTECTION_FIRST_ACT" value="Захист від утоплення до першої активації бійця, ціною в 20% повного здоров'я"/>
+    <message name="BONUS.BOUNCE_PROTECTION" value="Гравізахист"/>
+    <message name="BONUS.POISONING_ADDITION" value="Час отруєння"/>
+    <message name="BONUS.POISONING_REDUCTION" value="Отруєність"/>
+    <message name="BONUS.IMMOBILITY_ADDITION" value="Час замороження"/>
+    <message name="BONUS.IMMOBILITY_REDUCTION" value="Замороженість"/>
+    <message name="BONUS.FUEL" value="Додаткове паливо"/>
+    <message name="BONUS.DRAGON_FLY_SPEED" value="Швидкість польоту дракона"/>
+    <message name="BONUS.DEVICE_DURATION" value="Тривалість дії пристроїв"/>
+    <message name="BONUS.WEAPON_DEVICE_DURATION" value="Тривалість дії механізмів"/>
+
+    <message name="HAT.VOODOO" value="Маска кролика вуду"/>
+    <message name="HAT.MASK_SHAMAN_RABBITS" value="Маска шамана кролів"/>
+    <message name="HAT.SOMBRERO" value="Сомбреро"/>
+    <message name="HAT.MUZZLE" value="Протигаз"/>
+    <message name="HAT.INDIAN" value="Перо індіанця"/>
+    <message name="HAT.SHERIFF" value="Капелюх шерифа"/>
+    <message name="HAT.CHIEFTAIN" value="Пір'я вождя"/>
+    <message name="HAT.AQUALUNG" value="Акваланг"/>
+    <message name="HAT.ACE" value="Шапка аса"/>
+    <message name="HAT.PANAMA" value="Панамка"/>
+    <message name="HAT.SIMPLEHELM" value="Каска"/>
+    <message name="HAT.CYLINDER" value="Циліндр"/>
+    <message name="HAT.TANKHELM" value="Шолом танкіста"/>
+    <message name="HAT.ALIEN" value="Інопланетний шолом"/>
+    <message name="HAT.VIKING" value="Шолом вікінгів"/>
+    <message name="HAT.MONSTER" value="Маска різника"/>
+    <message name="HAT.PIRATE" value="Піратська шапка"/>
+    <message name="HAT.SAMURAI" value="Самурайський шолом"/>
+    <message name="HAT.SPIKES" value="Шолом із шипами"/>
+    <message name="HAT.ELEGANT_SAMURAI" value="Вишуканий самурайський шолом"/>
+    <message name="HAT.LEGIONER" value="Шолом легіонера"/>
+    <message name="HAT.ELEGANT_LEGIONER" value="Вишуканий шолом легіонера"/>
+    <message name="HAT.CROWN" value="Корона древніх"/>
+    <message name="HAT.MASTER" value="Шапка майстра"/>
+    <message name="HAT.ARTIST" value="Берет"/>
+    <message name="HAT.CROWN_PRINCESS" value="Корона древніх жіноча"/>
+    <message name="HAT.JAPAN" value="Японська зачіска"/>
+    <message name="HAT.PINK_HAT" value="Рожева шапка"/>
+    <message name="HAT.PINK_HELMET" value="Рожевий шолом"/>
+    <message name="HAT.GIRLBERRET" value="Берет дівчинки"/>
+    <message name="HAT.WHITEHAT" value="Біла шапка"/>
+    <message name="HAT.WIZARD" value="Шапка звіздаря"/>
+    <message name="HAT.RED_CAP" value="Бейсбольна кепка"/>
+    <message name="HAT.GANSTER" value="Гангстерська шапка"/>
+    <message name="HAT.ELVIS" value="Зачіска Елвіса"/>
+    <message name="HAT.FIREPROOF_HELMET" value="Вогнетривкий шолом"/>
+    <message name="HAT.SOVIET" value="Радянська шапка"/>
+    <message name="HAT.RUSSIAN" value="Шапка-вушанка"/>
+    <message name="HAT.OFFICER" value="Офіцерський кашкет"/>
+    <message name="HAT.BOSS_PIRATE" value="Піратська шапка капітана"/>
+    <message name="HAT.BOSS_ILLUSIONIST_CYLINDER" value="Циліндр ілюзіоніста"/>
+    <message name="HAT.BOSS_SHAMAN_VOODOO_MASK" value="Маска шамана вуду"/>
+    <message name="HAT.BOSS_VIKING" value="Великий шолом вікінгів"/>
+    <message name="HAT.BOSS_WIND_MASTER" value="Шапка майстра вітру"/>
+    <message name="HAT.BOSS_GHOST" value="Маска привида"/>
+    <message name="HAT.BOSS_KING_DEAD" value="Шолом короля мертвих"/>
+    <message name="HAT.BOSS_REVIVED_CAPTAIN" value="Шапка ожилого капітана"/>
+    <message name="HAT.BOSS_ROMEO" value="Шапка Ромео"/>
+    <message name="HAT.BOSS_JUILET" value="Шапка Джульєтти"/>
+    <message name="HAT.VAMPIRE" value="Капелюх вампіра"/>
+    <message name="HAT.DOCTOR_ARMBAND" value="Докторська пов'язка"/>
+    <message name="HAT.NEO" value="Окуляри Нео"/>
+    <message name="HAT.NINJA_TURTLES" value="Пов'язка ніндзя"/>
+    <message name="HAT.BOSS_GUARDIAN" value="Шолом вартового"/>
+    <message name="HAT.BOSS_ENGINEER" value="Шапка інженера"/>
+    <message name="HAT.BLACK_RAVEN" value="Чорний ворон"/>
+    <message name="HAT.CHROME_HELMET" value="Хромований шолом"/>
+    <message name="HAT.RED_RACING_HELMET" value="Шолом гонщика"/>
+    <message name="HAT.HELMET_STUNT" value="Шолом каскадера"/>
+    <message name="HAT.GLADIATOR_HELMET" value="Гладіаторський шолом"/>
+
+    <!-- off hand -->
+    <message name="ARTIFACT.BROKEN_SWORD" value="Зламаний меч"/>
+    <message name="ARTIFACT.TRAINING_SHIELD" value="Тренувальний щит"/>
+    <message name="ARTIFACT.WOODEN_SHIELD" value="Дерев'яний щит"/>
+    <message name="ARTIFACT.WHINGER" value="Короткий меч"/>
+    <message name="ARTIFACT.TALISMAN" value="Ловець снів"/>
+    <message name="ARTIFACT.SKULL_STAFF" value="Посох із черепом"/>
+    <message name="HAT.NIMBUS" value="Німб"/>
+    <message name="HAT.HERO_MASK" value="Маска героя"/>
+    <message name="HAT.BOSS_DARK_KNIGHT" value="Шолом темного лицаря"/>
+    <message name="HAT.BOSS_PALADIN" value="Шолом паладина"/>
+    <message name="HAT.BOSS_HACKER" value="Окуляри хакера"/>
+    <message name="HAT.BOSS_THIEF" value="Маска злодія"/>
+
+    <!-- 1.9.0 -->
+    <message name="HAT.BOSS_PHANTOM" value="Маска фантома"/>
+    <message name="HAT.LAVA_JAW" value="Щелепа"/>
+    <message name="HAT.PSI_BIOTIC" value="Шолом бiотика"/>
+    <message name="HAT.BOSS_PSI_TELEPATHIST" value="Шолом телепата"/>
+    <message name="ARTIFACT.BOSS_ARCHIDEMON_SHIELD" value="Щит Архiдемона"/>
+    <message name="HAT.GREEN_IROQUOIS" value="Зелений ірокез"/>
+    <message name="HAT.COLORED_IROQUOIS" value="Кольоровий ірокез"/>
+    <message name="HAT.MASK_SCREAM" value="Крик"/>
+    <message name="HAT.DEMON_HAT" value="Демонічний шолом"/>
+    <message name="ARTIFACT.METAL_SHIELD" value="Залізний щит"/>
+    <message name="ARTIFACT.JEDI_SWORD" value="Світловий меч"/>
+    <message name="ARTIFACT.PIRATE_HOOK" value="Піратський гак"/>
+    <message name="ARTIFACT.SAW" value="Пила"/>
+    <message name="ARTIFACT.TOTEM_FIRE" value="Тотем вогню"/>
+    <message name="ARTIFACT.TOTEM_POISON" value="Тотем отрути"/>
+
+    <!-- 1.11.0 -->
+    <message name="HAT.WOLF_MASTER" value="Вовча накидка майстра"/>
+    <message name="HAT.WOLF_ACE" value="Вовча накидка аса"/>
+    <message name="HAT.WOLF_ELITE" value="Вовча накидка чемпіона"/>
+
+    <message name="HAT.CRAFT_SAMURAI_HELM" value="Самурайський шолом"/>
+    <message name="HAT.CRAFT_RESPIRATOR" value="Респіратор"/>
+    <message name="HAT.CRAFT_PSYKER_HELM" value="Шолом псайкера"/>
+    <message name="HAT.CRAFT_CHAMPION_HELM" value="Шолом чемпіона"/>
+    <message name="HAT.CRAFT_SPEC_OPS" value="Шолом спецназу"/>
+    <message name="ARTIFACT.CRAFT_CHROME_SHIELD" value="Хромований щит"/>
+    <message name="ARTIFACT.CRAFT_BLADE" value="Клинок"/>
+
+    <!-- 1.12.0 -->
+
+    <message name="HAT.STEAMPUNK_GLASSES" value="Окуляр"/>
+    <message name="HAT.NORDIC_HELM" value="Скандинавський шолом"/>
+    <message name="HAT.FIRESHEEP_HAT" value="Палаючий череп"/>
+    <message name="HAT.FIRE_MASK" value="Шолом вогню"/>
+    <message name="ARTIFACT.ARCHIDEMON_SWORD" value="Меч архідемона"/>
+
+    <!-- 1.13 -->
+    <message name="ARTIFACT.PALADIN_SWORD" value="Меч паладина"/>
+    <message name="HAT.MONK_MASTER" value="Шапка ченця-стратега"/>
+    <message name="HAT.MONK_ACE" value="Шапка ченця-наставника"/>
+    <message name="HAT.MONK_ELITE" value="Шапка ченця-гуру"/>
+    <message name="HAT.KNIGHT_MASTER" value="Лицарський шолом майстра"/>
+    <message name="HAT.KNIGHT_ACE" value="Лицарський шолом аса"/>
+    <message name="HAT.KNIGHT_ELITE" value="Лицарський шолом чемпіона"/>
+    <message name="HAT.HOCKEY_PLAYER_MASTER" value="Хокейний шолом майстра"/>
+    <message name="HAT.HOCKEY_PLAYER_ACE" value="Хокейний шолом аса"/>
+    <message name="HAT.HOCKEY_PLAYER_ELITE" value="Хокейний шолом чемпіона"/>
+    <message name="HAT.ASSASSIN_MASTER" value="Бойовий шолом майстра"/>
+    <message name="HAT.ASSASSIN_ACE" value="Бойовий шолом аса"/>
+    <message name="HAT.ASSASSIN_ELITE" value="Бойовий шолом чемпіона"/>
+    <message name="HAT.NIGHT_VISION_DEVICE" value="Прилад нічного бачення"/>
+    <message name="HAT.ILLUSIONIST_GLASSES" value="Окуляри ілюзіоніста"/>
+    <message name="HAT.DARK_CULTIST_HOOD" value="Капюшон"/>
+    <message name="HAT.COSMONAUT" value="Шолом космонавта"/>
+    <message name="HAT.AVIATOR" value="Окуляри авіатора"/>
+    <message name="HAT.MONK" value="Шапка ченця"/>
+    <message name="HAT.CHEMIST_BOSS" value="Капелюх алхіміка"/>
+    <message name="HAT.BOSS_ASSASSIN_HOOD" value="Капюшон асасіна"/>
+
+    <!-- 1.13 halloween -->
+    <message name="HAT.HALLOWEEN1" value="Зачарований капелюх"/>
+    <message name="HAT.HALLOWEEN2" value="Зловісний капелюх"/>
+    <message name="HAT.PUMPKIN_GREEN_WEAPON" value="Поганий гарбуз"/>
+    <message name="HAT.PUMPKIN_RED" value="Пекельний гарбуз"/>
+    <message name="HAT.PUMPKIN_ORANGE" value="Помаранчевий гарбуз"/>
+
+    <!-- 1.15 -->
+    <message name="HAT.WHITE_YETI" value="Біла шапка єті"/>
+    <message name="HAT.BLUE_YETI" value="Синя шапка єті"/>
+    <message name="HAT.BLACK_YETI" value="Чорна шапка єті"/>
+    <message name="HAT.WINTER_HAT" value="Новорічна шапка"/>
+    <message name="HAT.PHARAOH" value="Клафт"/>
+    <message name="HAT.COVER_GIFT_BOX" value="Кришка від коробки"/>
+    <message name="HAT.EAGLE_HAT" value="Тотем орла"/>
+    <message name="HAT.CHRISTMAS_HELMET" value="Сніжний шолом"/>
+    <message name="HAT.GIFT_BOX_WEAPON" value="Подарункова коробка"/>
+    <message name="HAT.CYBORG" value="Шолом кіборга"/>
+    <message name="HAT.MINION" value="Шолом термінатора"/>
+    <message name="HAT.BOMB" value="Шапкобомба"/>
+    <message name="ARTIFACT.ROBO_SHIELD" value="Робощит"/>
+    <message name="ARTIFACT.SNAKE_STAFF" value="Зміїний посох"/>
+
+    <!--1.16-->
+    <message name="HAT.BOSS_JARL_HELM" value="Шолом ярла"/>
+    <message name="ARTIFACT.BOSS_JARL_SPEAR" value="Спис ярла"/>
+    <message name="ARTIFACT.JARL_STONE_HAMMER" value="Кам'яний молот"/>
+    <message name="ARTIFACT.BOSS_ARCHBOT_STUFF" value="Жезл архібота"/>
+    <message name="HAT.BOSS_ARCHBOT" value="Шапка архібота"/>
+
+    <!--1.17-->
+    <message name="HAT.NIGHT" value="Нічна шапка"/>
+
+    <!--1.18-->
+    <message name="HAT.DOCTOR_MASK" value="Маска доктора"/>
+    <message name="HAT.ELECTRIC" value="Електрошапка"/>
+    <message name="HAT.PAN" value="Бойова каструля"/>
+    <message name="ARTIFACT.ICE_SHARD" value="Крижане ікло"/>
+    <message name="ARTIFACT.VAMPIRIC_SWORD" value="Вампірський меч"/>
+    <message name="ARTIFACT.WATER_SWORD" value="Меч глибин"/>
+    <message name="ARTIFACT.JAWBLADE" value="Зубастий меч"/>
+    <message name="ARTIFACT.MORGENSHTERN" value="Булава"/>
+
+    <!-- 1.19 -->
+    <message name="HAT.BOSS_ENCHANTER_MASK" value="Маска заклинателя"/>
+    <message name="HAT.ARCHIVIST" value="Шолом архіваріуса"/>
+    <message name="ARTIFACT.BOSS_ENCHANTER_FIERY_DAGGER" value="Вогняний кинджал"/>
+    <message name="ARTIFACT.DEATH_TORCH" value="Посох смерті"/>
+
+    <!-- 1.20 -->
+    <message name="HAT.EMPEROR" value="Феска імператора"/>
+    <message name="ARTIFACT.EMPEROR" value="Імператорський скіпетр"/>
+    <message name="HAT.SCIENTIST" value="Окуляри вченого"/>
+    <message name="ARTIFACT.SCIENTIST" value="Дивний пристрій"/>
+    <message name="HAT.BOSS_SYMBIOTE_HELM" value="Шолом симбіота"/>
+    <message name="ARTIFACT.BOSS_SYMBIOTE_BIOBLADE" value="Бiоклинок"/>
+
+    <!-- 1.21 -->
+
+    <message name="HAT.VILE_MASK" value="Зловісний образ"/>
+    <message name="ARTIFACT.FROST_SHIELD" value="Крижаний щит"/>
+    <message name="ARTIFACT.BLAZING_AXE" value="Палаюча сокира"/>
+
+    <!-- 1.23 -->
+
+    <message name="HAT.COMISSAR_HAT" value="Головний убір комісара"/>
+    <message name="HAT.HELM_SAPPER" value="Шолом сапера"/>
+    <message name="ARTIFACT.SHOVEL_SAPPER" value="Саперна лопатка"/>
+
+    <!-- 1.24 -->
+
+    <message name="HAT.RAVEN_MASK" value="Примарний ворон"/>
+    <message name="HAT.MOOSE_HELM" value="Шолом лосяри"/>
+    <message name="HAT.ROBOCHIKEN" value="Робошапка"/>
+    <message name="ARTIFACT.HAM_MACE" value="Окіст"/>
+    <message name="ARTIFACT.PROVOKER_SHIELD" value="Щит провокатора"/>
+
+    <!-- 1.25 -->
+
+    <message name="HAT.FIEND_HELM" value="Шолом нелюда"/>
+    <message name="HAT.BOSS_GRAVITY_MASTER_HELM" value="Шолом Гравiмайстера"/>
+    <message name="HAT.HELL_RACER_HELM" value="Шолом пекельного гонщика"/>
+    <message name="ARTIFACT.ARMY_KNIFE" value="Армійський ніж"/>
+    <message name="ARTIFACT.GNAWED_BONE" value="Обгризена кістка"/>
+    <message name="ARTIFACT.BOSS_GRAVITY_MASTER_SHIELD" value="Щит Гравімастера"/>
+    <message name="ARTIFACT.TANK_SHIELD" value="Танкова пластина"/>
+    <message name="HAT.BLACK_BANDAGE" value="Чорна пов'язка"/>
+    <message name="HAT.SOLAR_PRIEST_HAT" value="Сонячна корона"/>
+    <message name="ARTIFACT.SOLAR_SICKLE" value="Сонячний серп"/>
+    <message name="ARTIFACT.MIRROR_SHIELD" value="Дзеркальний щит"/>
+
+    <!--1.27-->
+    <message name="ARTIFACT.BOSS_ARCTIC_SWORD" value="Арктичний меч"/>
+    <message name="HAT.BOSS_ARCTIC_HELM" value="Арктичний шолом"/>
+
+    <!--1.28-->
+    <message name="HAT.BLACK_SOMBRERO" value="Чорне сомбреро"/>
+
+    <!--1.29-->
+    <message name="ARTIFACT.BLACKSMITH_HAMMER" value="Ковальський молот"/>
+    <message name="HAT.BLACKSMITH_HELM" value="Шолом коваля"/>
+
+    <message name="ARTIFACT.BOSS_SOUL_MASTER_STAFF" value="Ловець душ"/>
+    <message name="HAT.BOSS_SOUL_MASTER_HELM" value="Шолом володаря душ"/>
+
+    <!--1.30-->
+
+    <message name="HAT.SITH_HOOD" value="Тіньовий лик"/>
+    <message name="ARTIFACT.DEATH_HAMMER" value="Льодяний молот"/>
+
+    <!--1.33-->
+    <message name="ARTIFACT.JEDI_SWORD_RED" value="Дуельний меч"/>
+    <message name="ARTIFACT.JEDI_SWORD_RED_CROSS" value="Парадний меч"/>
+
+    <message name="ARTIFACT.BOTTLE_ROSE" value="Розочка"/>
+    <message name="ARTIFACT.PICK" value="Кирка"/>
+
+    <message name="HAT.MINER_HELM" value="Шахтарська каска"/>
+    <message name="HAT.REBEL_BANDAGE" value="Пов'язка бунтаря"/>
+
+    <!-- 1.34 -->
+    <message name="HAT.SURGEON_BAND" value="Військовий хірург"/>
+    <message name="ARTIFACT.HEALER_STAFF" value="Посох аптекаря"/>
+
+    <!-- 1.35 -->
+    <message name="HAT.WOLF_PELT" value="Вовчий образ"/>
+    <message name="HAT.SPORTS_CAP" value="Спортивний кепарь"/>
+
+    <!-- 1.36 -->
+    <message name="HAT.HOCKEY_HELM" value="Хокейний шолом"/>
+
+    <!-- 1.38 -->
+    <message name="HAT.KNIGHT_HELM" value="Лицарський шолом"/>
+    <message name="HAT.STRATEGIST_HAT" value="Образ стратега"/>
+    <message name="ARTIFACT.STRATEGIST_FAN" value="Віяло стратега"/>
+
+    <!-- 1.39 -->
+    <message name="HAT.FIRE_FIGHTER_HAT" value="Каска пожежника"/>
+    <message name="ARTIFACT.FIRE_FIGHTER_AXE" value="Сокира пожежника"/>
+
+    <!-- 1.40 -->
+    <message name="SET.FIRE_FIGHTER" value="Пожежний рятівник"/>
+    <message name="SET.PIRATE" value="Старий Барбаросса"/>
+    <message name="SET.EMINENCE" value="Його преосвященство"/>
+    <message name="SET.VOLT" value="Алессандро Вольт"/>
+    <message name="SET.HARDENED_TANKER" value="Досвідчений танкіст"/>
+    <message name="SET.GRAVES_DIGGER" value="Розкопувач могил"/>
+    <message name="SET.LIGHT_MESSENGER" value="Посланець світла"/>
+    <message name="SET.SHINTO" value="Синтоїст"/>
+    <message name="SET.DARTH_VADER" value="Дарт Вейдер"/>
+    <message name="SET.TOXIC_CREATURE" value="Токсична істота"/>
+    <message name="SET.TRIPLE_GILLS" value="Потрійні жабри"/>
+    <message name="SET.SERVANT_OF_ODIN" value="Слуга Одіна"/>
+    <message name="SET.ELM_STREET" value="З вулиці В'язів"/>
+    <message name="SET.SEEKER_RESOURCES" value="Шукач ресурсів"/>
+    <message name="SET.VLAD_THE_IMPALER" value="Влад Цепеш"/>
+    <message name="SET.PATRON_OF_NATURE" value="Покровитель природи"/>
+    <message name="SET.KILLER_WAYNE" value="Вбивця Уейнів"/>
+    <message name="SET.FIRE_ATRONACH" value="Вогняний атронах"/>
+    <message name="SET.ERIK_THE_RED" value="Ерік Рижий"/>
+    <message name="SET.NEIL_ARMSTRONG" value="Ніл Армстронг"/>
+    <message name="SET.FUTURE_SOLDIER" value="Солдат майбутнього"/>
+    <message name="SET.PAPUANS_LEADER" value="Вождь папуасів"/>
+    <message name="SET.RESIDENTS" value="Ординатор"/>
+    <message name="SET.THIS_IS_WORMIX" value="Це і є Вормікс"/>
+    <message name="SET.SCYTHIAN" value="Скіф"/>
+    <message name="SET.MAGNETO" value="Магнето"/>
+    <message name="SET.SCROOGE" value="Скрудж"/>
+    <message name="SET.SANTA" value="Санта"/>
+    <message name="SET.BOSS_SMITH" value="Гефест"/>
+    <message name="SET.IVAN_KOZHEDUB" value="Іван Кожедуб"/>
+    <message name="SET.DON_VITO_CORLEONE" value="Дон Віто Корлеоне"/>
+    <message name="SET.SLY" value="Лукавий"/>
+    <message name="SET.HABSBURG" value="Габсбург"/>
+    <message name="SET.ANCIENT_WIZARD" value="Древній майстер"/>
+    <message name="SET.KVIBERN" value="Квіберн"/>
+
+    <message name="ONLY_FOR_RACE" value="Лише для раси {race}"/>
+    <message name="ONLY_FOR_RACES" value="Лише для рас: {races}"/>
+
+    <message name="ARTIFACT.COLT_M" value="Кольт M1911"/>
+    <message name="ARTIFACT.TOPOGRAPHIC_MAP" value="Топографічна карта"/>
+    <message name="ARTIFACT.FLAMBEAU" value="Полум'яник"/>
+    <message name="ARTIFACT.GOLDEN_HORN" value="Золотий ріг"/>
+    <message name="ARTIFACT.WINE_HORN" value="Кубок"/>
+    <message name="ARTIFACT.NUNCHAKU" value="Нунчаки"/>
+    <message name="ARTIFACT.PHOSPHORUS_LAMP" value="Фосфорний світильник"/>
+
+    <!-- 1.44 -->
+    <message name="HAT.SUPER_AQUALUNG" value="Гідрошолом"/>
+    <message name="ARTIFACT.SUPER_MORGENSHTERN" value="Моргенштерн"/>
+    <message name="ARTIFACT.MIRAGE" value="Міраж"/>
+    <message name="HAT.JARL_SHOCK" value="Сніговий шолом Тана"/>
+    <message name="HAT.JARL_BASIC" value="Шолом Тана"/>
+    <message name="HAT.JARL_POISON" value="Природний шолом Тана"/>
+    <message name="HAT.JARL_FIRE" value="Вогняний шолом Тана"/>
+    <message name="HAT.BOSS_MINER_CAP" value="Кепка Мінера"/>
+    <message name="HAT.BOSS_BURNING_ZOMBIES_FLAME" value="Полум'я Палаючого зомбі"/>
+    <message name="HAT.BOSS_DEVOTEE" value="Шолом Поневолювача"/>
+    <message name="HAT.BOSS_DEVOTEE_MINION" value="Очки пілота НЛО"/>
+    <message name="EQUIP_STACKING_NOTIFY">
+        <![CDATA[<br/><font color="#A20000"><b>Увага!</b> Час дії одинакових предметів сумується!</font>]]>
+    </message>
+
+    <!-- 1.45 -->
+    <message name="HAT.PYROMANCER" value="Небесний піромант"/>
+    <message name="ARTIFACT.ABSORBER" value="Нефритовий поглинач"/>
+    <message name="HAT.BOSS_YAKUZA_STEEL" value="Пов'язка Сталі з банди якудза"/>
+    <message name="HAT.BOSS_YAKUZA_TIGER" value="Пов'язка Тигра з банди якудза"/>
+    <message name="HAT.BOSS_YAKUZA_STORM" value="Пов'язка Шторма з банди якудза"/>
+    <message name="PREFIX.SET_ITEMS" value="Сет"/>
+    <message name="LIGHT_VERSION" value="полегшена версія"/>
+    <message name="ARTIFACT.CURSED_BROOM" value="Проклята мітла"/>
+    <message name="ARTIFACT.GATEKEEPER" value="Брамник"/>
+    <message name="ARTIFACT.PLASMA_SHIELD" value="Плазмощит"/>
+    <message name="ARTIFACT.PIRATE_FLAG" value="Піратський прапор"/>
+    <message name="ARTIFACT.BATTLE_PAN" value="Бойова сковорідка"/>
+    <message name="ARTIFACT.BATTLE_HOT_PAN" value="Розпечена бойова сковорідка"/>
+    <message name="ARTIFACT.CRYSTAL_SKULL" value="Кришталевий череп"/>
+    <message name="ARTIFACT.ZIRCON_SKULL" value="Цирконовий череп"/>
+    <message name="BUNDLE_TIME_REMAINING" value="Набір зникне через {count} {days}"/>
+    <message name="BUNDLE_REMAINING_LAST_DAY" value="Залишився останній день!"/>
+
+    <!-- 1.46 -->
+    <message name="SET.ALSO_WORMIX" value="Це теж Вормікс"/>
+    <message name="SET.SEA_STORM" value="Гроза морів"/>
+    <message name="SET.POWER_AZTECS" value="Сила ацтеків"/>
+    <message name="SET.SHERIFF_FUTURE" value="Шериф майбутнього"/>
+    <message name="SET.HOT_REVENGE" value="Гаряча помста"/>
+    <message name="SET.ILLUSION" value="Ілюзія"/>
+    <message name="SET.EASTERN_CUISINE" value="Східна кухня"/>
+    <message name="SET.SOVIET_TECHNOLOGIES" value="Радянські технології"/>
+    <message name="SET.MAGIC_VOODOO" value="Магія вуду"/>
+    <message name="SET.FUTURE_TECHNOLOGIES" value="Технології майбутнього"/>
+    <message name="SET.CURSE_ZOMBIES" value="Прокляття зомбі"/>
+    <message name="SET.PREDATOR" value="Хижак"/>
+    <message name="SET.NECROMANCER" value="Некромант"/>
+    <message name="SET.THAI_DRAGON" value="Тайський дракон"/>
+    <message name="SET.FELT_TIP_PLASTER" value="Фломастер-лейкопластир"/>
+    <message name="SET.POWER_NORTH" value="Міць півночі"/>
+    <message name="SET.MASTER_HELL" value="Господар пекла"/>
+    <message name="SET.LIGHTNING_FORCE" value="Сили блискавки"/>
+    <message name="SET.ARCTIC_EARTHQUAKE" value="Арктичний землетрус"/>
+    <message name="SET.MAGIC_COLD" value="Магія холоду"/>
+    <message name="SET.MUTATION" value="Мутація"/>
+    <message name="IS_REVIVED" value="(повсталий)"/>
+    <message name="PREFIX.ANTISET_ITEMS" value="Антисет"/>
+    <message name="HAT.ALIEN_SPINES" value="Шипи споглядання"/>
+    <message name="HAT.ALIEN_AMBER_LENSES" value="Янтарні лінзи"/>
+    <message name="HAT.FALLING_PYROMANCER" value="Занепалий піромант"/>
+    <message name="HAT.PHOENIX_COVER" value="Покров фенікса"/>
+    <message name="ARTIFACT.POLAR_SHARD" value="Полярний уламок"/>
+    <message name="ARTIFACT.NEPHRONOZH" value="Нефроніж"/>
+
+    <!-- 1.50 -->
+    <message name="HAT.HOLOGRAM" value="Голограмний образ"/>
+    <message name="HAT.MAGMATIC_STETSON" value="Магматичний стетсон"/>
+    <message name="HAT.HOKAGE_HELMET" value="Шолом хокаге"/>
+    <message name="BONUS.LEECH_REGENERATION" value="Злодійство"/>
+    <message name="BONUS.REDUCE_HEALING" value="Антілекарь"/>
+    <message name="BONUS.ATTACK_POWER_ADDITION" value="Ударная сила"/>
+    <message name="BONUS.FORTITUDE" value="Обважнення"/>
+    <message name="BONUS.FIRE_DEALER" value="При накопиченні вхідної і вихідної шкоди вогнем у 150% здоров'я по відряду здійснює масовий підпал бійців і замінюється на інший предмет"/>
+    <message name="BONUS.PHYSICAL_DEFENSE" value="Захист від фіз. атак"/>
+    <message name="BONUS.PHYSICAL_DAMAGE" value="Сила фіз. атак"/>
+
+    <!-- 1.51 -->
+    <message name="ARTIFACT.BOSS_SCORPION_STAFF" value="Посох скорпіона"/>
+    <message name="ARTIFACT.ROBINHOOD_BOW" value="Лук Робін Гуда"/>
+    <message name="HAT.BOSS_TARANTUL_HELMET" value="Шолом тарантула"/>
+    <message name="HAT.ROBINHOOD_HAT" value="Шляпа Робін Гуда"/>
+    <message name="SET.ROBINHOOD" value="Робін Гуд"/>
+
+    <!-- 1.52 -->
+    <message name="ARTIFACT.BIOLAMP" value="Біолампа"/>
+
+    <!-- 1.53 -->
+    <message name="HAT.GUL_MASK" value="Маска Гуля"/>
+    <message name="HAT.COCKED_HAT" value="Трикутниця"/>
+    <message name="ARTIFACT.SPYGLASS" value="Підзорна труба"/>
+    <message name="ARTIFACT.BULLFIGHTERS_CLOAK" value="Плащ тореадора"/>
+    <message name="HAT.RONINS_GARB" value="Вбрання роніна"/>
+    <message name="HAT.RUSTY_BOILER" value="Ржавий котел"/>
+
+    <!-- 1.56 -->
+    <message name="ARTIFACT.SOUL_DESTROYER" value="Згубник душ"/>
+    <message name="ARTIFACT.GLEFA" value="Глефа"/>
+    <message name="ARTIFACT.GLEFA_BLACK" value="Чорна глефа"/>
+    <message name="BONUS.ANTI_HEAL" value="Погубність"/>
+    <message name="BONUS.INVERTER" value="Інвертор"/>
+    <message name="ARTIFACT.PULSAR" value="Пульсар"/>
+    <message name="ARTIFACT.DRAGON_STAFF" value="Драконів посох"/>
+    <message name="HAT.NEUROMANCER" value="Нейромант"/>
+    <message name="BONUS.SQUAD_SPEED" value="Швидкість команди"/>
+
+    <!-- 1.57 -->
+    <message name="BONUS.DEATH_GRIP" value="Хватка смерті"/>
+    <message name="ARTIFACT.GRIM_REAPER" value="Похмурий жнець"/>
+    <message name="SET.ARCHIVIST_GARB" value="Вбрання Архіваріуса"/>
+    <message name="BONUS.GROUND_DESTROY" value="Збільшує радіус руйнування землі расовою здатністю кабана та носорога на {value}%"/>
+    <message name="BONUS.SQUAD_HP" value="Здоров'я команди"/>
+    <message name="HAT.INQUISITOR" value="Шолом інквізитора"/>
+    <message name="BONUS.ATTACK_BOOSTER" value="При нанесенні 200 од. шкоди за хід підвищує носію атаку на 3 од. до кінця бою (не більше {value} разів за бій)"/>
+    <message name="ARTIFACT.SCYTHE" value="Пекельна коса"/>
+
+    <!-- 1.58 -->
+    <message name="BONUS.LEGENDARY_ITEM_FIRST_ACT" value="Заміна предмета при першій активації бійця на випадковий легендарный"/>
+    <message name="BONUS.EPIC_ITEM_FIRST_ACT" value="Заміна предмета при першій активації бійця на випадковий епічний"/>
+    <message name="HAT.GIFT_BAG" value="Подарунковий мішок"/>
+    <message name="ARTIFACT.CHRISTMAS_TREE" value="Новорічна ялинка"/>
+    <message name="SET.CHRISTMAS_MAGIC" value="Новорічний маг"/>
+    <message name="BONUS.СHRISTMAS_MOOD" value="Новорічний настрій"/>
+
+    <!-- 1.60 -->
+    <message name="ARTIFACT.ARCHIDEMON_SPEAR" value="Спис Архідемона"/>
+    <message name="ARTIFACT.ARCHIDEMON_SCYTHE" value="Коса Архідемона"/>
+    <message name="ARTIFACT.ARCHIDEMON_MUG" value="Випивка Архідемона"/>
+    <message name="ARTIFACT.ARCHIDEMON_MUG_EMPTY" value="Кружка Архідемона"/>
+    <message name="HAT.CLOWN_HAIRCUT" value="Клоунський перука"/>
+    <message name="HAT.KAMINA_HAIRSTYLE" value="Зачіска Каміни"/>
+    <message name="HAT.HURRICANE_HAIRSTYLE" value="Ураганна зачіска"/>
+
+    <!-- 1.61 -->
+    <message name="ARTIFACT.ADJUSTABLE_WRENCH" value="Газовий ключ"/>
+
+</dictionary>

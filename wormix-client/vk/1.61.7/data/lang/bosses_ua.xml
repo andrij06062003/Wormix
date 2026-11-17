@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <message name="BOSS_PIRATE_NAME" value="Пірати"/>
+    <message name="BOSS_PIRATE_DESCR"
+             value="Капітан піратів так часто тонув, що перестав бояться води. А ось Вам варто боятися."/>
+    <message name="TEAM_NAME_PIRATE1" value="Капітан"/>
+    <message name="TEAM_NAME_PIRATE2" value="Гарматне м'ясо"/>
+    <message name="BOT_NAME_PIRATE1" value="Капітан"/>
+    <message name="BOT_NAME_PIRATE2" value="Матрос"/>
+    <message name="BOT_NAME_PIRATE3" value="Молодший матрос"/>
+
+    <message name="BOSS_ILLUSIONIST_NAME" value="Ілюзіоніст"/>
+    <message name="BOSS_ILLUSIONIST_DESCR"
+             value="Майстерний фокусник, вміє створювати фальшиві клони самого себе. Небезпечний і підступний ворог."/>
+    <message name="TEAM_NAME_ILLUSIONIST1" value="Ілюзіоніст"/>
+    <message name="BOT_NAME_ILLUSIONIST1" value="Ілюзіоніст"/>
+
+    <message name="BOSS_SHAMAN_NAME" value="Шаман Вуду"/>
+    <message name="BOSS_SHAMAN_DESCR"
+             value="Шаманові допомагають демони - хитрі і небезпечні: з'являються в новому місці, кожен раз, коли ви нападаєте."/>
+    <message name="TEAM_NAME_SHAMAN1" value="Шаман Вуду"/>
+    <message name="TEAM_NAME_SHAMAN2" value="Підручні демони"/>
+    <message name="BOT_NAME_SHAMAN1" value="Шаман Вуду"/>
+    <message name="BOT_NAME_SHAMAN2" value="Падший демон"/>
+
+    <message name="BOSS_VIKING_NAME" value="Вікінги"/>
+    <message name="BOSS_VIKING_DESCR"
+             value="Проти вас 3 суворих бійця, а час спливає. Будете зволікати - залишиться всього 5 секунд на хід!"/>
+    <message name="TEAM_NAME_VIKING1" value="Балеог Лютий"/>
+    <message name="TEAM_NAME_VIKING2" value="Ерік Швидкий"/>
+    <message name="TEAM_NAME_VIKING3" value="Олаф Міцний"/>
+    <message name="BOT_NAME_VIKING1" value="Балеог"/>
+    <message name="BOT_NAME_VIKING2" value="Ерік"/>
+    <message name="BOT_NAME_VIKING3" value="Олаф"/>
+
+    <message name="BOSS_WIND_MASTER_NAME" value="Майстер вітру"/>
+    <message name="BOSS_WIND_MASTER_DESCR"
+             value="Тримайтеся міцніше! Вітер більше не помічник - він слуга Майстра Вітру."/>
+    <message name="TEAM_NAME_WIND1" value="Майстер вітру"/>
+    <message name="TEAM_NAME_WIND2" value="Охорона Майстра"/>
+    <message name="BOT_NAME_WIND1" value="Майстер вітру"/>
+    <message name="BOT_NAME_WIND2" value="Лейтенант"/>
+    <message name="BOT_NAME_WIND3" value="Відправник"/>
+
+    <message name="BOSS_SAMURAI_CAT_NAME" value="Самурай"/>
+    <message name="BOSS_SAMURAI_CAT_DESCR"
+             value="У цього кота дійсно 9 життів! Поєдинок з ним стане випробуванням вашої витривалості."/>
+    <message name="TEAM_NAME_SAMURAI_CAT" value="Самурай"/>
+    <message name="BOT_NAME_SAMURAI_CAT" value="Самурай"/>
+
+    <message name="BOSS_MINER_NAME" value="Мінер"/>
+    <message name="BOSS_MINER_DESCR" value="Геній-підривник, чия база захищена безліччю покращених мін."/>
+    <message name="TEAM_NAME_MINER" value="Мінер"/>
+    <message name="BOT_NAME_MINER" value="Мінер"/>
+
+    <message name="BOSS_BURNING_ZOMBIES_NAME" value="Палаючі зомбі"/>
+    <message name="BOSS_BURNING_ZOMBIES_DESCR"
+             value="Ці зомбі захоплені темними силами. Сподіваюся, ви підготовлені до метеоритного дощу?"/>
+    <message name="TEAM_NAME_BURNING_ZOMBIES" value="Палаючі зомбі"/>
+    <message name="BOT_NAME_DEMON" value="Зомбі"/>
+
+    <message name="BOSS_SOUL_NAME" value="Блукаючий дух"/>
+    <message name="BOSS_SOUL_DESCR"
+             value="Дух буде вислизати від вас, намагаючись лікувати своїх носіїв. Не давайте йому шансу."/>
+    <message name="TEAM_NAME_SOUL_1" value="Носії"/>
+    <message name="BOT_NAME_SOUL_1" value="Носій"/>
+
+    <message name="BOSS_GHOST_NAME" value="Стародавній привид"/>
+    <message name="BOSS_GHOST_DESCR"
+             value="Злісна істота, яка за довгі роки зуміла підкорити собі силу блискавок. У вас немає шансів."/>
+    <message name="TEAM_NAME_GHOST_MAIN" value="Стародавній привид"/>
+    <message name="BOT_NAME_GHOST_MAIN" value="Стародавній привид"/>
+    <message name="TEAM_NAME_GHOST_ACOLYTE" value="Прислужники"/>
+    <message name="BOT_NAME_GHOST_ACOLYTE" value="Прислужник"/>
+
+    <message name="BOSS_YAKUZA_NAME" value="Якудза"/>
+    <message name="BOSS_YAKUZA_DESCR"
+             value="Між членами банди тісний зв'язок. Убивши одного з них, Ви зробите інших сильнішими."/>
+    <message name="TEAM_NAME_YAKUZA_TIGER" value="Тигр"/>
+    <message name="BOT_NAME_YAKUZA_TIGER" value="Тигр"/>
+    <message name="TEAM_NAME_YAKUZA_STEEL" value="Сталь"/>
+    <message name="BOT_NAME_YAKUZA_STEEL" value="Сталь"/>
+    <message name="TEAM_NAME_YAKUZA_STORM" value="Шторм"/>
+    <message name="BOT_NAME_YAKUZA_STORM" value="Шторм"/>
+
+    <message name="BOSS_ROMEO_JULIET_NAME" value="Ромео і Джульєтта"/>
+    <message name="BOSS_ROMEO_JULIET_DESCR"
+             value="Найуспішніша команда найманців. Поки ще ніхто не розгадав їх секрет."/>
+    <message name="TEAM_NAME_ROMEO" value="Ромео"/>
+    <message name="BOT_NAME_ROMEO" value="Ромео"/>
+    <message name="TEAM_NAME_JULIET" value="Джульєтта"/>
+    <message name="BOT_NAME_JULIET" value="Джульєтта"/>
+
+    <message name="BOSS_KING_DEAD_NAME" value="Король мертвих"/>
+    <message name="BOSS_KING_DEAD_DESCR"
+             value="Ви серйозно маєте намір впоратися з натовпом зомбі і чорною магією Короля?"/>
+    <message name="TEAM_KING_DEAD_MINIONS" value="Прислужники короля"/>
+    <message name="BOT_KING_DEAD_SUMMONER" value="Заклинатель"/>
+    <message name="BOT_KING_DEAD_MINION" value="Міньйон"/>
+
+    <message name="BOSS_REVIVED_CAPTAIN_NAME" value="Ожилий Капітан"/>
+    <message name="BOSS_REVIVED_CAPTAIN_DESCR" value="Старий Пірат повернувся з новими силами! Мстити!"/>
+
+    <message name="BOSS_SERGEANT_NAME" value="Сержант"/>
+    <message name="BOSS_SERGEANT_DESCR"
+             value="Сержант захищений правильною командою і новітньою військовою розробкою - невидимими охоронцями!"/>
+    <message name="TEAM_SERGEANT_NAME_1" value="Сержант"/>
+    <message name="BOT_SERGEANT_NAME_1" value="Сержант"/>
+    <message name="TEAM_SERGEANT_NAME_2" value="Бойовий склад"/>
+    <message name="BOT_SERGEANT_NAME_2" value="Капрал"/>
+
+    <message name="BOSS_FARMER_NAME" value="Фермер"/>
+    <message name="BOSS_FARMER_DESCR"
+             value="Точно невідомо, що вирощує цей Фермер, але необхідно зупинити його експерименти."/>
+    <message name="BOT_NAME_FARMER" value="Фермер"/>
+    <message name="ENHANCEMENT_APPLE_NAME" value="Дивне яблуко"/>
+
+    <message name="BOSS_HUNTER_NAME" value="Мисливець"/>
+    <message name="BOSS_HUNTER_DESCR"
+             value="Мисливець покладається на свої лазерні капкани. Він не очікує, що жертва може огризнутися."/>
+    <message name="BOT_NAME_HUNTER" value="Мисливець"/>
+
+    <message name="BOSS_MANIACS_NAME" value="Маніяки"/>
+    <message name="BOSS_MANIACS_DESCR"
+             value="Ці створіння майстерно володіють гаками - тримайтеся від них подалі, і ви переможете."/>
+    <message name="BOT_NAME_MANIAC_1" value="Фредді"/>
+    <message name="BOT_NAME_MANIAC_2" value="Джек"/>
+
+    <message name="BOSS_GUARDIANS_DEPTHS_NAME" value="Охоронці глибин"/>
+    <message name="BOSS_GUARDIANS_DEPTHS_DESCR"
+             value="На стороні охоронців бореться сама земля! Навіть не намагайтеся атакувати їх без сильної команди!"/>
+    <message name="TEAM_GUARDIANS_DEPTHS_NAME" value="Охоронці"/>
+    <message name="BOT_GUARDIANS_DEPTHS" value="Охоронець"/>
+    <message name="PROGRESS_BAR_GUARDIANS_DEPTHS" value="землетрясіння"/>
+
+    <message name="BOSS_ENGINEER_NAME" value="Інженер"/>
+    <message name="BOSS_ENGINEER_DESCR" value="Винахідник, що створив неприступний притулок в стародавній гробниці."/>
+    <message name="BOT_NAME_ENGINEER_BOSS" value="Інженер"/>
+    <message name="BOT_NAME_ENGINEER_DROID" value="Захисний дроїд"/>
+    <message name="PROGRESS_BAR_ENGINEER" value="новий дроїд"/>
+
+    <message name="BOSS_DARK_KNIGHT_NAME" value="Темний лицар"/>
+    <message name="BOSS_DARK_KNIGHT_DESCR"
+             value="Сильний воїн, захищений темними силами. Він створює свою армію прислуг, у яких одна ціль - знищити вас!"/>
+    <message name="BOSS_DARK_KNIGHT_TEAM_ACOLYTES" value="Прислуги рицаря"/>
+    <message name="BOSS_DARK_KNIGHT_ACOLYTE" value="Прислуга"/>
+
+    <message name="BOSS_PALADIN_NAME" value="Паладин"/>
+    <message name="BOSS_PALADIN_DESCR"
+             value="Воїн світла, володіючий як атакуючою, так і захисною магією. Але на вашій стороні чисельна перевага!"/>
+
+    <message name="BOSS_HACKER_NAME" value="Хакер"/>
+    <message name="BOSS_HACKER_DESCR"
+             value="В битві хакер надіється, що його врятує захисне поле. Потрібно захопити генератори і знищити ворога!"/>
+    <message name="BOSS_HACKER_TEAM_PUPILS" value="Учні хакера"/>
+    <message name="BOSS_HACKER_PUPILS" value="Учень"/>
+
+    <message name="BOSS_THIEVES_NAME" value="Злодюги"/>
+    <message name="BOSS_THIEVES_DESCR"
+             value="Ви не встигнете моргнути, як вони повністю обчистять вас. А потім доведеться воювати з тим, що залишилося від арсенала."/>
+    <message name="BOSS_THIEF_BOT_1_NAME" value="Вуличний злодій"/>
+    <message name="BOSS_THIEF_BOT_2_NAME" value="Квартирний злодій"/>
+    <message name="BOSS_THIEF_KEY" value="Ключ"/>
+    <message name="BOSS_THIEF_BOX" value="Скриня з вкраденим"/>
+
+    <message name="BOSS_PSIONICS_NAME" value="Телепат"/>
+    <message name="BOSS_PSIONICS_DESCR"
+             value="Головна зброя телепата - чорні діри, миттєво знищуючi ваших бійців. Вас врятує лише швидка реакція союзника!"/>
+    <message name="BOSS_PSIONICS_BOT_NAME_1" value="Телепат"/>
+    <message name="BOSS_PSIONICS_TEAM_BOT_2" value="Біотики"/>
+    <message name="BOSS_PSIONICS_BOT_NAME_2" value="Біотик"/>
+
+    <message name="BOSS_PHANTOMS_NAME" value="Фантоми"/>
+    <message name="BOSS_PHANTOMS_DESCR"
+             value="Ці примари наводять жах однією своєю присутністю! Навіть якщо ви впораєтеся зі страхом, як щодо ваших власних клонів?"/>
+    <message name="BOSS_PHANTOMS_BOT_NAME" value="Фантом"/>
+
+    <message name="BOSS_ARCHDEMON_NAME" value="Архідемон"/>
+    <message name="BOSS_ARCHDEMON_DESCR"
+             value="Господар місцевого пекла. Не дивуйтеся, якщо раптово опинитеся в клітці, на своїй території він зробить з вами все, що захоче!"/>
+
+    <!-- 1.13 -->
+
+    <message name="BOSS_ASSASSIN_NAME" value="Асасін"/>
+    <message name="BOSS_ASSASSIN_DESCR"
+             value="Майстер ножового бою і прихованого пересування. Сховатися від його атак складно, але, все ж, можливо."/>
+
+    <message name="BOSS_ALCHEMIST_NAME" value="Алхімік"/>
+    <message name="BOSS_ALCHEMIST_DESCR"
+             value="Алхімік небезпечний в бою, але тільки поки у нього є доступ до реагентів."/>
+    <message name="BOSS_ALCHEMIST_ASISSTANT_TEAM" value="Асистенти"/>
+    <message name="BOSS_ALCHEMIST_ASISSTANT" value="Асистент"/>
+
+    <!-- 1.15 -->
+
+    <message name="BOSS_DRUID_NAME" value="Друїд"/>
+    <message name="BOSS_DRUID_DESCR"
+             value="У цьому бою головне - не стояти на місці. Інакше ви будете зметені силами природи."/>
+    <message name="BOSS_DRUID_HELPER_TEAM" value="Хранителі"/>
+    <message name="BOSS_DRUID_HELPER_FIRE" value="Хранитель вогню"/>
+    <message name="BOSS_DRUID_HELPER_POISON" value="Охоронець землі"/>
+    <message name="BOSS_DRUID_TOTEM_FIRE" value="Тотем вогню"/>
+    <message name="BOSS_DRUID_TOTEM_POISION" value="Тотем отрути"/>
+
+    <message name="BOSS_PHARAOH_NAME" value="Фараон"/>
+    <message name="BOSS_PHARAOH_DESCR"
+             value="Давній жрець, майстер перевтілень. Дуже серйозний суперник, хоч і трохи самовпевнений."/>
+    <message name="BOSS_PHARAOH_MINION_NAME" value="Зомбі-камікадзе"/>
+    <message name="BOSS_PHARAOH_SARCOPHAGUS" value="Саркофаг"/>
+
+    <message name="BOSS_CYBORG_NAME" value="Кіборг"/>
+    <message name="BOSS_CYBORG_MINION_NAME" value="Термінатор"/>
+    <message name="BOSS_CYBORG_DESCR"
+             value="Прекрасна сніжна ущелина була захоплена ворожою технологією. Доведеться випалити це місце!"/>
+
+
+    <!--1.16-->
+
+    <message name="BOSS_JARL_NAME" value="Ярл"/>
+    <message name="BOSS_JARL_DESCR"
+             value="Ярл і його супутники захищені практично від всіх атак. Ваше завдання - пробитися крізь їхній захист, захоплюючи руни."/>
+    <message name="BOSS_JARL_HELPER_TEAM" value="Тани стихій"/>
+    <message name="BOSS_JARL_HELPER_NAME" value="Тан"/>
+    <message name="BASE_RUNE_HINT" value="Фізична шкода"/>
+    <message name="FIRE_RUNE_HINT" value="Шкода від вогню"/>
+    <message name="SHOCK_RUNE_HINT" value="Шкода від електрики"/>
+    <message name="POISON_RUNE_HINT" value="Шкода від отрути"/>
+
+    <message name="BOSS_ARCHBOT_NAME" value="Архібот"/>
+    <message name="BOSS_ARCHBOT_DESCR"
+             value="Що може бути страшніше робота, який навчився магії? Захист від різних стихій буде дуже до речі!"/>
+    <message name="BOSS_ARCHBOT_ASISSTANT_TEAM" value="Големи"/>
+    <message name="BOSS_ARCHBOT_GOLEM" value="Голем"/>
+
+    <!--1.19-->
+    <message name="BOSS_ENCHANTER_NAME" value="Заклинатель"/>
+    <message name="BOSS_ENCHANTER_DESCR"
+             value="Вогненні духи і магія вуду - вам доведеться сильно постаратися, щоб перемогти цього шамана!"/>
+    <message name="BOSS_ENCHANTER_BOT_NAME_1" value="Заклинатель"/>
+    <message name="BOSS_ENCHANTER_TEAM_BOT_2" value="Служителі"/>
+    <message name="BOSS_ENCHANTER_BOT_NAME_2" value="Служитель"/>
+    <message name="BOSS_ENCHANTER_FIRE_SOUL" value="Дух вогню"/>
+
+    <message name="BOSS_ARCHIVIST_NAME" value="Архіваріус"/>
+    <message name="BOSS_ARCHIVIST_DESCR"
+             value="Якщо чесно, шансів у вас небагато. Ви навіть не зрозумієте, що вас вбиває."/>
+    <message name="BOSS_ARCHIVIST_BOT_NAME_1" value="Архіваріус"/>
+    <message name="BOSS_ARCHIVIST_TEAM_BOT_2" value="Загін тіней"/>
+    <message name="BOSS_ARCHIVIST_BOT_NAME_2" value="Тінь"/>
+
+    <!--1.20-->
+
+    <message name="BOSS_EMPEROR_NAME" value="Імператор"/>
+    <message name="BOSS_EMPEROR_DESCR" value="Все, що залишилося в його підпорядкуванні - жменька теракотових воїнів. Але не думайте, що зможете просто прийти і привласнити його скарби."/>
+    <message name="BOSS_EMPEROR_BOT_NAME_1" value="Імператор"/>
+    <message name="BOSS_EMPEROR_ARCHER" value="Арбалетчик"/>
+    <message name="BOSS_EMPEROR_SPEARMAN" value="Копейщик"/>
+    <message name="BOSS_EMPEROR_GENERAL" value="Генерал"/>
+    <message name="BOSS_EMPEROR_DEFENDER" value="Охоронець"/>
+
+    <message name="BOSS_SCIENTIST_NAME" value="Вчений"/>
+    <message name="BOSS_SCIENTIST_DESCR" value="У цьому бою ви дуже швидко відчуєте на собі силу науки (а також блискавок і магнетизму)."/>
+    <message name="BOSS_SCIENTIST_BOT_NAME_1" value="Вчений"/>
+
+    <message name="BOSS_SYMBIOTE_NAME" value="Симбіот"/>
+    <message name="BOSS_SYMBIOTE_DESCR" value="Тепер ваш девіз: бий своїх, щоб чужі боялися!"/>
+    <message name="BOSS_SYMBIOTE_BOT_NAME_1" value="Симбiот"/>
+    <message name="BOSS_SYMBIOTE_COCOON" value="Кокон"/>
+
+    <!--1.21-->
+
+    <message name="TEAM_NAME_PIRATE" value="Пірати"/>
+    <message name="TEAM_NAME_VIKING" value="Вікінги"/>
+
+    <!--1.25-->
+
+    <message name="GRAVITY_MASTER_NAME" value="Гравiмастер"/>
+    <message name="GRAVITY_MASTER_DESCR"
+             value="Змінює сам простір навколо себе. Дійте акуратно, інакше він вас просто роздавить!"/>
+    <message name="GRAVITY_MASTER_ANOMALY" value="Аномалія"/>
+
+    <message name="BOSS_SOLAR_PRIEST_NAME" value="Сонячний жрець"/>
+    <message name="BOSS_SOLAR_PRIEST_DESCR"
+             value="Зарозумілий служитель культу проллє світло на вашу неспроможність перемагати!"/>
+    <message name="BOSS_SOLAR_PRIEST_TEAM_BOT" value="Неофіти"/>
+    <message name="BOSS_SOLAR_PRIEST_BOT_NAME" value="Неофіт"/>
+
+    <!--1.27-->
+    <message name="BOSS_ARCTIC_WARRIOR_NAME" value="Арктичний воїн"/>
+    <message name="ARCTIC_WARRIOR_SUPPORT_NAME" value="Замерзлий зомбі"/>
+
+    <!--1.29-->
+    <message name="BOSS_BLACKSMITH_NAME" value="Коваль"/>
+    <message name="BOSS_BLACKSMITH_DESCR" value="Своїми ударами він здатний розщепити навіть атом. Не попадайтеся між молотом і ковадлом!"/>
+    <message name="BOSS_SOUL_MASTER_NAME" value="Володар душ"/>
+    <message name="BOSS_SOUL_MASTER_DESCR" value="Він прожив сотні років, змінюючи свою тілесну оболонку. Неможливо, щоб якийсь молодик його зупинив."/>
+    <message name="BOSS_SOUL_PART_NAME" value="Частина душі"/>
+    <message name="BOSS_SOUL_MASTER_PUPPET" value="Маріонетка"/>
+    <message name="BOSS_SOUL_MASTER_PUPPET_TEAM" value="Маріонетки"/>
+
+    <!--1.33-->
+    <message name="BOSS_REBEL_ROBOT_NAME" value="Бунтівний робот"/>
+    <message name="BOSS_REBEL_ROBOT_DESCR" value="Ходять чутки, що дана модель розроблялася для успішної боротьби проти босів. Хто б міг подумати, що він до них приєднається."/>
+    <message name="BOSS_REBEL_ROBOT_SUPPORT" value="Бот"/>
+    <message name="BOSS_REBEL_ROBOT_SUPPORT_TEAM" value="Боти"/>
+
+    <!--1.41-->
+    <message name="BOSS_FARMER.PROMPT" value="Бос сильно захищений броньою — краще атаковати зброєю, яка ігнорує її.{br}Перед нападом збирайте яблока — вони збільшують вашу атаку до кінця ходу.{br}Не давайте босу брати яблока — вони відновлять йому здоров'я."/>
+    <message name="BOSS_HUNTER.PROMPT" value="Не доторкуйтесь лазерів навколо вас — вони наносять велику шкоду.{br}Руйнуйте лазерні генератори на початку ходу — без них ви зможете вільно переміщуватися по карті.{br}Не підходьте близько до боса — атакуйте здалеку, щоб не попастися на охоронця."/>
+    <message name="BOSS_MANIACS.PROMPT" value="Ховайтесь від босів за землею — тільки так вони не достануть до вас гачками.{br}Якщо добити боса важко, спробуйте вирити яму і втопити його."/>
+    <message name="BOSS_MINER.PROMPT" value="Не підходьте близько до мін боса — вони пригають на вас іздалеку.{br}Якщо атакувати боса важко, спробуйте його втопити."/>
+    <message name="BOSS_SAMURAI.PROMPT" value="Не стійте поблизу води — після смерті бос може появитись поблизу і втопити вас.{br}Економте засоби переміщення — за босом прийдеться довго побігати."/>
+    <message name="BOSS_SERGEANT.PROMPT" value="Не бродіть по карті — вона вкрита невидимими охоронцями.{br}З кожним ходом атака боса все вище — не затягуйте з вбивством."/>
+    <message name="BOSS_BURNING.PROMPT" value="Будьте обережні — чим більше ворогів ви вб'єте, тим більше метеоритів буде падати кожен хід.{br}Ховайтесь в нижніх частинах карти — метеорити будуть руйнувати їх довго."/>
+    <message name="BOSS_SOUL.PROMPT" value="Кожен хід атакуйте персонажа із духом, щоб вороги не відновлювали здоров'я.{br}Не зволікайте, сильно атакуйте ворогів кожен хід — бос активно шкодить ваших персонажів."/>
+    <message name="BOSS_SHAMAN.PROMPT" value="Бос регенерує і себе, і помічників — щоб припинити це, вбийте спочатку його.{br}Для швидкого вбийства молодчих демонів підійде отрута і атаки з найбільшою разовою шкодою."/>
+    <message name="BOSS_ILLUSIONIST.PROMPT" value="Чим менше у ворога здоров'я, тим більше він створює копій — добивайте його з великою кількістю здоров'я.{br}Клони пропадають від будь-якої шкоди — вичисляйте справжнього, шкодячи ворогів зброєю, яка не тратить хід."/>
+    <message name="BOSS_VIKINGS.PROMPT" value="Поспішайте — на кожен наступний хід дається все менше часу.{br}Щоб прискорити бій — руйнуйте землю до води і топіть босів."/>
+    <message name="BOSS_PIRATE.PROMPT" value="Тримайтесь подальше від води — карта швидко тоне, а боси використовують руйнуючу зброю.{br}Не намагайтесь втопити Капітана — після кожної спроби він буде випригувати із води."/>
+    <message name="BOSS_WIND_MASTER.PROMPT" value="Будьте обережні з стрибками — через вітер вони досить непередбачувані.{br}Першим вбивайте боса — після його смерті припиниться унікальний вітер."/>
+    <message name="BOSS_YAKUZA.PROMPT" value="Скидайте ворогів в одне місце — добивати їх окремо занадто довго.{br}Не вбивайте Сталь останнім — в цьому випадку у нього з'явиться величезна регенерація."/>
+    <message name="BOSS_REVIVED_CAPTAIN.PROMPT" value="Економте зброю — відразу після смерті матросів вас чекає битва із самим босом.{br}Під час битви із Ожившим Капітаном вставайте повище — так підземні метеорити вас не втоплять."/>
+    <message name="BOSS_ROMEO_JULIET.PROMPT" value="Щоб перемогти, вбийте обох ворогів за один хід — для цього спершу залиште їм мало здоров'я.{br}Будьте уважні — після смерті кожного у вас полетить отруйна сопля, за цей час потрібно добити другого ворога."/>
+    <message name="BOSS_KING_DEAD.PROMPT" value="Першим вбивайте самого боса — після його смерті вас перестануть бити соплі, вилітаючі з ворогів.{br}Щоб зупинити зомбі, які з'являються, вбийте Заклинателя — після цього можна взяться за них."/>
+    <message name="BOSS_GHOST.PROMPT" value="Використовуйте захист від холоду, щоб як можна менше часу бути замороженим і втікати від хмари.{br}Вставайте за ворогами по напрямку від хмари до них, щоб вона била їх під час полювання на вас."/>
+    <message name="BOSS_ENGINEER.PROMPT" value="Кожен хід відходьте від електромагнітної бурі, яка з'являється прямо на вашому персонажі.{br}Шукайте безпечні місця, в яких не з'являються лазери — звідти атакуйте Інженера."/>
+    <message name="BOSS_GUARDIANS.PROMPT" value="Слідкуйте за шкалою землетрусу — як тільки вона заповниться, ховайтесь в укриття на карті.{br}Якщо поблизу із платформою-укриттям знаходиться ворог, то сховатися у ній не вийде — відкидуйте або вбивайте таких.{br}Беріть в команду більше персонажів, щоб вороги не могли відкидувати їх із укриттів іздалеку."/>
+    <message name="BOSS_DARK_KNIGHT.PROMPT" value="Не залишайте босу мало здоров'я — в цьому випадку він його повністю відновить, пожертвуючи Прислугою.{br}При атаці вороги зривають вам хід — не атакуйте їх, знаходячись в небезпечних місцях."/>
+    <message name="BOSS_ALCHEMIST.PROMPT" value="Використовуйте неруйнівні елементи карти, щоб сховатись від боса і заставляйте його бити самого себе.{br}Небажані реагенти завжди можна зруйнувати ударною хвилею майже будь-якою зброєю."/>
+    <message name="BOSS_ARCHBOT.PROMPT" value="Щоб бос не завдавав вам шкоди, телепортуючи помічників, першим вбийте його.{br}На початку кожного ходу ухиляйтесь від великої соплі, яка переслідує вашого персонажа."/>
+    <message name="BOSS_EMPEROR.PROMPT" value="Не атакуйте сильно — чим сильніше ви завдаєте шкоди босу, тим швидче він створить воїнів, які допомогають йому.{br}Ховайтесь під землею від будь-яких атак ворога — достатньо здоров'я вам знімуть його воїни."/>
+    <message name="BOSS_SCIENTIST.PROMPT" value="Періодично руйнуйте пульт, щоб відключити магніт, який притягує снаряди.{br}Не знаходьтесь довго в повітрі — неслухняність спричинить зрив ходу.{br}Щоб врятуватися від блискавки, використовуйте захисну зону знизу."/>
+    <message name="BOSS_SYMBIOTE.PROMPT" value="Бос отримує шкоду, тільки коли він або ви б'єте самі себе — не намагайтеся атакувати його.{br}Руйнуйте кокони — вони дадуть вам регенерацію, в іншому випадку вони відновлять здоров'я ворогові.{br}В кінці бою тримайтеся подалі від мух, що з'являються на карті, щоб не втратити хід."/>
+    <message name="BOSS_BLACKSMITH.PROMPT" value="Намагайтеся не ховатися в землі, щоб після удару боса ковадлом можна було вийти без витрачання ходу.{br}Не залишайтеся поруч з ковадлом по закінченню ходу, щоб не отримати шкоди від її вибуху.{br}Не підходьте близько до ворога, щоб не втратити хід."/>
+    <message name="BOSS_SOUL_MASTER.PROMPT" value="Намагайтеся не давати босові збирати душі, які летять до нього кожен хід — вони збільшують його здоров'я.{br}Ретельно ховайтеся від будь-яких атак під землею, адже здоров'я вашої команди відразу буде різко скорочуватися.{br}Від меншої кількості ворогів легше ховатися — спочатку простіше вбити помічників."/>
+    <message name="BOSS_REBEL_ROBOT.PROMPT" value="Рухайтеся якомога частіше, інакше в вас вистрілить руйнівна зброя боса.{br}Кожен хід активуються різні гармати, розставлені по карті — вони наводяться на вас.{br}Яка зброя отримає затримку, залежить від того, що ви використовуєте — розставляйте арсенал відповідним чином."/>
+
+    <message name="BOSS_PALADIN.PROMPT" value="Руйнуйте обеліск, що з'являється кожен хід, щоб бос не відновлював здоров'я.{br}Добре ховайтеся від атак боса — вельми багато здороов'я і так забере неминуча шкода меча."/>
+    <message name="BOSS_HACKER.PROMPT" value="Займайте пульти, розставлені по карті, щоб дезактивувати захист боса.{br}Щоб атакувати боса не стоячи на пульті, візьміть в команди обох персонажів — щоб їх було більше, ніж потрібно зайняти пультів."/>
+    <message name="BOSS_THIEVES.PROMPT" value="Атакуйте ворогів, щоб отримувати ключі, потрібні для відкривання ящиків, що містять різну зброю.{br}Для ефективного добування ключів використовуйте зброю, що завдає множинні удари."/>
+    <message name="BOSS_TELEPATHIST.PROMPT" value="Рятуйте союзників з чорних дірок, атакуючи їх, тим зберігаючи їм життя.{br}Не залишайтеся поруч зі сферами, що з'являються після біотика, щоб уникнути додаткових атак.{br}Убийте Телепата, щоб чорні діри перестали з'являтися."/>
+    <message name="BOSS_PHANTOMS.PROMPT" value="Вбивайте Фантомів якомога швидше — кожен свій хід Фантоми створюють ваших клонів.{br}Вся шкода, яку ви наносите клонам, блокується і наноситься вашим персонажам — клонів можна тільки втопити."/>
+    <message name="BOSS_ARCHDEMON.PROMPT" value="Кожен хід допомагайте союзникам звільнитися від кліток і ланцюгів — руйнуйте їх.{br}Не намагайтеся самостійно зруйнувати пастки, в яких вже знаходитеся — це буде мати важкі наслідки."/>
+    <message name="BOSS_DRUID.PROMPT" value="Руйнуйте тотеми, створювані помічниками боса — вони завдають вам шкоди кожен хід.{br}Постійно рухайтеся — під ногами безперестанку утворюються вибухаючі колючки, які створюються босом."/>
+    <message name="BOSS_PHARAOH.PROMPT" value="Кожен хід бос отримує нову расу натомість на пропажу саркофага, що дає йому унікальну здатність — стежте за цим, щоб не було несподіванок.{br}Без причин не наближайтеся до Зомбі-камікадзе, інакше буде потужний вибух.{br}Не дозволяйте залишитися на мапі саркофагу Кролика — взявши його, бос відновить собі все здоров'я."/>
+    <message name="BOSS_CYBORG.PROMPT" value="Кожен хід атакуйте одну з неактивних частин перемикача, щоб на наступний хід поле утворилося там, де сталася шкода. Намагайтеся перемикати так, щоб нижня частина була придатна для бою.{br}Якомога швидше зруйнуйте батарейки, ув'язнені в карті, щоб в рази швидче скоротити здоров'я ворогів."/>
+    <message name="BOSS_JARL.PROMPT" value="Збирайте руни, що рухаються по позначених маршрутах на мапі, аби зняти з боса захист від тієї чи іншої стихії.{br}По можливості атакуйте відразу кілька ворогів, щоб зброї вистачило на всіх — скидайте їх у купи."/>
+    <message name="BOSS_ENCHANTER.PROMPT" value="Кожен прислужник боса кожен хід створює дух вогню, який уронить ваших персонажів — руйнуйте їх.{br}Атакуйте боса останнім — духи вогню захищають його від шкоди.{br}Будь-яка шкода, що завдається босові, наноситься вам в подвійному розмірі — атакуйте його персонажами з низьким рівнем життя."/>
+    <message name="BOSS_ARCHIVIST.PROMPT" value="Першими вбивайте Тіней — вони не мають пов'язаних з босом здібностей і заважають вести бій з ним самим.{br}Щоб зняти захист від атак з боса, потрібно зруйнувати печатки, розкидані по карті і створені босом на свій хід після руйнування."/>
+    <message name="BOSS_SOLAR_PRIEST.PROMPT" value="Кожен хід максимально атакуйте ворогів — стабільна шкода по вам не дозволяє довгого бою.{br}Чим менше Неофітів живі, тим менше б'є бос, але тим більше частинок вилітає при атаці по ньому.{br}При смерті ворога, оточеного захисним полем, тримайтеся подалі — з нього вилетить безліч небезпечних для вас частинок."/>
+    <message name="BOSS_ARCTIC_WARRIOR.PROMPT" value="Збирайте факели і кидайте їх в ув'язнених в брили персонажів, щоб звільнити їх.{br}Замерзлі зомбі можуть бути атаковані тільки вогнем. Їх смерть спричинить за собою початок крижаного дощу.{br}При рівні життя нижче 50% бос починає заключати себе в крижану брилу і відновлювати здоров'я!"/>
+
+    <!--1.44-->
+    <message name="BOSS_ARCTIC_WARRIOR_DESCR" value="На полюсі зареєстровані підозріла сейсмічна активність і різкі перепади температур. Іди і розберися, що там відбувається!"/>
+    <message name="BOSS_ASSASSIN.PROMPT" value="У ворога було багато вільного часу, щоб відточити свої навички увороту. Атакуйте боса з великою обережністю!{br}Добре ховайтеся від боса за землею — своєю зброєю він здатний за один хід вбити персонажів, що стоять в зоні ураження.{br}На початку свого ходу ворог може переміщуватися до вас за спину — для запобігання вставайте спиною до захисту."/>
+    <message name="BOSS_GRAVITY_MASTER.PROMPT" value="Бос знаходиться в особливому колі з посиленою гравітацією, куди ззовні не можуть влетіти снаряди.{br}Чим менше здоров`я залишається у боса, тим більше кіл він створює на карті — остерігайтеся їх усіх.{br}Заходьте в кола лише на мить, щоб якось вдарити боса. Чим більше часу вас тисне поле Гравімастера — тим більше хп отримує лиходій!"/>
+
+    <message name="BOSS_DEVOTEE_NAME" value="Поневолювач"/>
+    <message name="BOSS_DEVOTEE_MINION_NAME" value="Пілот НЛО"/>
+    <message name="BOSS_DEVOTEE_DESCR" value="Він прийшов підкоряти і принижувати. Навіть не смійте чинити опір!"/>
+    <message name="BOSS_DEVOTEE.PROMPT" value="Інопланетні технології прибульців дозволили босові мати необмежений арсенал — не дивуйтеся нескінченним охоронцям, силовим полям та авіаударам!{br}Поспішайте — земля швидко йде під воду, а кількість здоров'я зменшується з кожним ударом блискавки!{br}Не поспішайте радіти, коли вб'єте ватажка — десант гуманоїдів не дасть вам занудьгувати."/>
+
+    <!--1.48-->
+    <message name="CRYSTAL_GREEN_HINT" value="Зелений реагент"/>
+    <message name="CRYSTAL_RED_HINT" value="Червоний реагент"/>
+    <message name="CRYSTAL_BLUE_HINT" value="Синій реагент"/>
+    <message name="CRYSTAL_WHITE_HINT" value="Білий реагент"/>
+    <message name="CRYSTAL_YELLOW_HINT" value="Жовтий реагент"/>
+
+    <!--1.51-->
+    <message name="BOSS_QUEEN_SPIDERS_NAME" value="Королева павуків"/>
+    <message name="BOSS_QUEEN_SPIDERS_MINION_NAME" value="Скорпіон"/>
+    <message name="BOSS_QUEEN_SPIDERS_EGG" value="Яйце скорпіона"/>
+    <message name="BOSS_QUEEN_SPIDERS_DESCR" value="Експеримент з павучими генами закінчився катастрофою, членистоногі монстри вирвалися на волю! Час їх зупинити!"/>
+    <message name="BOSS_QUEEN_SPIDERS.PROMPT" value="Наносьте шкоду пасткам, щоб витягнути напарника з кокона, і разом з цим зняти захисну сферу з Королеви.{br}Під час атак тримайтеся від Королеви подалі, якщо не хочете привернути на себе увагу павучої охорони.{br}Коли з`являться яйця, по можливості, руйнуйте їх. Інакше з них вилізуть додаткові скорпіони!"/>
+
+    <!--1.54-->
+    <message name="REVIVED_ZOMBIE_NAME" value="Повсталий"/>
+    <message name="MARCH_ZOMBIE_NAME" value="Десантник"/>
+    <message name="DRILL_ZOMBIE_NAME" value="Свердлячий"/>
+    <message name="PUMPKIN_ZOMBIE_NAME" value="Гарбузоголовий"/>
+    <message name="REVENGE_ZOMBIE_NAME" value="Мстивий"/>
+    <message name="FREEZE_ZOMBIE_NAME" value="Відморожений"/>
+    <message name="TOXIC_ZOMBIE_NAME" value="Токсичний"/>
+    <message name="RADIOACTIVE_ZOMBIE_NAME" value="Радіоактивний"/>
+    <message name="COMMANDER_ZOMBIE_NAME" value="Командир зомбі"/>
+    <message name="COMMANDER_REVIVE_ZOMBIE_NAME" value="Командир повстання"/>
+    <message name="COMMANDER_MARCH_ZOMBIE_NAME" value="Командир марша"/>
+    <message name="COMMANDER_DRILL_ZOMBIE_NAME" value="Командир свердління"/>
+    <message name="COMMANDER_PUMPKIN_ZOMBIE_NAME" value="Гарбузокомандувач"/>
+    <message name="MASTER_REVENGE_ZOMBIE_NAME" value="Майстер мстивий"/>
+    <message name="MASTER_FREEZE_ZOMBIE_NAME" value="Майстер відморозок"/>
+    <message name="MASTER_TOXIC_ZOMBIE_NAME" value="Майстер токсин"/>
+    <message name="RADIOMASTER_ZOMBIE_NAME" value="Радіомайстер"/>
+    <message name="HUNGRY_ZOMBIE_NAME" value="Голодний"/>
+    <message name="AQUALUNG_ZOMBIE_NAME" value="Підводний"/>
+    <message name="SUPER_AQUALUNG_ZOMBIE_NAME" value="Непотоплюваний"/>
+    <message name="NOT_SANTA_ZOMBIE_NAME" value="Не Санта"/>
+
+</dictionary>

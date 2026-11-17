@@ -253,7 +253,7 @@
     const API = location.origin + '/api/';
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
     // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
-    const CLIENT_BUILD = '2026-11-17.1';
+    const CLIENT_BUILD = '2026-11-17.2';
 
     // Remembered login, per browser (convenience only).
     const store = {
@@ -340,8 +340,9 @@
         loadAccount().then(showBarAccount).catch(() => { });
 
         const id = String(s.id);
-        // play.html?161 runs the 1.61.7 client (being ported; the 1.25.0 one is the default).
-        const v161 = new URLSearchParams(location.search).has('161');
+        // The 1.61.7 client is the default; play.html?125 runs the 1.25.0 one (it still has PvP and co-op,
+        // which aren't ported to 1.61.7 yet).
+        const v161 = !new URLSearchParams(location.search).has('125');
         const flashvars = v161 ? {
             // Its "none" social network: no VK, the game takes the player's id and auth key from here.
             user_id: id, _masterKey: authKey, _social_type: 'none', _lang: 'ru', _app_mode: 'web'
@@ -368,6 +369,9 @@
             // and slower in Ruffle than in the old Flash Player, so allow more time.
             maxExecutionDuration: 120,
             urlRewriteRules: v161 ? [
+                // Its "none" social network has no files of its own: it uses the VK ones (bank.swf and others).
+                // Only the first matching rule applies, so this one comes first (tesla.rmart.ru addresses too).
+                [new RegExp('^https?://[^/]+/(?:engine|vk)/1\\.61\\.7/data/social/none/(.*)$'), location.origin + '/vk/1.61.7/data/social/vkontakte/$1'],
                 [new RegExp('^https?://[^/]+/vk/1\\.61\\.7/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/1.61.7/Wormix.swf?b=' + CLIENT_BUILD],
                 [new RegExp('^https?://[^/]+/vk/storage/levels/([^/?]+)/map[0-9]*\\.swf(\\?.*)?$'), location.origin + '/vk/storage/levels/$1/map.swf'],
                 // The original game's addresses built into the client: its files and its achievements server.

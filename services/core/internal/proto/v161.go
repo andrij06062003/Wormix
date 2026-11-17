@@ -245,7 +245,38 @@ func ReadEndBattle161(r *wire.Reader) EndBattle {
 	for i := 0; i < rs; i++ {
 		e.CollectedReagents = append(e.CollectedReagents, int32(r.U8()))
 	}
+	if r.Remaining() <= 16 {
+		return e // no statistics (only the signature is left)
+	}
+	r.U16() // TurnStructureV2.VERSION_MARKER
+	r.U16() // turns
+	r.U32() // damage to the player
+	r.U32() // damage to the boss
+	for range 2 { // items used, the journal's turns: each with its size in front
+		n := int(r.U16())
+		for i := 0; i < n; i++ {
+			r.BytesLenient(int(r.U16()))
+		}
+	}
+	r.U16() // map
+	e.SessionKey = r.UTF()
 	return e
+}
+
+// CmdEndBattleResult161 answers EndBattle (1.61.7): the client waits for it ("waiting for data") after a battle.
+const CmdEndBattleResult161 = 10121
+
+// EmitEndBattleResult161 writes the 1.61.7 EndBattleResult: validation result (0), the battle's result, id,
+// mission and session key as sent, and no awards (the client shows the battle's own), MD5.
+func EmitEndBattleResult161(out Out, e EndBattle) {
+	var w wire.Writer
+	w.I16(0)
+	w.U32(uint32(e.Result))
+	w.U32(uint32(e.BattleID))
+	w.I16(int(e.MissionID))
+	w.UTF(e.SessionKey)
+	w.U16(0)
+	out(Frame(CmdEndBattleResult161, w.B, true))
 }
 
 // Emit161 writes the 1.61.7 ArenaLocked: its error code is a short.

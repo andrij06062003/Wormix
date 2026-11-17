@@ -259,3 +259,49 @@ func TestReadEndBattle161(t *testing.T) {
 		t.Fatalf("end battle %+v", e)
 	}
 }
+
+// The whole 1.61.7 EndBattle (statistics, journal, map, session key and signature), and its EndBattleResult.
+func TestEndBattleResult161(t *testing.T) {
+	var w wire.Writer
+	w.U32(1043) // result + battle id
+	w.U16(1)
+	w.U32(0)
+	w.U32(1042)
+	w.U16(25)
+	w.U16(0) // items
+	w.U16(0)
+	w.UTF("")
+	w.U16(0) // reagents
+	w.U16(2) // VERSION_MARKER
+	w.U16(14)
+	w.U32(300)
+	w.U32(3508)
+	w.U16(1) // items used
+	w.U16(8)
+	w.U32(54)
+	w.U32(2)
+	w.U16(2) // journal
+	w.U16(3)
+	w.Bytes([]byte{1, 2, 3})
+	w.U16(0)
+	w.U16(77) // map
+	w.UTF("key")
+	w.Bytes(make([]byte, 16)) // signature
+	e := ReadEndBattle161(wire.NewReader(w.B))
+	if e.Result != 1043 || e.BattleID != 1042 || e.MissionID != 25 || e.SessionKey != "key" {
+		t.Fatalf("end battle %+v", e)
+	}
+	var got []byte
+	EmitEndBattleResult161(func(b []byte) { got = append(got, b...) }, e)
+	if wire.FrameLength(got) != len(got)-wire.HeaderSize {
+		t.Fatal("frame length")
+	}
+	body := got[wire.HeaderSize:]
+	if !wire.IsSecure(body) {
+		t.Fatal("not signed (the session re-signs it)")
+	}
+	r := wire.NewReader(body[:len(body)-16])
+	if r.U16() != 0 || r.U32() != 1043 || r.U32() != 1042 || r.U16() != 25 || r.UTF() != "key" || r.U16() != 0 || r.Remaining() != 0 {
+		t.Fatal("end battle result")
+	}
+}

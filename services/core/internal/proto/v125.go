@@ -175,9 +175,9 @@ func (e *EnterAccount) Emit125(out Out, serverTime int32) {
 	w.I16(0) // curCooperativeMissionId
 	w.U16(0) // clan invites
 	w.I32(serverTime)
-	w.U16(0) // backpackConf
-	w.U16(0) // hotkeys
-	w.U8(0)  // loginSequence
+	writeShorts(&w, e.Backpack.first()) // backpackConf
+	writeShorts(&w, e.Hotkeys)
+	w.U8(0) // loginSequence
 	msg := Header(CmdEnterAccount, uint32(len(w.B)+16))
 	msg = append(msg, w.B...)
 	out(append(msg, wire.SecureWith(w.B, wire.SecretKey125)...))

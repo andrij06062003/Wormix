@@ -406,11 +406,57 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		friends := pvp.BossFriends(s.UserID(), missions, false)
 		log.Printf("[main %s] %d friends for co-op boss %v", s.short(), len(friends), missions)
 		proto.EmitGetFriendsForBossResult125(s.out, friends)
+	case proto.CmdSetBackpackConf161, proto.CmdSetHotkeys161, proto.CmdSetBackpackConf125, proto.CmdSetHotkeys125:
+		if !s.backpack(cmd, r) && !pvp.HandleLobby(s, cmd, body) {
+			log.Printf("[main %s] unknown command %d", s.short(), cmd)
+		}
 	default:
 		if !pvp.HandleLobby(s, cmd, body) {
 			log.Printf("[main %s] unknown command %d", s.short(), cmd)
 		}
 	}
+}
+
+// backpack saves the arsenal: SetBackpackConf (answered with what was kept) and SetHotkeys (no answer).
+// 1.61.7 has them at 129 and 128, 1.25.0 at 103 and 104; it reports false for a command of the other client.
+func (s *mainSession) backpack(cmd uint32, r *wire.Reader) bool {
+	v161, v125 := s.v161.Load(), s.v125.Load() && !s.v161.Load()
+	switch {
+	case v161 && cmd == proto.CmdSetBackpackConf161:
+		b := proto.ReadSetBackpackConf161(r)
+		proto.EmitSetBackpackConfResult161(s.out, s.saveBackpack(b), b)
+	case v125 && cmd == proto.CmdSetBackpackConf125:
+		b := proto.ReadSetBackpackConf125(r)
+		proto.EmitSetBackpackConfResult125(s.out, s.saveBackpack(b), b)
+	case v161 && cmd == proto.CmdSetHotkeys161, v125 && cmd == proto.CmdSetHotkeys125:
+		keys := proto.ReadSetHotkeys(r)
+		if v, refused := api.PostRefusable("account/hotkeys", proto.HotkeysJSON(keys), s.sid, s.tokenPtr()); refused || resultOf(v) != 0 {
+			log.Printf("[main %s] hotkeys not kept", s.short())
+		}
+	default:
+		return false
+	}
+	return true
+}
+
+// saveBackpack posts the arsenal's layouts: 0 if the API kept them, 1 if not.
+func (s *mainSession) saveBackpack(b proto.Backpack) int16 {
+	v, refused := api.PostRefusable("account/backpack", b.JSON(), s.sid, s.tokenPtr())
+	if refused || resultOf(v) != 0 {
+		log.Printf("[main %s] arsenal of %d layouts not kept", s.short(), len(b.Configs))
+		return 1
+	}
+	return 0
+}
+
+// resultOf is data.Result of an API answer (-1 without one).
+func resultOf(v *jsonx.Value) int64 {
+	if d := dataOpt(v); d != nil && d.Kind == jsonx.Object {
+		if x := d.Obj.Get("Result"); x != nil && x.Kind == jsonx.Integer {
+			return x.I
+		}
+	}
+	return -1
 }
 
 // weaponRecipe upgrades or downgrades a weapon. A recipe the API refuses (one it doesn't know) is answered

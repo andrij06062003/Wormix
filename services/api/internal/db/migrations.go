@@ -141,6 +141,8 @@ var Migrations = []Migration{
 	{Name: "2026_11_18_130000_grant_owner_161", Fn: migrateGrantOwner161},
 	// The 1.61.7 client's shop: the weapons, hats and artifacts the table lacked, and its prices and levels.
 	{Name: "2026_11_18_140000_shop_161", Fn: migrateShop161},
+	// The arsenal the client saves (its weapons panel layouts and hotkeys), given back at login.
+	{Name: "2026_11_18_150000_add_wormix_backpack", Fn: migrateBackpack},
 }
 
 func tableExists(ctx context.Context, q interface {

@@ -149,7 +149,8 @@ func (c *Ctx) decreaseUsedWeapons(userID any) {
 		if php.Le(idx(it, "Count"), int64(0)) {
 			continue
 		}
-		uw := c.First(defUserWeapon, `where "weapon_id" = ? and "count" != ? and "owner_id" = ?`, idx(it, "Id"), int64(-1), userID)
+		// only shots are used up: not a weapon owned for good (-1), nor a level of a complex one (complex.go)
+		uw := c.First(defUserWeapon, `where "weapon_id" = ? and "count" > 0 and "owner_id" = ?`, idx(it, "Id"), userID)
 		if uw == nil {
 			continue
 		}
@@ -456,6 +457,9 @@ type achConfig struct {
 	statsLast      int64
 	achievements   *php.Arr
 	awardItems     *php.Arr
+
+	// awardReplaces: the item an award takes the place of (1.61.7), by the award's id
+	awardReplaces *php.Arr
 }
 
 var (
@@ -474,6 +478,7 @@ func achievementsConfig() *achConfig {
 			statsFirst: php.ToInt(a.Val("stats_first")), statsLast: php.ToInt(a.Val("stats_last"))}
 		achCfg.achievements, _ = a.Val("achievements").(*php.Arr)
 		achCfg.awardItems, _ = a.Val("award_items").(*php.Arr)
+		achCfg.awardReplaces, _ = a.Val("award_replaces").(*php.Arr)
 	})
 	return achCfg
 }
@@ -724,6 +729,11 @@ func (c *Ctx) achChooseBonus() Resp {
 		}
 		owned.Set("count", int64(-1))
 		c.Save(owned)
+		if cfg.awardReplaces != nil {
+			if old := cfg.awardReplaces.Val(php.ToString(item)); old != nil {
+				c.exec(`delete from "wormix_users_weapons" where "owner_id" = ? and "weapon_id" = ?`, uid, php.ToInt(old))
+			}
+		}
 		p.Set("invested_award_points", invested+1)
 		c.Save(p)
 		return 0

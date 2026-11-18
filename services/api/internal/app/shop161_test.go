@@ -62,8 +62,8 @@ func TestUpgradeEveryRecipe161(t *testing.T) {
 	}
 }
 
-// The 1.61.7 client buys the ice bazooka (infinite, 4 shots a battle) by the piece: each costs its price, and
-// upgrading it makes it the player's for good, as the client shows.
+// The 1.61.7 client buys the ice bazooka (a complex weapon: 4 levels, a shot a battle each) by the level: each
+// costs its price and is kept as a level (-10-L, complex.go), and upgrading it makes it the top one.
 func TestBuyShotsAndUpgrade161(t *testing.T) {
 	srv, d, v := newServer(t)
 	alice := v.Users["alice"]
@@ -83,8 +83,8 @@ func TestBuyShotsAndUpgrade161(t *testing.T) {
 	var real, count int64
 	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
 	d.QueryRow(`select count from wormix_users_weapons where owner_id = 1 and weapon_id = 54`).Scan(&count)
-	if real != 1000-3*8 || count != 3 {
-		t.Fatalf("after buying 3 shots: rubies %d, count %d", real, count)
+	if real != 1000-3*8 || count != -13 {
+		t.Fatalf("after buying 3 levels: rubies %d, count %d, want -13", real, count)
 	}
 	st, j := call(t, srv, "POST", "/api/internal/craft/upgrade_weapon", map[string]any{"RecipeId": 91}, h)
 	if st != 200 || fmt.Sprint(j["data"].(map[string]any)["Result"]) != "0" {
@@ -94,11 +94,17 @@ func TestBuyShotsAndUpgrade161(t *testing.T) {
 	if count != -1 {
 		t.Fatalf("after the upgrade: count %d, want -1", count)
 	}
-	// Buying shots of a weapon owned for good keeps it so.
-	buy(1)
+	// At its top level there is nothing more to buy: refused, and it costs nothing.
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
+	st, j = call(t, srv, "POST", "/api/internal/account/buy/items", map[string]any{"ShopItems": []any{map[string]any{"Id": 54, "Count": 1, "MoneyType": 0}}}, h)
+	if fmt.Sprint(j["data"].(map[string]any)["Result"]) == "0" {
+		t.Fatalf("a level past the top: %d %v", st, j)
+	}
+	var after int64
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&after)
 	d.QueryRow(`select count from wormix_users_weapons where owner_id = 1 and weapon_id = 54`).Scan(&count)
-	if count != -1 {
-		t.Fatalf("after buying a shot more: count %d, want -1", count)
+	if after != real || count != -1 {
+		t.Fatalf("a level past the top: rubies %d -> %d, count %d", real, after, count)
 	}
 }
 

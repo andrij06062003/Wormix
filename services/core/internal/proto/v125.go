@@ -118,7 +118,7 @@ func writeUserProfile125(w *wire.Writer, p *UserProfile) {
 	w.U16(uint16(len(p.WeaponRecordList)))
 	for _, x := range p.WeaponRecordList {
 		w.U32(x.ID)
-		w.I32(x.Count)
+		w.I32(count125(x.Count))
 	}
 	w.U16(uint16(len(p.Stuff)))
 	for _, x := range p.Stuff {
@@ -437,4 +437,13 @@ func EmitGetFriendsForBossResult125(out Out, friends []BossFriend125) {
 		w.I16(int(f.State))
 	}
 	out(Frame(CmdGetFriendsForBossResult125, w.B, false))
+}
+
+// count125 is a weapon's count for the 1.25.0 client, which has no levels of a weapon: a level of a 1.61.7
+// complex one (-10-L) is the weapon owned for good (-1).
+func count125(n int32) int32 {
+	if n < -1 {
+		return -1
+	}
+	return n
 }

@@ -203,6 +203,7 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 		}
 	}
 	d.Exec(`delete from migrations where migration = '2026_11_18_140000_shop_161'`)
+	d.Exec(`delete from migrations where migration = '2026_11_18_160000_complex_weapons_161'`)
 	// The owner's grant changes no game data (and there is no such account here).
 	d.Exec(`delete from migrations where migration = '2026_11_10_130000_grant_owner_crafted_hats'`)
 	// And the weapon upgrades of the 1.25.0 client (54 new recipes, and its costs for the old ones) and of
@@ -460,12 +461,13 @@ func TestArenaBotsWithNegativeBalance(t *testing.T) {
 }
 
 // Concurrent purchases must stay atomic: every successful purchase is paid exactly once.
+// Weapon 20 is a plain weapon, bought by the piece (complex weapons are bought by levels, complex.go).
 func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 	srv, d, v := newServer(t)
 	alice := v.Users["alice"]
 	d.Exec(`update wormix_user_profiles set money = 1000 where user_id = 1`)
 	var before int64
-	d.QueryRow(`select coalesce(sum(count), 0) from wormix_users_weapons where owner_id = 1 and weapon_id = 6`).Scan(&before)
+	d.QueryRow(`select coalesce(sum(count), 0) from wormix_users_weapons where owner_id = 1 and weapon_id = 20`).Scan(&before)
 
 	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
 	const n = 40
@@ -477,7 +479,7 @@ func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 		go func() {
 			defer wg.Done()
 			st, j := call(t, srv, "POST", "/api/internal/account/buy/items",
-				map[string]any{"ShopItems": []any{map[string]any{"Id": 6, "Count": 1, "MoneyType": 1}}}, h)
+				map[string]any{"ShopItems": []any{map[string]any{"Id": 20, "Count": 1, "MoneyType": 1}}}, h)
 			if st == 200 && fmt.Sprint(j["data"].(map[string]any)["Result"]) == "0" {
 				mu.Lock()
 				ok++
@@ -488,8 +490,8 @@ func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 	wg.Wait()
 	var money, price, after int64
 	d.QueryRow(`select money from wormix_user_profiles where user_id = 1`).Scan(&money)
-	d.QueryRow(`select price from wormix_weapons where id = 6`).Scan(&price)
-	d.QueryRow(`select coalesce(sum(count), 0) from wormix_users_weapons where owner_id = 1 and weapon_id = 6`).Scan(&after)
+	d.QueryRow(`select price from wormix_weapons where id = 20`).Scan(&price)
+	d.QueryRow(`select coalesce(sum(count), 0) from wormix_users_weapons where owner_id = 1 and weapon_id = 20`).Scan(&after)
 	if money != 1000-int64(ok)*price || after-before != int64(ok) || money < 0 {
 		t.Fatalf("ok=%d money=%d price=%d items %d->%d", ok, money, price, before, after)
 	}

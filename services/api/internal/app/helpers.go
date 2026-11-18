@@ -166,6 +166,21 @@ func (c *Ctx) addWeaponsAwards(awards *php.Arr, worm *Model) {
 	}
 	weaponIDs := php.List(c.Values(q, args...)...)
 	for _, a := range awards.Values() {
+		if id := php.ToInt(idx(a, 0)); isComplex(id) && php.Gt(idx(a, 1), int64(0)) {
+			// levels of a complex weapon (complex.go), on top of the ones the player has
+			uw := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ?`, owner, id)
+			var kept any
+			if uw == nil {
+				uw = New(defUserWeapon)
+				uw.Set("owner_id", owner)
+				uw.Set("weapon_id", id)
+			} else {
+				kept = uw.Get("count")
+			}
+			uw.Set("count", addComplexLevels(id, kept, php.ToInt(idx(a, 1))))
+			c.Save(uw)
+			continue
+		}
 		if !php.InArray(idx(a, 0), weaponIDs, false) {
 			continue
 		}

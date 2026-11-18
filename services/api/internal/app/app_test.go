@@ -120,6 +120,13 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	if a, b := schemaOf(t, ref.DB), schemaOf(t, d.DB); !reflect.DeepEqual(a, b) {
 		t.Fatalf("schema differs:\nref %q\ngo  %q", a, b)
 	}
+	// The 1.61.7 shop (checked first: the cleanups below delete some of its items, like the hat 1150): the
+	// items the table lacked, and its prices and levels for the ones it sells (not for the ones it hides, like 6).
+	var shop161 int
+	d.QueryRow(`select count(*) from wormix_weapons where (id = 54 and price = 800 and real_price = 8 and infinity = 1) or (id = 116 and hide_in_shop = 0 and infinity = 1 and real_price = 40) or (id = 1150 and infinity = 1 and real_price = 50) or (id = 2060 and infinity = 1 and real_price = 70) or (id = 6 and price = 28)`).Scan(&shop161)
+	if shop161 != 5 {
+		t.Errorf("1.61.7 shop rows %d, want 5", shop161)
+	}
 	// The crafted equipment (1.25.0: 128 rows, 1.61.7: 188 more) came after the PHP API: check it, then leave
 	// it out of the comparison.
 	var crafted int
@@ -167,23 +174,19 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	d.Exec(`delete from wormix_weapons where id in (84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104)`)
 	d.Exec(`delete from migrations where migration = '2026_11_10_120000_add_wormix_award_weapons_125'`)
-	// And the 1.61.7 shop: the items the table lacked, and its prices and levels for the ones it sells (not
-	// for the ones it hides, like 6). Then the reference's values back, without the new items.
-	var shop161 int
-	d.QueryRow(`select count(*) from wormix_weapons where (id = 54 and price = 800 and real_price = 8 and infinity = 1) or (id = 116 and hide_in_shop = 0 and infinity = 1 and real_price = 40) or (id = 1150 and infinity = 1 and real_price = 50) or (id = 2060 and infinity = 1 and real_price = 70) or (id = 6 and price = 28)`).Scan(&shop161)
-	if shop161 != 5 {
-		t.Errorf("1.61.7 shop rows %d, want 5", shop161)
-	}
+	// And the 1.61.7 shop (checked above): the reference's values back, without the new items.
 	refIDs := map[int64]bool{}
-	rw, err := ref.Query(`select id, price, real_price, required_friends, required_level, required_rating, hide_in_shop, infinity from wormix_weapons`)
+	// (updated_at too: the shop's update sets it.)
+	rw, err := ref.Query(`select id, price, real_price, required_friends, required_level, required_rating, hide_in_shop, infinity, updated_at from wormix_weapons`)
 	if err != nil {
 		t.Fatal(err)
 	}
 	for rw.Next() {
 		var id, price, real, friends, lvl, rating, hidden, inf int64
-		rw.Scan(&id, &price, &real, &friends, &lvl, &rating, &hidden, &inf)
+		var updated any
+		rw.Scan(&id, &price, &real, &friends, &lvl, &rating, &hidden, &inf, &updated)
 		refIDs[id] = true
-		d.Exec(`update wormix_weapons set price = ?, real_price = ?, required_friends = ?, required_level = ?, required_rating = ?, hide_in_shop = ?, infinity = ? where id = ?`, price, real, friends, lvl, rating, hidden, inf, id)
+		d.Exec(`update wormix_weapons set price = ?, real_price = ?, required_friends = ?, required_level = ?, required_rating = ?, hide_in_shop = ?, infinity = ?, updated_at = ? where id = ?`, price, real, friends, lvl, rating, hidden, inf, updated, id)
 	}
 	rw.Close()
 	var shop struct {
@@ -273,6 +276,13 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))
+			shown := 0
+			for i := 0; i < len(a) && i < len(b) && shown < 5; i++ {
+				if !reflect.DeepEqual(a[i], b[i]) {
+					t.Logf("  ref %v\n  go  %v", a[i], b[i])
+					shown++
+				}
+			}
 		}
 	}
 }

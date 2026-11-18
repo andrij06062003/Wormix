@@ -315,6 +315,7 @@ type EndBattle struct {
 	BanType           int16
 	BanNote           string
 	CollectedReagents []int32
+	SessionKey        string // 1.61.7: echoed in EndBattleResult (not for the API)
 }
 
 // ReadEndBattle reads EndBattle. Each of the first four values is preceded by a string the server skips.

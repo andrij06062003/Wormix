@@ -274,6 +274,8 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	d.Exec(`delete from migrations where migration = '2026_11_09_170000_add_users_name_changed_at'`)
 	// So is the chat_messages table (the players' chat).
 	d.Exec(`delete from migrations where migration = '2026_11_09_180000_create_chat_messages_table'`)
+	// And the arsenal's columns of wormix_user_profiles.
+	d.Exec(`delete from migrations where migration = '2026_11_18_150000_add_wormix_backpack'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))

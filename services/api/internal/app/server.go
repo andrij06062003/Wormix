@@ -124,6 +124,8 @@ func (a *App) registerRoutes() {
 		{"account/reset/account", (*Ctx).resetAccount},
 		{"account/distribute_points", (*Ctx).distributePoints},
 		{"account/select_stuff", (*Ctx).selectStuff},
+		{"account/backpack", (*Ctx).setBackpack},
+		{"account/hotkeys", (*Ctx).setHotkeys},
 		{"game/get_arena", (*Ctx).getArena},
 		{"game/start_battle", (*Ctx).startBattle},
 		{"game/end_battle", (*Ctx).endBattle},

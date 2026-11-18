@@ -13,7 +13,8 @@ import (
 // The sniper rifle (23): 13 makes 313, from which 60 makes 360 and 61 makes 361 (two branches); 138 and
 // 139 go on from them. 20 is the bazooka's first upgrade.
 var sniperLinks = map[int64]db.RecipeLink{
-	13: {23, 313}, 60: {313, 360}, 61: {313, 361}, 138: {360, 438}, 139: {361, 439}, 20: {1, 320},
+	13: {Prev: 23, Upgrade: 313}, 60: {Prev: 313, Upgrade: 360}, 61: {Prev: 313, Upgrade: 361},
+	138: {Prev: 360, Upgrade: 438}, 139: {Prev: 361, Upgrade: 439}, 20: {Prev: 1, Upgrade: 320},
 }
 
 func TestConsistentRecipes(t *testing.T) {

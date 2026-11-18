@@ -116,13 +116,14 @@ type exRoom struct {
 	missions                 []int16
 	randomWeapons, randomMap bool
 	members                  []*exMember // in player-number order
+	stage                    int
+	since                    time.Time // start of the stage
+
 	// v161: a battle of 1.61.7 clients (co-op boss or friend battle): its messages have the 1.61.7 layout, with
 	// the client's wager id (wager161) and the params JSON it sent, given back as it is.
 	v161     bool
 	wager161 int16
 	params   string
-	stage                    int
-	since                    time.Time // start of the stage
 }
 
 type exTicket struct {

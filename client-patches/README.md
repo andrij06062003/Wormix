@@ -124,8 +124,7 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
 - `ScreenController.fullscreen.pcode` (`ru.pragmatix.wormix.controller.§+$w§`, `§5$q§`, body 2227, since build
   2026-11-18.1): the full screen button calls `wormixFullscreen()` of the page, as in `standalone-125/`.
 - `AppFriends.pcode` (`ru.pragmatix.flox.social.controller.§]"Y§`, the "none" social network, `getAppFriends`,
-  body 7122, in `Wormix.next.swf` since build 2026-11-18.2, tried with `play.html?next` before it
-  becomes `Wormix.swf`): it gave no friends, and the client keeps EnterAccount's friends only when
+  body 7122, since build 2026-11-18.3; tried first as `Wormix.next.swf` with `play.html?next`): it gave no friends, and the client keeps EnterAccount's friends only when
   it has some, so the friends bar was empty and co-op had no one to invite. It asks the page
   (`wormixFriends()`, the other players' ids from `account/game`).
 

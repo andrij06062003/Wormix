@@ -252,7 +252,8 @@ func ReadEndBattle161(r *wire.Reader) EndBattle {
 	r.U16() // turns
 	r.U32() // damage to the player
 	r.U32() // damage to the boss
-	for range 2 { // items used, the journal's turns: each with its size in front
+	// The items used and the journal's turns: each with its size in front.
+	for range 2 {
 		n := int(r.U16())
 		for i := 0; i < n; i++ {
 			r.BytesLenient(int(r.U16()))

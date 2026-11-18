@@ -1,6 +1,7 @@
 package app
 
 import (
+	"strconv"
 	"sync"
 	"time"
 
@@ -104,7 +105,13 @@ func (c *Ctx) pvpCoopState() Resp {
 	uid := c.UserID()
 	p := c.findOrFail(defProfile, uid)
 	bi := c.findOrFail(defBattleInfo, uid)
-	return dataResult("UserProfileStructure", c.userProfileStructure(p), "State", int64(c.coopState(bi, php.ToInt(c.JSON("MissionId")))))
+	// Name: what the 1.61.7 client shows in the list (the 1.25.0 one takes names from the social network).
+	name := ""
+	id := php.ToInt(uid)
+	if u, ok := c.chatUsers(map[int64]bool{id: true}).Val(strconv.FormatInt(id, 10)).(*php.Arr); ok {
+		name = php.ToString(u.Val("name"))
+	}
+	return dataResult("UserProfileStructure", c.userProfileStructure(p), "State", int64(c.coopState(bi, php.ToInt(c.JSON("MissionId")))), "Name", name)
 }
 
 // coopStartBattle is pvp/start_battle with a MissionId: takes a battle and records the co-op boss fight.

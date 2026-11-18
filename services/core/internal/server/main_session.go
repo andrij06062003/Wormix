@@ -84,6 +84,10 @@ func newMainSession(c *conn) *mainSession { return &mainSession{conn: c} }
 // V125 reports whether the player uses the 1.25.0 client (pvp needs it to find a battle for it).
 func (s *mainSession) V125() bool { return s.v125.Load() }
 
+// V161 reports whether the player uses the 1.61.7 client (pvp: co-op and friend battles only between the same
+// clients).
+func (s *mainSession) V161() bool { return s.v161.Load() }
+
 // UserID implements pvp.Player.
 func (s *mainSession) UserID() uint32 { return s.userID.Load() }
 
@@ -391,8 +395,15 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 	case proto.CmdDowngradeWeapon:
 		s.weaponRecipe("craft/downgrade_weapon", proto.CmdDowngradeWeaponResult, proto.ReadRecipe(r))
 	case proto.CmdGetFriendsForBoss125:
+		if s.v161.Load() {
+			missions, wager := proto.ReadGetFriendsForMission161(r)
+			friends := pvp.BossFriends(s.UserID(), missions, true)
+			log.Printf("[main %s] %d friends for co-op boss %v (wager %d)", s.short(), len(friends), missions, wager)
+			proto.EmitGetFriendsForMissionResult161(s.out, friends)
+			break
+		}
 		missions := proto.ReadGetFriendsForBoss125(r)
-		friends := pvp.BossFriends(s.UserID(), missions)
+		friends := pvp.BossFriends(s.UserID(), missions, false)
 		log.Printf("[main %s] %d friends for co-op boss %v", s.short(), len(friends), missions)
 		proto.EmitGetFriendsForBossResult125(s.out, friends)
 	default:
@@ -547,6 +558,20 @@ func isBlank(s string) bool {
 type pvpSession struct {
 	*conn
 	battle atomic.Pointer[pvp.Battle]
+	// v161: the connection of a 1.61.7 client (its CreateBattleRequest or JoinToBattle had the 1.61.7 salt):
+	// what is sent to it is signed with that salt.
+	v161 atomic.Bool
+}
+
+// SetV161 marks the connection as a 1.61.7 client's.
+func (s *pvpSession) SetV161() { s.v161.Store(true) }
+
+// SendMessage implements pvp.Conn: a 1.61.7 client gets the message signed with its salt.
+func (s *pvpSession) SendMessage(msg []byte) bool {
+	if s.v161.Load() {
+		msg = proto.Resign161(msg)
+	}
+	return s.conn.SendMessage(msg)
 }
 
 func newPvpSession(c *conn) *pvpSession { return &pvpSession{conn: c} }

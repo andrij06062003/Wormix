@@ -479,6 +479,16 @@ func (c *Ctx) buyItemsInner() Resp {
 			if !php.ToBool(w.Get("infinity")) && php.StrictEq(e.Val("Count"), int64(-1)) {
 				return shopError()
 			}
+			if id := php.ToInt(w.Get("id")); isComplex(id) && php.Gt(e.Val("Count"), int64(0)) {
+				// levels past the top one: nothing to give, so nothing to pay
+				var have int64
+				if old := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ?`, c.UserID(), id); old != nil {
+					have = complexLevel(id, php.ToInt(old.Get("count")))
+				}
+				if have+php.ToInt(e.Val("Count")) > db.ComplexMaxLevel[id] {
+					return shopError()
+				}
+			}
 			if php.StrictEq(e.Val("MoneyType"), int64(0)) {
 				if php.StrictEq(w.Get("real_price"), int64(0)) {
 					return shopError()

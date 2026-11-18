@@ -61,9 +61,20 @@ func TestComplexWeaponLevels(t *testing.T) {
 	if n := count(23); n != -13 {
 		t.Fatalf("sniper rifle level 3: count %d, want -13", n)
 	}
-	buy(23, 5)
+	buy(23, 1)
 	if n := count(23); n != -1 {
-		t.Fatalf("sniper rifle past the top: count %d, want -1", n)
+		t.Fatalf("sniper rifle top level: count %d, want -1", n)
+	}
+	// A level past the top one is refused, and costs nothing.
+	var money, after int64
+	d.QueryRow(`select money from wormix_user_profiles where user_id = 1`).Scan(&money)
+	st, j = call(t, srv, "POST", "/api/internal/account/buy/items", map[string]any{"ShopItems": []any{map[string]any{"Id": 23, "Count": 1, "MoneyType": 1}}}, h)
+	if fmt.Sprint(j["data"].(map[string]any)["Result"]) == "0" {
+		t.Fatalf("a level past the top: %d %v", st, j)
+	}
+	d.QueryRow(`select money from wormix_user_profiles where user_id = 1`).Scan(&after)
+	if after != money || count(23) != -1 {
+		t.Fatalf("a level past the top: money %d -> %d, count %d", money, after, count(23))
 	}
 }
 

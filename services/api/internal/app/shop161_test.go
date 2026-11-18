@@ -94,11 +94,17 @@ func TestBuyShotsAndUpgrade161(t *testing.T) {
 	if count != -1 {
 		t.Fatalf("after the upgrade: count %d, want -1", count)
 	}
-	// Buying a level of a weapon at the top one keeps it so.
-	buy(1)
+	// At its top level there is nothing more to buy: refused, and it costs nothing.
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
+	st, j = call(t, srv, "POST", "/api/internal/account/buy/items", map[string]any{"ShopItems": []any{map[string]any{"Id": 54, "Count": 1, "MoneyType": 0}}}, h)
+	if fmt.Sprint(j["data"].(map[string]any)["Result"]) == "0" {
+		t.Fatalf("a level past the top: %d %v", st, j)
+	}
+	var after int64
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&after)
 	d.QueryRow(`select count from wormix_users_weapons where owner_id = 1 and weapon_id = 54`).Scan(&count)
-	if count != -1 {
-		t.Fatalf("after buying a shot more: count %d, want -1", count)
+	if after != real || count != -1 {
+		t.Fatalf("a level past the top: rubies %d -> %d, count %d", real, after, count)
 	}
 }
 

@@ -130,6 +130,19 @@
                   color: #6e4321; }
         #gtoast img { width: 3.4cqw; height: 3.4cqw; border-radius: .6cqw; object-fit: cover; }
         #gtoast span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        /* The loading screen over the game until its main menu is ready (the 1.61.7 client has no preloader of its
+           own, so Ruffle showed a blank blue stage for several seconds). The picture is the 1.25 preloader's, and the
+           bar sits where its bar was. */
+        #splash { position: absolute; inset: 0; z-index: 7; background: #7cc8f8 url(loading.jpg?v=1) center / 100% 100% no-repeat;
+                  transition: opacity .4s; }
+        #splash.done { opacity: 0; pointer-events: none; }
+        #splashBar { position: absolute; left: 32.6cqw; top: 82cqh; width: 30.9cqw; height: 4.2cqh; box-sizing: border-box;
+                     border: .45cqw solid #61703a; border-radius: 3cqh; background: linear-gradient(#f0f6d2, #d8e9a0); overflow: hidden;
+                     box-shadow: 0 0 0 .35cqw rgba(255, 255, 255, .45); }
+        #splashFill { width: 3%; height: 100%; border-radius: 3cqh; background: linear-gradient(#ffeccb, #feb84a 55%, #f39b1d);
+                      transition: width .3s; }
+        #splashPct { position: absolute; left: 32.6cqw; width: 30.9cqw; top: 87.6cqh; text-align: center; color: #5b4632;
+                     font: bold 3.4cqh/1 "Trebuchet MS", Arial, sans-serif; text-shadow: 0 0 .4cqw #f4f9dc; }
         @media (max-width: 440px) { .stats { grid-template-columns: repeat(2, 1fr); } #profile .two { grid-template-columns: 1fr; } }
     </style>
     <!-- Ruffle: open-source Flash Player emulator (https://ruffle.rs) -->
@@ -151,6 +164,7 @@
 </form>
 
 <div id="game">
+<div id="splash" hidden><div id="splashBar"><div id="splashFill"></div></div><div id="splashPct">0 %</div></div>
 <div id="chat" hidden>
     <div class="gwin" role="dialog" aria-modal="true" aria-labelledby="gTitle">
         <div class="gtitle" id="gTitle">Чат</div>
@@ -427,6 +441,7 @@
             }, 1000);
         }
 
+        const splash = showSplash(v161);
         const player = window.RufflePlayer.newest().createPlayer();
         const box = document.getElementById('game');
         box.appendChild(player);
@@ -438,8 +453,91 @@
         const start = v161
             ? { url: 'vk/1.61.7/Wormix.swf?b=' + CLIENT_BUILD, parameters: flashvars, base: 'vk/1.61.7/' }
             : { url: 'vk/1.25.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.25.0/' };
+        if (v161) prefetch161(splash);
         player.ruffle().load(start)
-            .catch(err => { document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
+            .then(() => { if (!v161) splash.done(); }) // 1.25.0: its preloader draws the same screen
+            .catch(err => { splash.done(); document.getElementById('who').textContent = 'Ruffle failed to load: ' + err; });
+    }
+
+    // The files the 1.61.7 client loads at start, in the order it asks for them. It asks for each one only after
+    // the one before has arrived, and the browser checks every .xml with the server first (the server says
+    // no-cache), so one after another they took seconds. Here they are all asked for at once, and the client's own
+    // requests for them get these answers (once each; anything else goes to the network as before).
+    const START_FILES_161 = ['lang/achievments_ru.xml', 'lang/ban_ru.xml', 'lang/boss.achievments_ru.xml', 'lang/bosses_ru.xml',
+        'lang/bot.names_ru.xml', 'lang/clan_ru.xml', 'lang/craft_ru.xml', 'lang/daily.tasks_ru.xml', 'lang/date_ru.xml',
+        'lang/help_ru.xml', 'lang/items_ru.xml', 'lang/messages_ru.xml', 'lang/news_ru.xml', 'lang/tutorials_ru.xml',
+        'lang/upgrades_ru.xml', 'lang/viral_ru.xml', 'lang/weapons_ru.xml', 'social/vkontakte/lang/messages_ru.xml',
+        'lang/taunts_ru.xml', 'common/chat.xml', 'lang/chat_ru.xml', 'lang/chat_en.xml', 'serializers.xml',
+        'resconfigs/resconfig.xml', 'resconfigs/bosses_config.xml', 'resconfigs/battle_stuff_config.xml',
+        'common/objects/artifacts.swf', 'common/objects/artifacts2.swf', 'common/objects/hats.swf', 'common/objects/hats2.swf',
+        'common/general/news.swf', 'common/general/arena.swf', 'common/objects/topRatingObjects.swf',
+        'common/general/wormix_ui.swf', 'common/general/mainMenu-spring-summer.swf', 'common/chars/boxer.swf',
+        'common/chars/zombie.swf', 'common/chars/rabbit.swf', 'common/chars/demon.swf', 'common/chars/cat.swf',
+        'common/chars/dragon.swf', 'common/chars/robot.swf', 'common/chars/rhino.swf', 'common/chars/boar.swf',
+        'common/chars/alien.swf', 'common/objects/charActions.swf', 'common/objects/rip.swf', 'social/vkontakte/bank.swf',
+        'common/rooms/fullscreenCommonObjects.swf', 'common/rooms/achiev_icons.swf', 'common/objects/clans_ui.swf',
+        'common/objects/clans_icons.swf', 'common/objects/reagent_icons.swf', 'common/objects/shopMenu.swf',
+        'common/objects/boosters.swf', 'common/objects/viral_stuff.swf', 'common/objects/OK_action.swf',
+        'common/objects/weapons.swf', 'common/objects/weapon_upgrades.swf', 'common/objects/battleStuff.swf'];
+
+    function prefetch161(splash) {
+        const early = new Map(START_FILES_161.map(f => {
+            const path = '/vk/1.61.7/data/' + f;
+            return [path, fetch(path).catch(() => null)];
+        }));
+        const fetchNow = window.fetch.bind(window);
+        window.fetch = function (input, init) {
+            const req = input instanceof Request ? input : null;
+            const url = new URL(req ? req.url : String(input), location.href);
+            const method = (init?.method || req?.method || 'GET').toUpperCase();
+            splash.asked(url.pathname);
+            const ready = url.origin === location.origin && !url.search && method === 'GET' && early.get(url.pathname);
+            if (!ready) return fetchNow(input, init);
+            early.delete(url.pathname);
+            return ready.then(r => r && r.ok ? r : fetchNow(input, init));
+        };
+    }
+
+    // The loading screen. The bar follows the client's requests for its start files, and the screen goes when the
+    // client asks for its sounds (it does that as it shows the main menu) or logs "tutorial resource loaded", its
+    // last step. If neither comes (an error the client shows itself), it goes once the client has asked for
+    // nothing for 25 s.
+    function showSplash(v161) {
+        const el = $('splash'), fill = $('splashFill'), pct = $('splashPct');
+        const names = new Set(START_FILES_161.map(f => '/vk/1.61.7/data/' + f));
+        let finished = false, stall = 0, shown = 0, creep = 0;
+        const set = p => { shown = p; fill.style.width = Math.max(3, p) + '%'; pct.textContent = Math.round(p) + ' %'; };
+        const waiting = () => { clearTimeout(stall); stall = setTimeout(done, 25000); };
+        const log = console.log;
+        const done = () => {
+            if (finished) return;
+            finished = true;
+            clearTimeout(stall);
+            clearInterval(creep);
+            set(100);
+            console.log = log;
+            setTimeout(() => el.classList.add('done'), 100);
+            setTimeout(() => { el.hidden = true; }, 600);
+        };
+        const asked = path => {
+            if (finished || !path.startsWith('/vk/')) return; // not the page's own requests (chat, account)
+            waiting();
+            if (path.startsWith('/vk/storage/sound/')) done();
+            else if (path.startsWith('/vk/1.61.7/Wormix.swf')) set(8);
+            else if (names.delete(path)) {
+                set(8 + 82 * (1 - names.size / START_FILES_161.length));
+                // The files are all there; the client takes a few more seconds to log in and build the main menu.
+                if (!names.size) creep = setInterval(() => set(shown + (99 - shown) * .12), 300);
+            }
+        };
+        console.log = function (...args) {
+            log.apply(this, args);
+            if (String(args[0]).includes('tutorial resource loaded')) setTimeout(done, 0);
+        };
+        el.hidden = false;
+        set(0);
+        waiting();
+        return { done, asked };
     }
 
     // --- Profile -------------------------------------------------------------------------------

@@ -123,6 +123,11 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   stayed on the map and the cursor stayed hidden when the turn ended while aiming.
 - `ScreenController.fullscreen.pcode` (`ru.pragmatix.wormix.controller.§+$w§`, `§5$q§`, body 2227, since build
   2026-11-18.1): the full screen button calls `wormixFullscreen()` of the page, as in `standalone-125/`.
+- `AppFriends.pcode` (`ru.pragmatix.flox.social.controller.§]"Y§`, the "none" social network, `getAppFriends`,
+  body 7122, in `Wormix.next.swf` since build 2026-11-18.2, tried with `play.html?next` before it
+  becomes `Wormix.swf`): it gave no friends, and the client keeps EnterAccount's friends only when
+  it has some, so the friends bar was empty and co-op had no one to invite. It asks the page
+  (`wormixFriends()`, the other players' ids from `account/game`).
 
     cp Wormix.orig.swf a.swf
     java -jar ffdec-cli.jar -replace a.swf b.swf '§8#o§.§1@§' client-patches/standalone-161/WeaponUpgrades.pcode 5944
@@ -133,7 +138,9 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
     java -jar ffdec-cli.jar -replace f.swf g.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.hide.pcode 21240
     java -jar ffdec-cli.jar -replace g.swf h.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.enterFrame.pcode 21245
     java -jar ffdec-cli.jar -replace h.swf i.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.deactivate.pcode 21246
-    java -jar ffdec-cli.jar -replace i.swf Wormix.swf 'ru.pragmatix.wormix.controller.§+$w§' \
+    java -jar ffdec-cli.jar -replace i.swf j.swf 'ru.pragmatix.wormix.controller.§+$w§' \
         client-patches/standalone-161/ScreenController.fullscreen.pcode 2227
+    java -jar ffdec-cli.jar -replace j.swf Wormix.swf 'ru.pragmatix.flox.social.controller.§]"Y§' \
+        client-patches/standalone-161/AppFriends.pcode 7122
 
 `Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).

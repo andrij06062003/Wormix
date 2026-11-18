@@ -35,7 +35,7 @@ func TestUpgradeEveryRecipe161(t *testing.T) {
 	}
 	for _, r := range all {
 		// The upgrades before it, down to the base weapon.
-		var before []int64
+		before := []int64{} // "[]", not "null": the column is never null
 		base := r.prev
 		for base > 300 {
 			p, ok := byUpgrade[base]

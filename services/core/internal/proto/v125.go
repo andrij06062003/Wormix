@@ -389,6 +389,7 @@ func ReadGetFriendsForBoss125(r *wire.Reader) []int16 {
 type BossFriend125 struct {
 	Profile UserProfile
 	State   int16
+	Name    string // shown by the 1.61.7 client
 }
 
 // writeUnit125 is the 1.25.0 UnitStructure of a player: its own worm and its account.

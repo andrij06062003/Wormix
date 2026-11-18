@@ -13,10 +13,10 @@ import (
 
 // coopState is pvp/coop_state: the player's profile and whether it may fight the co-op boss now
 // (GetFriendsForBossResult state).
-func coopState(token string, mission int16) (p proto.UserProfile, state int16, err error) {
+func coopState(token string, mission int16) (p proto.UserProfile, state int16, name string, err error) {
 	obj, err := api.PostPvP("pvp/coop_state", token, jsonx.NewObject().Int("MissionId", int64(mission)).Bytes())
 	if err != nil {
-		return p, 0, err
+		return p, 0, "", err
 	}
 	err = catchErr(func() {
 		data := obj.Get("data")
@@ -31,13 +31,17 @@ func coopState(token string, mission int16) (p proto.UserProfile, state int16, e
 		if s := data.Obj.Get("State"); s != nil {
 			state = int16(s.Int32())
 		}
+		if n := data.Obj.Get("Name"); n != nil && n.Kind == jsonx.String {
+			name = n.S
+		}
 	})
-	return p, state, err
+	return p, state, name, err
 }
 
 // BossFriends lists the friends the player can call to the co-op boss (its first mission id) with whether
-// each can come: the other 1.25.0 players online who aren't in a battle or setting one up.
-func BossFriends(me uint32, missions []int16) []proto.BossFriend125 {
+// each can come: the other players online with the same client (1.25.0 or 1.61.7: they can't fight each
+// other) who aren't in a battle or setting one up.
+func BossFriends(me uint32, missions []int16, v161 bool) []proto.BossFriend125 {
 	out := []proto.BossFriend125{}
 	if len(missions) == 0 {
 		return out
@@ -45,7 +49,7 @@ func BossFriends(me uint32, missions []int16) []proto.BossFriend125 {
 	onlineMu.RLock()
 	var cands []Player
 	for id, p := range online {
-		if id != me && is125(p) {
+		if id != me && is125(p) && is161(p) == v161 {
 			cands = append(cands, p)
 		}
 	}
@@ -57,12 +61,12 @@ func BossFriends(me uint32, missions []int16) []proto.BossFriend125 {
 		if busy {
 			continue
 		}
-		prof, state, err := coopState(p.Token(), missions[0])
+		prof, state, name, err := coopState(p.Token(), missions[0])
 		if err != nil {
 			logf("[PvP] can't check %d for co-op boss %d: %v", p.UserID(), missions[0], err)
 			continue
 		}
-		out = append(out, proto.BossFriend125{Profile: prof, State: state})
+		out = append(out, proto.BossFriend125{Profile: prof, State: state, Name: name})
 	}
 	return out
 }

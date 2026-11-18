@@ -24,6 +24,9 @@ func TestCoopBoss125(t *testing.T) {
 		if st != 200 {
 			t.Fatalf("coop_state: %d %v", st, j)
 		}
+		if n, _ := j["data"].(map[string]any)["Name"].(string); n == "" {
+			t.Errorf("coop_state: no Name (the 1.61.7 friends list shows it): %v", j)
+		}
 		return fmt.Sprint(j["data"].(map[string]any)["State"])
 	}
 	if s := state(101); s != "2" {

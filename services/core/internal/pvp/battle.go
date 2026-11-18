@@ -136,6 +136,10 @@ type Battle struct {
 	// v125: a battle of 1.25.0 clients (ex125.go). Players are told apart by their number (their place in
 	// players, which is also the turn order) instead of their id, and messages are signed with its salt.
 	v125 bool
+	// v161: of 1.61.7 clients (v125 is set too): the same messages, signed with its salt by each player's
+	// connection, except PvpEndBattle, which tells each player its own result (endBattle161).
+	v161         bool
+	endBattle161 map[uint32][]byte
 
 	// pve: a co-op boss battle of 1.25.0 clients (pve125.go). The players fight together against the
 	// client's AI; the client decides whose turn it is, so the server takes the turn's mover from its moves
@@ -449,9 +453,12 @@ func (b *Battle) OnMessage(c Conn, cmd uint32, body []byte) {
 		}
 		msg := message(CmdChat, false, func(w *wire.Writer) { w.Bytes(body) })
 		if b.v125 {
-			// playerNum u8, message utf, battleId u32, isTeamMsg bool, MD5
+			// playerNum u8, (1.61.7: action i16,) message utf, battleId u32, isTeamMsg bool, MD5
 			r := wire.NewReader(body)
 			r.U8()
+			if b.v161 {
+				r.U16()
+			}
 			r.UTFStrict()
 			r.U32()
 			if r.Bool() {
@@ -863,7 +870,12 @@ func (b *Battle) finish(results []result, desync bool) {
 	}
 	b.logf("over: %s%s", strings.Join(parts, ", "), suffix)
 
-	if b.v125 {
+	if b.v161 {
+		b.endBattle161 = map[uint32][]byte{}
+		for _, p := range b.players {
+			b.endBattle161[p.userID] = b.endBattleFor161(p, desync)
+		}
+	} else if b.v125 {
 		b.endBattle = b.endBattle125(desync)
 	} else {
 		b.endBattle = b.endBattle105(desync)
@@ -938,6 +950,29 @@ func (b *Battle) endBattle125(desync bool) []byte {
 	})
 }
 
+// endBattleFor161 is the 1.61.7 PvpEndBattle of player p: its result (0 won, 1 lost, 2 draw), its rating and
+// rank points (none), its awards (none: the API pays them), a note and whether the result is confirmed.
+func (b *Battle) endBattleFor161(p *player, desync bool) []byte {
+	return message125(CmdEndBattle, true, func(w *wire.Writer) {
+		w.U32(b.ID)
+		w.U16(uint16(b.turn))
+		w.U16(b.lastCommandNum)
+		switch b.results[p.userID] {
+		case 1:
+			w.I16(0)
+		case 0:
+			w.I16(2)
+		default:
+			w.I16(1)
+		}
+		w.I32(0)  // ratingPoints
+		w.I32(0)  // rankPoints
+		w.U16(0)  // award
+		w.UTF("") // note
+		w.Bool(!desync)
+	})
+}
+
 // settle pays out the result (wager, rating) in the API, off the battle's lock.
 func (b *Battle) settle() {
 	type payout struct {
@@ -962,6 +997,10 @@ func (b *Battle) settle() {
 }
 
 func (b *Battle) sendEndBattle(p *player) {
+	if m := b.endBattle161[p.userID]; m != nil {
+		send(p, m)
+		return
+	}
 	if b.endBattle != nil {
 		send(p, b.endBattle)
 	}

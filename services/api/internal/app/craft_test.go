@@ -177,6 +177,43 @@ func TestChooseBonus125(t *testing.T) {
 	}
 }
 
+// The 1.61.7 client's award tiers: its new items can be chosen (from their tier on), and one that takes another's
+// place (hat 1144, hat 1034's) takes it.
+func TestChooseBonus161(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	choose := func(item int) string {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/achievements/choose_bonus", map[string]any{"session_id": alice.AchSession, "item_id": item}, map[string]string{"X-TCP-SESSION": "achievements"})
+		if st != 200 {
+			t.Fatalf("choose_bonus %d: %d %v", item, st, j)
+		}
+		return fmt.Sprint(j["result"])
+	}
+	cfg := achievementsConfig()
+	for _, id := range cfg.achievements.Keys() {
+		levels := cfg.levels(id)
+		top := levels[len(levels)-1].(*php.Arr).Val("max")
+		d.Exec(`insert into wormix_users_achievements (user_id, achievement_id, value) values (1, ?, ?)
+			on conflict (user_id, achievement_id) do update set value = excluded.value`, id, top)
+	}
+	d.Exec(`delete from wormix_users_weapons where owner_id = 1 and weapon_id in (115, 129, 1034, 1144)`)
+	d.Exec(`update wormix_user_profiles set invested_award_points = 2 where user_id = 1`)
+	if r := choose(1144); r != "2" {
+		t.Fatalf("fifth tier 1144 at 2 points: result %s, want 2", r)
+	}
+	for _, item := range []int{129, 1034, 1144} {
+		if r := choose(item); r != "0" {
+			t.Fatalf("choose %d: result %s, want 0", item, r)
+		}
+	}
+	var kept int
+	d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 1 and weapon_id = 1034`).Scan(&kept)
+	if kept != 0 {
+		t.Fatal("hat 1034 kept after 1144 took its place")
+	}
+}
+
 // The 1.25.0 wardrobe puts a hat on and takes it off (StuffId 0); the race stays.
 func TestSelectHat125(t *testing.T) {
 	srv, d, v := newServer(t)

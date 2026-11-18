@@ -1,5 +1,5 @@
 {
-  "_comment": "Achievement levels and award items, copied from the 1.05.0 client (config/AchievConfig.as, gui/house/achiev/AchievAwardConfig.as). Counters stats_first..stats_last are the statistics page (gui/house/achiev/Stats.as): stored, no rewards. The award items add the 1.25.0 client's (config/achievements: 78 in the third tier, 2022 and the atomic bomb 77 in the fourth). Keep in sync with the client. Achievements 29-49 are the 1.61.7 client's (config/achievements).",
+  "_comment": "Achievement levels and award items, copied from the 1.05.0 client (config/AchievConfig.as, gui/house/achiev/AchievAwardConfig.as). Counters stats_first..stats_last are the statistics page (gui/house/achiev/Stats.as): stored, no rewards. The award items add the 1.25.0 client's (config/achievements: 78 in the third tier, 2022 and the atomic bomb 77 in the fourth). And the 1.61.7 client's (config/achievements, five tiers): an item in both is in the lower of its tiers; award_replaces are the items one takes the place of (hat 1144 takes hat 1034's place, the atomic bomb 77 weapon 115's, artifact 2037 artifact 2022's). Keep in sync with the client. Achievements 29-49 are the 1.61.7 client's (config/achievements).",
   "points_per_award": 1000,
   "max_value": 65535,
   "stats_first": 100,
@@ -1133,23 +1133,11 @@
     }
   },
   "award_items": [
-    [
-      62,
-      63
-    ],
-    [
-      64,
-      68
-    ],
-    [
-      67,
-      1027,
-      78
-    ],
-    [
-      2022,
-      1034,
-      77
-    ]
-  ]
+    [62, 63, 68, 1027],
+    [64, 78],
+    [67, 115, 129],
+    [2022, 1034, 77, 70],
+    [1144, 118, 2037]
+  ],
+  "award_replaces": {"1144": 1034, "77": 115, "2037": 2022}
 }

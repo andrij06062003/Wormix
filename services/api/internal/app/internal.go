@@ -509,6 +509,21 @@ func (c *Ctx) buyItemsInner() Resp {
 	weapons := php.NewArr()
 	for _, it := range items.Values() {
 		old := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ?`, c.UserID(), idx(it, "Id"))
+		if id := php.ToInt(idx(it, "Id")); isComplex(id) && php.Gt(idx(it, "Count"), int64(0)) {
+			// levels of a complex weapon (complex.go): it stays the player's for good, one level higher each
+			var kept any
+			if old == nil {
+				old = New(defUserWeapon)
+				old.Set("owner_id", c.UserID())
+				old.Set("weapon_id", idx(it, "Id"))
+			} else {
+				kept = old.Get("count")
+			}
+			old.Set("count", addComplexLevels(id, kept, php.ToInt(idx(it, "Count"))))
+			c.Save(old)
+			weapons.Append(php.Assoc("Id", old.Get("weapon_id"), "Count", idx(it, "Count")))
+			continue
+		}
 		if php.LooseEq(idx(it, "Count"), int64(-1)) || old == nil {
 			uw := New(defUserWeapon)
 			uw.Set("owner_id", c.UserID())
@@ -765,9 +780,9 @@ func (c *Ctx) upgradeWeapon() Resp {
 	}
 	errResp := func(code int64) Resp { return dataResult("Result", code, "RecipeId", php.IntArg(rid)) }
 	prev := craft.Get("prev_upgrade_id")
-	// The base weapon must be owned for good, or (1.61.7) be an infinite weapon bought by its shots, which
-	// the upgrade makes the player's for good (as the client does).
-	base := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ? and ("count" = ? or ("count" > 0 and exists(select * from "wormix_weapons" where "id" = ? and "infinity" = 1))) order by "count" asc limit 1`, c.UserID(), prev, int64(-1), prev)
+	// The base weapon must be owned for good (at any level of a complex one: complex.go), or (1.61.7) be an
+	// infinite weapon bought by its shots, which the upgrade makes the player's for good (as the client does).
+	base := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ? and ("count" < 0 or ("count" > 0 and exists(select * from "wormix_weapons" where "id" = ? and "infinity" = 1))) order by "count" asc limit 1`, c.UserID(), prev, prev)
 	if (php.Lt(prev, int64(300)) && base == nil) ||
 		(php.Gt(prev, int64(300)) && !php.InArray(optID(prevUpgrade()), recipes(), false)) ||
 		php.InArray(craft.Get("id"), recipes(), false) ||

@@ -437,3 +437,12 @@ func TestGetFriendsForBossResult125(t *testing.T) {
 		t.Fatalf("states: % x", got)
 	}
 }
+
+// The 1.25.0 client has no weapon levels: a 1.61.7 complex weapon's level (-10-L) is the weapon owned for good.
+func TestCount125(t *testing.T) {
+	for in, want := range map[int32]int32{-13: -1, -11: -1, -1: -1, 0: 0, 5: 5} {
+		if got := count125(in); got != want {
+			t.Errorf("count125(%d) = %d, want %d", in, got, want)
+		}
+	}
+}

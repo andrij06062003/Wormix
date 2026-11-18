@@ -203,6 +203,7 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 		}
 	}
 	d.Exec(`delete from migrations where migration = '2026_11_18_140000_shop_161'`)
+	d.Exec(`delete from migrations where migration = '2026_11_18_160000_complex_weapons_161'`)
 	// The owner's grant changes no game data (and there is no such account here).
 	d.Exec(`delete from migrations where migration = '2026_11_10_130000_grant_owner_crafted_hats'`)
 	// And the weapon upgrades of the 1.25.0 client (54 new recipes, and its costs for the old ones) and of

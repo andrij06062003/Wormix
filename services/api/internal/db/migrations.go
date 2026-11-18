@@ -141,6 +141,8 @@ var Migrations = []Migration{
 	{Name: "2026_11_18_130000_grant_owner_161", Fn: migrateGrantOwner161},
 	// The 1.61.7 client's shop: the weapons, hats and artifacts the table lacked, and its prices and levels.
 	{Name: "2026_11_18_140000_shop_161", Fn: migrateShop161},
+	// The levels of the 1.61.7 client's complex weapons, kept as shots and used up by battles (complex.go).
+	{Name: "2026_11_18_160000_complex_weapons_161", Fn: MigrateComplexWeapons},
 }
 
 func tableExists(ctx context.Context, q interface {

@@ -52,6 +52,9 @@ type EnterAccount struct {
 	AvailableSearchKeys   byte
 	Reagents              []uint32
 	IsSecure              bool
+	// The arsenal (backpack.go): 1.25.0 and 1.61.7 only.
+	Backpack Backpack
+	Hotkeys  []int16
 }
 
 // DecodeEnterAccount reads EnterAccount from API JSON.
@@ -64,7 +67,8 @@ func DecodeEnterAccount(v *jsonx.Value) EnterAccount {
 		Reagents:              emptyIfCtor[uint32](),
 	}
 	v.Struct("EnterAccount").Members([]string{"UserProfileStructure", "UserProfileStructures", "DailyBonusStructure",
-		"OnlineFriends", "Friends", "SessionKey", "IsBonusDay", "BonusDaysStructure", "AvailableSearchKeys", "Reagents", "IsSecure"},
+		"OnlineFriends", "Friends", "SessionKey", "IsBonusDay", "BonusDaysStructure", "AvailableSearchKeys", "Reagents", "IsSecure",
+		"BackpackConfs", "ActiveBackpackConf", "Hotkeys"},
 		func(f int, x *jsonx.Value) {
 			switch f {
 			case 0:
@@ -89,6 +93,14 @@ func DecodeEnterAccount(v *jsonx.Value) EnterAccount {
 				e.Reagents = decodeU32s(x)
 			case 10:
 				e.IsSecure = x.Bool()
+			case 11:
+				e.Backpack.Configs = decodeShortLists(x)
+			case 12:
+				if x.Kind == jsonx.Integer && x.I >= 0 && x.I <= 255 {
+					e.Backpack.Active = byte(x.I)
+				}
+			case 13:
+				e.Hotkeys = decodeShortList(x)
 			}
 		})
 	return e

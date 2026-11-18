@@ -150,9 +150,8 @@ func (e *EnterAccount) Emit161(out Out, serverTime int32) {
 	w.I16(0) // curCooperativeMissionId
 	w.U16(0) // clan invites
 	w.I32(serverTime)
-	w.U16(0)            // backpackConfs
-	w.U8(0)             // activeBackpackConf
-	w.U16(0)            // hotkeys
+	writeBackpacks161(&w, e.Backpack) // backpackConfs, activeBackpackConf
+	writeShorts(&w, e.Hotkeys)
 	w.U8(0)             // loginSequence
 	w.I16(e.races161()) // races: a bit per race the player has (the client adds the worm's race itself)
 	w.I32(0)            // selectRaceTimeLeft

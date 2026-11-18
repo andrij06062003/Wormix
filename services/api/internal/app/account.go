@@ -311,7 +311,13 @@ func (c *Ctx) startGame() Resp {
 	if s == nil {
 		php.Fail("Can't find user")
 	}
-	return jsonResp(200, php.Assoc("auth_key", s.setAuthKey()))
+	// friends: the other players, the 1.61.7 client's friends (its "none" social network has none: the page
+	// gives it these, client-patches/standalone-161/AppFriends.pcode); EnterAccount has their profiles
+	friends := php.NewArr()
+	for _, id := range c.Values(`select "user_id" from "wormix_user_profiles" where "user_id" != ? order by "user_id"`, c.user.Get("id")) {
+		friends.Append(php.ToString(id))
+	}
+	return jsonResp(200, php.Assoc("auth_key", s.setAuthKey(), "friends", friends))
 }
 
 // ---- FileController ----

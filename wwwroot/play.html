@@ -267,7 +267,7 @@
     const API = location.origin + '/api/';
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
     // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
-    const CLIENT_BUILD = '2026-11-18.1';
+    const CLIENT_BUILD = '2026-11-18.2';
 
     // Remembered login, per browser (convenience only).
     const store = {
@@ -331,13 +331,17 @@
     });
 
     // --- Game --------------------------------------------------------------------------------
+    // The other players: the 1.61.7 client's friends (wormixFriends below).
+    let gameFriends = [];
     async function startGame() {
         const s = store.get();
         if (!s) { form.hidden = false; return; }
 
         let authKey;
         try {
-            authKey = (await api('account/game', { token: s.token })).auth_key;
+            const g = await api('account/game', { token: s.token });
+            authKey = g.auth_key;
+            gameFriends = (g.friends || []).map(String);
         } catch (err) {
             store.clear();
             form.hidden = false;
@@ -357,6 +361,8 @@
         // The 1.61.7 client is the default; play.html?125 runs the 1.25.0 one (it still has PvP and co-op,
         // which aren't ported to 1.61.7 yet).
         const v161 = !new URLSearchParams(location.search).has('125');
+        // play.html?next runs Wormix.next.swf: a client patch to try out before it becomes Wormix.swf.
+        const swf161 = new URLSearchParams(location.search).has('next') ? 'Wormix.next.swf' : 'Wormix.swf';
         const flashvars = v161 ? {
             // Its "none" social network: no VK, the game takes the player's id and auth key from here.
             user_id: id, _masterKey: authKey, _social_type: 'none', _lang: 'ru', _app_mode: 'web'
@@ -386,7 +392,7 @@
                 // Its "none" social network has no files of its own: it uses the VK ones (bank.swf and others).
                 // Only the first matching rule applies, so this one comes first (tesla.rmart.ru addresses too).
                 [new RegExp('^https?://[^/]+/(?:engine|vk)/1\\.61\\.7/data/social/none/(.*)$'), location.origin + '/vk/1.61.7/data/social/vkontakte/$1'],
-                [new RegExp('^https?://[^/]+/vk/1\\.61\\.7/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/1.61.7/Wormix.swf?b=' + CLIENT_BUILD],
+                [new RegExp('^https?://[^/]+/vk/1\\.61\\.7/Wormix\\.swf(\\?.*)?$'), location.origin + '/vk/1.61.7/' + swf161 + '?b=' + CLIENT_BUILD],
                 [new RegExp('^https?://[^/]+/vk/storage/levels/([^/?]+)/map[0-9]*\\.swf(\\?.*)?$'), location.origin + '/vk/storage/levels/$1/map.swf'],
                 // The original game's addresses built into the client: its files and its achievements server.
                 [new RegExp('^https?://tesla\\.rmart\\.ru/engine/1\\.61\\.7/(.*)$'), location.origin + '/vk/1.61.7/$1'],
@@ -451,7 +457,7 @@
         player.webkitRequestFullscreen = options => box.webkitRequestFullscreen && box.webkitRequestFullscreen(options);
         // 1.61.7 starts without its preloader (built for VK and the original servers).
         const start = v161
-            ? { url: 'vk/1.61.7/Wormix.swf?b=' + CLIENT_BUILD, parameters: flashvars, base: 'vk/1.61.7/' }
+            ? { url: 'vk/1.61.7/' + swf161 + '?b=' + CLIENT_BUILD, parameters: flashvars, base: 'vk/1.61.7/' }
             : { url: 'vk/1.25.0/preloader.swf?v=1', parameters: flashvars, base: 'vk/1.25.0/' };
         if (v161) prefetch161(splash);
         player.ruffle().load(start)
@@ -523,7 +529,7 @@
             if (finished || !path.startsWith('/vk/')) return; // not the page's own requests (chat, account)
             waiting();
             if (path.startsWith('/vk/storage/sound/')) done();
-            else if (path.startsWith('/vk/1.61.7/Wormix.swf')) set(8);
+            else if (path.startsWith('/vk/1.61.7/Wormix.')) set(8);
             else if (names.delete(path)) {
                 set(8 + 82 * (1 - names.size / START_FILES_161.length));
                 // The files are all there; the client takes a few more seconds to log in and build the main menu.
@@ -1008,6 +1014,9 @@
     window.wormixChat = () => { setTimeout(() => openChat(), 0); };
     window.wormixProfile = id => { setTimeout(() => openProfile(id), 0); };
     window.wormixInvite = () => { invite(); };
+    // The 1.61.7 client's friends (client-patches/standalone-161/AppFriends.pcode): its "none" social network
+    // had none, so it left out the friends EnterAccount sends (the friends bar, co-op invitations).
+    window.wormixFriends = () => gameFriends;
     // The game's full screen button (it called Ruffle's full screen, which Ruffle refused, and whose layout
     // doesn't fit the page): the game's box goes full screen, as Ruffle's own menu item does.
     window.wormixFullscreen = () => {

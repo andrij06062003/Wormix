@@ -33,6 +33,10 @@ func withPlayers161(t *testing.T, ids ...uint32) map[uint32]*player161 {
 		exMu.Lock()
 		exRooms, exQueue = map[uint32]*exRoom{}, nil
 		exMu.Unlock()
+		// A battle a test launched must not make its players busy in the next test.
+		battlesMu.Lock()
+		battles = map[uint32]*Battle{}
+		battlesMu.Unlock()
 	})
 	return ps
 }

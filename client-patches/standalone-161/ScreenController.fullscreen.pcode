@@ -1,0 +1,133 @@
+method
+name null
+flag NEED_ACTIVATION
+returns QName(PackageNamespace("","56061"),"void")
+
+body
+maxstack 5
+localcount 3
+initscopedepth 6
+maxscopedepth 11
+trait slot QName(PackageInternalNs("ru.pragmatix.wormix.controller"),"MIN_REQUIRED_VERSION")
+slotid 1
+type QName(PackageNamespace("","56061"),"Number")
+end ; trait
+trait slot QName(PackageInternalNs("ru.pragmatix.wormix.controller"),"curVersion")
+slotid 2
+type QName(PackageNamespace("","56061"),"String")
+end ; trait
+trait slot QName(PackageInternalNs("ru.pragmatix.wormix.controller"),"version")
+slotid 3
+type QName(PackageNamespace("","56061"),"Number")
+end ; trait
+
+code
+getlocal0
+pushscope
+newactivation
+dup
+setlocal1
+pushscope
+getlex QName(PackageNamespace("flash.external"),"ExternalInterface")
+getproperty QName(PackageNamespace("","56061"),"available")
+iffalse ofsXF01
+getlex QName(PackageNamespace("flash.external"),"ExternalInterface")
+pushstring "wormixFullscreen"
+callpropvoid QName(PackageNamespace("","56061"),"call"), 1
+returnvoid
+ofsXF01:
+getscopeobject 1
+pushdouble 11.3
+convert_d
+setslot 1
+getscopeobject 1
+getlex QName(PackageNamespace("flash.system"),"Capabilities")
+getproperty QName(PackageNamespace("","56061"),"version")
+pushstring " "
+callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"split"), 1
+pushbyte 1
+getproperty MultinameL([PrivateNamespace("*","126"),PackageNamespace("","56061"),PackageNamespace("ru.pragmatix.wormix.controller"),Namespace("http://adobe.com/AS3/2006/builtin"),PrivateNamespace("*","1586"),PackageInternalNs("ru.pragmatix.wormix.controller"),ProtectedNamespace("ru.pragmatix.wormix.controller:+$w"),StaticProtectedNs("ru.pragmatix.wormix.controller:+$w"),StaticProtectedNs("+%O:4%")])
+coerce_s
+setslot 2
+getscopeobject 1
+findpropstrict QName(PackageNamespace("","56061"),"Number")
+getscopeobject 1
+getslot 2
+pushstring ","
+callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"split"), 1
+pushbyte 0
+getproperty MultinameL([PrivateNamespace("*","126"),PackageNamespace("","56061"),PackageNamespace("ru.pragmatix.wormix.controller"),Namespace("http://adobe.com/AS3/2006/builtin"),PrivateNamespace("*","1586"),PackageInternalNs("ru.pragmatix.wormix.controller"),ProtectedNamespace("ru.pragmatix.wormix.controller:+$w"),StaticProtectedNs("ru.pragmatix.wormix.controller:+$w"),StaticProtectedNs("+%O:4%")])
+pushstring "."
+add
+getscopeobject 1
+getslot 2
+pushstring ","
+callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"split"), 1
+pushbyte 1
+getproperty MultinameL([PrivateNamespace("*","126"),PackageNamespace("","56061"),PackageNamespace("ru.pragmatix.wormix.controller"),Namespace("http://adobe.com/AS3/2006/builtin"),PrivateNamespace("*","1586"),PackageInternalNs("ru.pragmatix.wormix.controller"),ProtectedNamespace("ru.pragmatix.wormix.controller:+$w"),StaticProtectedNs("ru.pragmatix.wormix.controller:+$w"),StaticProtectedNs("+%O:4%")])
+add
+callproperty QName(PackageNamespace("","56061"),"Number"), 1
+convert_d
+setslot 3
+getscopeobject 1
+getslot 3
+getscopeobject 1
+getslot 1
+ifnlt ofs0086
+getlex QName(PackageNamespace("ru.pragmatix.flox.gui.controls"),",#W")
+getlex QName(PackageNamespace("ru.pragmatix.wormix.gui"),"0$N")
+getproperty QName(PackageNamespace("","56061"),"BUTTON_CANCEL")
+getlex QName(PackageNamespace("ru.pragmatix.wormix.gui"),"0$N")
+getproperty QName(PackageNamespace("","56061"),"UPDATE_YOUR_PLAYER")
+getlex QName(PackageNamespace("ru.pragmatix.flox.gui.controls"),",#W")
+getproperty QName(PackageNamespace("","56061"),"6!m")
+callproperty QName(PackageNamespace("","56061"),"\'!+"), 3
+callpropvoid QName(PackageNamespace("","56061"),"show"), 0
+returnvoid
+ofs0086:
+getlex QName(PackageNamespace("","56061"),"stage")
+getproperty QName(PackageNamespace("","56061"),"displayState")
+getlex QName(PackageNamespace("flash.display"),"StageDisplayState")
+getproperty QName(PackageNamespace("","56061"),"NORMAL")
+ifne ofs00ac
+getlex QName(PackageNamespace("","56061"),"stage")
+getlex QName(PackageNamespace("flash.display"),"StageDisplayState")
+getproperty QName(PackageNamespace("","56061"),"FULL_SCREEN_INTERACTIVE")
+setproperty QName(PackageNamespace("","56061"),"displayState")
+jump ofs00bb
+ofs00ac:
+getlex QName(PackageNamespace("","56061"),"stage")
+getlex QName(PackageNamespace("flash.display"),"StageDisplayState")
+getproperty QName(PackageNamespace("","56061"),"NORMAL")
+setproperty QName(PackageNamespace("","56061"),"displayState")
+ofs00bb:
+jump ofs00f2
+ofs00bf:
+getlocal0
+pushscope
+getlocal1
+pushscope
+newcatch 0
+dup
+setlocal2
+dup
+pushscope
+swap
+setslot 1
+getlex QName(PackageNamespace("ru.pragmatix.flox.gui.controls"),",#W")
+getlex QName(PackageNamespace("ru.pragmatix.wormix.gui"),"0$N")
+getproperty QName(PackageNamespace("","56061"),"BUTTON_CANCEL")
+getlex QName(PackageNamespace("ru.pragmatix.wormix.gui"),"0$N")
+getproperty QName(PackageNamespace("","56061"),"UPDATE_YOUR_PLAYER")
+getlex QName(PackageNamespace("ru.pragmatix.flox.gui.controls"),",#W")
+getproperty QName(PackageNamespace("","56061"),"6!m")
+callproperty QName(PackageNamespace("","56061"),"\'!+"), 3
+callpropvoid QName(PackageNamespace("","56061"),"show"), 0
+popscope
+kill 2
+ofs00f2:
+returnvoid
+end ; code
+try from ofs0086 to ofs00bb target ofs00bf type QName(PackageNamespace("","56061"),"SecurityError") name QName(PackageNamespace("","56061"),"e") end
+end ; body
+end ; method

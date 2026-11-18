@@ -115,12 +115,25 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
 - `Application.log.pcode` (`Application`, `§1%&§`, body 12, since build 2026-11-17.3): the client's own log
   (`Application.loginfo`/error, including the main menu's caught errors) was an empty function; it goes to the
   browser console as `WLOG <level>: <text>` (`ExternalInterface.call("console.log", ...)`).
+- `Crosshair.*.pcode` (`§9%W§.§8#p§`, the aiming arrow, since build 2026-11-18.1), the fix of `crosshair-125/`
+  for 1.61.7: `hide.pcode` (`§9!f§`, body 21240) takes the arrow off its parent, if it has one, instead of the
+  scene; `enterFrame.pcode` (`§>W§`, body 21245) unhooks itself and hides the arrow when the crosshair is no longer
+  active; `deactivate.pcode` (body 21246) removes the listeners and the arrow, and shows the mouse, even when the
+  turn is already over (only the control set's `deactivate()` still waits for the player's turn). Before, the arrow
+  stayed on the map and the cursor stayed hidden when the turn ended while aiming.
+- `ScreenController.fullscreen.pcode` (`ru.pragmatix.wormix.controller.§+$w§`, `§5$q§`, body 2227, since build
+  2026-11-18.1): the full screen button calls `wormixFullscreen()` of the page, as in `standalone-125/`.
 
     cp Wormix.orig.swf a.swf
     java -jar ffdec-cli.jar -replace a.swf b.swf '§8#o§.§1@§' client-patches/standalone-161/WeaponUpgrades.pcode 5944
     java -jar ffdec-cli.jar -replace b.swf c.swf Application client-patches/standalone-161/Application.onAddedToStage.pcode 16
     java -jar ffdec-cli.jar -replace c.swf d.swf '§&%X§.§5F§' client-patches/standalone-161/LoginParams.pcode 7326
     java -jar ffdec-cli.jar -replace d.swf e.swf '§8#o§.§1@§' client-patches/standalone-161/BuildUpgrades.pcode 5943
-    java -jar ffdec-cli.jar -replace e.swf Wormix.swf Application client-patches/standalone-161/Application.log.pcode 12
+    java -jar ffdec-cli.jar -replace e.swf f.swf Application client-patches/standalone-161/Application.log.pcode 12
+    java -jar ffdec-cli.jar -replace f.swf g.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.hide.pcode 21240
+    java -jar ffdec-cli.jar -replace g.swf h.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.enterFrame.pcode 21245
+    java -jar ffdec-cli.jar -replace h.swf i.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.deactivate.pcode 21246
+    java -jar ffdec-cli.jar -replace i.swf Wormix.swf 'ru.pragmatix.wormix.controller.§+$w§' \
+        client-patches/standalone-161/ScreenController.fullscreen.pcode 2227
 
 `Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).

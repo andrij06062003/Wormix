@@ -16,6 +16,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/andrij06062003/Wormix/services/api/internal/assets"
 	"github.com/andrij06062003/Wormix/services/api/internal/db"
 )
 
@@ -133,7 +134,7 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	d.Exec(`delete from migrations where migration = '2026_11_08_180000_grant_owner_account'`)
 	// So did the hats of the 1.25.0 client (1062+).
 	var hats125 int
-	d.QueryRow(`select count(*) from wormix_weapons where id > 1061 and id < 1500 and infinity = 1`).Scan(&hats125)
+	d.QueryRow(`select count(*) from wormix_weapons where id > 1061 and id < 1143 and id != 1070 and infinity = 1`).Scan(&hats125)
 	if hats125 != 79 {
 		t.Errorf("1.25.0 hat rows %d, want 79", hats125)
 	}
@@ -159,12 +160,46 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	d.Exec(`delete from migrations where migration = '2026_11_09_120000_add_wormix_weapons_125'`)
 	// And the 1.25.0 weapons that only come as awards (hidden, not infinite).
 	var award125 int
-	d.QueryRow(`select count(*) from wormix_weapons where id in (84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104) and hide_in_shop = 1 and infinity = 0`).Scan(&award125)
-	if award125 != 16 {
-		t.Errorf("1.25.0 award weapon rows %d, want 16", award125)
+	// (The 1.61.7 shop sells 84, 86 and 89.)
+	d.QueryRow(`select count(*) from wormix_weapons where id in (85, 87, 88, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104) and hide_in_shop = 1 and infinity = 0`).Scan(&award125)
+	if award125 != 13 {
+		t.Errorf("1.25.0 award weapon rows %d, want 13", award125)
 	}
 	d.Exec(`delete from wormix_weapons where id in (84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104)`)
 	d.Exec(`delete from migrations where migration = '2026_11_10_120000_add_wormix_award_weapons_125'`)
+	// And the 1.61.7 shop: the items the table lacked, and its prices and levels for the ones it sells (not
+	// for the ones it hides, like 6). Then the reference's values back, without the new items.
+	var shop161 int
+	d.QueryRow(`select count(*) from wormix_weapons where (id = 54 and price = 800 and real_price = 8 and infinity = 1) or (id = 116 and hide_in_shop = 0 and infinity = 1 and real_price = 40) or (id = 1150 and infinity = 1 and real_price = 50) or (id = 2060 and infinity = 1 and real_price = 70) or (id = 6 and price = 28)`).Scan(&shop161)
+	if shop161 != 5 {
+		t.Errorf("1.61.7 shop rows %d, want 5", shop161)
+	}
+	refIDs := map[int64]bool{}
+	rw, err := ref.Query(`select id, price, real_price, required_friends, required_level, required_rating, hide_in_shop, infinity from wormix_weapons`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rw.Next() {
+		var id, price, real, friends, lvl, rating, hidden, inf int64
+		rw.Scan(&id, &price, &real, &friends, &lvl, &rating, &hidden, &inf)
+		refIDs[id] = true
+		d.Exec(`update wormix_weapons set price = ?, real_price = ?, required_friends = ?, required_level = ?, required_rating = ?, hide_in_shop = ?, infinity = ? where id = ?`, price, real, friends, lvl, rating, hidden, inf, id)
+	}
+	rw.Close()
+	var shop struct {
+		Items []struct {
+			ID int64 `json:"id"`
+		} `json:"items"`
+	}
+	if b, err := assets.Game("shop161.json"); err != nil || json.Unmarshal(b, &shop) != nil || len(shop.Items) == 0 {
+		t.Fatalf("shop161.json: %v", err)
+	}
+	for _, it := range shop.Items {
+		if !refIDs[it.ID] {
+			d.Exec(`delete from wormix_weapons where id = ?`, it.ID)
+		}
+	}
+	d.Exec(`delete from migrations where migration = '2026_11_18_140000_shop_161'`)
 	// The owner's grant changes no game data (and there is no such account here).
 	d.Exec(`delete from migrations where migration = '2026_11_10_130000_grant_owner_crafted_hats'`)
 	// And the weapon upgrades of the 1.25.0 client (54 new recipes, and its costs for the old ones) and of
@@ -270,7 +305,7 @@ func TestMigrateUpgradesPreArtifactsDB(t *testing.T) {
 	d.QueryRow(`select batch from migrations where migration = '2026_11_06_120000_add_wormix_artifacts'`).Scan(&batch)
 	d.QueryRow(`select count(*) from wormix_weapons where id > 2000 and id < 2500 and infinity = 1 and created_at is not null`).Scan(&artifacts)
 	d.QueryRow(`select count(*) from pragma_table_info('wormix_worms_data') where name = 'artifact'`).Scan(&col)
-	if batch != 2 || artifacts != 35 || col != 1 {
+	if batch != 2 || artifacts != 68 || col != 1 { // 35 of 1.05.0 and 33 more of the 1.61.7 shop
 		t.Fatalf("batch=%d artifacts=%d column=%d", batch, artifacts, col)
 	}
 	// Same schema as a DB created by the current PHP API.

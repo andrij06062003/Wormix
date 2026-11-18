@@ -311,6 +311,10 @@ func (d *DB) Seed(ctx context.Context) error {
 	if err := applyRecipes(ctx, d, "recipes161.json"); err != nil {
 		return fmt.Errorf("seed: recipes 1.61.7: %w", err)
 	}
+	// And the 1.61.7 shop (migrateShop161 likewise: inserting its items first broke the weapons' seeding).
+	if err := applyShop161(ctx, d); err != nil {
+		return fmt.Errorf("seed: shop 1.61.7: %w", err)
+	}
 	log.Printf("game:init: SETUP IS COMPLETED")
 	return nil
 }

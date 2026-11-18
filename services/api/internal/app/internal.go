@@ -479,7 +479,7 @@ func (c *Ctx) buyItemsInner() Resp {
 				if php.StrictEq(w.Get("real_price"), int64(0)) {
 					return shopError()
 				}
-				if php.ToBool(w.Get("infinity")) {
+				if php.ToBool(w.Get("infinity")) && !shotsBought(w, e.Val("Count")) {
 					realSum = php.Add(realSum, w.Get("real_price"))
 				} else {
 					realSum = php.Add(realSum, php.Mul(w.Get("real_price"), e.Val("Count")))
@@ -489,7 +489,7 @@ func (c *Ctx) buyItemsInner() Resp {
 				if php.StrictEq(w.Get("price"), int64(0)) {
 					return shopError()
 				}
-				if php.ToBool(w.Get("infinity")) {
+				if php.ToBool(w.Get("infinity")) && !shotsBought(w, e.Val("Count")) {
 					sum = php.Add(sum, w.Get("price"))
 				} else {
 					sum = php.Add(sum, php.Mul(w.Get("price"), e.Val("Count")))
@@ -519,9 +519,12 @@ func (c *Ctx) buyItemsInner() Resp {
 			continue
 		}
 		w := must(c.First(defWeapon, `where "wormix_weapons"."id" = ? limit 1`, old.Get("weapon_id")))
-		if php.ToBool(w.Get("infinity")) {
+		switch {
+		case php.ToBool(w.Get("infinity")) && php.LooseEq(old.Get("count"), int64(-1)):
+			// owned for good already: buying shots of it keeps it so
+		case php.ToBool(w.Get("infinity")) && !shotsBought(w, idx(it, "Count")):
 			old.Set("count", idx(it, "Count"))
-		} else {
+		default:
 			old.Set("count", php.Add(old.Get("count"), idx(it, "Count")))
 		}
 		c.Save(old)
@@ -538,6 +541,13 @@ func (c *Ctx) buyItemsInner() Resp {
 		c.exec(`update "wormix_worms_data" set "artifact" = ?, "updated_at" = ? where "owner_id" = ?`, last, db.Now(), c.UserID())
 	}
 	return jsonResp(200, php.Assoc("data", php.Assoc("Result", int64(0), "Weapons", weapons, "Stuff", php.NewArr())))
+}
+
+// shotsBought: the 1.61.7 client buys an infinite weapon with limited shots per battle ("complex", like the
+// ice bazooka) by the piece (Count > 0, at the price of each), not for good (Count -1). Hats and artifacts
+// are always bought for good.
+func shotsBought(w *Model, count any) bool {
+	return php.ToInt(w.Get("id")) < stuffStartIndex && php.Gt(count, int64(0))
 }
 
 func (c *Ctx) changeRace() Resp {
@@ -755,7 +765,10 @@ func (c *Ctx) upgradeWeapon() Resp {
 	}
 	errResp := func(code int64) Resp { return dataResult("Result", code, "RecipeId", php.IntArg(rid)) }
 	prev := craft.Get("prev_upgrade_id")
-	if (php.Lt(prev, int64(300)) && c.Count(`select count(*) as aggregate from "wormix_users_weapons" where "owner_id" = ? and "weapon_id" = ? and "count" = ?`, c.UserID(), prev, int64(-1)) == 0) ||
+	// The base weapon must be owned for good, or (1.61.7) be an infinite weapon bought by its shots, which
+	// the upgrade makes the player's for good (as the client does).
+	base := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ? and ("count" = ? or ("count" > 0 and exists(select * from "wormix_weapons" where "id" = ? and "infinity" = 1))) order by "count" asc limit 1`, c.UserID(), prev, int64(-1), prev)
+	if (php.Lt(prev, int64(300)) && base == nil) ||
 		(php.Gt(prev, int64(300)) && !php.InArray(optID(prevUpgrade()), recipes(), false)) ||
 		php.InArray(craft.Get("id"), recipes(), false) ||
 		php.Lt(w.Get("level"), craft.Get("required_level")) ||
@@ -837,6 +850,10 @@ func (c *Ctx) upgradeWeapon() Resp {
 	p.Set("recipes", merged)
 	p.Set("reagents", changed)
 	c.Save(p)
+	if base != nil && !php.LooseEq(base.Get("count"), int64(-1)) {
+		base.Set("count", int64(-1))
+		c.Save(base)
+	}
 	return errResp(0)
 }
 

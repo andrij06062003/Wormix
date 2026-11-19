@@ -3,6 +3,8 @@ package app
 import (
 	"encoding/json"
 	"math"
+
+	"github.com/andrij06062003/Wormix/services/api/internal/db"
 )
 
 // The arsenal: the layouts of the weapons panel the client saves (1.61.7: several, and which one is in use;
@@ -49,6 +51,7 @@ func (c *Ctx) setBackpack() Resp {
 		return dataResult("Result", int64(1))
 	}
 	b, _ := json.Marshal(confs)
+	b = []byte(oneCellPerFamily(string(b), c.weaponFamilies()))
 	c.exec(`update "wormix_user_profiles" set "backpack_confs" = ?, "active_backpack_conf" = ? where "user_id" = ?`,
 		string(b), c.JSON("Active"), c.UserID())
 	return dataResult("Result", int64(0))
@@ -69,4 +72,63 @@ func (c *Ctx) setHotkeys() Resp {
 func php2string(v any) string {
 	s, _ := v.(string)
 	return s
+}
+
+// weaponFamilies maps each upgrade of wormix_craft to its base weapon: the 1.61.7 client keeps one arsenal
+// cell per family (a base weapon and all its upgrades), under the base's id.
+func (c *Ctx) weaponFamilies() map[int64]int64 {
+	links, err := db.RecipeLinks(c.ctx, c.tx)
+	if err != nil {
+		panic(err)
+	}
+	prev := map[int64]int64{}
+	for _, l := range links {
+		prev[l.Upgrade] = l.Prev
+	}
+	base := map[int64]int64{}
+	for up := range prev {
+		w := up
+		for i := 0; i < len(prev); i++ { // a loop in the table ends here
+			p, ok := prev[w]
+			if !ok {
+				break
+			}
+			w = p
+		}
+		base[up] = w
+	}
+	return base
+}
+
+// oneCellPerFamily empties the arsenal cells whose weapon's family has a cell before them in the same layout.
+// A layout saved while the client split a family in two (BuildFamilies.pcode) has a cell for each part; the
+// client now reads both as the base weapon and shows it twice.
+func oneCellPerFamily(raw string, base map[int64]int64) string {
+	var confs [][]int64
+	if json.Unmarshal([]byte(raw), &confs) != nil {
+		return raw
+	}
+	changed := false
+	for _, l := range confs {
+		seen := map[int64]bool{}
+		for i, id := range l {
+			if id <= 0 {
+				continue
+			}
+			root := id
+			if b, ok := base[id]; ok {
+				root = b
+			}
+			if seen[root] {
+				l[i] = 0
+				changed = true
+			}
+			seen[root] = true
+		}
+	}
+	if !changed {
+		return raw
+	}
+	b, _ := json.Marshal(confs)
+	return string(b)
 }

@@ -43,9 +43,9 @@ func startBattle(token string, battleID uint32, wager int32, reagents []int32) (
 	return postStartBattle(token, jsonx.NewObject().Int("BattleId", int64(battleID)).Int("Wager", int64(wager)), reagents)
 }
 
-// startWagerBattle is startBattle with the award a win pays on top of the wager given back (the 1.61.7
+// startAwardBattle is startBattle with the award a win pays on top of the wager given back (the 1.61.7
 // wagers'; 0 leaves it to the API).
-func startWagerBattle(token string, battleID uint32, wager, award int32, reagents []int32) (p proto.UserProfile, got []int32, err error) {
+func startAwardBattle(token string, battleID uint32, wager, award int32, reagents []int32) (p proto.UserProfile, got []int32, err error) {
 	body := jsonx.NewObject().Int("BattleId", int64(battleID)).Int("Wager", int64(wager))
 	if award > 0 {
 		body.Int("Award", int64(award))

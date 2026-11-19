@@ -106,13 +106,13 @@ var exWagers161 = map[int16]exWager{
 }
 
 var exWagers = map[int]exWager{
-	1: {15, exWagerDuel, 2},
-	2: {50, exWagerDuel, 2},
-	3: {300, exWagerDuel, 2},
-	4: {50, exWager2x2, 4},
-	5: {50, exWager3ForAll, 3},
-	6: {50, exWager4ForAll, 4},
-	7: {50, exWager2x2, 4},
+	1: {value: 15, typ: exWagerDuel, players: 2},
+	2: {value: 50, typ: exWagerDuel, players: 2},
+	3: {value: 300, typ: exWagerDuel, players: 2},
+	4: {value: 50, typ: exWager2x2, players: 4},
+	5: {value: 50, typ: exWager3ForAll, players: 3},
+	6: {value: 50, typ: exWager4ForAll, players: 4},
+	7: {value: 50, typ: exWager2x2, players: 4},
 }
 
 type exMember struct {
@@ -732,7 +732,7 @@ func exStart(room *exRoom) {
 		if coop {
 			p, got, err = startCoopBattle(m.main.Token(), room.id, room.missions[0], give)
 		} else {
-			p, got, err = startWagerBattle(m.main.Token(), room.id, room.wager, room.award, give)
+			p, got, err = startAwardBattle(m.main.Token(), room.id, room.wager, room.award, give)
 		}
 		if err != nil {
 			logf("[PvP %d] can't start the battle for %d: %v", room.id, m.userID, err)

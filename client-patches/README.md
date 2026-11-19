@@ -110,7 +110,7 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   order differs, so a level 2 met a missing base. Build 2026-11-17.2 skipped those (`WeaponUpgrades.pcode`), and
   a player who owned one got a blank blue screen. It now goes through the recipes again until nothing more can
   be built (at most 20 times).
-- `BuildFamilies.pcode` (`§8#o§.§1@§`, `§+#=§`, body 5941, since build 2026-11-19.1, tried as `Wormix.next.swf`): the
+- `BuildFamilies.pcode` (`§8#o§.§1@§`, `§+#=§`, body 5941, since build 2026-11-19.2; tried first as `Wormix.next.swf` in 2026-11-19.1): the
   weapon families (a base weapon and all its upgrades; an arsenal cell keeps the family's first id and shows the
   first member owned) were built going through `recipes` in Ruffle's order, like `BuildUpgrades.pcode`'s method.
   When an upgrade of the second branch came before the recipe making its base upgrade (the sniper rifle's 313 ->

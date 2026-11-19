@@ -42,6 +42,8 @@ func (c *Ctx) getArena() Resp {
 		"BattlesCount", bi.Get("battles_count"),
 		"CurrentMission", bi.Get("last_mission_id"),
 		"BossAvailable", true,
+		// 1.25.0: the last co-op boss beaten (curCooperativeMissionId).
+		"CurrentCoopMission", bi.Get("last_coop_mission_id"),
 	)))
 }
 
@@ -132,7 +134,7 @@ func (c *Ctx) endBattle() Resp {
 		return jsonResp(200, php.NewArr())
 	}
 	c.processBattleResult(php.IntArg(result), bi)
-	return jsonResp(200, php.Assoc("Status", "OK"))
+	return jsonResp(200, php.Assoc("Status", "OK", "Awards", php.List(c.granted...)))
 }
 
 func (c *Ctx) decreaseUsedWeapons(userID any) {
@@ -147,7 +149,8 @@ func (c *Ctx) decreaseUsedWeapons(userID any) {
 		if php.Le(idx(it, "Count"), int64(0)) {
 			continue
 		}
-		uw := c.First(defUserWeapon, `where "weapon_id" = ? and "count" != ? and "owner_id" = ?`, idx(it, "Id"), int64(-1), userID)
+		// only shots are used up: not a weapon owned for good (-1), nor a level of a complex one (complex.go)
+		uw := c.First(defUserWeapon, `where "weapon_id" = ? and "count" > 0 and "owner_id" = ?`, idx(it, "Id"), userID)
 		if uw == nil {
 			continue
 		}
@@ -170,6 +173,8 @@ func (c *Ctx) processBattleResult(result int64, bi *Model) {
 	award := func(money, exp int64) {
 		p.Set("money", php.Add(p.Get("money"), money))
 		w.Set("experience", php.Add(w.Get("experience"), exp))
+		c.grant(awardMoney, money, 0)
+		c.grant(awardExperience, exp, 0)
 	}
 	typ := c.JSON("Type")
 	var mission *Model
@@ -250,6 +255,12 @@ func toArr(v any) *php.Arr {
 
 func (c *Ctx) processAwards(m *Model, double bool, p, w *Model) {
 	awards, _ := m.Arr("awards").(*php.Arr)
+	c.giveAwards(awards, double, p, w)
+}
+
+// giveAwards gives a mission's awards (wormix_missions.awards): the first set, or the second for a mission
+// beaten before (double) when there is one.
+func (c *Ctx) giveAwards(awards *php.Arr, double bool, p, w *Model) {
 	if awards == nil {
 		php.Fail("count(): Argument #1 ($value) must be of type Countable|array")
 	}
@@ -272,6 +283,32 @@ func (c *Ctx) processAwards(m *Model, double bool, p, w *Model) {
 	c.addWeaponsAwards(wa, w)
 	w.Set("experience", php.Add(w.Get("experience"), idx(a, "experience")))
 	c.saveWorm(w)
+	c.grant(awardMoney, php.ToInt(idx(a, "money")), 0)
+	c.grant(awardRealMoney, php.ToInt(idx(a, "real_money")), 0)
+	c.grant(awardExperience, php.ToInt(idx(a, "experience")), 0)
+	for _, x := range wa.Values() {
+		// Ids from 1000 are hats and artifacts (given too), not the client's weapons: left out of its list.
+		if id := php.ToInt(idx(x, 0)); id < 1000 {
+			c.grant(awardWeapon, php.ToInt(idx(x, 1)), id)
+		}
+	}
+}
+
+// The 1.61.7 client's award kinds (GenericAwardStructure.awardKind).
+const (
+	awardMoney      = 1
+	awardRealMoney  = 2
+	awardWeapon     = 5
+	awardExperience = 11
+)
+
+// grant notes an award a battle's end gave: the 1.61.7 client shows (and adds) only the awards its
+// EndBattleResult lists, so without them a boss won gave nothing on its screen.
+func (c *Ctx) grant(kind, count, itemID int64) {
+	if count == 0 {
+		return
+	}
+	c.granted = append(c.granted, php.Assoc("Kind", kind, "Count", count, "ItemId", itemID))
 }
 
 func (c *Ctx) pvpItemsEndBattle(bi *Model) Resp {
@@ -332,7 +369,12 @@ func (c *Ctx) pvpStartBattle() Resp {
 		{"Wager", "required|integer|min:0"},
 		{"Reagents", "nullable|array"},
 		{"Reagents.*", "integer"},
+		{"MissionId", "nullable|integer"},
+		{"Award", "nullable|integer|min:0"},
 	})
+	if mid := c.JSON("MissionId"); mid != nil {
+		return c.coopStartBattle(php.ToInt(mid))
+	}
 	uid := c.UserID()
 	wager := php.ToInt(c.JSON("Wager"))
 	p := c.findOrFail(defProfile, uid)
@@ -359,7 +401,11 @@ func (c *Ctx) pvpStartBattle() Resp {
 	bi.Set("current_battle_id", c.JSON("BattleId"))
 	bi.Set("battle_type", int64(battleTypePvp))
 	bi.Set("mission_id", int64(0))
-	bi.Set("awards", php.Assoc("reagents", reagents, "awards", php.NewArr(), "wager", wager, "settled", false, "items_done", false))
+	stake := php.Assoc("reagents", reagents, "awards", php.NewArr(), "wager", wager, "settled", false, "items_done", false)
+	if award := c.JSON("Award"); award != nil {
+		stake.Set("award", php.ToInt(award)) // the 1.61.7 wager's: what its client shows a win pays
+	}
+	bi.Set("awards", stake)
 	c.Save(bi)
 	fresh := c.findOrFail(defProfile, uid)
 	return dataResult("UserProfileStructure", c.userProfileStructure(fresh), "ReagentsForBattle", reagents)
@@ -378,6 +424,9 @@ func (c *Ctx) pvpEndBattle() Resp {
 	if awards == nil {
 		awards = php.NewArr()
 	}
+	if php.ToInt(bi.Get("battle_type")) == battleTypeCoop {
+		return c.coopEndBattle(bi, result)
+	}
 	settled, ok := awards.Get("settled")
 	if !ok || settled == nil {
 		settled = true
@@ -390,7 +439,11 @@ func (c *Ctx) pvpEndBattle() Resp {
 		p := c.findOrFail(defProfile, uid)
 		switch result {
 		case 1:
-			p.Set("money", php.Add(p.Get("money"), wager+int64(math.Floor(float64(wager)*0.8))))
+			award := int64(math.Floor(float64(wager) * 0.8))
+			if a, ok := awards.Get("award"); ok && a != nil {
+				award = php.ToInt(a)
+			}
+			p.Set("money", php.Add(p.Get("money"), wager+award))
 		case 0:
 			p.Set("money", php.Add(p.Get("money"), wager))
 		}
@@ -441,6 +494,9 @@ type achConfig struct {
 	statsLast      int64
 	achievements   *php.Arr
 	awardItems     *php.Arr
+
+	// awardReplaces: the item an award takes the place of (1.61.7), by the award's id
+	awardReplaces *php.Arr
 }
 
 var (
@@ -459,6 +515,7 @@ func achievementsConfig() *achConfig {
 			statsFirst: php.ToInt(a.Val("stats_first")), statsLast: php.ToInt(a.Val("stats_last"))}
 		achCfg.achievements, _ = a.Val("achievements").(*php.Arr)
 		achCfg.awardItems, _ = a.Val("award_items").(*php.Arr)
+		achCfg.awardReplaces, _ = a.Val("award_replaces").(*php.Arr)
 	})
 	return achCfg
 }
@@ -709,6 +766,11 @@ func (c *Ctx) achChooseBonus() Resp {
 		}
 		owned.Set("count", int64(-1))
 		c.Save(owned)
+		if cfg.awardReplaces != nil {
+			if old := cfg.awardReplaces.Val(php.ToString(item)); old != nil {
+				c.exec(`delete from "wormix_users_weapons" where "owner_id" = ? and "weapon_id" = ?`, uid, php.ToInt(old))
+			}
+		}
 		p.Set("invested_award_points", invested+1)
 		c.Save(p)
 		return 0

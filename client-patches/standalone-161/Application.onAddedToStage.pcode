@@ -1,0 +1,152 @@
+method
+name null
+param QName(PackageNamespace("flash.events"),"Event")
+returns QName(PackageNamespace("","56061"),"void")
+
+body
+maxstack 18
+localcount 4
+initscopedepth 9
+maxscopedepth 10
+
+code
+getlocal0
+pushscope
+getlex QName(PackageNamespace("","56061"),"stage")
+newfunction 25300
+pop
+jump ofs0013
+declocal 2
+inclocal_i 2
+pushnull
+ofs0013:
+getlex QName(PackageNamespace("flash.display"),"StageAlign")
+getproperty QName(PackageNamespace("","56061"),"TOP")
+setproperty QName(PackageNamespace("","56061"),"align")
+getlex QName(PackageNamespace("","56061"),"root")
+getproperty QName(PackageNamespace("","56061"),"loaderInfo")
+getproperty QName(PackageNamespace("","56061"),"loaderURL")
+pushstring "esaba.co"
+callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+pushbyte -1
+ifeq ofs003e
+findproperty QName(PackageNamespace("","56061")," $X")
+pushfalse
+setproperty QName(PackageNamespace("","56061")," $X")
+ofs003e:
+findproperty QName(PackageNamespace("","56061"),"tabChildren")
+pushfalse
+initproperty QName(PackageNamespace("","56061"),"tabChildren")
+getlex QName(PackageNamespace("","56061"),"stage")
+getproperty QName(PackageNamespace("","56061"),"loaderInfo")
+getproperty QName(PackageNamespace("","56061"),"parameters")
+coerce QName(PackageNamespace("","56061"),"Object")
+setlocal2
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"context")
+getlocal2
+callpropvoid QName(PackageNamespace("","56061"),"6%^"), 1
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"context")
+callproperty QName(PackageNamespace("","56061"),"2!k"), 0
+iftrue ofs00fe
+getlocal2
+getproperty Multiname("_social_type",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+iffalse ofs008d
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"context")
+getlex QName(PackageNamespace("ru.pragmatix.flox.social.controller"),"7\"n")
+getlocal2
+getproperty Multiname("_social_type",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+callproperty QName(PackageNamespace("","56061"),"valueOf"), 1
+callpropvoid QName(PackageNamespace("","56061"),"setSocialType"), 1
+ofs008d:
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"context")
+pushstring "appLink"
+getlocal2
+getproperty Multiname("_app_link",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+pushstring "appKey"
+getlocal2
+getproperty Multiname("_app_key",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+pushstring "appKey2"
+jump ofs00ae
+inclocal_i 2
+coerce_s
+rshift
+ofs00ae:
+getlocal2
+getproperty Multiname("_app_key2",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+pushstring "clubLink"
+getlocal2
+getproperty Multiname("_club_link",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+pushstring "appMode"
+getlocal2
+getproperty Multiname("_app_mode",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+pushstring "pvpMainId"
+getlocal2
+getproperty Multiname("_pvpMainId",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+iffalse ofs00db
+getlocal2
+getproperty Multiname("_pvpMainId",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+coerce_a
+jump ofs00de
+ofs00db:
+pushbyte 1
+coerce_a
+ofs00de:
+pushstring "clientVersion"
+pushstring "1.61.7"
+pushstring "showBanner"
+getlex QName(PackageNamespace("","56061"),"Application")
+getproperty QName(PackageNamespace("","56061"),"&]")
+newobject 8
+callpropvoid QName(PackageNamespace("","56061"),"]$n"), 1
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"context")
+getlocal2
+getproperty Multiname("_uploadUrl",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+callpropvoid QName(PackageNamespace("","56061"),"=4"), 1
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"context")
+pushstring ""
+callpropvoid QName(PackageNamespace("","56061"),"3%C"), 1
+ofs00fe:
+getlex QName(PackageNamespace("","56061"),"stage")
+getlocal2
+getproperty Multiname("_app_mode",[PrivateNamespace("*","38"),PackageNamespace("","56061"),PrivateNamespace("*","1513"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("Application"),StaticProtectedNs("Application"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+pushstring "local"
+equals
+setproperty QName(PackageNamespace("","56061"),"showDefaultContextMenu")
+findpropstrict QName(PackageNamespace("","56061"),"5&=")
+pushstring "А знаете ли вы что: Для содержимого, опубликованного для Flash Player 14 или более новой версии, ExternalInterface маскирует строки с помощью соглашений JSON. Для поддержания совместимости содержимое, опубликованное для более ранних версий Flash Player, должно использовать прежние форматы маскировки."
+callpropvoid QName(PackageNamespace("","56061"),"5&="), 1
+findpropstrict QName(PackageNamespace("ru.pragmatix.wormix.controller"),"8\"%")
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"context")
+jump ofs012c
+add
+declocal_i 2
+add
+ofs012c:
+constructprop QName(PackageNamespace("ru.pragmatix.wormix.controller"),"8\"%"), 1
+coerce QName(PackageNamespace("ru.pragmatix.wormix.controller"),"8\"%")
+setlocal3
+getlocal3
+getlex QName(PackageNamespace("flash.events"),"ErrorEvent")
+getproperty QName(PackageNamespace("","56061"),"ERROR")
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"onError")
+callpropvoid QName(PackageNamespace("","56061"),"addEventListener"), 2
+getlocal3
+getlex QName(PackageNamespace("flash.events"),"Event")
+getproperty QName(PackageNamespace("","56061"),"COMPLETE")
+getlocal0
+getproperty QName(PrivateNamespace("*","38"),"onAppInit")
+callpropvoid QName(PackageNamespace("","56061"),"addEventListener"), 2
+getlocal3
+callpropvoid QName(PackageNamespace("","56061"),"init"), 0
+returnvoid
+end ; code
+end ; body
+end ; method

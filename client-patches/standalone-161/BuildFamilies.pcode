@@ -1,0 +1,58 @@
+method
+name null
+returns QName(PackageNamespace("","56061"),"void")
+body
+maxstack 3
+localcount 5
+initscopedepth 3
+maxscopedepth 4
+code
+getlocal0
+pushscope
+pushbyte 0
+setlocal3
+jump check
+loop:
+label
+getlex QName(PrivateNamespace("*","1283"),"recipes")
+getlocal3
+getproperty MultinameL([PrivateNamespace("*","1283"),PrivateNamespace("*","1774"),PackageNamespace("","56061"),PackageNamespace("8#o"),PackageInternalNs("8#o"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("8#o:1@"),StaticProtectedNs("8#o:1@")])
+coerce QName(PackageNamespace("8#o"),"#$s")
+setlocal1
+getlocal1
+iffalse next
+findpropstrict QName(PackageNamespace("","56061"),"&%u")
+getlocal1
+getproperty QName(PackageNamespace("","56061"),"prevUpgradeId")
+callproperty QName(PackageNamespace("","56061"),"&%u"), 1
+coerce QName(PackageNamespace("6\"\'"),"&\"3")
+setlocal2
+getlocal2
+pushnull
+ifne have
+findpropstrict QName(PackageNamespace("6\"\'"),"&\"3")
+getlocal1
+getproperty QName(PackageNamespace("","56061"),"prevUpgradeId")
+constructprop QName(PackageNamespace("6\"\'"),"&\"3"), 1
+coerce QName(PackageNamespace("6\"\'"),"&\"3")
+setlocal2
+getlex QName(PrivateNamespace("*","1283"),"@&F")
+getlocal2
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+have:
+getlocal2
+getproperty QName(PackageNamespace("","56061"),"!\"_")
+getlocal1
+getproperty QName(PackageNamespace("","56061"),"upgradeId")
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+next:
+inclocal_i 3
+check:
+getlocal3
+pushshort 1000
+lessthan
+iftrue loop
+returnvoid
+end ; code
+end ; body
+end ; method

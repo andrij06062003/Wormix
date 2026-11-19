@@ -8,7 +8,7 @@ import (
 )
 
 func TestCraftedHatPacking(t *testing.T) {
-	for _, c := range [][2]int64{{2, 0}, {2, 1005}, {3, 1499}, {2, 1501}, {5, 1647}, {0, 1500}} {
+	for _, c := range [][2]int64{{2, 0}, {2, 1005}, {3, 1499}, {2, 1501}, {5, 1647}, {0, 1500}, {0, 1700}, {9, 1836}, {13, 1699}} {
 		race, hat := c[0], c[1]
 		packed := hatByRaceAndHat(hat, race)
 		if r, h := raceAndHat(packed); r != race || h != hat || packed > 32767 {
@@ -177,6 +177,43 @@ func TestChooseBonus125(t *testing.T) {
 	}
 }
 
+// The 1.61.7 client's award tiers: its new items can be chosen (from their tier on), and one that takes another's
+// place (hat 1144, hat 1034's) takes it.
+func TestChooseBonus161(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	choose := func(item int) string {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/achievements/choose_bonus", map[string]any{"session_id": alice.AchSession, "item_id": item}, map[string]string{"X-TCP-SESSION": "achievements"})
+		if st != 200 {
+			t.Fatalf("choose_bonus %d: %d %v", item, st, j)
+		}
+		return fmt.Sprint(j["result"])
+	}
+	cfg := achievementsConfig()
+	for _, id := range cfg.achievements.Keys() {
+		levels := cfg.levels(id)
+		top := levels[len(levels)-1].(*php.Arr).Val("max")
+		d.Exec(`insert into wormix_users_achievements (user_id, achievement_id, value) values (1, ?, ?)
+			on conflict (user_id, achievement_id) do update set value = excluded.value`, id, top)
+	}
+	d.Exec(`delete from wormix_users_weapons where owner_id = 1 and weapon_id in (115, 129, 1034, 1144)`)
+	d.Exec(`update wormix_user_profiles set invested_award_points = 2 where user_id = 1`)
+	if r := choose(1144); r != "2" {
+		t.Fatalf("fifth tier 1144 at 2 points: result %s, want 2", r)
+	}
+	for _, item := range []int{129, 1034, 1144} {
+		if r := choose(item); r != "0" {
+			t.Fatalf("choose %d: result %s, want 0", item, r)
+		}
+	}
+	var kept int
+	d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 1 and weapon_id = 1034`).Scan(&kept)
+	if kept != 0 {
+		t.Fatal("hat 1034 kept after 1144 took its place")
+	}
+}
+
 // The 1.25.0 wardrobe puts a hat on and takes it off (StuffId 0); the race stays.
 func TestSelectHat125(t *testing.T) {
 	srv, d, v := newServer(t)
@@ -202,6 +239,63 @@ func TestSelectHat125(t *testing.T) {
 	}
 	if hat := sel(0); hat != 2 {
 		t.Fatalf("hat off: %d", hat)
+	}
+}
+
+// The weapon upgrades new in 1.25.0 (here the sheep's) can be made.
+func TestUpgradeSheep125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set real_money = 1000, recipes = '[]' where user_id = 1`)
+	d.Exec(`update wormix_worms_data set level = 30 where owner_id = 1`)
+	d.Exec(`delete from wormix_users_weapons where owner_id = 1 and weapon_id = 40`)
+	d.Exec(`insert into wormix_users_weapons (owner_id, weapon_id, count) values (1, 40, -1)`)
+	st, j := call(t, srv, "POST", "/api/internal/craft/upgrade_weapon", map[string]any{"RecipeId": 47}, h)
+	if st != 200 || fmt.Sprint(j["data"].(map[string]any)["Result"]) != "0" {
+		t.Fatalf("upgrade: %d %v", st, j)
+	}
+	var recipes string
+	d.QueryRow(`select recipes from wormix_user_profiles where user_id = 1`).Scan(&recipes)
+	if recipes != "[47]" {
+		t.Fatalf("recipes %s", recipes)
+	}
+}
+
+// The races new in 1.25.0 (here the dragon) can be bought, and the hat stays on.
+func TestBuyDragon125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set real_money = 100 where user_id = 1`)
+	d.Exec(`update wormix_worms_data set level = 30, hat = 1003 where owner_id = 1`)
+	st, j := call(t, srv, "POST", "/api/internal/account/buy/race", map[string]any{"RaceId": 7, "MoneyType": 0}, h)
+	if st != 200 || fmt.Sprint(j["data"].(map[string]any)["Result"]) != "0" {
+		t.Fatalf("buy: %d %v", st, j)
+	}
+	var hat, real int64
+	d.QueryRow(`select hat from wormix_worms_data where owner_id = 1`).Scan(&hat)
+	d.QueryRow(`select real_money from wormix_user_profiles where user_id = 1`).Scan(&real)
+	if hat != hatByRaceAndHat(1003, 7) || real != 74 {
+		t.Fatalf("hat %d, real money %d", hat, real)
+	}
+}
+
+// The weapons new in the 1.25.0 shop (here the laser gun) can be bought.
+func TestBuyWeapon125(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	d.Exec(`update wormix_user_profiles set money = 5000 where user_id = 1`)
+	st, j := call(t, srv, "POST", "/api/internal/account/buy/items", map[string]any{"ShopItems": []any{map[string]any{"Id": 94, "Count": -1, "MoneyType": 1}}}, h)
+	if st != 200 || fmt.Sprint(j["data"].(map[string]any)["Result"]) != "0" {
+		t.Fatalf("buy: %d %v", st, j)
+	}
+	var money, count int64
+	d.QueryRow(`select money from wormix_user_profiles where user_id = 1`).Scan(&money)
+	d.QueryRow(`select count from wormix_users_weapons where owner_id = 1 and weapon_id = 94`).Scan(&count)
+	if money != 5000-2100 || count != -1 { // the 1.61.7 price
+		t.Fatalf("money %d, count %d", money, count)
 	}
 }
 

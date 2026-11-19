@@ -1,0 +1,29 @@
+method
+name null
+flag HAS_OPTIONAL
+param QName(PackageNamespace("","56061"),"String")
+param QName(PackageNamespace("","56061"),"String")
+optional Utf8("")
+returns QName(PackageNamespace("","56061"),"void")
+body
+maxstack 5
+localcount 3
+initscopedepth 8
+maxscopedepth 9
+code
+getlocal0
+pushscope
+getlex QName(PackageNamespace("flash.external"),"ExternalInterface")
+pushstring "console.log"
+pushstring "WLOG "
+getlocal2
+add
+pushstring ": "
+add
+getlocal1
+add
+callpropvoid QName(PackageNamespace("","56061"),"call"), 2
+returnvoid
+end ; code
+end ; body
+end ; method

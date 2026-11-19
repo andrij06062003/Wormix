@@ -12,13 +12,25 @@ import (
 // game/crafted_equip.json into wormix_weapons, one row per family and prefix (id = familyId + prefix),
 // hidden in the shop, skipping ids that already exist.
 func migrateCraftedEquip(ctx context.Context, tx *sql.Tx) error {
-	cfg, ok := loadJSON("crafted_equip.json").(*php.Arr)
+	return insertCraftedEquip(ctx, tx, "crafted_equip.json")
+}
+
+// migrateCraftedEquip161 is 2026_11_18_120000_add_wormix_crafted_equip_161: the same for the crafted hats and
+// artifacts of the 1.61.7 client (game/crafted_equip161.json), so a player can own and wear them.
+func migrateCraftedEquip161(ctx context.Context, tx *sql.Tx) error {
+	return insertCraftedEquip(ctx, tx, "crafted_equip161.json")
+}
+
+// insertCraftedEquip gives every family and prefix of a game/crafted_equip*.json a hidden wormix_weapons
+// row (id = familyId + prefix), skipping ids that already exist.
+func insertCraftedEquip(ctx context.Context, tx *sql.Tx, name string) error {
+	cfg, ok := loadJSON(name).(*php.Arr)
 	if !ok {
-		return fmt.Errorf("crafted_equip.json: invalid")
+		return fmt.Errorf("%s: invalid", name)
 	}
 	fams, ok := cfg.Val("families").(*php.Arr)
 	if !ok {
-		return fmt.Errorf("crafted_equip.json: no families")
+		return fmt.Errorf("%s: no families", name)
 	}
 	now := Now()
 	for _, x := range fams.Values() {

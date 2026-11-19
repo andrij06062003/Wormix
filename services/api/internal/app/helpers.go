@@ -24,10 +24,14 @@ const (
 
 // Crafted hats (1.25.0) are items 1500..1699: race*500 + id doesn't fit them, so a worm's hat is
 // craftedHatBase + race*craftedHatRace + (id - craftedHatStart) for those (it stays under 32767).
+// The 1.61.7 client's go on to 1999: those are craftedHat2Base + race*craftedHatRace + (id - craftedHat2Start),
+// so the hats worn already keep their numbers.
 const (
-	craftedHatStart = 1500
-	craftedHatBase  = 20000
-	craftedHatRace  = 200
+	craftedHatStart  = 1500
+	craftedHatBase   = 20000
+	craftedHatRace   = 200
+	craftedHat2Start = 1700
+	craftedHat2Base  = 26000
 )
 
 // phpRand is rand($min, $max) (bounds swapped like PHP when max < min).
@@ -43,6 +47,9 @@ func raceAndHat(hat int64) (race, hatID int64) {
 	if hat < raceLimit {
 		return hat, 0
 	}
+	if hat >= craftedHat2Base {
+		return (hat - craftedHat2Base) / craftedHatRace, craftedHat2Start + (hat-craftedHat2Base)%craftedHatRace
+	}
 	if hat >= craftedHatBase {
 		return (hat - craftedHatBase) / craftedHatRace, craftedHatStart + (hat-craftedHatBase)%craftedHatRace
 	}
@@ -53,6 +60,9 @@ func raceAndHat(hat int64) (race, hatID int64) {
 func hatByRaceAndHat(hatID, raceID int64) int64 {
 	if hatID == 0 {
 		return raceID
+	}
+	if hatID >= craftedHat2Start && hatID < artifactStart {
+		return craftedHat2Base + raceID*craftedHatRace + hatID - craftedHat2Start
 	}
 	if hatID >= craftedHatStart && hatID < artifactStart {
 		return craftedHatBase + raceID*craftedHatRace + hatID - craftedHatStart
@@ -156,6 +166,21 @@ func (c *Ctx) addWeaponsAwards(awards *php.Arr, worm *Model) {
 	}
 	weaponIDs := php.List(c.Values(q, args...)...)
 	for _, a := range awards.Values() {
+		if id := php.ToInt(idx(a, 0)); isComplex(id) && php.Gt(idx(a, 1), int64(0)) {
+			// levels of a complex weapon (complex.go), on top of the ones the player has
+			uw := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ?`, owner, id)
+			var kept any
+			if uw == nil {
+				uw = New(defUserWeapon)
+				uw.Set("owner_id", owner)
+				uw.Set("weapon_id", id)
+			} else {
+				kept = uw.Get("count")
+			}
+			uw.Set("count", addComplexLevels(id, kept, php.ToInt(idx(a, 1))))
+			c.Save(uw)
+			continue
+		}
 		if !php.InArray(idx(a, 0), weaponIDs, false) {
 			continue
 		}

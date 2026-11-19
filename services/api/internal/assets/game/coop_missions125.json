@@ -1,0 +1,16 @@
+{"_comment":"Co-op bosses of the 1.25.0 client (missions 101-114, fought with a friend): required level and awards, from its config. awards[0] is the first win, awards[1] a repeat.","missions":[
+{"mission_id":101,"required_level":12,"awards":[{"money":0,"real_money":1,"experience":60,"weapons":[[25,2],[11,5],[41,2],[1068,1]]},{"money":80,"real_money":0,"experience":30,"weapons":[[25,1],[11,5],[41,2],[1068,1]]}]},
+{"mission_id":102,"required_level":12,"awards":[{"money":0,"real_money":1,"experience":60,"weapons":[[57,2],[64,1],[81,2],[1069,1]]},{"money":80,"real_money":0,"experience":30,"weapons":[[57,2],[64,1],[81,2],[1069,1]]}]},
+{"mission_id":103,"required_level":15,"awards":[{"money":0,"real_money":2,"experience":80,"weapons":[[72,4],[24,2],[26,3],[1072,1]]},{"money":90,"real_money":0,"experience":40,"weapons":[[72,2],[24,2],[26,3],[1072,1]]}]},
+{"mission_id":104,"required_level":15,"awards":[{"money":0,"real_money":2,"experience":80,"weapons":[[80,4],[41,2],[28,2],[1076,1]]},{"money":90,"real_money":0,"experience":40,"weapons":[[80,2],[41,2],[28,1],[1076,1]]}]},
+{"mission_id":105,"required_level":15,"awards":[{"money":0,"real_money":2,"experience":100,"weapons":[[72,4],[48,3],[36,2],[1073,1]]},{"money":100,"real_money":0,"experience":50,"weapons":[[72,2],[48,3],[36,1],[1073,1]]}]},
+{"mission_id":106,"required_level":15,"awards":[{"money":0,"real_money":2,"experience":100,"weapons":[[80,4],[82,2],[35,2],[2007,1]]},{"money":100,"real_money":0,"experience":50,"weapons":[[80,2],[82,1],[35,2],[2007,1]]}]},
+{"mission_id":107,"required_level":18,"awards":[{"money":0,"real_money":3,"experience":120,"weapons":[[80,4],[72,4],[84,4],[1117,1]]},{"money":120,"real_money":0,"experience":60,"weapons":[[80,2],[72,2],[84,2],[1117,1]]}]},
+{"mission_id":108,"required_level":18,"awards":[{"money":0,"real_money":3,"experience":120,"weapons":[[80,4],[72,4],[86,4],[1116,1]]},{"money":120,"real_money":0,"experience":60,"weapons":[[80,2],[72,2],[86,2],[1116,1]]}]},
+{"mission_id":109,"required_level":18,"awards":[{"money":0,"real_money":3,"experience":150,"weapons":[[80,4],[72,4],[91,4],[1120,1]]},{"money":150,"real_money":0,"experience":75,"weapons":[[80,2],[72,2],[91,2],[1120,1]]}]},
+{"mission_id":110,"required_level":18,"awards":[{"money":0,"real_money":3,"experience":150,"weapons":[[80,4],[72,4],[88,4],[1123,1]]},{"money":150,"real_money":0,"experience":75,"weapons":[[80,2],[72,2],[88,2],[1123,1]]}]},
+{"mission_id":111,"required_level":20,"awards":[{"money":0,"real_money":3,"experience":150,"weapons":[[80,4],[72,4],[86,6],[2023,1]]},{"money":150,"real_money":0,"experience":75,"weapons":[[80,2],[72,2],[86,3],[2023,1]]}]},
+{"mission_id":112,"required_level":20,"awards":[{"money":0,"real_money":3,"experience":150,"weapons":[[80,4],[100,4],[75,6],[1133,1]]},{"money":150,"real_money":0,"experience":75,"weapons":[[80,2],[100,2],[75,3],[1133,1]]}]},
+{"mission_id":113,"required_level":20,"awards":[{"money":0,"real_money":4,"experience":160,"weapons":[[80,6],[72,6],[106,3],[2031,1]]},{"money":160,"real_money":0,"experience":80,"weapons":[[80,3],[72,3],[106,1],[2031,1]]}]},
+{"mission_id":114,"required_level":20,"awards":[{"money":0,"real_money":5,"experience":160,"weapons":[[80,6],[72,6],[104,3],[1142,1]]},{"money":160,"real_money":0,"experience":80,"weapons":[[80,3],[72,3],[104,1],[1142,1]]}]}
+]}

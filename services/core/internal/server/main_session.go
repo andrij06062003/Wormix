@@ -292,7 +292,17 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 	case proto.CmdBuyBattle:
 		s.shortReply("account/buy/battles", proto.ReadBuyBattle(r).JSON(), proto.CmdBuyBattleResult)
 	case proto.CmdAddToGroup:
-		s.shortReply("team/add", proto.ReadAddToGroup(r).JSON(), proto.CmdAddToGroupResult)
+		// A teammate the API refuses (the 1.61.7 mercenaries aren't users, so their id fails its validation) is a
+		// failed hire, not a dropped session: the client's reconnect after a drop is refused ("wrong auth key").
+		res := proto.ShortResult{Cmd: proto.CmdAddToGroupResult, Result: 1}
+		if v, refused := api.PostRefusable("team/add", proto.ReadAddToGroup(r).JSON(), s.sid, s.tokenPtr()); !refused {
+			d := dataOpt(v)
+			if d == nil {
+				break
+			}
+			res = proto.DecodeShortResult(proto.CmdAddToGroupResult, d)
+		}
+		res.Emit(s.out)
 	case proto.CmdRemoveFromGroup:
 		s.shortReply("team/remove", proto.ReadRemoveFromGroup(r).JSON(), proto.CmdRemoveFromGroupResult)
 	case proto.CmdDistributePoints:

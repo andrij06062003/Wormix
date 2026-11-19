@@ -43,6 +43,16 @@ func startBattle(token string, battleID uint32, wager int32, reagents []int32) (
 	return postStartBattle(token, jsonx.NewObject().Int("BattleId", int64(battleID)).Int("Wager", int64(wager)), reagents)
 }
 
+// startAwardBattle is startBattle with the award a win pays on top of the wager given back (the 1.61.7
+// wagers'; 0 leaves it to the API).
+func startAwardBattle(token string, battleID uint32, wager, award int32, reagents []int32) (p proto.UserProfile, got []int32, err error) {
+	body := jsonx.NewObject().Int("BattleId", int64(battleID)).Int("Wager", int64(wager))
+	if award > 0 {
+		body.Int("Award", int64(award))
+	}
+	return postStartBattle(token, body, reagents)
+}
+
 // startCoopBattle is startBattle for a co-op boss fight (mission 101+ of the 1.25.0 client): the API takes a
 // battle instead of a wager and pays the boss's awards out at endBattle. A 422 is a player who has no battles
 // left or for whom the boss isn't open.

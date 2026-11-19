@@ -342,6 +342,7 @@ func (c *Ctx) pvpStartBattle() Resp {
 		{"Reagents", "nullable|array"},
 		{"Reagents.*", "integer"},
 		{"MissionId", "nullable|integer"},
+		{"Award", "nullable|integer|min:0"},
 	})
 	if mid := c.JSON("MissionId"); mid != nil {
 		return c.coopStartBattle(php.ToInt(mid))
@@ -372,7 +373,11 @@ func (c *Ctx) pvpStartBattle() Resp {
 	bi.Set("current_battle_id", c.JSON("BattleId"))
 	bi.Set("battle_type", int64(battleTypePvp))
 	bi.Set("mission_id", int64(0))
-	bi.Set("awards", php.Assoc("reagents", reagents, "awards", php.NewArr(), "wager", wager, "settled", false, "items_done", false))
+	stake := php.Assoc("reagents", reagents, "awards", php.NewArr(), "wager", wager, "settled", false, "items_done", false)
+	if award := c.JSON("Award"); award != nil {
+		stake.Set("award", php.ToInt(award)) // the 1.61.7 wager's: what its client shows a win pays
+	}
+	bi.Set("awards", stake)
 	c.Save(bi)
 	fresh := c.findOrFail(defProfile, uid)
 	return dataResult("UserProfileStructure", c.userProfileStructure(fresh), "ReagentsForBattle", reagents)
@@ -406,7 +411,11 @@ func (c *Ctx) pvpEndBattle() Resp {
 		p := c.findOrFail(defProfile, uid)
 		switch result {
 		case 1:
-			p.Set("money", php.Add(p.Get("money"), wager+int64(math.Floor(float64(wager)*0.8))))
+			award := int64(math.Floor(float64(wager) * 0.8))
+			if a, ok := awards.Get("award"); ok && a != nil {
+				award = php.ToInt(a)
+			}
+			p.Set("money", php.Add(p.Get("money"), wager+award))
 		case 0:
 			p.Set("money", php.Add(p.Get("money"), wager))
 		}

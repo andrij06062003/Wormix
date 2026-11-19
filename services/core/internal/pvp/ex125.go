@@ -77,16 +77,42 @@ type exWager struct {
 	value   int32
 	typ     int
 	players int
+
+	// 1.61.7: what a win pays on top of the wager given back (award), and, for a wager whose value grows with
+	// the team (the ranked duel), the value and award by the number of worms (values, awards).
+	award          int32
+	values, awards []int32
+}
+
+// stake is the wager and award of a player with a team of units worms.
+func (wg exWager) stake(units int) (value, award int32) {
+	if len(wg.values) == 0 {
+		return wg.value, wg.award
+	}
+	i := min(max(units, 1), len(wg.values)) - 1
+	return wg.values[i], wg.awards[i]
+}
+
+// exWagers161 are the wagers of the 1.61.7 client's table that are a random battle (the others are co-op
+// bosses and friend battles, exWagerType161): its value, award, battle type and how many players it takes.
+var exWagers161 = map[int16]exWager{
+	1: {typ: exWagerDuel, players: 2, values: []int32{5, 10, 20, 30}, awards: []int32{5, 10, 20, 30}},
+	3: {value: 300, award: 250, typ: exWagerDuel, players: 2},
+	4: {value: 60, award: 50, typ: exWager2x2, players: 4},
+	5: {value: 70, award: 120, typ: exWager3ForAll, players: 3},
+	6: {value: 20, award: 15, typ: exWagerDuel, players: 2},
+	7: {value: 60, award: 50, typ: exWager2x2, players: 4},
+	8: {typ: exWagerDuel, players: 2},
 }
 
 var exWagers = map[int]exWager{
-	1: {15, exWagerDuel, 2},
-	2: {50, exWagerDuel, 2},
-	3: {300, exWagerDuel, 2},
-	4: {50, exWager2x2, 4},
-	5: {50, exWager3ForAll, 3},
-	6: {50, exWager4ForAll, 4},
-	7: {50, exWager2x2, 4},
+	1: {value: 15, typ: exWagerDuel, players: 2},
+	2: {value: 50, typ: exWagerDuel, players: 2},
+	3: {value: 300, typ: exWagerDuel, players: 2},
+	4: {value: 50, typ: exWager2x2, players: 4},
+	5: {value: 50, typ: exWager3ForAll, players: 3},
+	6: {value: 50, typ: exWager4ForAll, players: 4},
+	7: {value: 50, typ: exWager2x2, players: 4},
 }
 
 type exMember struct {
@@ -112,6 +138,7 @@ type exRoom struct {
 	typ                      int
 	wagerID                  int
 	wager                    int32
+	award                    int32 // 1.61.7: what a win pays on top of the wager
 	mapID                    uint32
 	missions                 []int16
 	randomWeapons, randomMap bool
@@ -127,9 +154,17 @@ type exRoom struct {
 }
 
 type exTicket struct {
-	m       *exMember
+	m     *exMember
+	key   exQueueKey
+	mapID uint32
+}
+
+// exQueueKey: who can fight whom. The 1.25.0 and 1.61.7 games can't play together and number their wagers
+// apart; a wager whose value grows with the team only matches teams of one size (each puts in the same).
+type exQueueKey struct {
+	v161    bool
 	wagerID int
-	mapID   uint32
+	units   int
 }
 
 var (
@@ -302,7 +337,16 @@ func exCreate(c Conn, body []byte) {
 		room := &exRoom{typ: typ, mapID: mapID, missions: missions, randomWeapons: randomWeapons, randomMap: randomMap}
 		exInvite(me, room, ids, teams)
 	case exWagerDuel, exWager2x2, exWager3ForAll, exWager4ForAll:
-		exEnqueue(me, wagerIDs, mapID)
+		if len(wagerIDs) == 0 {
+			c.SendMessage(exFailure(0, l.id, l.social, exClientError))
+			return
+		}
+		wg, ok := exWagers[int(wagerIDs[0])]
+		if !ok {
+			c.SendMessage(exFailure(0, l.id, l.social, exClientError))
+			return
+		}
+		exEnqueue(me, int(wagerIDs[0]), wg, mapID, false)
 	default:
 		logf("[PvP] %d asked for a 1.25.0 battle of type %d: not supported yet", l.id, typ)
 		c.SendMessage(exFailure(0, l.id, l.social, exServerError))
@@ -329,8 +373,9 @@ func exWagerType161(wager int16) int {
 }
 
 // exCreate161 is the 1.61.7 CreateBattleRequest: the 1.25.0 one with one wager id instead of the battle type
-// and wager ids, and a params JSON and the friend's social network instead of the random flags. Only the
-// co-op bosses and friend battles are supported for it yet.
+// and wager ids, and a params JSON and the friend's social network instead of the random flags. The co-op
+// bosses, friend battles and random wager battles (exWagers161, the player alone) are supported; not yet the
+// random co-op partner, the mercenaries' duel or a 2x2 with a friend.
 func exCreate161(c Conn, body []byte) {
 	r := wire.NewReader(body)
 	l := readExLogin(r)
@@ -359,6 +404,8 @@ func exCreate161(c Conn, body []byte) {
 	case typ != 0:
 		room := &exRoom{typ: typ, mapID: mapID, missions: missions, v161: true, wager161: wager, params: params}
 		exInvite(me, room, ids, teams)
+	case exWagers161[wager].players > 0 && len(ids) <= 1:
+		exEnqueue(me, int(wager), exWagers161[wager], mapID, true)
 	default:
 		logf("[PvP] %d asked for a 1.61.7 battle of wager %d: not supported yet", l.id, wager)
 		c.SendMessage(exFailure(0, l.id, l.social, exServerError))
@@ -606,25 +653,21 @@ func exCancel(c Conn, reason int) {
 
 // ---- Wager battles -----------------------------------------------------------------------------------------
 
-func exEnqueue(me *exMember, wagerIDs []int16, mapID uint32) {
+// exEnqueue queues the player for a battle of the wager; when enough players of it wait, the battle starts.
+func exEnqueue(me *exMember, wagerID int, wg exWager, mapID uint32, v161 bool) {
 	fail := func(reason int) { me.conn.SendMessage(exFailure(0, me.userID, me.social, reason)) }
-	if len(wagerIDs) == 0 {
-		fail(exClientError)
-		return
-	}
-	wagerID := int(wagerIDs[0])
-	wg, ok := exWagers[wagerID]
-	if !ok {
-		fail(exClientError)
-		return
-	}
 	profile, err := getProfile(me.main.Token())
 	if err != nil {
 		logf("[PvP] can't load profile of %d: %v", me.userID, err)
 		fail(exServerError)
 		return
 	}
-	if int64(profile.Money) < int64(wg.value) {
+	key := exQueueKey{v161: v161, wagerID: wagerID}
+	if len(wg.values) > 0 {
+		key.units = len(profile.WormsGroup)
+	}
+	value, award := wg.stake(key.units)
+	if int64(profile.Money) < int64(value) {
 		fail(exNoMoney)
 		return
 	}
@@ -636,10 +679,10 @@ func exEnqueue(me *exMember, wagerIDs []int16, mapID uint32) {
 		fail(exBusy)
 		return
 	}
-	exQueue = append(exQueue, &exTicket{m: me, wagerID: wagerID, mapID: mapID})
+	exQueue = append(exQueue, &exTicket{m: me, key: key, mapID: mapID})
 	var group []*exTicket
 	for _, t := range exQueue {
-		if t.wagerID == wagerID {
+		if t.key == key {
 			group = append(group, t)
 			if len(group) == wg.players {
 				break
@@ -653,8 +696,8 @@ func exEnqueue(me *exMember, wagerIDs []int16, mapID uint32) {
 	}
 	exQueue = slices.DeleteFunc(exQueue, func(t *exTicket) bool { return slices.Contains(group, t) })
 	// The map is the one of who waited longest; the turn order is random.
-	room := &exRoom{id: newBattleID(), typ: wg.typ, wagerID: wagerID, wager: wg.value, mapID: group[0].mapID,
-		missions: []int16{}, randomMap: true, stage: exStarting, since: time.Now()}
+	room := &exRoom{id: newBattleID(), typ: wg.typ, wagerID: wagerID, wager: value, award: award, mapID: group[0].mapID,
+		missions: []int16{}, randomMap: true, stage: exStarting, since: time.Now(), v161: v161, wager161: int16(wagerID)}
 	for _, t := range group {
 		room.members = append(room.members, t.m)
 	}
@@ -689,7 +732,7 @@ func exStart(room *exRoom) {
 		if coop {
 			p, got, err = startCoopBattle(m.main.Token(), room.id, room.missions[0], give)
 		} else {
-			p, got, err = startBattle(m.main.Token(), room.id, room.wager, give)
+			p, got, err = startAwardBattle(m.main.Token(), room.id, room.wager, room.award, give)
 		}
 		if err != nil {
 			logf("[PvP %d] can't start the battle for %d: %v", room.id, m.userID, err)

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/andrij06062003/Wormix/services/core/internal/jsonx"
 	"github.com/andrij06062003/Wormix/services/core/internal/wire"
 )
 
@@ -292,7 +293,7 @@ func TestEndBattleResult161(t *testing.T) {
 		t.Fatalf("end battle %+v", e)
 	}
 	var got []byte
-	EmitEndBattleResult161(func(b []byte) { got = append(got, b...) }, e)
+	EmitEndBattleResult161(func(b []byte) { got = append(got, b...) }, e, nil)
 	if wire.FrameLength(got) != len(got)-wire.HeaderSize {
 		t.Fatal("frame length")
 	}
@@ -303,5 +304,40 @@ func TestEndBattleResult161(t *testing.T) {
 	r := wire.NewReader(body[:len(body)-16])
 	if r.U16() != 0 || r.U32() != 1043 || r.U32() != 1042 || r.U16() != 25 || r.UTF() != "key" || r.U16() != 0 || r.Remaining() != 0 {
 		t.Fatal("end battle result")
+	}
+}
+
+// The awards game/end_battle gave go into EndBattleResult, each a sized GenericAwardStructure.
+func TestEndBattleResult161Awards(t *testing.T) {
+	v, err := jsonx.Parse([]byte(`{"Status":"OK","Awards":[{"Kind":1,"Count":75,"ItemId":0},{"Kind":5,"Count":4,"ItemId":72},"x"]}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	awards := DecodeBattleAwards(v)
+	if len(awards) != 2 || awards[0] != (BattleAward{1, 75, 0}) || awards[1] != (BattleAward{5, 4, 72}) {
+		t.Fatalf("awards %+v", awards)
+	}
+	if DecodeBattleAwards(nil) != nil {
+		t.Fatal("no answer: awards")
+	}
+	var got []byte
+	EmitEndBattleResult161(func(b []byte) { got = append(got, b...) }, EndBattle{Result: 1, BattleID: 2, MissionID: 30}, awards)
+	body := got[wire.HeaderSize:]
+	r := wire.NewReader(body[:len(body)-16])
+	r.U16()
+	r.U32()
+	r.U32()
+	r.U16()
+	r.UTF()
+	if r.U16() != 2 {
+		t.Fatal("award count")
+	}
+	for _, want := range awards {
+		if r.U16() != 10 || int16(r.U16()) != want.Kind || int32(r.U32()) != want.Count || int32(r.U32()) != want.ItemID {
+			t.Fatalf("award %+v", want)
+		}
+	}
+	if r.Remaining() != 0 {
+		t.Fatalf("%d bytes left", r.Remaining())
 	}
 }

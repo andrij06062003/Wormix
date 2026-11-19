@@ -134,7 +134,7 @@ func (c *Ctx) endBattle() Resp {
 		return jsonResp(200, php.NewArr())
 	}
 	c.processBattleResult(php.IntArg(result), bi)
-	return jsonResp(200, php.Assoc("Status", "OK"))
+	return jsonResp(200, php.Assoc("Status", "OK", "Awards", php.List(c.granted...)))
 }
 
 func (c *Ctx) decreaseUsedWeapons(userID any) {
@@ -173,6 +173,8 @@ func (c *Ctx) processBattleResult(result int64, bi *Model) {
 	award := func(money, exp int64) {
 		p.Set("money", php.Add(p.Get("money"), money))
 		w.Set("experience", php.Add(w.Get("experience"), exp))
+		c.grant(awardMoney, money, 0)
+		c.grant(awardExperience, exp, 0)
 	}
 	typ := c.JSON("Type")
 	var mission *Model
@@ -281,6 +283,32 @@ func (c *Ctx) giveAwards(awards *php.Arr, double bool, p, w *Model) {
 	c.addWeaponsAwards(wa, w)
 	w.Set("experience", php.Add(w.Get("experience"), idx(a, "experience")))
 	c.saveWorm(w)
+	c.grant(awardMoney, php.ToInt(idx(a, "money")), 0)
+	c.grant(awardRealMoney, php.ToInt(idx(a, "real_money")), 0)
+	c.grant(awardExperience, php.ToInt(idx(a, "experience")), 0)
+	for _, x := range wa.Values() {
+		// Ids from 1000 are hats and artifacts (given too), not the client's weapons: left out of its list.
+		if id := php.ToInt(idx(x, 0)); id < 1000 {
+			c.grant(awardWeapon, php.ToInt(idx(x, 1)), id)
+		}
+	}
+}
+
+// The 1.61.7 client's award kinds (GenericAwardStructure.awardKind).
+const (
+	awardMoney      = 1
+	awardRealMoney  = 2
+	awardWeapon     = 5
+	awardExperience = 11
+)
+
+// grant notes an award a battle's end gave: the 1.61.7 client shows (and adds) only the awards its
+// EndBattleResult lists, so without them a boss won gave nothing on its screen.
+func (c *Ctx) grant(kind, count, itemID int64) {
+	if count == 0 {
+		return
+	}
+	c.granted = append(c.granted, php.Assoc("Kind", kind, "Count", count, "ItemId", itemID))
 }
 
 func (c *Ctx) pvpItemsEndBattle(bi *Model) Resp {

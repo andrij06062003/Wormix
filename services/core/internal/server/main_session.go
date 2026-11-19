@@ -375,9 +375,9 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		} else {
 			req = proto.ReadEndBattle(r)
 		}
-		s.post("game/end_battle", req.JSON())
+		v := s.post("game/end_battle", req.JSON())
 		if s.v161.Load() {
-			proto.EmitEndBattleResult161(s.out, req)
+			proto.EmitEndBattleResult161(s.out, req, proto.DecodeBattleAwards(v))
 		}
 	case proto.CmdAssembleEquip125:
 		req := proto.ReadAssembleEquip125(r)

@@ -110,6 +110,13 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   order differs, so a level 2 met a missing base. Build 2026-11-17.2 skipped those (`WeaponUpgrades.pcode`), and
   a player who owned one got a blank blue screen. It now goes through the recipes again until nothing more can
   be built (at most 20 times).
+- `BuildFamilies.pcode` (`§8#o§.§1@§`, `§+#=§`, body 5941, since build 2026-11-19.1, tried as `Wormix.next.swf`): the
+  weapon families (a base weapon and all its upgrades; an arsenal cell keeps the family's first id and shows the
+  first member owned) were built going through `recipes` in Ruffle's order, like `BuildUpgrades.pcode`'s method.
+  When an upgrade of the second branch came before the recipe making its base upgrade (the sniper rifle's 313 ->
+  361 -> 439, the freezer's 54 -> 391 -> 417), it started a family of its own, and the cell then looked in the
+  other one: the weapon left the storage and its cell stayed empty. It now goes through recipe ids 0-999 in order,
+  as Flash did.
 - `WeaponUpgrades.pcode` (`§8#o§.§1@§`, `§1"U§`, body 5944): building an upgrade whose base is missing returns
   null instead of throwing (no longer happens with `BuildUpgrades.pcode`; kept as a guard).
 - `Application.log.pcode` (`Application`, `§1%&§`, body 12, since build 2026-11-17.3): the client's own log
@@ -139,7 +146,8 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
     java -jar ffdec-cli.jar -replace h.swf i.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.deactivate.pcode 21246
     java -jar ffdec-cli.jar -replace i.swf j.swf 'ru.pragmatix.wormix.controller.§+$w§' \
         client-patches/standalone-161/ScreenController.fullscreen.pcode 2227
-    java -jar ffdec-cli.jar -replace j.swf Wormix.swf 'ru.pragmatix.flox.social.controller.§]"Y§' \
+    java -jar ffdec-cli.jar -replace j.swf k.swf 'ru.pragmatix.flox.social.controller.§]"Y§' \
         client-patches/standalone-161/AppFriends.pcode 7122
+    java -jar ffdec-cli.jar -replace k.swf Wormix.swf '§8#o§.§1@§' client-patches/standalone-161/BuildFamilies.pcode 5941
 
 `Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).

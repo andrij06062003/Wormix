@@ -145,6 +145,8 @@ var Migrations = []Migration{
 	{Name: "2026_11_18_150000_add_wormix_backpack", Fn: migrateBackpack},
 	// The levels of the 1.61.7 client's complex weapons, kept as shots and used up by battles (complex.go).
 	{Name: "2026_11_18_160000_complex_weapons_161", Fn: MigrateComplexWeapons},
+	// Both branches of an upgrade crafted (or a recipe un-crafted under a later one): one branch kept (recipechains.go).
+	{Name: "2026_11_18_170000_recipe_branches_161", Fn: MigrateRecipeBranches},
 }
 
 func tableExists(ctx context.Context, q interface {

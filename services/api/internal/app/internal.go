@@ -801,16 +801,7 @@ func (c *Ctx) upgradeWeapon() Resp {
 		(php.Gt(prev, int64(300)) && !php.InArray(optID(prevUpgrade()), recipes(), false)) ||
 		php.InArray(craft.Get("id"), recipes(), false) ||
 		php.Lt(w.Get("level"), craft.Get("required_level")) ||
-		php.InArray(func() any {
-			pu := optID(prevUpgrade())
-			var other *Model
-			if pu == nil {
-				other = c.First(defCraft, `where "upgrade_id" is null and "id" != ?`, rid)
-			} else {
-				other = c.First(defCraft, `where "upgrade_id" = ? and "id" != ?`, pu, rid)
-			}
-			return optID(other)
-		}(), recipes(), false) {
+		c.craftedFrom(prev, rid, recipes()) {
 		return errResp(1)
 	}
 	creagents, ok := craft.Arr("reagents").(*php.Arr)
@@ -886,6 +877,20 @@ func (c *Ctx) upgradeWeapon() Resp {
 	return errResp(0)
 }
 
+// craftedFrom tells whether a crafted recipe other than rid starts from weapon: the other branch of an
+// upgrade (the client shows one branch of a weapon: db.ConsistentRecipes), or one made from its upgrade.
+func (c *Ctx) craftedFrom(weapon, rid any, recipes *php.Arr) bool {
+	if weapon == nil {
+		return false
+	}
+	for _, m := range c.All(defCraft, `where "prev_upgrade_id" = ? and "id" != ?`, weapon, rid) {
+		if php.InArray(m.Get("id"), recipes, false) {
+			return true
+		}
+	}
+	return false
+}
+
 func phpRound(v any) float64 {
 	f, _ := php.ToNumber(v).(float64)
 	if i, ok := php.ToNumber(v).(int64); ok {
@@ -904,7 +909,10 @@ func (c *Ctx) downgradeWeapon() Resp {
 		php.Fail("in_array(): Argument #2 ($haystack) must be of type array")
 	}
 	reagents, _ := p.Arr("reagents").(*php.Arr)
-	if !php.InArray(craft.Get("id"), recipes, false) || php.Lt(p.Get("real_money"), int64(5)) {
+	// Not one a later crafted upgrade starts from: the 1.61.7 client walks each upgrade down to its base weapon
+	// and never gets there past a missing one (db.ConsistentRecipes).
+	if !php.InArray(craft.Get("id"), recipes, false) || php.Lt(p.Get("real_money"), int64(5)) ||
+		c.craftedFrom(craft.Get("upgrade_id"), rid, recipes) {
 		return dataResult("Result", int64(1), "RecipeId", php.IntArg(rid))
 	}
 	if reagents == nil {

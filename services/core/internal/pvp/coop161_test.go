@@ -228,3 +228,61 @@ func TestEndBattle161PerPlayer(t *testing.T) {
 		}
 	}
 }
+
+// A random duel of two 1.61.7 players (wager 6): the first waits, the second starts it; BattleCreated has the
+// wager duel type and the 1.61.7 wager id, and a 1.25.0 player of the same wager id isn't matched with them.
+func TestWagerDuel161(t *testing.T) {
+	withPlayers161(t, 1, 2)
+	withAPI125(t, 3)
+	a, b, old := &box161{}, &box161{}, &msgBox{}
+	mustHandle(t, a, cmdExCreateBattle, createBattle161(1, 6, nil, []uint32{1}, []byte{0}))
+	mustHandle(t, old, cmdExCreateBattle, createBattle125(3, exWagerDuel, 6, []uint32{3}, []byte{0}))
+	if a.last(cmdExBattleCreated) != nil || old.last(cmdExBattleCreated) != nil || len(exQueue) != 2 {
+		t.Fatalf("both should wait: queue %d", len(exQueue))
+	}
+	mustHandle(t, b, cmdExCreateBattle, createBattle161(2, 6, nil, []uint32{2}, []byte{0}))
+	var id uint32
+	for _, c := range []*box161{a, b} {
+		m := c.last(cmdExBattleCreated)
+		if m == nil {
+			t.Fatalf("no BattleCreated: %v", c.msgs)
+		}
+		r := wire.NewReader(m)
+		if r.U16() != exWagerDuel {
+			t.Fatalf("battle type: % x", m)
+		}
+		id = r.U32()
+		if r.U16() != 6 {
+			t.Fatalf("wager id: % x", m)
+		}
+		r.U32()
+		readI16s(r)
+		if n := skipSized(r); n != 2 {
+			t.Fatalf("BattleCreated profiles %d", n)
+		}
+	}
+	if len(exQueue) != 1 || exQueue[0].m.userID != 3 {
+		t.Fatalf("the 1.25.0 player should still wait alone: %d in the queue", len(exQueue))
+	}
+	if exWagers161[6].award != 15 {
+		t.Fatal("wager 6 award")
+	}
+	mustHandle(t, a, cmdExReady, ready125(id))
+	mustHandle(t, b, cmdExReady, ready125(id))
+	if bt := findBattle(id); bt == nil || !bt.v161 || bt.pve {
+		t.Fatalf("battle %v not a 1.61.7 PvP one", bt)
+	}
+}
+
+// The ranked duel (wager 1) puts in more the bigger the team, so it matches teams of one size only.
+func TestWagerStake161(t *testing.T) {
+	wg := exWagers161[1]
+	for units, want := range map[int]int32{0: 5, 1: 5, 3: 20, 4: 30, 6: 30} {
+		if v, a := wg.stake(units); v != want || a != want {
+			t.Errorf("%d worms: %d/%d, want %d", units, v, a, want)
+		}
+	}
+	if v, a := exWagers161[3].stake(4); v != 300 || a != 250 {
+		t.Errorf("wager 3: %d/%d", v, a)
+	}
+}

@@ -177,7 +177,7 @@ func (c *Ctx) enterAccount(u *Model, sessionKey string) *php.Arr {
 		"Reagents", profile.Arr("reagents"),
 		"SessionKey", sessionKey,
 		// The arsenal (backpack.go): JSON as the API keeps it.
-		"BackpackConfs", profile.Get("backpack_confs"),
+		"BackpackConfs", oneCellPerFamily(php.ToString(profile.Get("backpack_confs")), c.weaponFamilies()),
 		"ActiveBackpackConf", profile.Get("active_backpack_conf"),
 		"Hotkeys", profile.Get("hotkeys"),
 	)

@@ -40,3 +40,26 @@ func TestBackpack(t *testing.T) {
 		t.Errorf("a refused layout changed the saved one: %s", confs)
 	}
 }
+
+// A layout with two cells of one weapon family (the bazooka 1 and its upgrades 320, 321, saved while the client
+// split the family) keeps the first: saved so, and given so at login for layouts saved before.
+func TestBackpackOneCellPerFamily(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	if st, j := call(t, srv, "POST", "/api/internal/account/backpack", map[string]any{"Configs": "[[320,2,1,321],[1]]", "Active": 0}, h); st != 200 {
+		t.Fatalf("backpack: %d %v", st, j)
+	}
+	var confs string
+	d.QueryRow(`select backpack_confs from wormix_user_profiles where user_id = 1`).Scan(&confs)
+	if confs != "[[320,2,0,0],[1]]" {
+		t.Errorf("saved %s, want [[320,2,0,0],[1]]", confs)
+	}
+	base := map[int64]int64{320: 1, 321: 1}
+	if got := oneCellPerFamily("[[1,0,321,-3]]", base); got != "[[1,0,0,-3]]" {
+		t.Errorf("login: %s", got)
+	}
+	if got := oneCellPerFamily("[[1,2]]", base); got != "[[1,2]]" {
+		t.Errorf("unchanged layout: %s", got)
+	}
+}

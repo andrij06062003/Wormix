@@ -39,6 +39,9 @@ type Ctx struct {
 	token  *Model
 
 	boundUser *Model // route model binding {user}
+
+	// granted: what a battle's end gave (grant), for the 1.61.7 client's EndBattleResult
+	granted []any
 }
 
 // Resp is a handler result.

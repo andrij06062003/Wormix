@@ -1,6 +1,7 @@
 package proto
 
 import (
+	"github.com/andrij06062003/Wormix/services/core/internal/jsonx"
 	"github.com/andrij06062003/Wormix/services/core/internal/wire"
 )
 
@@ -266,16 +267,57 @@ func ReadEndBattle161(r *wire.Reader) EndBattle {
 // CmdEndBattleResult161 answers EndBattle (1.61.7): the client waits for it ("waiting for data") after a battle.
 const CmdEndBattleResult161 = 10121
 
+// BattleAward is a GenericAwardStructure of the 1.61.7 client: its kind (1 money, 2 real money, 5 weapon,
+// 11 experience, ...), count and item.
+type BattleAward struct {
+	Kind   int16
+	Count  int32
+	ItemID int32
+}
+
+// DecodeBattleAwards reads the awards game/end_battle gave ("Awards": [{Kind, Count, ItemId}]); none when the
+// answer has no list.
+func DecodeBattleAwards(v *jsonx.Value) []BattleAward {
+	if v == nil || v.Kind != jsonx.Object {
+		return nil
+	}
+	list := v.Obj.Get("Awards")
+	if list == nil || list.Kind != jsonx.Array {
+		return nil
+	}
+	var out []BattleAward
+	for _, a := range list.Arr {
+		if a == nil || a.Kind != jsonx.Object {
+			continue
+		}
+		num := func(k string) int64 {
+			if x := a.Obj.Get(k); x != nil && x.Kind == jsonx.Integer {
+				return x.I
+			}
+			return 0
+		}
+		out = append(out, BattleAward{Kind: int16(num("Kind")), Count: int32(num("Count")), ItemID: int32(num("ItemId"))})
+	}
+	return out
+}
+
 // EmitEndBattleResult161 writes the 1.61.7 EndBattleResult: validation result (0), the battle's result, id,
-// mission and session key as sent, and no awards (the client shows the battle's own), MD5.
-func EmitEndBattleResult161(out Out, e EndBattle) {
+// mission and session key as sent, the awards the API gave (the client shows and adds only these: a boss
+// won gave nothing on its screen without them), MD5.
+func EmitEndBattleResult161(out Out, e EndBattle, awards []BattleAward) {
 	var w wire.Writer
 	w.I16(0)
 	w.U32(uint32(e.Result))
 	w.U32(uint32(e.BattleID))
 	w.I16(int(e.MissionID))
 	w.UTF(e.SessionKey)
-	w.U16(0)
+	w.U16(uint16(len(awards)))
+	for _, a := range awards {
+		w.U16(2 + 4 + 4) // the structure's size
+		w.I16(int(a.Kind))
+		w.I32(a.Count)
+		w.I32(a.ItemID)
+	}
 	out(Frame(CmdEndBattleResult161, w.B, true))
 }
 

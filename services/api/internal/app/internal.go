@@ -745,17 +745,24 @@ func (c *Ctx) resetAccount() Resp {
 	return dataResult("Result", int64(0))
 }
 
+// freeResetLevel: below it the attack and armor reset costs nothing (the 1.61.7 client's price table).
+const freeResetLevel = 10
+
 func (c *Ctx) resetParameters() Resp {
 	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"MoneyType", "required|integer|min:0|max:1"}})
 	p := must(c.First(defProfile, `where "user_id" = ?`, c.UserID()))
 	w := must(c.First(defWorm, `where "owner_id" = ?`, c.UserID()))
 	mt := c.JSON("MoneyType")
-	if (php.StrictEq(mt, int64(1)) && php.Lt(p.Get("money"), int64(300))) || (php.StrictEq(mt, int64(0)) && php.Lt(p.Get("real_money"), int64(3))) {
+	// The 1.61.7 client resets them for free below level freeResetLevel (it asks nothing and shows the price 0).
+	free := php.Lt(w.Get("level"), int64(freeResetLevel))
+	if !free && ((php.StrictEq(mt, int64(1)) && php.Lt(p.Get("money"), int64(300))) || (php.StrictEq(mt, int64(0)) && php.Lt(p.Get("real_money"), int64(3)))) {
 		return dataResult("Result", int64(3))
 	}
-	if php.StrictEq(mt, int64(1)) {
+	switch {
+	case free:
+	case php.StrictEq(mt, int64(1)):
 		p.Set("money", php.Sub(p.Get("money"), int64(300)))
-	} else {
+	default:
 		p.Set("real_money", php.Sub(p.Get("real_money"), int64(3)))
 	}
 	w.Set("armor", int64(0))

@@ -139,6 +139,7 @@ healthy() {
         # Only this release's services: the project can also hold a container the release does
         # not run (the prod sandbox's old cloudflared, outside the tunnel profile). When that one
         # is exited, counting it failed every deploy and every rollback.
+        # shellcheck disable=SC2046  # one argument per service name
         ids=$(compose "$dir" ps -aq $(compose "$dir" config --services))
         for id in $ids; do
             [ "$(docker inspect -f '{{.RestartCount}}' "$id")" -gt 0 ] && return 1

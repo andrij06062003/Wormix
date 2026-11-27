@@ -136,7 +136,10 @@ answers() {
 healthy() {
     local dir="$1" waited=0 ids id
     while [ "$waited" -lt "$HEALTH_TIMEOUT" ]; do
-        ids=$(compose "$dir" ps -aq)
+        # Only this release's services: the project can also hold a container the release does
+        # not run (the prod sandbox's old cloudflared, outside the tunnel profile). When that one
+        # is exited, counting it failed every deploy and every rollback.
+        ids=$(compose "$dir" ps -aq $(compose "$dir" config --services))
         for id in $ids; do
             [ "$(docker inspect -f '{{.RestartCount}}' "$id")" -gt 0 ] && return 1
             [ "$(docker inspect -f '{{.State.Status}}' "$id")" = exited ] && return 1
@@ -239,6 +242,16 @@ self_update() {
 }
 
 mkdir -p "$STATE" "$RELEASES" "$BACKUPS"
+
+# Bring back the game after a host reboot or Docker restart. The sandbox's stop() stops the Wormix
+# containers with `docker stop`, which turns off their unless-stopped restart, so nothing else
+# starts them again. entrypoint.sh does this too, but only in a rebuilt sandbox image; the deployer
+# updates itself with every deploy, so this works without a rebuild.
+stopped=$(docker ps -aq --filter "label=com.docker.compose.project=$PROJECT" --filter status=exited)
+if [ -n "$stopped" ]; then
+    log "starting the stopped Wormix containers"
+    echo "$stopped" | xargs docker start > /dev/null || log "WARNING: some Wormix containers did not start"
+fi
 deployed=$(cat "$STATE/deployed" 2>/dev/null || true)
 log "watching $REPO@$BRANCH every ${INTERVAL}s (deployed: $(echo "${deployed:-none}" | cut -c1-7), CI required: $REQUIRE_CI)"
 

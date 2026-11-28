@@ -135,6 +135,11 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   it has some, so the friends bar was empty and co-op had no one to invite. It asks the page
   (`wormixFriends()`, the other players' ids from `account/game`).
 
+- `SocialLanguages.pcode` (`§&$Y§.§2$4§`, the class initializer, body 5231; tried as `Wormix.next.swf` since
+  build 2026-11-28.1): the languages each social network may use. The "none" one had `[RU, EN]`, so the page's
+  `_lang: "ua"` fell back to Russian; it is now `[RU, EN, UA]` (the client has complete `ua` files in data/lang).
+  With it the client also asks for `lang/chat_ua.xml` at start.
+
     cp Wormix.orig.swf a.swf
     java -jar ffdec-cli.jar -replace a.swf b.swf '§8#o§.§1@§' client-patches/standalone-161/WeaponUpgrades.pcode 5944
     java -jar ffdec-cli.jar -replace b.swf c.swf Application client-patches/standalone-161/Application.onAddedToStage.pcode 16
@@ -149,6 +154,11 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
     java -jar ffdec-cli.jar -replace j.swf k.swf 'ru.pragmatix.flox.social.controller.§]"Y§' \
         client-patches/standalone-161/AppFriends.pcode 7122
     java -jar ffdec-cli.jar -replace k.swf Wormix.swf '§8#o§.§1@§' client-patches/standalone-161/BuildFamilies.pcode 5941
+
+The canary (`Wormix.next.swf`) is that file with one more patch and the 960x640 stage (`swf-stage/` below):
+
+    java -jar ffdec-cli.jar -replace Wormix.swf l.swf '§&$Y§.§2$4§' client-patches/standalone-161/SocialLanguages.pcode 5231
+    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- l.swf Wormix.next.swf 960 640
 
 `Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).
 

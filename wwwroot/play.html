@@ -276,7 +276,7 @@
     const API = location.origin + '/api/';
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
     // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
-    const CLIENT_BUILD = '2026-11-28.5';
+    const CLIENT_BUILD = '2026-11-28.6';
     // play.html?next: the canary. It runs Wormix.next.swf and, for data files that change with a patch, their .next
     // copy (NEXT_DATA_161), so a change that could break the start is tried there before it reaches everyone.
     const NEXT = new URLSearchParams(location.search).has('next');

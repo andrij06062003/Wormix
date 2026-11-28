@@ -147,6 +147,8 @@ var Migrations = []Migration{
 	{Name: "2026_11_18_160000_complex_weapons_161", Fn: MigrateComplexWeapons},
 	// Both branches of an upgrade crafted (or a recipe un-crafted under a later one): one branch kept (recipechains.go).
 	{Name: "2026_11_18_170000_recipe_branches_161", Fn: MigrateRecipeBranches},
+	// The hat 1159 (Ксерокс) of the 1.61.7 client, in its shop for 100 rubies.
+	{Name: "2026_11_28_180000_xerox_hat_161", Fn: migrateXeroxHat161},
 }
 
 func tableExists(ctx context.Context, q interface {

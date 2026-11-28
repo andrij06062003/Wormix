@@ -277,6 +277,11 @@
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
     // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
     const CLIENT_BUILD = '2026-11-28.3';
+    // play.html?next: the canary. It runs Wormix.next.swf and, for data files that change with a patch, their .next
+    // copy (NEXT_DATA_161), so a change that could break the start is tried there before it reaches everyone.
+    const NEXT = new URLSearchParams(location.search).has('next');
+    const NEXT_DATA_161 = new Map([['/vk/1.61.7/data/resconfigs/resconfig.xml', '/vk/1.61.7/data/resconfigs/resconfig.next.xml']]);
+    const dataPath161 = path => (NEXT && NEXT_DATA_161.get(path)) || path;
 
     // Remembered login, per browser (convenience only).
     const store = {
@@ -479,7 +484,7 @@
         // which aren't ported to 1.61.7 yet).
         const v161 = !new URLSearchParams(location.search).has('125');
         // play.html?next runs Wormix.next.swf: a client patch to try out before it becomes Wormix.swf.
-        const swf161 = new URLSearchParams(location.search).has('next') ? 'Wormix.next.swf' : 'Wormix.swf';
+        const swf161 = NEXT ? 'Wormix.next.swf' : 'Wormix.swf';
         document.getElementById('game').classList.toggle('v161', v161);
         const flashvars = v161 ? {
             // Its "none" social network: no VK, the game takes the player's id and auth key from here.
@@ -610,7 +615,7 @@
     function prefetch161(splash) {
         const early = new Map(startFiles161().map(f => {
             const path = '/vk/1.61.7/data/' + f;
-            return [path, fetch(path).catch(() => null)];
+            return [path, fetch(dataPath161(path)).catch(() => null)];
         }));
         const fetchNow = window.fetch.bind(window);
         window.fetch = function (input, init) {
@@ -619,9 +624,12 @@
             const method = (init?.method || req?.method || 'GET').toUpperCase();
             splash.asked(url.pathname);
             const ready = url.origin === location.origin && !url.search && method === 'GET' && early.get(url.pathname);
-            if (!ready) return fetchNow(input, init);
+            if (!ready) {
+                const next = url.origin === location.origin && method === 'GET' && dataPath161(url.pathname);
+                return next && next !== url.pathname ? fetchNow(next + url.search, init) : fetchNow(input, init);
+            }
             early.delete(url.pathname);
-            return ready.then(r => r && r.ok ? r : fetchNow(input, init));
+            return ready.then(r => r && r.ok ? r : fetchNow(dataPath161(url.pathname), init));
         };
     }
 

@@ -1,0 +1,76 @@
+method
+name null
+param QName(PackageNamespace("","56061"),"Object")
+returns QName(PackageNamespace("","56061"),"void")
+body
+maxstack 6
+localcount 7
+initscopedepth 3
+maxscopedepth 4
+code
+getlocal0
+pushscope
+pushtrue
+setlocal 5
+pushbyte 0
+setlocal 6
+jump outercheck
+outerbody:
+label
+pushfalse
+setlocal 5
+pushbyte 0
+setlocal3
+getlex QName(PrivateNamespace("*","1283"),"recipes")
+coerce_a
+setlocal 4
+jump innercheck
+innerbody:
+label
+getlocal 4
+getlocal3
+nextvalue
+coerce QName(PackageNamespace("8#o"),"#$s")
+setlocal2
+getlocal1
+getlocal2
+getproperty QName(PackageNamespace("","56061"),"upgradeId")
+getproperty MultinameL([PrivateNamespace("*","1283"),PrivateNamespace("*","1774"),PackageNamespace("","56061"),PackageNamespace("8#o"),PackageInternalNs("8#o"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("8#o:1@"),StaticProtectedNs("8#o:1@")])
+iftrue innercheck
+getlocal1
+getlocal2
+getproperty QName(PackageNamespace("","56061"),"prevUpgradeId")
+getproperty MultinameL([PrivateNamespace("*","1283"),PrivateNamespace("*","1774"),PackageNamespace("","56061"),PackageNamespace("8#o"),PackageInternalNs("8#o"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("8#o:1@"),StaticProtectedNs("8#o:1@")])
+iffalse innercheck
+getlocal1
+getlocal2
+getproperty QName(PackageNamespace("","56061"),"upgradeId")
+findpropstrict QName(PrivateNamespace("*","1283"),"1\"U")
+getlocal2
+getproperty QName(PackageNamespace("","56061"),"prevUpgradeId")
+getlocal2
+getproperty QName(PackageNamespace("","56061"),"upgradeId")
+callproperty QName(PrivateNamespace("*","1283"),"1\"U"), 2
+setproperty MultinameL([PrivateNamespace("*","1283"),PrivateNamespace("*","1774"),PackageNamespace("","56061"),PackageNamespace("8#o"),PackageInternalNs("8#o"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("8#o:1@"),StaticProtectedNs("8#o:1@")])
+pushtrue
+setlocal 5
+innercheck:
+hasnext2 4, 3
+iftrue innerbody
+kill 4
+kill 3
+getlocal 6
+increment_i
+setlocal 6
+outercheck:
+getlocal 5
+iffalse done
+getlocal 6
+pushbyte 20
+lessthan
+iftrue outerbody
+done:
+returnvoid
+end ; code
+end ; body
+end ; method

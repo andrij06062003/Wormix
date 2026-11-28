@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <message name="HELP_CONTROL_TITLE1" value="Переміщення вліво/вправо"/>
+    <message name="HELP_CONTROL_DESCR1"><![CDATA[<font color="#3C98FF"><b>Стрілки вліво/вправо</b></font>, або <font color="#3C98FF"><b>A</b></font> i <font color="#3C98FF"><b>D</b></font>]]></message>
+
+    <message name="HELP_CONTROL_TITLE2" value="Стрибок вперед"/>
+    <message name="HELP_CONTROL_DESCR2"><![CDATA[<font color="#3C98FF"><b>Enter</b></font> або <font color="#3C98FF"><b>F</b></font>]]></message>
+
+    <message name="HELP_CONTROL_TITLE3" value="Стрибок назад"/>
+    <message name="HELP_CONTROL_DESCR3"><![CDATA[<font color="#3C98FF"><b>Backspace</b></font> або <font color="#3C98FF"><b>R</b></font><br>Стрибок назад вище, ніж стрибок вперед]]></message>
+
+    <message name="HELP_CONTROL_TITLE4" value="Прицілювання"/>
+    <message name="HELP_CONTROL_DESCR4"><![CDATA[<font color="#3C98FF"><b>Стрілки вгору/вниз</b></font>, або <font color="#3C98FF"><b>W</b></font> i <font color="#3C98FF"><b>S</b></font>]]></message>
+
+    <message name="HELP_CONTROL_TITLE5" value="Постріл"/>
+    <message name="HELP_CONTROL_DESCR5"><![CDATA[<font color="#3C98FF"><b>Space (Пробіл)</b></font><br>Утримуйте клавішу для збільшення дальності пострілу]]></message>
+
+    <message name="HELP_CONTROL_TITLE6" value="Вибір зброї в рюкзаку"/>
+    <message name="HELP_CONTROL_DESCR6"><![CDATA[<font color="#3C98FF"><b>Q</b></font> або <font color="#3C98FF"><b>I</b></font> - відкрити<br><font color="#3C98FF"><b>W, A, S, D</b></font> - переміщення<br><font color="#3C98FF"><b>Space (Пробіл)</b></font> або <font color="#3C98FF"><b>E</b></font> - вибрати]]></message>
+
+    <message name="HELP_CONTROL_BUFF1"><![CDATA[<b>Отруєння</b><br>Персонаж втрачає здоров'я кожен хід.]]></message>
+    <message name="HELP_CONTROL_BUFF2"><![CDATA[<b>Заморозка</b><br>Персонаж не може ходити та стрибати.]]></message>
+    <message name="HELP_CONTROL_BUFF3"><![CDATA[<b>Сповільнення</b><br>Швидкість персонажа зменшена.]]></message>
+    <message name="HELP_CONTROL_BUFF4"><![CDATA[<b>Зниження броні</b><br>Показник броні понижений.]]></message>
+    <message name="HELP_CONTROL_BUFF5"><![CDATA[<b>Антитоксин</b><br>Персонаж захищений від отрути та лікується кожен хід.]]></message>
+    <message name="HELP_CONTROL_BUFF6"><![CDATA[<b>Антифриз</b><br>Персонаж захищений від заморозки.]]></message>
+</dictionary>

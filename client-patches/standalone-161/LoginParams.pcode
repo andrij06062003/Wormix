@@ -1,0 +1,157 @@
+method
+name null
+param QName(PackageNamespace("","56061"),"Array")
+param QName(PackageNamespace("","56061"),"Object")
+param QName(PackageNamespace("","56061"),"String")
+returns QName(PackageNamespace("","56061"),"void")
+
+body
+maxstack 5
+localcount 4
+initscopedepth 3
+maxscopedepth 4
+
+code
+getlocal0
+pushscope
+getlocal1
+newfunction 31389
+pop
+jump ofs0010
+greaterthan
+declocal_i 2
+getlocal2
+ofs0010:
+getlex QName(PackageNamespace("&%X"),"<$M")
+getproperty QName(PackageNamespace("","56061"),"PAR0")
+getlocal2
+pushstring "bPr"
+getproperty MultinameL([PrivateNamespace("*","1846"),PackageNamespace("","56061"),PrivateNamespace("*","1847"),PackageNamespace("&%X"),PackageInternalNs("&%X"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("&%X:5F"),StaticProtectedNs("&%X:5F")])
+coerce_a
+dup
+iftrue ofs0028
+pop
+pushstring "-"
+coerce_a
+ofs0028:
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+getlex QName(PackageNamespace("&%X"),"<$M")
+getproperty QName(PackageNamespace("","56061"),"PAR1")
+getlocal2
+pushstring "bMn"
+getproperty MultinameL([PrivateNamespace("*","1846"),PackageNamespace("","56061"),PrivateNamespace("*","1847"),PackageNamespace("&%X"),PackageInternalNs("&%X"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("&%X:5F"),StaticProtectedNs("&%X:5F")])
+coerce_a
+dup
+iftrue ofs0046
+pop
+pushstring "-"
+coerce_a
+ofs0046:
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+getlex QName(PackageNamespace("&%X"),"<$M")
+getproperty QName(PackageNamespace("","56061"),"PAR2")
+getlocal3
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+getlex QName(PackageNamespace("&%X"),"<$M")
+getproperty QName(PackageNamespace("","56061"),"PAR3")
+getlocal2
+pushstring "prnt"
+getproperty MultinameL([PrivateNamespace("*","1846"),PackageNamespace("","56061"),PrivateNamespace("*","1847"),PackageNamespace("&%X"),PackageInternalNs("&%X"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("&%X:5F"),StaticProtectedNs("&%X:5F")])
+coerce_a
+dup
+iftrue ofs0072
+pop
+pushstring "-"
+coerce_a
+ofs0072:
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+getlex QName(PackageNamespace("&%X"),"<$M")
+getproperty QName(PackageNamespace("","56061"),"PAR4")
+getlocal2
+pushstring "uPr"
+getproperty MultinameL([PrivateNamespace("*","1846"),PackageNamespace("","56061"),PrivateNamespace("*","1847"),PackageNamespace("&%X"),PackageInternalNs("&%X"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("&%X:5F"),StaticProtectedNs("&%X:5F")])
+coerce_a
+dup
+iftrue ofs0091
+pop
+pushstring "-"
+coerce_a
+ofs0091:
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+jump ofs009f
+kill 2
+getlocal2
+setlocal2
+ofs009f:
+getlex QName(PackageNamespace("&%X"),"<$M")
+getproperty QName(PackageNamespace("","56061"),"PAR5")
+getlocal2
+pushstring "uMn"
+getproperty MultinameL([PrivateNamespace("*","1846"),PackageNamespace("","56061"),PrivateNamespace("*","1847"),PackageNamespace("&%X"),PackageInternalNs("&%X"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("&%X:5F"),StaticProtectedNs("&%X:5F")])
+coerce_a
+dup
+iftrue ofs00b8
+pop
+pushstring "-"
+coerce_a
+ofs00b8:
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "cpuAr"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "lang"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "manuf"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "os"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "ss"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "sup32BPs"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "sup64BPs"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "Cap.ver"
+getlex QName(PackageNamespace("flash.system"),"Capabilities")
+jump ofs013c
+dxnslate
+increment_i
+declocal 2
+ofs013c:
+getproperty QName(PackageNamespace("","56061"),"version")
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "totMem"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "useCPg"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+getlocal1
+pushstring "vmVer"
+pushstring "-"
+callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 2
+returnvoid
+end ; code
+end ; body
+end ; method

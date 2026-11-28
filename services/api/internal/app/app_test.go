@@ -16,6 +16,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/andrij06062003/Wormix/services/api/internal/assets"
 	"github.com/andrij06062003/Wormix/services/api/internal/db"
 )
 
@@ -119,23 +120,35 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	if a, b := schemaOf(t, ref.DB), schemaOf(t, d.DB); !reflect.DeepEqual(a, b) {
 		t.Fatalf("schema differs:\nref %q\ngo  %q", a, b)
 	}
-	// The crafted equipment (1.25.0) came after the PHP API: check it, then leave it out of the comparison.
+	// The 1.61.7 shop (checked first: the cleanups below delete some of its items, like the hat 1150): the
+	// items the table lacked, and its prices and levels for the ones it sells (not for the ones it hides, like 6).
+	var shop161 int
+	d.QueryRow(`select count(*) from wormix_weapons where (id = 54 and price = 800 and real_price = 8 and infinity = 1) or (id = 116 and hide_in_shop = 0 and infinity = 1 and real_price = 40) or (id = 1150 and infinity = 1 and real_price = 50) or (id = 2060 and infinity = 1 and real_price = 70) or (id = 6 and price = 28)`).Scan(&shop161)
+	if shop161 != 5 {
+		t.Errorf("1.61.7 shop rows %d, want 5", shop161)
+	}
+	// The crafted equipment (1.25.0: 128 rows, 1.61.7: 188 more) came after the PHP API: check it, then leave
+	// it out of the comparison.
 	var crafted int
 	d.QueryRow(`select count(*) from wormix_weapons where ((id > 1500 and id < 2000) or id > 2500) and hide_in_shop = 1 and infinity = 1`).Scan(&crafted)
-	if crafted != 128 {
-		t.Errorf("crafted equipment rows %d, want 128", crafted)
+	if crafted != 316 {
+		t.Errorf("crafted equipment rows %d, want 316", crafted)
 	}
 	d.Exec(`delete from wormix_weapons where (id > 1500 and id < 2000) or id > 2500`)
-	d.Exec(`delete from migrations where migration = '2026_11_08_120000_add_wormix_crafted_equip'`)
+	d.Exec(`delete from migrations where migration in ('2026_11_08_120000_add_wormix_crafted_equip', '2026_11_18_120000_add_wormix_crafted_equip_161')`)
+	// The owner's 1.61.7 grant changes no game data (and there is no such account here).
+	d.Exec(`delete from migrations where migration = '2026_11_18_130000_grant_owner_161'`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_180000_grant_owner_account'`)
 	// So did the hats of the 1.25.0 client (1062+).
 	var hats125 int
-	d.QueryRow(`select count(*) from wormix_weapons where id > 1061 and id < 1500 and infinity = 1`).Scan(&hats125)
+	d.QueryRow(`select count(*) from wormix_weapons where id > 1061 and id < 1143 and id != 1070 and infinity = 1`).Scan(&hats125)
 	if hats125 != 79 {
 		t.Errorf("1.25.0 hat rows %d, want 79", hats125)
 	}
 	d.Exec(`delete from wormix_weapons where id > 1061 and id < 1500`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_200000_add_wormix_hats_125'`)
+	// The 1.61.7 hat 1159 (Ксерокс), with the 1.61.7 shop (its row went with the hats above).
+	d.Exec(`delete from migrations where migration = '2026_11_28_180000_xerox_hat_161'`)
 	// And the Ice Shard sold in the shop.
 	var iceHidden int
 	d.QueryRow(`select hide_in_shop from wormix_weapons where id = 2019`).Scan(&iceHidden)
@@ -146,9 +159,137 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	d.Exec(`delete from migrations where migration = '2026_11_08_210000_sell_wormix_ice_shard'`)
 	// wormix_users_teams.inactive (1.25.0) is in the reference DB already: only its migration row is new.
 	d.Exec(`delete from migrations where migration = '2026_11_08_220000_add_wormix_teams_inactive'`)
+	// And the weapons of the 1.25.0 shop.
+	var weapons125 int
+	d.QueryRow(`select count(*) from wormix_weapons where id in (81, 82, 83, 94, 95, 96, 105, 107, 109) and hide_in_shop = 0 and infinity = 1 and price > 0 and real_price > 0`).Scan(&weapons125)
+	if weapons125 != 9 {
+		t.Errorf("1.25.0 weapon rows %d, want 9", weapons125)
+	}
+	d.Exec(`delete from wormix_weapons where id in (81, 82, 83, 94, 95, 96, 105, 107, 109)`)
+	d.Exec(`delete from migrations where migration = '2026_11_09_120000_add_wormix_weapons_125'`)
+	// And the 1.25.0 weapons that only come as awards (hidden, not infinite).
+	var award125 int
+	// (The 1.61.7 shop sells 84, 86 and 89.)
+	d.QueryRow(`select count(*) from wormix_weapons where id in (85, 87, 88, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104) and hide_in_shop = 1 and infinity = 0`).Scan(&award125)
+	if award125 != 13 {
+		t.Errorf("1.25.0 award weapon rows %d, want 13", award125)
+	}
+	d.Exec(`delete from wormix_weapons where id in (84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103, 104)`)
+	d.Exec(`delete from migrations where migration = '2026_11_10_120000_add_wormix_award_weapons_125'`)
+	// And the 1.61.7 shop (checked above): the reference's values back, without the new items.
+	refIDs := map[int64]bool{}
+	// (updated_at too: the shop's update sets it.)
+	rw, err := ref.Query(`select id, price, real_price, required_friends, required_level, required_rating, hide_in_shop, infinity, updated_at from wormix_weapons`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rw.Next() {
+		var id, price, real, friends, lvl, rating, hidden, inf int64
+		var updated any
+		rw.Scan(&id, &price, &real, &friends, &lvl, &rating, &hidden, &inf, &updated)
+		refIDs[id] = true
+		d.Exec(`update wormix_weapons set price = ?, real_price = ?, required_friends = ?, required_level = ?, required_rating = ?, hide_in_shop = ?, infinity = ?, updated_at = ? where id = ?`, price, real, friends, lvl, rating, hidden, inf, updated, id)
+	}
+	rw.Close()
+	var shop struct {
+		Items []struct {
+			ID int64 `json:"id"`
+		} `json:"items"`
+	}
+	if b, err := assets.Game("shop161.json"); err != nil || json.Unmarshal(b, &shop) != nil || len(shop.Items) == 0 {
+		t.Fatalf("shop161.json: %v", err)
+	}
+	for _, it := range shop.Items {
+		if !refIDs[it.ID] {
+			d.Exec(`delete from wormix_weapons where id = ?`, it.ID)
+		}
+	}
+	d.Exec(`delete from migrations where migration = '2026_11_18_140000_shop_161'`)
+	d.Exec(`delete from migrations where migration = '2026_11_18_160000_complex_weapons_161'`)
+	// No player of the reference DB has two branches of an upgrade: only the migration row is new.
+	d.Exec(`delete from migrations where migration = '2026_11_18_170000_recipe_branches_161'`)
+	// The owner's grant changes no game data (and there is no such account here).
+	d.Exec(`delete from migrations where migration = '2026_11_10_130000_grant_owner_crafted_hats'`)
+	// And the weapon upgrades of the 1.25.0 client (54 new recipes, and its costs for the old ones) and of
+	// the 1.61.7 client (68 more: 92-159).
+	var recipes, sheep, girderFreezer int
+	d.QueryRow(`select count(*) from wormix_craft`).Scan(&recipes)
+	d.QueryRow(`select count(*) from wormix_craft where id in (47, 48) and prev_upgrade_id = 40 and required_level = 12`).Scan(&sheep)
+	d.QueryRow(`select count(*) from wormix_craft where (id = 46 and prev_upgrade_id = 53 and upgrade_id = 346) or (id = 91 and prev_upgrade_id = 54 and upgrade_id = 391)`).Scan(&girderFreezer)
+	var drill int
+	d.QueryRow(`select count(*) from wormix_craft where (id = 108 and prev_upgrade_id = 12 and upgrade_id = 408) or (id = 159 and prev_upgrade_id = 457 and upgrade_id = 459)`).Scan(&drill)
+	if recipes != 159 || sheep != 2 || girderFreezer != 2 || drill != 2 {
+		t.Errorf("recipes %d (sheep %d, girder/freezer %d, 1.61.7 %d), want 159 (2, 2, 2)", recipes, sheep, girderFreezer, drill)
+	}
+	var reagents string
+	d.QueryRow(`select reagents from wormix_craft where id = 3`).Scan(&reagents)
+	if reagents != "[[0,40],[21,15],[41,12]]" {
+		t.Errorf("recipe 3 reagents %s", reagents)
+	}
+	d.Exec(`delete from wormix_craft where id > 37`)
+	rr, err := ref.Query(`select id, reagents, required_level from wormix_craft`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rr.Next() {
+		var id, lvl int64
+		var rg string
+		rr.Scan(&id, &rg, &lvl)
+		d.Exec(`update wormix_craft set reagents = ?, required_level = ? where id = ?`, rg, lvl, id)
+	}
+	rr.Close()
+	d.Exec(`delete from migrations where migration in ('2026_11_09_130000_add_wormix_recipes_125', '2026_11_17_120000_add_wormix_recipes_125_girder_freezer', '2026_11_17_210000_add_wormix_recipes_161')`)
+	// And the races of the 1.25.0 client: dragon, robot, rhino and boar, and its prices for the old ones.
+	var races, dragon int
+	d.QueryRow(`select count(*) from wormix_races`).Scan(&races)
+	d.QueryRow(`select count(*) from wormix_races where race_id = 7 and race_name = 'dragon' and price = 2600 and real_price = 26 and required_level = 14`).Scan(&dragon)
+	if races != 10 || dragon != 1 {
+		t.Errorf("1.25.0 races %d (dragon %d), want 10 (1)", races, dragon)
+	}
+	d.Exec(`delete from wormix_races where race_id > 6`)
+	rq, err := ref.Query(`select race_id, price, real_price, required_level from wormix_races`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for rq.Next() {
+		var id, price, real, lvl int64
+		rq.Scan(&id, &price, &real, &lvl)
+		d.Exec(`update wormix_races set price = ?, real_price = ?, required_level = ? where race_id = ?`, price, real, lvl, id)
+	}
+	rq.Close()
+	d.Exec(`delete from migrations where migration = '2026_11_09_140000_add_wormix_races_125'`)
+	// wormix_users_battle_info.last_coop_mission_id (1.25.0 co-op bosses) is in the reference DB already.
+	d.Exec(`delete from migrations where migration = '2026_11_09_150000_add_wormix_coop_progress'`)
+	// And the solo bosses of the 1.25.0 client (21 Dark Knight .. 27).
+	var missions, knight int
+	d.QueryRow(`select count(*) from wormix_missions where mission_id > 20`).Scan(&missions)
+	d.QueryRow(`select count(*) from wormix_missions where mission_id = 21 and required_level = 20 and awards like '%[1067,1]%'`).Scan(&knight)
+	if missions != 7 || knight != 1 {
+		t.Errorf("1.25.0 missions %d (dark knight %d), want 7 (1)", missions, knight)
+	}
+	var training int
+	d.QueryRow(`select count(*) from wormix_missions where mission_id in (-4, -5) and required_level = 1`).Scan(&training)
+	if training != 2 {
+		t.Errorf("1.25.0 training missions %d, want 2", training)
+	}
+	d.Exec(`delete from wormix_missions where mission_id > 20 or mission_id < -3`)
+	d.Exec(`delete from migrations where migration in ('2026_11_09_160000_add_wormix_missions_125', '2026_11_09_190000_add_wormix_training_125')`)
+	// users_vk_data.name_changed_at (the profile page's name change) is in the reference DB already.
+	d.Exec(`delete from migrations where migration = '2026_11_09_170000_add_users_name_changed_at'`)
+	// So is the chat_messages table (the players' chat).
+	d.Exec(`delete from migrations where migration = '2026_11_09_180000_create_chat_messages_table'`)
+	// And the arsenal's columns of wormix_user_profiles.
+	d.Exec(`delete from migrations where migration = '2026_11_18_150000_add_wormix_backpack'`)
 	for _, tb := range seededTables {
 		if a, b := tableDump(t, ref.DB, tb), tableDump(t, d.DB, tb); !reflect.DeepEqual(a, b) {
 			t.Errorf("table %s differs (%d vs %d rows)", tb, len(a), len(b))
+			shown := 0
+			for i := 0; i < len(a) && i < len(b) && shown < 5; i++ {
+				if !reflect.DeepEqual(a[i], b[i]) {
+					t.Logf("  ref %v\n  go  %v", a[i], b[i])
+					shown++
+				}
+			}
 		}
 	}
 }
@@ -169,6 +310,12 @@ func TestMigrateRefDBIsNoop(t *testing.T) {
 	if n != len(db.Migrations) {
 		t.Fatalf("migrations rows %d", n)
 	}
+	// The 1.61.7 hat Ксерокс (1159) came after the reference DB: in the shop for 100 rubies, for good.
+	var xerox int
+	d.QueryRow(`select count(*) from wormix_weapons where id = 1159 and real_price = 100 and hide_in_shop = 0 and infinity = 1 and required_level = 1`).Scan(&xerox)
+	if xerox != 1 {
+		t.Errorf("hat 1159 rows %d, want 1", xerox)
+	}
 }
 
 func TestMigrateUpgradesPreArtifactsDB(t *testing.T) {
@@ -181,7 +328,7 @@ func TestMigrateUpgradesPreArtifactsDB(t *testing.T) {
 	d.QueryRow(`select batch from migrations where migration = '2026_11_06_120000_add_wormix_artifacts'`).Scan(&batch)
 	d.QueryRow(`select count(*) from wormix_weapons where id > 2000 and id < 2500 and infinity = 1 and created_at is not null`).Scan(&artifacts)
 	d.QueryRow(`select count(*) from pragma_table_info('wormix_worms_data') where name = 'artifact'`).Scan(&col)
-	if batch != 2 || artifacts != 35 || col != 1 {
+	if batch != 2 || artifacts != 68 || col != 1 { // 35 of 1.05.0 and 33 more of the 1.61.7 shop
 		t.Fatalf("batch=%d artifacts=%d column=%d", batch, artifacts, col)
 	}
 	// Same schema as a DB created by the current PHP API.
@@ -324,12 +471,13 @@ func TestArenaBotsWithNegativeBalance(t *testing.T) {
 }
 
 // Concurrent purchases must stay atomic: every successful purchase is paid exactly once.
+// Weapon 20 is a plain weapon, bought by the piece (complex weapons are bought by levels, complex.go).
 func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 	srv, d, v := newServer(t)
 	alice := v.Users["alice"]
 	d.Exec(`update wormix_user_profiles set money = 1000 where user_id = 1`)
 	var before int64
-	d.QueryRow(`select coalesce(sum(count), 0) from wormix_users_weapons where owner_id = 1 and weapon_id = 6`).Scan(&before)
+	d.QueryRow(`select coalesce(sum(count), 0) from wormix_users_weapons where owner_id = 1 and weapon_id = 20`).Scan(&before)
 
 	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
 	const n = 40
@@ -341,7 +489,7 @@ func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 		go func() {
 			defer wg.Done()
 			st, j := call(t, srv, "POST", "/api/internal/account/buy/items",
-				map[string]any{"ShopItems": []any{map[string]any{"Id": 6, "Count": 1, "MoneyType": 1}}}, h)
+				map[string]any{"ShopItems": []any{map[string]any{"Id": 20, "Count": 1, "MoneyType": 1}}}, h)
 			if st == 200 && fmt.Sprint(j["data"].(map[string]any)["Result"]) == "0" {
 				mu.Lock()
 				ok++
@@ -352,8 +500,8 @@ func TestConcurrentPurchasesAreAtomic(t *testing.T) {
 	wg.Wait()
 	var money, price, after int64
 	d.QueryRow(`select money from wormix_user_profiles where user_id = 1`).Scan(&money)
-	d.QueryRow(`select price from wormix_weapons where id = 6`).Scan(&price)
-	d.QueryRow(`select coalesce(sum(count), 0) from wormix_users_weapons where owner_id = 1 and weapon_id = 6`).Scan(&after)
+	d.QueryRow(`select price from wormix_weapons where id = 20`).Scan(&price)
+	d.QueryRow(`select coalesce(sum(count), 0) from wormix_users_weapons where owner_id = 1 and weapon_id = 20`).Scan(&after)
 	if money != 1000-int64(ok)*price || after-before != int64(ok) || money < 0 {
 		t.Fatalf("ok=%d money=%d price=%d items %d->%d", ok, money, price, before, after)
 	}

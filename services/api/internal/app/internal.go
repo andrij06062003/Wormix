@@ -176,6 +176,10 @@ func (c *Ctx) enterAccount(u *Model, sessionKey string) *php.Arr {
 		"DailyBonusStructure", daily,
 		"Reagents", profile.Arr("reagents"),
 		"SessionKey", sessionKey,
+		// The arsenal (backpack.go): JSON as the API keeps it.
+		"BackpackConfs", oneCellPerFamily(php.ToString(profile.Get("backpack_confs")), c.weaponFamilies()),
+		"ActiveBackpackConf", profile.Get("active_backpack_conf"),
+		"Hotkeys", profile.Get("hotkeys"),
 	)
 }
 
@@ -475,11 +479,21 @@ func (c *Ctx) buyItemsInner() Resp {
 			if !php.ToBool(w.Get("infinity")) && php.StrictEq(e.Val("Count"), int64(-1)) {
 				return shopError()
 			}
+			if id := php.ToInt(w.Get("id")); isComplex(id) && php.Gt(e.Val("Count"), int64(0)) {
+				// levels past the top one: nothing to give, so nothing to pay
+				var have int64
+				if old := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ?`, c.UserID(), id); old != nil {
+					have = complexLevel(id, php.ToInt(old.Get("count")))
+				}
+				if have+php.ToInt(e.Val("Count")) > db.ComplexMaxLevel[id] {
+					return shopError()
+				}
+			}
 			if php.StrictEq(e.Val("MoneyType"), int64(0)) {
 				if php.StrictEq(w.Get("real_price"), int64(0)) {
 					return shopError()
 				}
-				if php.ToBool(w.Get("infinity")) {
+				if php.ToBool(w.Get("infinity")) && !shotsBought(w, e.Val("Count")) {
 					realSum = php.Add(realSum, w.Get("real_price"))
 				} else {
 					realSum = php.Add(realSum, php.Mul(w.Get("real_price"), e.Val("Count")))
@@ -489,7 +503,7 @@ func (c *Ctx) buyItemsInner() Resp {
 				if php.StrictEq(w.Get("price"), int64(0)) {
 					return shopError()
 				}
-				if php.ToBool(w.Get("infinity")) {
+				if php.ToBool(w.Get("infinity")) && !shotsBought(w, e.Val("Count")) {
 					sum = php.Add(sum, w.Get("price"))
 				} else {
 					sum = php.Add(sum, php.Mul(w.Get("price"), e.Val("Count")))
@@ -509,6 +523,21 @@ func (c *Ctx) buyItemsInner() Resp {
 	weapons := php.NewArr()
 	for _, it := range items.Values() {
 		old := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ?`, c.UserID(), idx(it, "Id"))
+		if id := php.ToInt(idx(it, "Id")); isComplex(id) && php.Gt(idx(it, "Count"), int64(0)) {
+			// levels of a complex weapon (complex.go): it stays the player's for good, one level higher each
+			var kept any
+			if old == nil {
+				old = New(defUserWeapon)
+				old.Set("owner_id", c.UserID())
+				old.Set("weapon_id", idx(it, "Id"))
+			} else {
+				kept = old.Get("count")
+			}
+			old.Set("count", addComplexLevels(id, kept, php.ToInt(idx(it, "Count"))))
+			c.Save(old)
+			weapons.Append(php.Assoc("Id", old.Get("weapon_id"), "Count", idx(it, "Count")))
+			continue
+		}
 		if php.LooseEq(idx(it, "Count"), int64(-1)) || old == nil {
 			uw := New(defUserWeapon)
 			uw.Set("owner_id", c.UserID())
@@ -519,9 +548,12 @@ func (c *Ctx) buyItemsInner() Resp {
 			continue
 		}
 		w := must(c.First(defWeapon, `where "wormix_weapons"."id" = ? limit 1`, old.Get("weapon_id")))
-		if php.ToBool(w.Get("infinity")) {
+		switch {
+		case php.ToBool(w.Get("infinity")) && php.LooseEq(old.Get("count"), int64(-1)):
+			// owned for good already: buying shots of it keeps it so
+		case php.ToBool(w.Get("infinity")) && !shotsBought(w, idx(it, "Count")):
 			old.Set("count", idx(it, "Count"))
-		} else {
+		default:
 			old.Set("count", php.Add(old.Get("count"), idx(it, "Count")))
 		}
 		c.Save(old)
@@ -538,6 +570,13 @@ func (c *Ctx) buyItemsInner() Resp {
 		c.exec(`update "wormix_worms_data" set "artifact" = ?, "updated_at" = ? where "owner_id" = ?`, last, db.Now(), c.UserID())
 	}
 	return jsonResp(200, php.Assoc("data", php.Assoc("Result", int64(0), "Weapons", weapons, "Stuff", php.NewArr())))
+}
+
+// shotsBought: the 1.61.7 client buys an infinite weapon with limited shots per battle ("complex", like the
+// ice bazooka) by the piece (Count > 0, at the price of each), not for good (Count -1). Hats and artifacts
+// are always bought for good.
+func shotsBought(w *Model, count any) bool {
+	return php.ToInt(w.Get("id")) < stuffStartIndex && php.Gt(count, int64(0))
 }
 
 func (c *Ctx) changeRace() Resp {
@@ -603,18 +642,45 @@ func (c *Ctx) buyBattle() Resp {
 }
 
 func (c *Ctx) unlockMission() Resp {
-	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"MissionId", "required|min:1|exists:wormix_missions,mission_id"}})
+	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"MissionId", "required|integer|min:1"}})
+	mid := php.ToInt(c.JSON("MissionId"))
+	if mid > coopBase {
+		return c.unlockCoopMission(mid)
+	}
+	if c.mission(mid) == nil {
+		c.Validate([]R{{"MissionId", "exists:wormix_missions,mission_id"}})
+	}
 	u := must(c.First(defUser, `where "id" = ?`, c.UserID()))
 	bi := must(c.First(defBattleInfo, `where "wormix_users_battle_info"."user_id" in (?)`, u.Get("id")))
 	worm := must(c.First(defWorm, `where "wormix_worms_data"."owner_id" in (?)`, u.Get("id")))
 	p := must(c.First(defProfile, `where "wormix_user_profiles"."user_id" in (?)`, u.Get("id")))
-	m := must(c.First(defMission, `where "mission_id" = ?`, c.JSON("MissionId")))
+	m := must(c.mission(mid))
 	price := php.Mul(php.Sub(php.Sub(c.JSON("MissionId"), int64(1)), bi.Get("last_mission_id")), int64(10))
 	if php.Lt(worm.Get("level"), m.Get("required_level")) || php.Ge(bi.Get("last_mission_id"), m.Get("mission_id")) || php.Lt(p.Get("real_money"), price) {
 		return dataResult("Result", int64(1))
 	}
 	bi.Set("last_mission_id", php.Sub(c.JSON("MissionId"), int64(1)))
 	p.Set("real_money", php.Sub(p.Get("real_money"), price))
+	c.Save(p)
+	c.Save(bi)
+	return dataResult("Result", int64(0))
+}
+
+// unlockCoopMission is account/buy/mission for a co-op boss of the 1.25.0 client (101+): 10 rubies for
+// every boss skipped, as the client counts it; the co-op progress moves to the one before it.
+func (c *Ctx) unlockCoopMission(mid int64) Resp {
+	uid := c.UserID()
+	m, ok := coopMissionCfg(mid)
+	bi := must(c.First(defBattleInfo, `where "user_id" = ?`, uid))
+	worm := must(c.First(defWorm, `where "owner_id" = ?`, uid))
+	p := must(c.First(defProfile, `where "user_id" = ?`, uid))
+	last := lastCoopMission(bi)
+	price := (mid - 1 - last) * 10
+	if !ok || php.ToInt(worm.Get("level")) < m.requiredLevel || last >= mid || php.ToInt(p.Get("real_money")) < price {
+		return dataResult("Result", int64(1))
+	}
+	bi.Set("last_coop_mission_id", mid-1)
+	p.Set("real_money", php.ToInt(p.Get("real_money"))-price)
 	c.Save(p)
 	c.Save(bi)
 	return dataResult("Result", int64(0))
@@ -681,17 +747,24 @@ func (c *Ctx) resetAccount() Resp {
 	return dataResult("Result", int64(0))
 }
 
+// freeResetLevel: below it the attack and armor reset costs nothing (the 1.61.7 client's price table).
+const freeResetLevel = 10
+
 func (c *Ctx) resetParameters() Resp {
 	c.Validate([]R{{"internal_user_id", "required|integer|exists:users,id"}, {"MoneyType", "required|integer|min:0|max:1"}})
 	p := must(c.First(defProfile, `where "user_id" = ?`, c.UserID()))
 	w := must(c.First(defWorm, `where "owner_id" = ?`, c.UserID()))
 	mt := c.JSON("MoneyType")
-	if (php.StrictEq(mt, int64(1)) && php.Lt(p.Get("money"), int64(300))) || (php.StrictEq(mt, int64(0)) && php.Lt(p.Get("real_money"), int64(3))) {
+	// The 1.61.7 client resets them for free below level freeResetLevel (it asks nothing and shows the price 0).
+	free := php.Lt(w.Get("level"), int64(freeResetLevel))
+	if !free && ((php.StrictEq(mt, int64(1)) && php.Lt(p.Get("money"), int64(300))) || (php.StrictEq(mt, int64(0)) && php.Lt(p.Get("real_money"), int64(3)))) {
 		return dataResult("Result", int64(3))
 	}
-	if php.StrictEq(mt, int64(1)) {
+	switch {
+	case free:
+	case php.StrictEq(mt, int64(1)):
 		p.Set("money", php.Sub(p.Get("money"), int64(300)))
-	} else {
+	default:
 		p.Set("real_money", php.Sub(p.Get("real_money"), int64(3)))
 	}
 	w.Set("armor", int64(0))
@@ -730,20 +803,14 @@ func (c *Ctx) upgradeWeapon() Resp {
 	}
 	errResp := func(code int64) Resp { return dataResult("Result", code, "RecipeId", php.IntArg(rid)) }
 	prev := craft.Get("prev_upgrade_id")
-	if (php.Lt(prev, int64(300)) && c.Count(`select count(*) as aggregate from "wormix_users_weapons" where "owner_id" = ? and "weapon_id" = ? and "count" = ?`, c.UserID(), prev, int64(-1)) == 0) ||
+	// The base weapon must be owned for good (at any level of a complex one: complex.go), or (1.61.7) be an
+	// infinite weapon bought by its shots, which the upgrade makes the player's for good (as the client does).
+	base := c.First(defUserWeapon, `where "owner_id" = ? and "weapon_id" = ? and ("count" < 0 or ("count" > 0 and exists(select * from "wormix_weapons" where "id" = ? and "infinity" = 1))) order by "count" asc limit 1`, c.UserID(), prev, prev)
+	if (php.Lt(prev, int64(300)) && base == nil) ||
 		(php.Gt(prev, int64(300)) && !php.InArray(optID(prevUpgrade()), recipes(), false)) ||
 		php.InArray(craft.Get("id"), recipes(), false) ||
 		php.Lt(w.Get("level"), craft.Get("required_level")) ||
-		php.InArray(func() any {
-			pu := optID(prevUpgrade())
-			var other *Model
-			if pu == nil {
-				other = c.First(defCraft, `where "upgrade_id" is null and "id" != ?`, rid)
-			} else {
-				other = c.First(defCraft, `where "upgrade_id" = ? and "id" != ?`, pu, rid)
-			}
-			return optID(other)
-		}(), recipes(), false) {
+		c.craftedFrom(prev, rid, recipes()) {
 		return errResp(1)
 	}
 	creagents, ok := craft.Arr("reagents").(*php.Arr)
@@ -812,7 +879,25 @@ func (c *Ctx) upgradeWeapon() Resp {
 	p.Set("recipes", merged)
 	p.Set("reagents", changed)
 	c.Save(p)
+	if base != nil && !php.LooseEq(base.Get("count"), int64(-1)) {
+		base.Set("count", int64(-1))
+		c.Save(base)
+	}
 	return errResp(0)
+}
+
+// craftedFrom tells whether a crafted recipe other than rid starts from weapon: the other branch of an
+// upgrade (the client shows one branch of a weapon: db.ConsistentRecipes), or one made from its upgrade.
+func (c *Ctx) craftedFrom(weapon, rid any, recipes *php.Arr) bool {
+	if weapon == nil {
+		return false
+	}
+	for _, m := range c.All(defCraft, `where "prev_upgrade_id" = ? and "id" != ?`, weapon, rid) {
+		if php.InArray(m.Get("id"), recipes, false) {
+			return true
+		}
+	}
+	return false
 }
 
 func phpRound(v any) float64 {
@@ -833,7 +918,10 @@ func (c *Ctx) downgradeWeapon() Resp {
 		php.Fail("in_array(): Argument #2 ($haystack) must be of type array")
 	}
 	reagents, _ := p.Arr("reagents").(*php.Arr)
-	if !php.InArray(craft.Get("id"), recipes, false) || php.Lt(p.Get("real_money"), int64(5)) {
+	// Not one a later crafted upgrade starts from: the 1.61.7 client walks each upgrade down to its base weapon
+	// and never gets there past a missing one (db.ConsistentRecipes).
+	if !php.InArray(craft.Get("id"), recipes, false) || php.Lt(p.Get("real_money"), int64(5)) ||
+		c.craftedFrom(craft.Get("upgrade_id"), rid, recipes) {
 		return dataResult("Result", int64(1), "RecipeId", php.IntArg(rid))
 	}
 	if reagents == nil {

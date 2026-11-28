@@ -1,0 +1,56 @@
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace("","56061"),"void")
+
+                                    body
+                                       maxstack 5
+                                       localcount 1
+                                       initscopedepth 6
+                                       maxscopedepth 7
+
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          findpropstrict QName(PackageNamespace("","56061"),"isActive")
+                                          newfunction 42770
+                                          pop
+                                          jump ofs0012
+                                          bitor
+                                          pushtrue
+                                          equals
+                                 ofs0012:
+                                          callproperty QName(PackageNamespace("","56061"),"isActive"), 0
+                                          iffalse ofs0082
+                                          getlocal0
+                                          callsupervoid QName(PackageNamespace("","56061"),"deactivate"), 0
+                                          getlex QName(PackageNamespace("ru.pragmatix.wormix.controller"),"8\"%")
+                                          getproperty QName(PackageNamespace("","56061"),"?!W")
+                                          getproperty QName(PackageNamespace("","56061"),"4\"m")
+                                          callproperty QName(PackageNamespace("","56061"),"=%g"), 0
+                                          iffalse ofsXP03
+                                          getlex QName(PackageNamespace("0\"L"),"+# ")
+                                          getproperty QName(PackageNamespace("","56061"),"\"$T")
+                                          callpropvoid QName(Namespace("ru.pragmatix.wormix.controls:IControlSet"),"deactivate"), 0
+                                 ofsXP03:
+                                          getlex QName(PackageNamespace("","56061"),"Application")
+                                          getproperty QName(PackageNamespace("","56061"),"scene")
+                                          getlex QName(PackageNamespace("flash.events"),"Event")
+                                          getproperty QName(PackageNamespace("","56061"),"ENTER_FRAME")
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace("*","1012"),">W")
+                                          callpropvoid QName(PackageNamespace("","56061"),"removeEventListener"), 2
+                                          getlex QName(PackageNamespace("","56061"),"Application")
+                                          getproperty QName(PackageNamespace("","56061"),"scene")
+                                          getlex QName(PackageNamespace("flash.events"),"MouseEvent")
+                                          getproperty QName(PackageNamespace("","56061"),"CLICK")
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace("*","1012"),"=#=")
+                                          pushfalse
+                                          callpropvoid QName(PackageNamespace("","56061"),"removeEventListener"), 3
+                                          getlocal0
+                                          callpropvoid QName(PrivateNamespace("*","1012"),"9!f"), 0
+                                 ofs0082:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method

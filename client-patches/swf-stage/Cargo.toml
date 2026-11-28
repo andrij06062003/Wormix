@@ -1,0 +1,8 @@
+[package]
+name = "swf-stage"
+version = "0.1.0"
+edition = "2021"
+description = "Sets the stage size in a SWF file's header"
+
+[dependencies]
+flate2 = "1.0"

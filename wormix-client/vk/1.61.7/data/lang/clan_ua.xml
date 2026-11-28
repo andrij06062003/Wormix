@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dictionary>
+
+    <!-- tab names -->
+    <message name="CLAN_TITLE_EMPTY" value="Кімната клану"/>
+    <message name="TAB_CREATE_CLAN" value="Створити клан"/>
+    <message name="TAB_CLAN_CHAT" value="Чат"/>
+    <message name="MESSAGE_TO_CLAN" value="Повідомлення клану"/>
+    <message name="TAB_CONTRACTS_CLAN" value="Контракти"/>
+    <message name="TAB_TREASURY_CLAN" value="Казна"/>
+    <message name="TAB_SEARCH_CLAN" value="Пошук клана"/>
+    <message name="TAB_INVITES_TO_CLAN" value="Запрошення"/>
+    <message name="CLAN_INFO_TAB" value="Інфо"/>
+    <message name="CLAN_EDIT_TAB" value="Редагувати"/>
+
+    <!-- clan creation -->
+    <message name="CREATE_CLAN_BTN" value="Створити клан!"/>
+    <message name="CLAN_NAME" value="Назва клану:"/>
+    <message name="CLAN_DESCRIPTION" value="Опис клану:"/>
+    <message name="MAX_LENGTH_LABEL" value="Максимум 16 символів"/>
+    <message name="CLAN_LOGO" value="Емблема клану:"/>
+    <message name="SETTINGS_TEXT" value="Налаштуйте стрілками"/>
+    <message name="LOGO_LABEL_TEXT" value="Значок"/>
+    <message name="LOGO_COLOR_LABEL_TEXT" value="Колір значка"/>
+    <message name="PATTERN_LABEL_TEXT" value="Візерунок"/>
+    <message name="COLOR_LABEL_TEXT" value="Колір візерунку"/>
+    <message name="NOT_IN_CLAN" value="Не в клані"/>
+    <message name="CANT_CREATE_CLAN" value="Ви не можете створити свій клан!"/>
+    <message name="CREATE_CLAN_CONFIRMATION" value="Ви готові створити клан?"/>
+
+    <!-- clan search -->
+    <message name="SEARCH_CLAN_NAME_LABEL" value="Назва клану:"/>
+    <message name="SEARCH_CLAN_BTN" value="Знайти!"/>
+    <message name="CLAN_RATING_POINTS" value="Очок рейтингу:"/>
+    <message name="SEARCH_FAILED_LABEL" value="Пошук не дав результатів"/>
+
+    <!-- clan info -->
+    <message name="CLAN_COMPOSITION" value="Склад: "/>
+    <message name="CLAN_RATING" value="Рейтинг: "/>
+    <message name="CLAN_LEAVE_BTN" value="Покинути"/>
+
+    <!-- edit clan -->
+    <message name="EDIT_CLAN_TAB" value="Редагувати"/>
+    <message name="CLAN_CAPACITY_LABEL" value="Місткість клану:"/>
+    <message name="CLAN_EXPAND_TO" value="Збільшити до {value}"/>
+    <message name="EXPAND_CLAN_BUTTON" value="Збільшити"/>
+
+    <message name="CHANGE_CLAN_NAME_CONFIRMATION" value="Ви впевнені, що хочете змінити ім'я клану за 5 рубінів?"/>
+    <message name="CHANGE_CLAN_EMBLEM_CONFIRMATION" value="Ви впевнені, що хочете змінити емблему клану за 5 рубінів?"/>
+    <message name="CHANGE_CLAN_DESCRIPTION_CONFIRMATION"
+             value="Ви впевнені, що хочете змінити опис клану за 5 рубінів?"/>
+    <message name="EXPAND_CLAN_CONFIRMATION" value="Ви впевнені, що хочете купити розширення клану?"/>
+
+    <message name="CHANGE_CLAN_NAME_FAILED" value="Ім'я клану ідентично поточному"/>
+    <message name="CHANGE_CLAN_DESCRIPTION_FAILED" value="Опис клану ідентичний поточному"/>
+    <message name="CHANGE_CLAN_EMBLEM_FAILED" value="Іконка ідентична поточній"/>
+    <message name="ERR_CLAN_NAME_EXISTS" value="Назва уже зайнята!"/>
+
+    <message name="ERROR_MIN_CHAR_CLAN_NAME" value="Довжина імені клану повинна бути не менше {value} символів"/>
+    <message name="MAX_CHAR_CLAN_NAME_LABEL" value="Максимум {maxChar} символів"/>
+
+    <message name="MAX_CAPACITY_TITLE" value="Максимальна місткість"/>
+    <message name="MAX_CAPACITY_LABEL"
+             value="Ваш клан досяг максимального розміру. Більше не можна збільшити місткість."/>
+    <message name="MESSAGE_ON_GET_LEVEL_IN_ROOM" value="Місткість клану була збільшена."/>
+    <message name="REPEATED_REQUEST_ON_NEW_LEVEL" value="Запит на це збільшення вже був відправлений."/>
+
+    <!-- invites -->
+    <message name="INIVTE_TO_CLAN_POPUP_MENU_ITEM" value="Запросити в клан"/>
+    <message name="FRIEND_ALREADY_IN_CLAN" value="Ваш друг вже є в клані!"/>
+    <message name="FRIEND_INVITE_SENT" value="Запрошення надіслано!"/>
+    <message name="PLAYER_NOT_IN_CLAN" value="Ви не в клані!"/>
+    <message name="RESTRICTION_ON_RANK_AT_INVITE"
+             value="Тільки лідер і офіцери клану можуть запрошувати нових учасників!"/>
+    <message name="INVITES_COUNT" value="Активних запрошень: {invites}."/>
+    <message name="INVITE_TEXT" value="запрошує в"/>
+    <message name="JOIN_TO_CLAN_BTN" value="Вступити"/>
+    <message name="INVITE_CONFIRMATION_TITLE" value="Запрошення в клан"/>
+    <message name="INVITE_CONFIRMATION_TEXT" value="Ви впевнені, що хочете прийняти запрошення від клану {clanName}?"/>
+
+    <message name="ERR_REPEATED_INVITE" value="Ви вже відправили запрошення цьому гравцю."/>
+    <message name="ERR_PROFILE_INVITE_LIMIT" value="У друга перевищений ліміт запрошень."/>
+    <message name="ERR_CLAN_INVITE_LIMIT" value="Ви перевищили ліміт запрошень, спробуйте пізніше."/>
+    <message name="ERR_INTEROP_ON_INVITE" value="Ваш друг заблокований в грі, йому не можна надіслати запрошення."/>
+
+    <message name="ERR_INVITE_LOW_LEVEL_FRIEND" value="У клан можна запрошувати гравців тільки {level} рівня і вище"/>
+    <message name="ERR_INVITE_ALREADY_PASSED" value="Термін запрошення уже минув"/>
+
+    <!-- chat messages -->
+    <message name="CLAN_UNKNOWN_MESSAGE" value="Невідоме повідомлення."/>
+    <message name="CLAN_HAS_NEW_NAME" value="{name} змінив назву клану."/>
+    <message name="CLAN_HAS_NEW_DESCRIPTION" value="{name} змінив опис клану."/>
+    <message name="CLAN_HAS_NEW_CAPACITY" value="{name} збільшив місткість клану."/>
+    <message name="CLAN_HAS_NEW_EMBLEM" value="Емблема клану змінена."/>
+    <message name="CLAN_EXIT_HAS_CLOSED" value="Вихід з клану закритий."/>
+    <message name="CLAN_EXIT_HAS_OPENED" value="Вихід з клану відкритий."/>
+
+    <message name="MEMBER_JOINED_CLAN" value="{name} вступив у клан."/>
+    <message name="MEMBER_LEFT_CLAN" value="{name} вийшов з клану."/>
+    <message name="MEMBER_WAS_EXPELLED" value="{name} був видалений з клану ({subject})."/>
+
+    <message name="LEADER_PROMOTE_RANK_MEMBER" value="{name} був підвищений до {rank}."/>
+    <message name="LEADER_LOWER_RANK_MEMBER" value="{name} був розжалуваний до {rank}."/>
+    <message name="RANK_OFFICER_ACCUSITIVE" value="офіцера"/>
+    <message name="RANK_SOLDIER_ACCUSITIVE" value="рядового"/>
+    <message name="LEADER_SWITCHED_WITH_OFFICER" value="{name} став новим лідером клану."/>
+
+    <!-- news -->
+    <message name="DEFAULT_NEWS_CLAN_TITLE" value="Новини відсутні"/>
+    <message name="NEWS_CLAN_TITLE_LOCKED"
+             value="Ваш клан заблокований. Щоб зняти блокування, виправте назву і/або опис клану."/>
+    <message name="NEWS_POST_INFO" value="{profileId} залишив повідомлення {date} в {time}"/>
+
+    <!-- context menus -->
+    <message name="CONTEXT_MENU_JOINT_FIGHT_BOSS" value="Спільний бій з босом"/>
+    <message name="CONTEXT_MENU_JOINT_FIGHT" value="Спільний бій"/>
+    <message name="CONTEXT_MENU_DUEL" value="Дуель"/>
+    <message name="CONTEXT_VISIT_USER" value="Зайти в гості"/>
+    <message name="CONTEXT_MENU_ADD_USER_TO_TEAM" value="Додати в команду"/>
+    <message name="CONTEXT_MENU_INCREASE_RANK" value="Підвищити в званні"/>
+    <message name="CONTEXT_MENU_REDUCE_RANK" value="Понизити в званні"/>
+    <message name="CONTEXT_MENU_MAKE_LEADER" value="Передати повноваження"/>
+    <message name="CONTEXT_MENU_FIRE_FROM_CLAN" value="Виключити з клану"/>
+    <message name="EXIT_CLAN_LABEL" value="Вийти з клану"/>
+    <message name="DELETE_CLAN_LABEL" value="Видалити клан"/>
+
+    <!-- common -->
+    <message name="USER_EXPELLED_FROM_CLAN_MSG" value="Ви були видалені з клану."/>
+    <message name="USER_EXPELLED_BY_OFFICER_MSG" value="{name} видалив Вас з клану."/>
+    <message name="OFFICERS_POSITIONS" value="Офіцерських позицій:"/>
+    <message name="CLAN_BTN_QTIP" value="Клан"/>
+    <message name="CONFIRMATION_EXIT_FROM_CLAN" value="Ви впевнені, що хочете покинути клан?"/>
+    <message name="NO_RESPONSE_FROM_SERVER_CLAN" value="Не вдалося отримати відповідь від сервера кланів."/>
+    <message name="CLAN_LOCKED_MESSAGE" value="Ваш клан заблокований, операція неможлива."/>
+    <message name="USER_RANK_PROMOTE" value="Ваш ранг в клані був збільшений!"/>
+    <message name="USER_RANK_LOWER" value="Ваш ранг в клані був зменшений!"/>
+    <message name="ERR_LEADER_QUIT_CLAN"
+             value="Клан може бути видалений, тільки коли в ньому залишиться 1 учасник. Передайте свої повноваження офіцеру або видаліть інших учасників."/>
+    <message name="QUIT_CLAN_CONFIRMATION" value="Ви впевнені, що хочете видалити клан?"/>
+    <message name="PROMOTION_CONFIRMATION_OFFICER"
+             value="Офіцери отримують можливість запрошувати і видаляти учасників клану, а також змінювати новина дня і купувати розширення клану. Підвищити цього гравця?"/>
+    <message name="PROMOTION_CONFIRMATION_LEADER"
+             value="Передавши повноваження товаришу, ви автоматично стаєте офіцером. Ви впевнені, що хочете зробити лідером цього учасника?"/>
+    <message name="CLAN_NOT_FOUND" value="Цього клану більше не існує."/>
+    <message name="OPEN_CLAN_TYPE" value="Поріг рейтингу для вступу:"/>
+
+    <message name="CLOSE_CLAN_TYPE" value="Клан закритий для вступу:"/>
+    <message name="TERMS_OF_JOINT" value="Умови вступу"/>
+    <message name="REQUIRED_RATING_FOR_JOINT" value="Мiн. рейтинг для вступу:"/>
+    <message name="CLAN_EMBLEM" value="Емблема клану"/>
+    <message name="SETTING_LABEL" value="Налаштувати"/>
+    <message name="MIN_RATING_NEED" value="Необхідно задати мінімальний рейтинг"/>
+    <message name="MIN_RATING_ZERO" value="Значення рейтингу повинне бути більше нуля!"/>
+    <message name="JOIN_RATING_NOT_CHANGED" value="Значення рейтингу збігається з поточним!"/>
+    <message name="JOIN_TO_CLAN_LABEL" value="Вступ:"/>
+
+    <message name="OPEN_CLAN" value="вільний"/>
+    <message name="CLOSE_CLAN" value="по запрошенню"/>
+    <message name="OPEN_FOR_RATING" value="рейтинг: {value}"/>
+    <message name="MAP_CAPACITY_FOR_JOIN_CLAN" value="Клан повністю заповнений. На жаль, для вас місця не залишилося."/>
+    <message name="JOIN_CLAN_CONFIRMATION_TITLE" value="Вступ у клан"/>
+    <message name="JOIN_CLAN_CONFIRMATION_TEXT" value="Ви впевнені, що хочете вступити в клан {clanName}?"/>
+    <message name="ERR_SOCIAL_ID"
+             value="Произошла ошибка, попробуйте обновить страницу с игрой и выполнить действие еще раз."/>
+
+    <message name="CONTEXT_MENU_MAKE_LEADER" value="Передати повноваження"/>
+
+    <message name="RANK_SOLDIER" value="Солдат"/>
+    <message name="RANK_OFFICER" value="Офіцер"/>
+    <message name="RANK_LEADER" value="Лідер"/>
+    <message name="CLANS" value="Клани"/>
+
+    <message name="CLAN_PLACE_IN_TOP" value="Місце:"/>
+
+    <message name="PLAYER_INVITE_YOU_IN_CLAN" value="{userName} запросив вас в клан {clanName}"/>
+    <message name="PLAYER_RATING_PART_OF_CLAN" value="{value}% від загального рейтингу клану"/>
+    <message name="CLAN_RATING_TOO_SMALL"
+             value="Рейтинг клану занадто малий, щоб визначити ваш внесок у спільну справу"/>
+
+    <message name="CLAN_JOIN_DISABLE_BY_LEVEL" value="Вступ у клан можливий не раніше {value} рівня!"/>
+
+    <!-- 1.19 -->
+    <message name="CANT_CREATE_CLAN_DESC">
+        <![CDATA[Ви повинні досягти {level} і набрати {rating} рейтингу, щоб створити свій клан.]]></message>
+    <message name="CREATE_CLAN_LEVEL_REQ_GREEN">
+        <![CDATA[<b><font color='#58AA58'>{level} рівня</font></b>]]></message>
+    <message name="CREATE_CLAN_LEVEL_REQ_RED">
+        <![CDATA[<b><font color='#FF5858'>{level} рівня</font></b>]]></message>
+    <message name="CREATE_CLAN_RATING_REQ_GREEN">
+        <![CDATA[<b><font color='#58AA58'>{rating} очок</font></b>]]></message>
+    <message name="CREATE_CLAN_RATING_REQ_RED">
+        <![CDATA[<b><font color='#FF5858'>{rating} очок</font></b>]]></message>
+
+    <!-- 1.20 -->
+    <message name="GLOBAL_CHAT_TAB_NAME" value="Глобальний"/>
+    <message name="CLAN_CHAT_TAB_NAME" value="Клановий"/>
+    <message name="CLAN_CHAT_VELCOME" value="Ласкаво просимо в чат клану!"/>
+    <message name="CLAN_CHAT_OFFER_CREATE"
+             value="Поки ви не в клані, але зараз саме час, щоб створити свій клан або знайти клан для вступу!"/>
+    <message name="CREATE_FOR_BTN" value="Створити за"/>
+    <message name="UPGRADE_FOR_BTN" value="Збільшити за"/>
+
+    <!-- 1.22 -->
+
+    <message name="PROMOTION_LEADER_FAILED"
+             value="Гравець повинен досягти {level} рівня і набрати {rating} рейтингу, щоб прийняти управління кланом."/>
+
+    <message name="ERR_ALREADY_IN_CLAN" value="Гравець вже в клані!"/>
+    <message name="CLAN_CLOSE_EXIT" value="Закрити вихід з клану:"/>
+
+    <message name="CLAN_TREASURY_LABEL" value="Скарбниця клану:"/>
+    <message name="CLAN_TREASURY_PAY_LABEL" value="Внести рубіни в скарбницю:"/>
+    <message name="MEDAL_COLLECT_LABEL" value="Медалей зароблено:"/>
+    <message name="MEDAL_COLLECT_NOTIFY" value="Медалі видаються автоматично за кожну зароблену {count} рейтингу."/>
+    <message name="MEDAL_RATE_NEXT_LABEL" value="До наступної медалі:"/>
+    <message name="MEDAL_COST_LABEL" value="Вартість медалі"/>
+    <message name="MEDAL_COST_NOTIFY"
+             value="Від {min} до {max} рубінів. У скарбниці повинно вистачати рубінів на {count} медалей."/>
+
+    <message name="CLAN_TREASURY_PAY_BTN" value="Внести"/>
+    <message name="CLAN_EXCHANGE_MEDAL_FOR" value="Обміняти"/>
+
+    <message name="CLAN_OP_WALLET_SELECT" value="Ви можете вибрати спосіб оплати:"/>
+    <message name="CLAN_OP_WALLET_SELF" value="Зі свого рахунку"/>
+    <message name="CLAN_OP_WALLET_TREASURY" value="З казни клану"/>
+    <message name="CLAN_MEDAL_COST_CONFIRM_COUNT" value="У скарбниці повинно бути не менше {count} {rubies}!"/>
+
+    <message name="CLAN_MATE_FIRE_RETURN_PAY" value="Повернення вкладу гравцеві:"/>
+    <message name="CLAN_MATE_FIRE_MADELS_COST" value="Оплата зароблених медалей:"/>
+    <message name="CLAN_MATE_FIRE" value="Виключити"/>
+
+    <message name="CLAN_CAPTION_POSITION" value="Позиція"/>
+    <message name="CLAN_CAPTION_PLAYER" value="Гравець"/>
+    <message name="CLAN_CAPTION_PAY" value="Внесок"/>
+    <message name="CLAN_CAPTION_ONLINE" value="Онлайн"/>
+    <message name="CLAN_CAPTION_RATE" value="Рейтинг"/>
+
+    <message name="ONLINE_INGAME" value="у грі"/>
+    <message name="ONLINE_HOUR" value="&lt; години"/>
+    <message name="ONLINE_TODAY" value="сьогодні"/>
+    <message name="ONLINE_DAYS" value="{count} {days}"/>
+    <message name="ONLINE_MORE_MONTH_AGO" value="&gt; місяця"/>
+
+    <message name="ERR_EXIT_CLOSED_CLAN"
+             value="Вихід з клану закритий, його не можна залишити добровільно. Ви зможете змінити клан протягом перших {count} днів кожного сезону!"/>
+    <message name="JOIN_TO_EXIT_CLOSED_CLAN"
+             value="Ви збираєтеся вступити в закритий клан. Покинути його ви зможете тільки в перші {count} днів кожного сезону!"/>
+    <message name="EXIT_FROM_CLAN_LABEL" value="Вихід з клану:"/>
+    <message name="EXIT_FROM_CLAN_FREE" value="вільний"/>
+    <message name="EXIT_FROM_CLAN_CLOSED" value="закритий"/>
+
+    <message name="DONATE_CLAN_CONFIRMATION" value="Ви впевнені, що хочете внести в казну клану {count} {rubies}?"/>
+    <message name="DONATE_CLAN_MEMBER" value="{name} вніс в скарбницю {count} {rubies}."/>
+    <message name="CHANGE_MEDAL_PRICE_CLAN" value="Встановлена ціна за 1 медаль: {count} {rubies}."/>
+    <message name="EXCHANGE_MEDALS_CLAN_MEMBER" value="{name} обміняв {count} {medals} на рубіни."/>
+    <message name="ERR_DONATE_REPEAT"
+             value="Сьогодні ви вже вносили рубіни в казну. Наступний внесок можна буде зробити завтра."/>
+
+    <message name="TREASURY_NOT_ENOUGH_TITLE" value="Недостатньо коштів у казні"/>
+    <message name="NEED_FOR_COMPENSATION_MEMBER"
+             value="Потрібні кошти для компенсації внеску або оплати медалей гравця."/>
+    <message name="ONLY_LEADER_CAN_EXPELL_MEMBER_WITH_COMPENSATION"
+             value="Тільки лідер може вигнати гравця, що зробив внесок у скарбницю чи заробив медалі."/>
+    <message name="REQUIRE_DONATE_NOTIFY"
+             value="Щоб внести вклад, ви повинні мати не менше {rubies} рубінів або не менше {rating} рейтингу за сезон."/>
+
+    <message name="CLAN_OP_TITLE_EXPAND_CAPACITY" value="Збільшити місткість клану"/>
+    <message name="CLAN_OP_TITLE_CHANGE_DESCRIPTION" value="Змінити опис клану"/>
+    <message name="CLAN_OP_TITLE_CHANGE_EMBLEM" value="Змінити емблему клану"/>
+    <message name="CLAN_OP_TITLE_RENAME" value="Перейменувати клан"/>
+    <message name="CLAN_OP_TITLE_DEFAULT" value="Кланова операція"/>
+
+    <message name="CLAN_TREASURY_PAY_NOTIFY_BONUS"
+             value="Купівля рубінів до казни клану приносить на {value}% більше рубінів."/>
+    <message name="CLAN_TREASURY_PAY_NOTIFY_FIRE"
+             value="Якщо вас видалять з клану, ви отримаєте назад ваш внесок за останні 2 сезони (без {value}% бонусу)."/>
+    <message name="USER_EXPELLED_COMPENSATION" value="Вам повернені вкладення: {count} {rubies}."/>
+
+    <message name="CLAN_MEDAL_COST_CONFIRM_WARNING" value="Ви впевнені, що хочете виставити нову ціну за медалі?"/>
+    <message name="CONFIRM_EXPELL_CLANMATE" value="Ви впевнені, що хочете вигнати гравця з клану?"/>
+    <message name="TREASURY_INCOMING_PAYMENT_SUCCESS"
+             value="Ваш платіж успішно поповнив скарбницю клану на {count} {rubies}."/>
+
+    <!--1.26-->
+    <message name="TAB_CLAN_ACTIVITY" value="Події"/>
+    <message name="CLAN_CREATED" value="{name} створив клан."/>
+    <message name="CLAN_DELETED" value="{name} видалив клан."/>
+    <message name="CLAN_HISTORY_HEADER" value="Історія"/>
+    <message name="ERR_INVALID_ARGUMENT" value="Некоректний параметр запиту"/>
+    <message name="MEMBER_GLADIATOR_COMPLETE_MESSAGE"
+             value="{name} завершив серію гладіаторських боїв з рахунком {count}"/>
+    <message name="CLAN_NO_ACTIVITY_THIS_MONTH" value="За останній місяць в клані нічого не сталося."/>
+
+    <!--1.28-->
+    <message name="CLAN_REACTION_PUMP" value="Прокачати реакцію клану"/>
+    <message name="CLAN_REACTION_PUMPED" value="Прокачано співкланівців:"/>
+
+    <!--1.32-->
+    <message name="CONTEXT_MENU_MUTE_MODE_ON" value="Заборонити писати в клан-чат"/>
+    <message name="CONTEXT_MENU_MUTE_MODE_OFF" value="Дозволити писати в клан-чат"/>
+    <message name="CONTEXT_MENU_EXPEL_PERMISSION_ON" value="Дозволити виганяти сокланiв"/>
+    <message name="CONTEXT_MENU_EXPEL_PERMISSION_OFF" value="Заборонити виганяти сокланiв"/>
+
+    <message name="OFFICER_WAS_EXPEL_PERMISSION_ON" value="{name} отримав дозвіл видаляти сокланiв ({subject})."/>
+    <message name="OFFICER_WAS_EXPEL_PERMISSION_OFF"
+             value="{name} отримав заборону на видалення сокланiв ({subject})."/>
+    <message name="MEMBER_WAS_MUTED" value="{name} тепер не може писати в клан-чат ({subject})."/>
+    <message name="MEMBER_WAS_UNMUTED" value="{name} знову може писати в клан-чат ({subject})."/>
+
+    <message name="ERR_ACCESS_DENIED_FOR_EXPEL_CLANMATE" value="Лідер клану заборонив вам видаляти співкланівців."/>
+    <message name="ERR_ACCESS_DENIED_FOR_CLAN_CHAT" value="Лідер клану заборонив вам писати клан-чат."/>
+    <message name="PROMOTION_LEADER_FAILED_2"
+             value="Ви повинні зняти з офіцера всі заборони, перед тим як передати йому повноваження."/>
+
+    <message name="MUTED_QTIP" value="Заборонено писати в клан-чат"/>
+    <message name="EXPPER_QTIP" value="Заборонено виганяти співкланівців"/>
+
+    <!--1.36-->
+    <message name="PROMOTION_OFFICER_FAILED" value="Нельзя назначить ещё одного офицера, нужно кого-то понизить в звании."/>
+    <message name="PROMOTION_OFFICER_FAILED_LIMIT" value="Или расширить клан."/>
+
+    <!--1.37-->
+    <message name="INFO_INVITER" value="Запросив:"/>
+    <message name="INFO_INTRO_DATE" value="Дата вступу:"/>
+    <message name="INFO_YESTERDAY_RATE" value="Вчорашній рейтинг гравця:"/>
+    <message name="INFO_WEEK_RATE" value="Тижневий рейтинг гравця:"/>
+
+    <!--1.38-->
+    <message name="PREV_SEASON_DELTA_QTIP" value="Динаміка позиції"/>
+    <message name="MEMBER_CRAFT_LEGENDARY_MESSAGE" value='{name} скрафтив предмет "{item}"!'/>
+    <message name="CONFIRM_INVITE_TO_CLAN" value="Ви впевнені, що хочете запросити гравця у клан?"/>
+
+</dictionary>

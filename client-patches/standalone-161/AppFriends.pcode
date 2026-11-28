@@ -1,0 +1,40 @@
+                     method
+                        name null
+                        param QName(PackageNamespace("","56061"),"Function")
+                        returns QName(PackageNamespace("","56061"),"void")
+
+                        body
+                           maxstack 4
+                           localcount 3
+                           initscopedepth 6
+                           maxscopedepth 7
+
+                           code
+                              getlocal0
+                              pushscope
+                              findpropstrict QName(PackageNamespace("<%E"),"\'$g")
+                              constructprop QName(PackageNamespace("<%E"),"\'$g"), 0
+                              coerce QName(PackageNamespace("<%E"),"\'$g")
+                              setlocal2
+                              getlocal2
+                              getlex QName(PackageNamespace("flash.external"),"ExternalInterface")
+                              pushstring "wormixFriends"
+                              callproperty QName(PackageNamespace("","56061"),"call"), 1
+                              dup
+                              iftrue ofsXP01
+                              pop
+                              newarray 0
+                     ofsXP01:
+                              setproperty QName(PackageNamespace("","56061"),"uids")
+                              getlocal2
+                              pushtrue
+                              setproperty QName(PackageNamespace("","56061"),"success")
+                              getlocal1
+                              getglobalscope
+                              getlocal2
+                              call 1
+                              pop
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method

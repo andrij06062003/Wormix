@@ -33,19 +33,18 @@ which adds them (the patch files already have them). With the 1.25.0 classes dec
 
 `Wormix.orig.swf` is the unpatched file (commit 5fe8ede).
 
-## `maps-125/`: only the maps we have, in the 1.25.0 client
+## Maps: no patch any more
 
-We only have the 1.05.0 map files (`wormix-client/vk/storage/levels`). The 1.25.0 client
-knows 34 newer maps (ids 80–114), and battles, missions and bosses pick a random map from its list,
-so they could stop with "error loading map". `MapList.as` (`config.§##r§`, the map list) leaves the
-maps after id 79 out of the list it hands out. Compile it like the `no-vk-125/` patches:
-
-    FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
-        client-patches/maps-125/MapList.as Wormix.swf Wormix.new.swf 'config.§##r§' && mv Wormix.new.swf Wormix.swf
+From 2026-11-08 to 2026-11-17 `maps-125/MapList.as` (`config.§##r§`, the map list) left the maps after id 79
+out, and later gave the bosses one of our maps instead of theirs, because we only had the 1.05.0 map files.
+Since 2026-11-17 `vk/storage/levels` has all the maps of the 1.25.0 client (ids 80–114 downloaded from the
+original game's CDN, `https://tesla.rmart.ru/engine/storage/levels/<name>/map<version>.swf`; Mines2 and Castles2
+are its `mines2_fix` and `castles2_fix`). `config.§##r§` in `Wormix.swf` is again the original class (recompiled
+from its decompiled source), so build from `Wormix.orig.swf` without it.
 
 ## `crosshair-125/`: the aiming arrow stuck on the map and the mouse cursor hidden, in the 1.25.0 client
 
-**Only in `Wormix.next.swf`** (`play.html?next`), until it is tried in a battle. The first build (2026-11-08)
+In `Wormix.swf` again since 2026-11-08 (build 2026-11-08.7). The first build (2026-11-08)
 broke the air strike, atom bomb and girder: FFDec compiled `§%#6§.§5!W§.activate()` as a public name, but
 `activate`/`deactivate` there are IControlSet interface methods (namespace
 `ru.pragmatix.wormix.controls:IControlSet`), so the call threw. The patch now imports `§6k§.§%#6§` and names
@@ -60,3 +59,159 @@ not from the current scene, which threw when the arrow wasn't there. Compile it 
 
     FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
         client-patches/crosshair-125/PointCrosshair.as Wormix.swf Wormix.new.swf "§!!=§.§'2§" && mv Wormix.new.swf Wormix.swf
+
+## `standalone-125/`: the last VK buttons, the full screen button and the chat, in the 1.25.0 client
+
+In `Wormix.swf` since build 2026-11-09.1. Each patch calls a function of the game's page (`wwwroot/play.html`)
+through `ExternalInterface`:
+
+- `UserProfileHelper.as` (`ru.pragmatix.wormix.model.user.§7X§`): "Профиль игрока" in a friend's menu
+  (`§#!#§`) opened the player's VK page; it calls `wormixProfile(id)`, and the page shows the player's profile
+  with "write a message".
+- `ReturnFriendsDialog.as` (`§9"`§.§?#G§`, "Верни бойцов", VK invitations to friends who left): its button, the
+  bird with a letter next to the friends list, opens the chat (`show()` calls `wormixChat()`).
+- `FriendsList.as` (`§9"`§.§;!t§`): "+" in an empty cell invited VK friends; it calls `wormixInvite()`, and the
+  page copies the game's address and the player's id. The list also hides the main menu's VK group button
+  (`groupBtnContainer`, "В") and moves the news button into its place: the main menu (`ru.pragmatix.wormix.§@#8§`)
+  can't be recompiled (FFDec stops on its `super.activate()`, a method of an obfuscated namespace), and it
+  builds this list right after the button.
+- `ScreenController.as` (`ru.pragmatix.wormix.controller.§"$-§`): the full screen button (`§+!h§`) called
+  Ruffle's full screen, which Ruffle refuses without `allowFullscreen`, and the game's full screen layout is for the
+  screen's size while the page keeps the game at 900x600 (`forceScale`), which cut off the buttons on the right.
+  It calls `wormixFullscreen()`, and the page puts the game's box in full screen.
+
+`ReturnFriendsDialog.as` and `ScreenController.as` name the `IUIComponent` namespace (`iuc::`) for the calls
+FFDec would otherwise compile as public names (see `crosshair-125/`). The texts of the bird's tip and of the menu
+item are in `data/lang/messages_ru.xml` (`RETURN_FRIEND_BTN_QTIP`, `USER_PAGE`). Compile them like the
+`no-vk-125/` patches:
+
+    for p in 'ru.pragmatix.wormix.model.user.§7X§:UserProfileHelper' '§9"`§.§?#G§:ReturnFriendsDialog' \
+             '§9"`§.§;!t§:FriendsList' 'ru.pragmatix.wormix.controller.§"$-§:ScreenController'; do
+        FFDEC=ffdec-cli.jar python3 client-patches/no-vk-125/fiximports.py src125/scripts \
+            client-patches/standalone-125/${p##*:}.as Wormix.swf Wormix.new.swf "${p%%:*}" && mv Wormix.new.swf Wormix.swf
+    done
+
+## `standalone-161/`: the 1.61.7 client without its preloader
+
+In `wormix-client/vk/1.61.7/Wormix.swf` since build 2026-11-17.2, when 1.61.7 became the default client.
+The page starts `Wormix.swf` directly (its preloader is built for VK and the original servers), and some
+things the preloader or Flash Player gave it were missing. Each file is a whole method in FFDec's P-code
+(from `method` to `end ; method`), put in with `-replace` and the method body's index:
+
+- `Application.onAddedToStage.pcode` (`Application`, body 16): the params object built from the flashvars
+  has no `clientVersion` (the client stopped on it) and no `showBanner` function (the VK preloader's; the main
+  menu calls it in `activate()`, threw "Error #1006: value is not a function", and stayed blank). It adds
+  `clientVersion: "1.61.7"` and `showBanner: Application.§&]§`, an empty function of the client.
+- `LoginParams.pcode` (`§&%X§.§5F§`, body 7326): the Login's extra strings read `Capabilities` and `System`
+  values that Ruffle returns as null; it sends `"-"` for each instead.
+- `BuildUpgrades.pcode` (`§8#o§.§1@§`, `§,&G§`, body 5943, since build 2026-11-17.3): the upgraded weapons are
+  built by cloning the previous level (`getWeapons()[prevUpgradeId]`), going through `recipes`, an object keyed
+  by recipe id. Flash went through it in id order, so a level 1 upgrade was built before its level 2; Ruffle's
+  order differs, so a level 2 met a missing base. Build 2026-11-17.2 skipped those (`WeaponUpgrades.pcode`), and
+  a player who owned one got a blank blue screen. It now goes through the recipes again until nothing more can
+  be built (at most 20 times).
+- `BuildFamilies.pcode` (`§8#o§.§1@§`, `§+#=§`, body 5941, since build 2026-11-19.2; tried first as `Wormix.next.swf` in 2026-11-19.1): the
+  weapon families (a base weapon and all its upgrades; an arsenal cell keeps the family's first id and shows the
+  first member owned) were built going through `recipes` in Ruffle's order, like `BuildUpgrades.pcode`'s method.
+  When an upgrade of the second branch came before the recipe making its base upgrade (the sniper rifle's 313 ->
+  361 -> 439, the freezer's 54 -> 391 -> 417), it started a family of its own, and the cell then looked in the
+  other one: the weapon left the storage and its cell stayed empty. It now goes through recipe ids 0-999 in order,
+  as Flash did.
+- `WeaponUpgrades.pcode` (`§8#o§.§1@§`, `§1"U§`, body 5944): building an upgrade whose base is missing returns
+  null instead of throwing (no longer happens with `BuildUpgrades.pcode`; kept as a guard).
+- `Application.log.pcode` (`Application`, `§1%&§`, body 12, since build 2026-11-17.3): the client's own log
+  (`Application.loginfo`/error, including the main menu's caught errors) was an empty function; it goes to the
+  browser console as `WLOG <level>: <text>` (`ExternalInterface.call("console.log", ...)`).
+- `Crosshair.*.pcode` (`§9%W§.§8#p§`, the aiming arrow, since build 2026-11-18.1), the fix of `crosshair-125/`
+  for 1.61.7: `hide.pcode` (`§9!f§`, body 21240) takes the arrow off its parent, if it has one, instead of the
+  scene; `enterFrame.pcode` (`§>W§`, body 21245) unhooks itself and hides the arrow when the crosshair is no longer
+  active; `deactivate.pcode` (body 21246) removes the listeners and the arrow, and shows the mouse, even when the
+  turn is already over (only the control set's `deactivate()` still waits for the player's turn). Before, the arrow
+  stayed on the map and the cursor stayed hidden when the turn ended while aiming.
+- `ScreenController.fullscreen.pcode` (`ru.pragmatix.wormix.controller.§+$w§`, `§5$q§`, body 2227, since build
+  2026-11-18.1): the full screen button calls `wormixFullscreen()` of the page, as in `standalone-125/`.
+- `AppFriends.pcode` (`ru.pragmatix.flox.social.controller.§]"Y§`, the "none" social network, `getAppFriends`,
+  body 7122, since build 2026-11-18.3; tried first as `Wormix.next.swf` with `play.html?next`): it gave no friends, and the client keeps EnterAccount's friends only when
+  it has some, so the friends bar was empty and co-op had no one to invite. It asks the page
+  (`wormixFriends()`, the other players' ids from `account/game`).
+
+- `SocialLanguages.pcode` (`§&$Y§.§2$4§`, the class initializer, body 5231; tried as `Wormix.next.swf` since
+  build 2026-11-28.1, in Wormix.swf since 2026-11-28.3): the languages each social network may use. The "none" one had `[RU, EN]`, so the page's
+  `_lang: "ua"` fell back to Russian; it is now `[RU, EN, UA]` (the client has complete `ua` files in data/lang).
+  With it the client also asks for `lang/chat_ua.xml` at start.
+
+- `HatTable.pcode` (`§,$J§.§0%G§`, the hat table's class initializer, body 3921; tried as `Wormix.next.swf` since
+  build 2026-11-28.2, in Wormix.swf since 2026-11-28.3): one more hat, 1159 "Ксерокс" (`HAT.XEROX` in data/lang/items_*.xml), 100 rubies from
+  level 1: health +200, attack and armor +10, regeneration 80, fire, frost, poison and air damage +200% (+80% before
+  build 2026-11-28.6), shock damage +80%, defense against everything (fire, frost, poison, shock, air, physical)
+  40%, leech 30%. Its picture
+  is the class `XeroxHat` that `swf-hat/` (below) adds to data/common/objects/hats2.swf, listed in
+  data/resconfigs/resconfig.xml (the client loads only the classes listed there for each file, and stops at 99% when
+  a listed class isn't in the library: browsers that still had the old hats2.swf did, until play.html asked for the
+  start files with the build number in 2026-11-28.4). It was tried first in resconfig.next.xml, which
+  `play.html?next` read instead (`NEXT_DATA_161` in play.html). The shop row is in
+  shop161.json (migration 2026_11_28_180000_xerox_hat_161). `-selectclass` takes a comma separated list, so it
+  can't name this class (its package is `§,$J§`): export all the scripts to get its P-code.
+
+    cp Wormix.orig.swf a.swf
+    java -jar ffdec-cli.jar -replace a.swf b.swf '§8#o§.§1@§' client-patches/standalone-161/WeaponUpgrades.pcode 5944
+    java -jar ffdec-cli.jar -replace b.swf c.swf Application client-patches/standalone-161/Application.onAddedToStage.pcode 16
+    java -jar ffdec-cli.jar -replace c.swf d.swf '§&%X§.§5F§' client-patches/standalone-161/LoginParams.pcode 7326
+    java -jar ffdec-cli.jar -replace d.swf e.swf '§8#o§.§1@§' client-patches/standalone-161/BuildUpgrades.pcode 5943
+    java -jar ffdec-cli.jar -replace e.swf f.swf Application client-patches/standalone-161/Application.log.pcode 12
+    java -jar ffdec-cli.jar -replace f.swf g.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.hide.pcode 21240
+    java -jar ffdec-cli.jar -replace g.swf h.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.enterFrame.pcode 21245
+    java -jar ffdec-cli.jar -replace h.swf i.swf '§9%W§.§8#p§' client-patches/standalone-161/Crosshair.deactivate.pcode 21246
+    java -jar ffdec-cli.jar -replace i.swf j.swf 'ru.pragmatix.wormix.controller.§+$w§' \
+        client-patches/standalone-161/ScreenController.fullscreen.pcode 2227
+    java -jar ffdec-cli.jar -replace j.swf k.swf 'ru.pragmatix.flox.social.controller.§]"Y§' \
+        client-patches/standalone-161/AppFriends.pcode 7122
+    java -jar ffdec-cli.jar -replace k.swf k2.swf '§8#o§.§1@§' client-patches/standalone-161/BuildFamilies.pcode 5941
+    java -jar ffdec-cli.jar -replace k2.swf l.swf '§&$Y§.§2$4§' client-patches/standalone-161/SocialLanguages.pcode 5231
+    java -jar ffdec-cli.jar -replace l.swf m.swf '§,$J§.§0%G§' client-patches/standalone-161/HatTable.pcode 3921
+    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- m.swf Wormix.swf 960 640
+
+- `Application.size.pcode` (`Application`, the class initializer, body 2; tried as `Wormix.next.swf` since build
+  2026-11-28.5): the client's own size, 800x600, becomes the stage's 960x640 (`swf-stage`, below). The battle is
+  laid out on it (`getCorrectResolution2` of the screen controller gives that size unless the wide mode is on), so
+  with the 960x640 stage the battle filled only its top left 800x600 and the rest was the blue background, in
+  full screen and out of it.
+
+The canary (`Wormix.next.swf`) is Wormix.swf with HatTable.pcode (with the hat's latest stats) and Application.size.pcode
+replaced again (build 2026-11-28.6):
+
+    java -jar ffdec-cli.jar -replace Wormix.swf n1.swf '§,$J§.§0%G§' client-patches/standalone-161/HatTable.pcode 3921
+    java -jar ffdec-cli.jar -replace n1.swf Wormix.next.swf Application client-patches/standalone-161/Application.size.pcode 2
+
+`Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).
+
+## `swf-stage/`: a 960x640 stage for the 1.61.7 client
+
+Tried as `Wormix.next.swf` since build 2026-11-19.3 (`play.html?next`), in Wormix.swf since 2026-11-28.3. The 1.61.7 client was made for a
+resizable frame: it lays the main menu and the battle out on the stage's size (`stage.stageWidth`), and some of
+its windows are wider than its 800x600 header (`BattleSettingsMenu`, "Настройки боя", is 911x588). The page keeps
+the stage at the header's size (Ruffle's `exactFit` with `forceScale`), so that window was cut on both sides, as
+was the main menu's top bar in full screen. `swf-stage` (Rust) rewrites only the header's frame size, to 960x640
+(3:2, the page's box; one of the client's own sizes), and the client lays everything out on it:
+
+    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- \
+        wormix-client/vk/1.61.7/Wormix.swf wormix-client/vk/1.61.7/Wormix.next.swf 960 640
+
+Only the 9 bytes of the frame size change (check: inflate both files and compare from byte 9 of the body).
+
+## `swf-hat/`: a hat made of a photo for the 1.61.7 client
+
+The client draws a hat from the class its hat table names (`iconClassName`), which it finds in the hats files it
+loads (data/common/objects/hats*.swf). `swf-hat` (Rust) adds such a class to one of them: the photo cut to a circle
+with a thin dark rim (a lossless bitmap with alpha), a square shape filled with it, a sprite with the shape, a
+class extending `flash.display.MovieClip` (a small ABC of its own) and the link between them. Hats are drawn ten
+times their size (the table scales them by 0.1); the circle's centre and diameter are in those pixels. (160, 190),
+300 wide, covers the head as the masks do. The live client doesn't use the new class, so the file needs no
+canary, but the class must be listed in data/resconfigs/resconfig.xml under that file. Ксерокс (1159), from `standalone-161/xerox.png`:
+
+    cargo run --release --manifest-path client-patches/swf-hat/Cargo.toml -- \
+        hats2.orig.swf wormix-client/vk/1.61.7/data/common/objects/hats2.swf \
+        client-patches/standalone-161/xerox.png XeroxHat 160 190 300
+
+`hats2.orig.swf` is hats2.swf before it (commit db75af8). Check: the old tags are unchanged, and ffdec shows the
+class and exports the sprite (`-format sprite:png -selectclass XeroxHat -export sprite`).

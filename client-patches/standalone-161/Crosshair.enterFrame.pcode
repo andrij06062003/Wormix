@@ -1,0 +1,147 @@
+                              method
+                                 name null
+                                 param QName(PackageNamespace("flash.events"),"Event")
+                                 returns QName(PackageNamespace("","56061"),"void")
+
+                                 body
+                                    maxstack 5
+                                    localcount 3
+                                    initscopedepth 6
+                                    maxscopedepth 7
+
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       callproperty QName(PackageNamespace("","56061"),"isActive"), 0
+                                       iftrue ofsXP02
+                                       getlex QName(PackageNamespace("","56061"),"Application")
+                                       getproperty QName(PackageNamespace("","56061"),"scene")
+                                       getlex QName(PackageNamespace("flash.events"),"Event")
+                                       getproperty QName(PackageNamespace("","56061"),"ENTER_FRAME")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),">W")
+                                       callpropvoid QName(PackageNamespace("","56061"),"removeEventListener"), 2
+                                       getlocal0
+                                       callpropvoid QName(PrivateNamespace("*","1012"),"9!f"), 0
+                                       returnvoid
+                              ofsXP02:
+                                       getlocal0
+                                       newfunction 42769
+                                       pop
+                                       jump ofs000f
+                                       newactivation
+                                       dxnslate
+                                       getlocal3
+                              ofs000f:
+                                       getproperty QName(PrivateNamespace("*","1012"),"lcPoint")
+                                       getlex QName(PackageNamespace("","56061"),"Application")
+                                       getproperty QName(PackageNamespace("","56061"),"scene")
+                                       getproperty QName(PackageNamespace("","56061"),"mouseX")
+                                       getlex QName(PackageNamespace("","56061"),"Application")
+                                       getproperty QName(PackageNamespace("","56061"),"scene")
+                                       getproperty QName(PackageNamespace("","56061"),"mouseY")
+                                       callpropvoid QName(PackageNamespace("","56061"),"setTo"), 2
+                                       getlex QName(PackageNamespace("","56061"),"Application")
+                                       getproperty QName(PackageNamespace("","56061"),"scene")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"lcPoint")
+                                       callproperty QName(PackageNamespace("","56061"),"localToGlobal"), 1
+                                       coerce QName(PackageNamespace("flash.geom"),"Point")
+                                       setlocal2
+                                       getlocal2
+                                       getproperty QName(PackageNamespace("","56061"),"y")
+                                       getlex QName(PrivateNamespace("*","1012"),"\'#0")
+                                       lessthan
+                                       dup
+                                       iffalse ofs0076
+                                       pop
+                                       getlocal2
+                                       getproperty QName(PackageNamespace("","56061"),"x")
+                                       getlex QName(PrivateNamespace("*","1012"),"8&\'")
+                                       lessthan
+                                       dup
+                                       iftrue ofs0076
+                                       pop
+                                       getlocal2
+                                       getproperty QName(PackageNamespace("","56061"),"x")
+                                       getlex QName(PackageNamespace("?$L")," \"N")
+                                       getproperty QName(PackageNamespace("","56061"),"stageWidth")
+                                       getlex QName(PrivateNamespace("*","1012"),"%#P")
+                                       subtract
+                                       greaterthan
+                              ofs0076:
+                                       dup
+                                       iftrue ofs008c
+                                       pop
+                                       getlocal2
+                                       getproperty QName(PackageNamespace("","56061"),"x")
+                                       jump ofs0088
+                                       checkfilter
+                                       convert_i
+                                       dxnslate
+                              ofs0088:
+                                       getlex QName(PrivateNamespace("*","1012"),"6#w")
+                                       lessthan
+                              ofs008c:
+                                       dup
+                                       iftrue ofs00a5
+                                       pop
+                                       getlocal2
+                                       getproperty QName(PackageNamespace("","56061"),"x")
+                                       getlex QName(PackageNamespace("?$L")," \"N")
+                                       getproperty QName(PackageNamespace("","56061"),"stageWidth")
+                                       getlex QName(PrivateNamespace("*","1012"),"+%v")
+                                       subtract
+                                       greaterthan
+                              ofs00a5:
+                                       iffalse ofs00b2
+                                       getlocal0
+                                       callpropvoid QName(PrivateNamespace("*","1012"),"9!f"), 0
+                                       jump ofs0124
+                              ofs00b2:
+                                       getlocal0
+                                       callpropvoid QName(PrivateNamespace("*","1012"),"2$$"), 0
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"\"#8")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"lcPoint")
+                                       getproperty QName(PackageNamespace("","56061"),"x")
+                                       setproperty QName(PackageNamespace("","56061"),"x")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"\"#8")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"lcPoint")
+                                       getproperty QName(PackageNamespace("","56061"),"y")
+                                       setproperty QName(PackageNamespace("","56061"),"y")
+                                       getlex QName(PackageNamespace("","56061"),"Application")
+                                       getproperty QName(PackageNamespace("","56061"),"scene")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"\"#8")
+                                       jump ofs00f0
+                                       convert_i
+                                       urshift
+                                       dxnslate
+                              ofs00f0:
+                                       getlex QName(PackageNamespace("","56061"),"Application")
+                                       getproperty QName(PackageNamespace("","56061"),"scene")
+                                       getproperty QName(PackageNamespace("","56061"),"numChildren")
+                                       decrement
+                                       callpropvoid QName(PackageNamespace("","56061"),"setChildIndex"), 2
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"4%i")
+                                       pushnull
+                                       ifeq ofs0124
+                                       getlocal0
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"\"#8")
+                                       getproperty QName(PackageNamespace("","56061"),"x")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace("*","1012"),"\"#8")
+                                       getproperty QName(PackageNamespace("","56061"),"y")
+                                       callpropvoid QName(PrivateNamespace("*","1012"),"4%i"), 2
+                              ofs0124:
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method

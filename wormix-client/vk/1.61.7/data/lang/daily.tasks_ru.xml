@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <!-- 1.60 -->
+    <message name="DAILY_TASKS" value="Ежедневные задания"/>
+    <message name="DAILY_TASKS_DAY_NUMBER" value="День {dayNumber} / {totalDays}"/>
+    <message name="DAILY_TASKS_DAY_COOLDOWN" value="До конца дня {remainingTime}"/>
+    <message name="DAILY_TASKS_DAY_TIME_IS_OUT" value="Время дня истекло!"/>
+    <message name="DAILY_TASKS_WEEK_TIME_IS_OUT" value="Время недели истекло!"/>
+    <message name="DAILY_TASKS_ERROR_LOAD" value="Ошибка загрузки ежедневных заданий."/>
+    <message name="DAILY_TASKS_ACCESS" value="Ежедневные задания будут доступны с 5 уровня!"/>
+    <message name="DAILY_TASKS_OPENED" value="Открыт доступ к ежедневным заданиям! Открыть меню заданий?"/>
+    <message name="DAILY_TASKS_DESCR" value="Выполняйте задания, чтобы открыть доступ к наградам!"/>
+    <message name="DAILY_TASKS_AVAILABLE" value="Доступные задания:"/>
+    <message name="DAILY_TASKS_RESET_QTIP" value="Сбросить прогресс по заданиям."/>
+    <message name="DAILY_TASKS_INCREASE_SCORE_QTIP" value="Прибавить прогресс."/>
+    <message name="DAILY_TASKS_NEXT_PARAM_QTIP" value="Переключить параметры в заданиях."/>
+    <message name="DAILY_TASKS_NEXT_DAY_QTIP" value="Переключить на следующий день в забеге."/>
+    <message name="DAILY_TASK_REPLACE_SUCCESS" value='Произведена замена задания:{br}{task1}{br}{br}на задание:{br}{task2}'/>
+    <message name="DAILY_TASK_REPLACE_FAIL" value='Замена задания{br}{task}{br}не удалась. Попробуйте снова или в другой раз.'/>
+    <message name="DAILY_TASKS_CLEARED" value="Прогресс ежедневных заданий сброшен!"/>
+    <message name="DAILY_TASKS_NEXT_PARAM" value="Выполнено переключение параметров в заданиях!"/>
+    <message name="DAILY_TASKS_NEXT_DAY" value="Выполнено переключение дня в забеге!"/>
+    <message name="DAILY_TASKS_CHEST_QTIP" value="{chestSize} крылатый сундук с наградой."/>
+    <message name="DAILY_TASKS_CHEST_SMALL" value="Малый"/>
+    <message name="DAILY_TASKS_CHEST_MEDIUM" value="Средний"/>
+    <message name="DAILY_TASKS_CHEST_LARGE" value="Большой"/>
+    <message name="DAILY_TASKS_REWARD_READY_QTIP" value="Забери награду задания, чтобы разблокировать крылатые сундуки!"/>
+    <message name="DAILY_TASKS_REWARD_UNLOCK_QTIP" value="Выполни задание, чтобы разблокировать сундук с наградой!"/>
+    <message name="DAILY_TASKS_REWARD_EMPTY_QTIP" value="Сундук пуст! Опустоши все сундуки заданий, чтобы разблокировать крылатые сундуки!"/>
+    <message name="DAILY_TASKS_CHEST_EMPTY_QTIP" value="Награда получена."/>
+    <message name="DAILY_TASKS_REWARD_GETNOW_QTIP" value="Забери её скорей!"/>
+    <message name="DAILY_TASKS_CHEST_MORE_QTIP" value="Забери награду в сундуках заданий, чтобы разблокировать."/>
+    <message name="DAILY_TASKS_CHEST_MEDIUM_MORE_QTIP" value="Забери награду в малом крылатом сундуке, чтобы разблокировать."/>
+    <message name="DAILY_TASKS_CHEST_LARGE_MORE_QTIP" value="Забери награду в среднем крылатом сундуке, чтобы разблокировать."/>
+    <message name="DAILY_TASKS_TAKE_REWARD" value="Пришло время получить награды за выполненные ежедневные задания!"/>
+    <message name="DAILY_TASKS_TAKE_CHEST_REWARD" value="Пришло время получить награды за прогресс по ежедневным заданиям!"/>
+    <message name="BUY_TASK_REPLACE_QUESTION" value="Хотите заменить задание?"/>
+    <message name="BUY_TASK_REPLACE_TEXT" value="Замена задания"/>
+    <message name="DAILY_TASKS_STARTED" value="Начался новый забег по ежедневным заданиям! Успешных сражений, боец!"/>
+    <message name="DAILY_TASKS_INFO" value="Перед вами меню ежедневных заданий, за выполнение которых можно получить ценные награды: игровую валюту, опыт, ресурсы, штучное оружие и даже временную экипировку!{br}Каждый день вам будет предложено 5 заданий, случайно подобранных в зависимости от вашего уровня. После получения заданий у вас будет 24 часа на их выполнение. Награды за пройденные задания автоматически начисляются по окончании дня, если они ещё не были получены вручную.{br}Частично выполненные задания на следующий день не переносятся — они поменяются на другие с началом нового игрового дня. Постарайтесь не пропускать задания, ведь выполнение каждого из них не только вознаграждается, но и приближает вас к открытию сундуков с еженедельными наградами."/>
+    <message name="DAILY_TASKS_QTIP" value="Информация о ежедневных заданиях"/>
+    <message name="DAILY_TASKS_REPLACE_QTIP" value="Если задание вам не подходит, можете заменить его. Каждый день доступно 3 замены: первая - бесплатная, остальные - за игровую валюту. Заменённое задание не появится до конца недели, но может выпасть похожее."/>
+
+    <message name="PROMPT_AVAILABLE_TASKS" value="Для выполнения в бою доступны ежедневные задания:"/>
+
+    <message name="TASK_CRAFT_CHEST" value="Открыть ящик с боеприпасами"/>
+    <message name="TASK_EQUIP_FROM_CRAFT_CHEST" value="Добыть сезонную экипировку из ящика с боеприпасами"/>
+    <message name="TASK_UPGRADES" value="Собрать или пересобрать апгрейд оружия"/>
+    <message name="TASK_MISSION_WIN" value="Пройти любую миссию"/>
+    <message name="TASK_ANY_SOLO_BOSS_WIN" value="Победить любого одиночного босса"/>
+    <message name="TASK_ANY_REWARDED_BATTLE" value="Сыграть в любом бою, за который есть награда"/>
+    <message name="TASK_ANY_REWARDED_BATTLE_WIN" value="Победить в любом бою, за который есть награда"/>
+    <message name="TASK_ANY_HEROIC_WIN" value="Победить любого супербосса"/>
+    <message name="TASK_DUEL_WAGER_WIN" value='Выиграть на ставке "Дуэль"'/>
+    <message name="TASK_ANY_WAGER_WIN" value="Выиграть на любой ставке"/>
+    <message name="TASK_MERCENARIES_BATTLE" value="Сыграть бой в Мини-Колизее"/>
+    <message name="TASK_GLADIATOR_BATTLE" value="Сыграть бой в Колизее"/>
+    <message name="TASK_WAGER_CHEST_OPEN" value="Открыть сундук, полученный за победу на ставке"/>
+    <message name="TASK_PVP_RATING" value="Получить рейтинг за победы на ставках"/>
+    <message name="TASK_EXP" value="Заработать опыт"/>
+    <message name="TASK_LEVELUP" value="Повысить уровень аккаунта"/>
+    <message name="TASK_BOSS_EXTRA_REWARD" value="Получить дополнительную награду за босса"/>
+    <message name="TASK_PROMOCODE" value="Активировать промокод"/>
+    <message name="TASK_PUMP_REACTION" value="Прокачать реакцию другу или соклану"/>
+    <message name="TASK_SUCCESSFULLY_RUMMAGE_HOME_FRIEND" value="Совершить успешный обыск в доме друга или соклана"/>
+    <message name="TASK_ANY_COOP_BOSS_WIN" value="Победить любого кооперативного босса"/>
+    <message name="TASK_CONCRETE_BOSS_WIN" value="Победить босса: {bossName}"/>
+    <message name="TASK_PICKUP_STAR" value="Подобрать звезду в миссии"/>
+    <message name="TASK_PICKUP_REAGENT_CRATE" value="Подобрать ящик с ресурсом в миссии"/>
+    <message name="TASK_WAGER_CHEST_MEDIUM" value="Получить средний сундук за победу на ставке"/>
+    <message name="TASK_WAGER_CHEST_LARGE" value="Получить большой сундук за победу на ставке"/>
+    <message name="TASK_ANY_REWARDED_COOP_WIN" value="Победить с другом или сокланом в любом бою, за который есть награда"/>
+
+    <message name="TASK_CONCRETE_HEROICS_WIN" value='Победить супербосса "{difficulty1}" или "{difficulty2}"'/>
+    <message name="TASK_WAGER_2X2_WIN" value='Выиграть бой на ставке "2х2" {withPartnerType}'/>
+    <message name="TASK_ROPE_RACE_WIN" value='Выиграть в режиме "Гонки на верёвках" {withPartnerType}'/>
+    <message name="TASK_BATTLE_TYPE_WIN_SERIES" value="Выиграть 2 боя подряд {inBattleType}"/>
+    <message name="INTASK_WITH_RANDOM_PARTNER" value="со случайным напарником"/>
+    <message name="INTASK_WITH_FRIEND" value="с другом или сокланом"/>
+
+    <message name="TASK_DESTROY_GROUND_ONCE" value="Разрушить {squares} квадратных метров земли за бой"/>
+    <message name="TASK_DESTROY_GROUND" value="Разрушить квадратных метров земли в боях"/>
+    <message name="TASK_MASSIVE_DAMAGE" value="Нанести более {damage} ед. урона противникам за один ход"/>
+    <message name="TASK_ROPE_MOVING" value="Преодолеть количество метров на верёвке"/>
+    <message name="TASK_PICKUP_WEAPON_CRATE" value="Подобрать ящик с оружием в боях с наградой"/>
+    <message name="TASK_PICKUP_MEDKIT" value="Подобрать аптечку в боях с наградой"/>
+    <message name="TASK_ANTIFREEZE_HEAL" value="Восстановить {count} единиц здоровья с помощью оружия антифриз или его улучшений"/>
+    <message name="TASK_DOUBLE_KILL_BY_TURN" value="Убить или утопить двух противников за 1 ход"/>
+    <message name="TASK_TRIPLE_KILL_BY_TURN" value="Убить или утопить трёх противников за 1 ход"/>
+    <message name="TASK_DROWN_FIRST_TURN" value="Утопить противника на первом ходу"/>
+    <message name="TASK_DOUBLE_DROWN_FIRST_TURN" value="Утопить двух противников на первом ходу"/>
+    <message name="TASK_WEAPONS_HEAL" value="Восстановить {count} единиц здоровья с помощью оружий: антифриз, медицинский телепорт, эмпатический душемёт или регенератор"/>
+    <message name="TASK_EQUIP_BONUS_HEAL" value="Восстановить {count} единиц здоровья с помощью вампиризма, регенерации, воровства"/>
+    <message name="TASK_DESTROY_SUPPLY" value="Взорвать ящик или аптечку в боях с наградой"/>
+    <message name="TASK_DESTROY_USE_THUNDERBOLT" value="Разрушить объект соперника в PvP с помощью громобоя"/>
+    <message name="TASK_CRITICAL_WITH_HAMMER" value="Нанести критический урон кувалдой любой модификации"/>
+    <message name="TASK_KNOCKHAT_USE_BOOMERANG" value="Сбить шапку с противника смертоносным бумерангом"/>
+    <message name="TASK_MERC_THROW_ZONE" value='Столкнуть противника в смертельную зону в режиме "Мини-Колизей"'/>
+    <message name="TASK_MERC_KILL_ZONE" value='Спровоцировать смерть противника, столкнув его в смертельную зону в режиме "Мини-Колизей"'/>
+    <message name="TASK_MERC_DAMAGE_ZONE" value='Нанести урон противникам с помощью смертельной зоны в режиме "Мини-Колизей"'/>
+    <message name="TASK_PICKUP_HAT" value="Подобрать шапку убитого противника на ставке"/>
+    <message name="TASK_ROPE_RACE_DEFUSE_MINE" value='Активировать липучую мину в режиме "Гонки на верёвках"'/>
+    <message name="TASK_ROPE_RACE_ACTIVATE_SPOT" value='Активировать точку воскрешения в режиме "Гонки на верёвках" со случайным напарником'/>
+    <message name="TASK_ROPE_RACE_WIN_HP_LOST" value='Выиграть в режиме "Гонки на верёвках" со случайным напарником, получив не более {lostHP} ед. урона на двоих'/>
+
+    <message name="TASK_LEADER_BOXER_ATTACK" value='Использовать "Воодушевляющий крик" боксёра-лидера для прибавки бонусного количества атаки'/>
+    <message name="TASK_ZOMBIE_REVENGE_DAMAGE" value='Нанести противнику {count} единиц урона способностью зомби "Месть из могилы"'/>
+    <message name="TASK_ZOMBIE_RISE_ENEMY" value="Заставить врага восстать из могилы с помощью расовых способностей зомби"/>
+    <message name="TASK_ZOMBIE_REVIVED_DAMAGE" value="Нанести врагам урон, играя ожившим зомби"/>
+    <message name="TASK_LEADER_RABBIT_CARROT" value="Поделиться целительной морковкой кролика-лидера с союзниками"/>
+    <message name="TASK_DEMON_POISON_DAMAGE" value="Отравить противника, играя демоном"/>
+    <message name="TASK_LEADER_CAT_DAMAGE" value='Нанести противнику {count} единиц урона способностью кота-лидера "Острые Когти"'/>
+    <message name="TASK_DRAGON_FLY_METERS" value="Пролететь количество метров, используя расовую способность дракона"/>
+    <message name="TASK_DRAGON_FIRE_PATH" value='Оставить на земле след из количества огоньков способностью дракона "Огненная поступь"'/>
+    <message name="TASK_LEADER_DRAGON_FIRE" value="Использовать огонёк дракона-лидера для лечения союзника"/>
+    <message name="TASK_ROBOT_STATIC_DAMAGE" value='Нанести урон разным противникам способностью робота "Статический разряд"'/>
+    <message name="TASK_ROBOT_DROID_DAMAGE" value="Сорвать ход противнику при помощи дроида робота"/>
+    <message name="TASK_LEADER_ROBOT_ARMOR" value="Уменьшить количество брони противнику с помощью лидерской способности робота"/>
+    <message name="TASK_BOAR_FART_POISON" value='Заставить различных врагов получить отравление от способности кабана "Удушающее зловоние"'/>
+    <message name="TASK_BOAR_DESTROY_GROUND" value='Разрушить квадратных метров земли способностью кабана "Мощный рывок"'/>
+    <message name="TASK_RHINO_DESTROY_GROUND" value='Разрушить квадратных метров земли способностью носорога "Сокрушительный прыжок"'/>
+    <message name="TASK_ALIEN_INVUL_WIN" value='Использовать способность пришельца "Кристаллический блок" и победить'/>
+
+    <message name="TASK_KILL_ELEMENT" value="Добить противника {element}"/>
+    <message name="TASK_DAMAGE_ELEMENT" value="Нанести противнику урон {element}"/>
+    <message name="TASK_KILL_WEAPON" value="Убить противника оружием {weaponName} или любой его модификацей"/>
+    <message name="TASK_KILL_RACE_CHAR" value="Убить или утопить противника расы {raceName}"/>
+    <message name="TASK_DROWN_WEAPON" value="Утопить противника оружием {weaponName} или любой его модификации"/>
+    <message name="TASK_MISSION_FOR_TURNS" value='Пройти миссию "{difficult}" за {turnsCount} {turnsPlural} (ходы ботов учитываются)'/>
+    <message name="TASK_MERC_WIN_WITH" value='Победить в режиме "Мини-Колизей", с наёмником {mercenaryName} в команде'/>
+    <message name="TASK_DROWN_BATTLE_TYPE" value="Утопить противника {inBattleType}"/>
+    <message name="TASK_KILL_BATTLE_TYPE" value="Убить противника {inBattleType}"/>
+    <message name="TASK_DAMAGE_BATTLE_TYPE" value="Нанести урон противникам {inBattleType}"/>
+    <message name="INTASK_BATTLE_ANY_REWARDED" value="в любом бою"/>
+    <message name="INTASK_BATTLE_WAGER" value="на ставках"/>
+    <message name="INTASK_BATTLE_WAGER_DUEL" value='на ставке "Дуэль"'/>
+    <message name="INTASK_BATTLE_GLADIATOR" value='в режиме "Колизей"'/>
+    <message name="INTASK_BATTLE_MERCENARIES" value='в режиме "Мини-Колизей"'/>
+</dictionary>

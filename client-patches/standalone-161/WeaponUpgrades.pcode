@@ -1,0 +1,49 @@
+method
+name null
+param QName(PackageNamespace("","56061"),"int")
+param QName(PackageNamespace("","56061"),"int")
+returns QName(PackageNamespace("7$t"),";#_")
+body
+maxstack 4
+localcount 6
+initscopedepth 3
+maxscopedepth 4
+code
+getlocal0
+pushscope
+getlex QName(PackageNamespace("!$d"),"<$c")
+getlocal1
+callproperty QName(PackageNamespace("","56061")," !="), 1
+coerce QName(PackageNamespace("7$t"),";#_")
+setlocal3
+getlocal3
+iftrue ofsok
+findpropstrict QName(PackageNamespace(""),"trace")
+pushstring "WLOG upgrade base missing "
+getlocal1
+add
+pushstring " -> "
+add
+getlocal2
+add
+callpropvoid QName(PackageNamespace(""),"trace"), 1
+pushnull
+returnvalue
+ofsok:
+findpropstrict QName(PackageNamespace("","56061"),"=!u")
+getlocal2
+callproperty QName(PackageNamespace("","56061"),"=!u"), 1
+coerce QName(PackageNamespace("","56061"),"Object")
+setlocal 4
+getlocal3
+callproperty QName(PackageNamespace("","56061"),"clone"), 0
+coerce QName(PackageNamespace("7$t"),";#_")
+dup
+setlocal 5
+getlocal 4
+callpropvoid QName(PackageNamespace("","56061"),"initFromConfig"), 1
+getlocal 5
+returnvalue
+end ; code
+end ; body
+end ; method

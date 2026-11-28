@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+    <!-- 1.60 -->
+    <message name="PAGE0_TEXT" value="Всё это и множество других изменений уже в игре!"/>
+    <message name="PAGE1_TEXT" value="Внесен ряд исправлений, чтобы сделать ваш игровой опыт ещё лучше!"/>
+    <message name="PAGE2_TEXT" value="Уникальная экипировка в наградах за недельный прогресс в заданиях!"/>
+    <message name="PAGE3_TEXT" value="Выполняйте разнообразные ежедневные задания, чтобы получить ценные награды!"/>
+
+    <message name="SHOP_BTN" value="В Магазин!"/>
+    <message name="ARMORY_BTN" value="В Оружейную!"/>
+    <message name="ARENA_BTN" value="На Арену!"/>
+</dictionary>

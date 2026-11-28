@@ -24,6 +24,7 @@ type App struct {
 	PhotosDir string // user photos (were resources/images/users)
 	Config    Config
 	routes    []route
+	presence  *presence // who has the game open (presence.go)
 }
 
 // Ctx is one request.
@@ -38,6 +39,9 @@ type Ctx struct {
 	token  *Model
 
 	boundUser *Model // route model binding {user}
+
+	// granted: what a battle's end gave (grant), for the 1.61.7 client's EndBattleResult
+	granted []any
 }
 
 // Resp is a handler result.
@@ -73,7 +77,7 @@ type route struct {
 
 // New builds the app with all routes registered.
 func NewApp(d *db.DB, photosDir string) *App {
-	a := &App{DB: d, PhotosDir: photosDir, Config: LoadConfig()}
+	a := &App{DB: d, PhotosDir: photosDir, Config: LoadConfig(), presence: newPresence()}
 	a.registerRoutes()
 	return a
 }
@@ -123,6 +127,8 @@ func (a *App) registerRoutes() {
 		{"account/reset/account", (*Ctx).resetAccount},
 		{"account/distribute_points", (*Ctx).distributePoints},
 		{"account/select_stuff", (*Ctx).selectStuff},
+		{"account/backpack", (*Ctx).setBackpack},
+		{"account/hotkeys", (*Ctx).setHotkeys},
 		{"game/get_arena", (*Ctx).getArena},
 		{"game/start_battle", (*Ctx).startBattle},
 		{"game/end_battle", (*Ctx).endBattle},
@@ -141,6 +147,7 @@ func (a *App) registerRoutes() {
 		{"pvp/profile", (*Ctx).pvpProfile},
 		{"pvp/start_battle", (*Ctx).pvpStartBattle},
 		{"pvp/end_battle", (*Ctx).pvpEndBattle},
+		{"pvp/coop_state", (*Ctx).pvpCoopState},
 	} {
 		a.add("POST", "api/internal/"+x.p, x.h, "iauth")
 	}
@@ -154,6 +161,9 @@ func (a *App) registerRoutes() {
 	a.add("POST", "api/account/update_photo", (*Ctx).updateAccountPhoto, "sanctum")
 	a.add("GET", "api/account/info/{user}", (*Ctx).getAccountInfo, "sanctum")
 	a.add("POST", "api/account/game", (*Ctx).startGame, "sanctum")
+	// The players' chat (chat.go).
+	a.add("GET", "api/chat", (*Ctx).chatList, "sanctum")
+	a.add("POST", "api/chat", (*Ctx).chatSend, "sanctum")
 }
 
 func (rt *route) match(segs []string) (map[string]string, bool) {

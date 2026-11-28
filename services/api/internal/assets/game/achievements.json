@@ -1,5 +1,5 @@
 {
-  "_comment": "Achievement levels and award items, copied from the 1.05.0 client (config/AchievConfig.as, gui/house/achiev/AchievAwardConfig.as). Counters stats_first..stats_last are the statistics page (gui/house/achiev/Stats.as): stored, no rewards. The award items add the 1.25.0 client's (config/achievements: 78 in the third tier, 2022 and the atomic bomb 77 in the fourth). Keep in sync with the client.",
+  "_comment": "Achievement levels and award items, copied from the 1.05.0 client (config/AchievConfig.as, gui/house/achiev/AchievAwardConfig.as). Counters stats_first..stats_last are the statistics page (gui/house/achiev/Stats.as): stored, no rewards. The award items add the 1.25.0 client's (config/achievements: 78 in the third tier, 2022 and the atomic bomb 77 in the fourth). And the 1.61.7 client's (config/achievements, five tiers): an item in both is in the lower of its tiers; award_replaces are the items one takes the place of (hat 1144 takes hat 1034's place, the atomic bomb 77 weapon 115's, artifact 2037 artifact 2022's). Keep in sync with the client. Achievements 29-49 are the 1.61.7 client's (config/achievements).",
   "points_per_award": 1000,
   "max_value": 65535,
   "stats_first": 100,
@@ -671,26 +671,473 @@
           "count": 3
         }
       ]
+    },
+    "29": {
+      "name": "DROP_WATER_FIRST_TURN",
+      "levels": [
+        {
+          "max": 5,
+          "points": 50,
+          "award": "fuzy",
+          "count": 50
+        },
+        {
+          "max": 30,
+          "points": 60,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 100,
+          "points": 70,
+          "award": "reaction",
+          "count": 30
+        }
+      ]
+    },
+    "30": {
+      "name": "GUNS_IN_BOX",
+      "levels": [
+        {
+          "max": 20,
+          "points": 60,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 80,
+          "points": 65,
+          "award": "reaction",
+          "count": 15
+        },
+        {
+          "max": 300,
+          "points": 70,
+          "award": "fuzy",
+          "count": 250
+        }
+      ]
+    },
+    "31": {
+      "name": "WEAPONS_UPGRADE",
+      "levels": [
+        {
+          "max": 5,
+          "points": 60,
+          "award": "ruby",
+          "count": 1
+        },
+        {
+          "max": 15,
+          "points": 70,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 50,
+          "points": 80,
+          "award": "ruby",
+          "count": 3
+        }
+      ]
+    },
+    "32": {
+      "name": "CRAFT_LEGENDARY",
+      "levels": [
+        {
+          "max": 2,
+          "points": 120,
+          "award": "reaction",
+          "count": 50
+        },
+        {
+          "max": 3,
+          "points": 150,
+          "award": "ruby",
+          "count": 15
+        }
+      ]
+    },
+    "33": {
+      "name": "SUPERBOSS_DEFEATED",
+      "levels": [
+        {
+          "max": 3,
+          "points": 80,
+          "award": "fuzy",
+          "count": 200
+        },
+        {
+          "max": 15,
+          "points": 90,
+          "award": "ruby",
+          "count": 3
+        },
+        {
+          "max": 40,
+          "points": 100,
+          "award": "ruby",
+          "count": 7
+        }
+      ]
+    },
+    "34": {
+      "name": "SOCIAL_POST",
+      "levels": [
+        {
+          "max": 5,
+          "points": 40,
+          "award": "fuzy",
+          "count": 40
+        },
+        {
+          "max": 20,
+          "points": 50,
+          "award": "fuzy",
+          "count": 60
+        },
+        {
+          "max": 50,
+          "points": 60,
+          "award": "ruby",
+          "count": 2
+        }
+      ]
+    },
+    "35": {
+      "name": "OPEN_RACE",
+      "levels": [
+        {
+          "max": 5,
+          "points": 50,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 7,
+          "points": 55,
+          "award": "ruby",
+          "count": 2
+        }
+      ]
+    },
+    "36": {
+      "name": "GLADIATOR_WINNER",
+      "levels": [
+        {
+          "max": 10,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 50,
+          "points": 80,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 200,
+          "points": 90,
+          "award": "reaction",
+          "count": 40
+        }
+      ]
+    },
+    "37": {
+      "name": "COOP_FRIEND_WINNER",
+      "levels": [
+        {
+          "max": 20,
+          "points": 70,
+          "award": "fuzy",
+          "count": 80
+        },
+        {
+          "max": 100,
+          "points": 80,
+          "award": "reaction",
+          "count": 20
+        },
+        {
+          "max": 400,
+          "points": 90,
+          "award": "reaction",
+          "count": 40
+        }
+      ]
+    },
+    "38": {
+      "name": "GLADIATOR_TEN_WINNER",
+      "levels": [
+        {
+          "max": 5,
+          "points": 110,
+          "award": "ruby",
+          "count": 5
+        }
+      ]
+    },
+    "39": {
+      "name": "RETURN_FRIENDS",
+      "levels": [
+        {
+          "max": 2,
+          "points": 40,
+          "award": "fuzy",
+          "count": 40
+        },
+        {
+          "max": 5,
+          "points": 45,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 15,
+          "points": 50,
+          "award": "fuzy",
+          "count": 100
+        }
+      ]
+    },
+    "40": {
+      "name": "EXOTIC_WEAPON_MASTER",
+      "levels": [
+        {
+          "max": 1000,
+          "points": 50,
+          "award": "fuzy",
+          "count": 50
+        },
+        {
+          "max": 3000,
+          "points": 60,
+          "award": "reaction",
+          "count": 8
+        },
+        {
+          "max": 10000,
+          "points": 70,
+          "award": "ruby",
+          "count": 2
+        }
+      ]
+    },
+    "41": {
+      "name": "REWARD_CHEST",
+      "levels": [
+        {
+          "max": 5,
+          "points": 40,
+          "award": "reaction",
+          "count": 5
+        },
+        {
+          "max": 40,
+          "points": 50,
+          "award": "fuzy",
+          "count": 60
+        },
+        {
+          "max": 100,
+          "points": 60,
+          "award": "ruby",
+          "count": 2
+        }
+      ]
+    },
+    "42": {
+      "name": "OPEN_SKIN",
+      "levels": [
+        {
+          "max": 2,
+          "points": 60,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 5,
+          "points": 70,
+          "award": "ruby",
+          "count": 3
+        },
+        {
+          "max": 12,
+          "points": 80,
+          "award": "reaction",
+          "count": 30
+        }
+      ]
+    },
+    "43": {
+      "name": "RISING_ZOMBIES_WAVES_COMPLETE",
+      "levels": [
+        {
+          "max": 5,
+          "points": 80,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 50,
+          "points": 100,
+          "award": "fuzy",
+          "count": 500
+        },
+        {
+          "max": 500,
+          "points": 120,
+          "award": "ruby",
+          "count": 5
+        }
+      ]
+    },
+    "44": {
+      "name": "RISING_ZOMBIES_WINNER_FULL_TEAM",
+      "levels": [
+        {
+          "max": 1,
+          "points": 80,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 10,
+          "points": 100,
+          "award": "fuzy",
+          "count": 500
+        },
+        {
+          "max": 100,
+          "points": 120,
+          "award": "ruby",
+          "count": 5
+        }
+      ]
+    },
+    "45": {
+      "name": "RISING_ZOMBIES_RARE_BOT_KILLS",
+      "levels": [
+        {
+          "max": 5,
+          "points": 80,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 25,
+          "points": 100,
+          "award": "fuzy",
+          "count": 500
+        },
+        {
+          "max": 100,
+          "points": 120,
+          "award": "ruby",
+          "count": 5
+        }
+      ]
+    },
+    "46": {
+      "name": "SHOCKED_ENEMIES",
+      "levels": [
+        {
+          "max": 50,
+          "points": 50,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 200,
+          "points": 60,
+          "award": "fuzy",
+          "count": 200
+        },
+        {
+          "max": 500,
+          "points": 70,
+          "award": "fuzy",
+          "count": 300
+        }
+      ]
+    },
+    "47": {
+      "name": "BOSS_EXTRA_REWARD",
+      "levels": [
+        {
+          "max": 5,
+          "points": 80,
+          "award": "fuzy",
+          "count": 100
+        },
+        {
+          "max": 10,
+          "points": 90,
+          "award": "fuzy",
+          "count": 500
+        },
+        {
+          "max": 15,
+          "points": 100,
+          "award": "ruby",
+          "count": 5
+        }
+      ]
+    },
+    "48": {
+      "name": "MERC_WIN",
+      "levels": [
+        {
+          "max": 10,
+          "points": 70,
+          "award": "reaction",
+          "count": 10
+        },
+        {
+          "max": 50,
+          "points": 80,
+          "award": "fuzy",
+          "count": 150
+        },
+        {
+          "max": 200,
+          "points": 90,
+          "award": "reaction",
+          "count": 40
+        }
+      ]
+    },
+    "49": {
+      "name": "ROPE_PERFECT_WIN",
+      "levels": [
+        {
+          "max": 5,
+          "points": 70,
+          "award": "ruby",
+          "count": 3
+        },
+        {
+          "max": 10,
+          "points": 80,
+          "award": "ruby",
+          "count": 4
+        },
+        {
+          "max": 20,
+          "points": 90,
+          "award": "ruby",
+          "count": 5
+        }
+      ]
     }
   },
   "award_items": [
-    [
-      62,
-      63
-    ],
-    [
-      64,
-      68
-    ],
-    [
-      67,
-      1027,
-      78
-    ],
-    [
-      2022,
-      1034,
-      77
-    ]
-  ]
+    [62, 63, 68, 1027],
+    [64, 78],
+    [67, 115, 129],
+    [2022, 1034, 77, 70],
+    [1144, 118, 2037]
+  ],
+  "award_replaces": {"1144": 1034, "77": 115, "2037": 2022}
 }

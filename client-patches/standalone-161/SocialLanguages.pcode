@@ -1,0 +1,79 @@
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 14
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace("*","1338"),"0#y")
+               newfunction 31663
+               pop
+               jump ofs0011
+               divide
+               getlocal2
+               subtract_i
+      ofs0011:
+               pushstring "vkontakte"
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"RU")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"EN")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"UA")
+               newarray 3
+               pushstring "facebook"
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"EN")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"PL")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"ES")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               jump ofs0053
+               multiply
+               dxnslate
+               not
+      ofs0053:
+               getproperty QName(PackageNamespace("","56061"),"\"%#")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"TR")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"RU")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"UA")
+               newarray 7
+               pushstring "odnoklassniki"
+               jump ofs007a
+               divide
+               lshift
+               bitand
+      ofs007a:
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"RU")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"UA")
+               newarray 2
+               pushstring "mailru"
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"RU")
+               newarray 1
+               pushstring "none"
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"RU")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"EN")
+               getlex QName(PackageNamespace("%\"Z"),"2\"B")
+               getproperty QName(PackageNamespace("","56061"),"UA")
+               newarray 3
+               newobject 5
+               initproperty QName(PrivateNamespace("*","1338"),"0#y")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method

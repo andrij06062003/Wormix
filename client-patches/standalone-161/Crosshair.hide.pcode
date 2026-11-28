@@ -1,0 +1,44 @@
+               method
+                  name null
+                  returns QName(PackageNamespace("","56061"),"void")
+
+                  body
+                     maxstack 3
+                     localcount 1
+                     initscopedepth 6
+                     maxscopedepth 7
+
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        newfunction 42764
+                        pop
+                        jump ofs000f
+                        convert_i
+                        pushnan
+                        greaterequals
+               ofs000f:
+                        getproperty QName(PrivateNamespace("*","1012"),"[#H")
+                        iffalse ofs0034
+                        getlocal0
+                        getproperty QName(PrivateNamespace("*","1012"),"\"#8")
+                        getproperty QName(PackageNamespace("","56061"),"parent")
+                        iffalse ofsXP01
+                        getlocal0
+                        getproperty QName(PrivateNamespace("*","1012"),"\"#8")
+                        getproperty QName(PackageNamespace("","56061"),"parent")
+                        getlocal0
+                        getproperty QName(PrivateNamespace("*","1012"),"\"#8")
+                        callpropvoid QName(PackageNamespace("","56061"),"removeChild"), 1
+               ofsXP01:
+                        getlex QName(PackageNamespace("flash.ui"),"Mouse")
+                        callpropvoid QName(PackageNamespace("","56061"),"show"), 0
+                        getlocal0
+                        pushfalse
+                        initproperty QName(PrivateNamespace("*","1012"),"[#H")
+               ofs0034:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method

@@ -72,14 +72,21 @@ type mainSession struct {
 	authKey       string
 	token         *string // the API session key ("{userId}.{key}"), nil before login
 	wipeRequested bool
-	// v125: the player uses the 1.25.0 client (its Login was signed with the 1.25.0 salt).
+	// v125: the player uses the 1.25.0 client (its Login was signed with the 1.25.0 salt), or the 1.61.7 one.
 	v125 atomic.Bool
+	// v161: the player uses the 1.61.7 client (its Login was signed with the 1.61.7 salt). v125 is set too:
+	// what 1.61.7 didn't change is answered as for 1.25.0.
+	v161 atomic.Bool
 }
 
 func newMainSession(c *conn) *mainSession { return &mainSession{conn: c} }
 
 // V125 reports whether the player uses the 1.25.0 client (pvp needs it to find a battle for it).
 func (s *mainSession) V125() bool { return s.v125.Load() }
+
+// V161 reports whether the player uses the 1.61.7 client (pvp: co-op and friend battles only between the same
+// clients).
+func (s *mainSession) V161() bool { return s.v161.Load() }
 
 // UserID implements pvp.Player.
 func (s *mainSession) UserID() uint32 { return s.userID.Load() }
@@ -128,7 +135,9 @@ func (s *mainSession) stop() {
 }
 
 func (s *mainSession) out(b []byte) {
-	if s.v125.Load() {
+	if s.v161.Load() {
+		b = proto.Resign161(b)
+	} else if s.v125.Load() {
 		b = proto.Resign125(b)
 	}
 	s.write(b)
@@ -136,6 +145,18 @@ func (s *mainSession) out(b []byte) {
 
 func (s *mainSession) post(route string, body []byte) *jsonx.Value {
 	return api.Post(route, body, s.sid, s.tokenPtr())
+}
+
+// clientJSON marks a 1.61.7 client's request body (a JSON object) with "Client": 161: the API takes the
+// solo bosses' levels and awards of that client for it (its bosses161), not the 1.25.0 ones.
+func (s *mainSession) clientJSON(body []byte) []byte {
+	if !s.v161.Load() || len(body) < 2 || body[0] != '{' {
+		return body
+	}
+	if len(body) == 2 {
+		return []byte(`{"Client":161}`)
+	}
+	return append([]byte(`{"Client":161,`), body[1:]...)
 }
 
 // refuseBattle answers a refused StartBattle with ArenaLocked: the arena's delay when the battles are used up,
@@ -148,7 +169,16 @@ func (s *mainSession) refuseBattle() {
 			locked = proto.DecodeArenaLocked(dataBangObj(o))
 		}
 	}
-	locked.Emit(s.out)
+	s.emitLocked(locked)
+}
+
+// emitLocked sends ArenaLocked in the client's layout.
+func (s *mainSession) emitLocked(l proto.ArenaLocked) {
+	if s.v161.Load() {
+		l.Emit161(s.out)
+		return
+	}
+	l.Emit(s.out)
 }
 
 // rootObject is the answer's ToObject<JObject>(): nil for a JSON null, an error for a non-object.
@@ -196,6 +226,12 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 	r := wire.NewReader(body)
 	switch cmd {
 	case proto.CmdLogin:
+		if proto.IsLogin161(body) {
+			s.v125.Store(true)
+			s.v161.Store(true)
+			s.login(proto.ReadLogin125(r))
+			break
+		}
 		if proto.IsLogin125(body) {
 			s.v125.Store(true)
 			s.login(proto.ReadLogin125(r))
@@ -238,19 +274,21 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		switch typ {
 		case "ArenaResult":
 			res := proto.DecodeArenaResult(dataBangObj(o))
-			if cmd == proto.CmdGetArena125 {
+			if s.v161.Load() {
+				res.Emit161(s.out)
+			} else if cmd == proto.CmdGetArena125 {
 				res.Emit125(s.out)
 			} else {
 				res.Emit(s.out)
 			}
 		case "ArenaLocked":
-			proto.DecodeArenaLocked(dataBangObj(o)).Emit(s.out)
+			s.emitLocked(proto.DecodeArenaLocked(dataBangObj(o)))
 		default:
-			proto.ArenaLocked{Delay: 2147483647, ErrorCode: 1}.Emit(s.out)
+			s.emitLocked(proto.ArenaLocked{Delay: 2147483647, ErrorCode: 1})
 		}
 	case proto.CmdStartBattle:
 		req := proto.ReadStartBattle(r)
-		v, refused := api.PostRefusable("game/start_battle", req.JSON(), s.sid, s.tokenPtr())
+		v, refused := api.PostRefusable("game/start_battle", s.clientJSON(req.JSON()), s.sid, s.tokenPtr())
 		if refused {
 			// No battles left (the client counts them itself and can be wrong after a reload), or a mission
 			// it may not start: answer with the arena state instead of dropping the connection.
@@ -258,11 +296,25 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 			break
 		}
 		res := proto.DecodeStartBattleResult(dataBang(v))
+		if s.v161.Load() {
+			res.Emit161(s.out)
+			break
+		}
 		res.Emit(s.out)
 	case proto.CmdBuyBattle:
 		s.shortReply("account/buy/battles", proto.ReadBuyBattle(r).JSON(), proto.CmdBuyBattleResult)
 	case proto.CmdAddToGroup:
-		s.shortReply("team/add", proto.ReadAddToGroup(r).JSON(), proto.CmdAddToGroupResult)
+		// A teammate the API refuses (the 1.61.7 mercenaries aren't users, so their id fails its validation) is a
+		// failed hire, not a dropped session: the client's reconnect after a drop is refused ("wrong auth key").
+		res := proto.ShortResult{Cmd: proto.CmdAddToGroupResult, Result: 1}
+		if v, refused := api.PostRefusable("team/add", proto.ReadAddToGroup(r).JSON(), s.sid, s.tokenPtr()); !refused {
+			d := dataOpt(v)
+			if d == nil {
+				break
+			}
+			res = proto.DecodeShortResult(proto.CmdAddToGroupResult, d)
+		}
+		res.Emit(s.out)
 	case proto.CmdRemoveFromGroup:
 		s.shortReply("team/remove", proto.ReadRemoveFromGroup(r).JSON(), proto.CmdRemoveFromGroupResult)
 	case proto.CmdDistributePoints:
@@ -282,7 +334,13 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		proto.DecodeSelectStuffResult(dataBang(s.post("account/select_stuff", req.JSON()))).Emit(s.out)
 	case proto.CmdChangeRace:
 		req := proto.ReadChangeRace(r)
-		proto.DecodeShortResult(proto.CmdChangeRaceResult, dataBang(s.post("account/buy/race", req.JSON()))).Emit(s.out)
+		// A race the API refuses (one it doesn't know) fails the purchase instead of dropping the session.
+		if v, refused := api.PostRefusable("account/buy/race", req.JSON(), s.sid, s.tokenPtr()); refused {
+			log.Printf("[main %s] race %d refused by the API", s.short(), req.RaceID)
+			proto.ShortResult{Cmd: proto.CmdChangeRaceResult, Result: 1}.Emit(s.out)
+		} else {
+			proto.DecodeShortResult(proto.CmdChangeRaceResult, dataBang(v)).Emit(s.out)
+		}
 	case proto.CmdGetWhoPumpedReaction:
 		req := proto.ReadGetWhoPumpedReaction(r)
 		proto.DecodeWhoPumpedReactionResult(dataBang(s.post("info/pumped_reaction", req.JSON()))).Emit(s.out)
@@ -301,7 +359,14 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		proto.EmitSendWipeConfirmCodeResponse(s.out, 0)
 		s.wipeRequested = true
 	case proto.CmdBuyUnlockMission:
-		s.shortReply("account/buy/mission", proto.ReadBuyUnlockMission(r).JSON(), proto.CmdBuyUnlockMissionResult)
+		// A boss the API refuses (one it doesn't know) fails the unlock instead of dropping the session.
+		req := proto.ReadBuyUnlockMission(r)
+		if v, refused := api.PostRefusable("account/buy/mission", s.clientJSON(req.JSON()), s.sid, s.tokenPtr()); refused {
+			log.Printf("[main %s] unlock of mission %d refused by the API", s.short(), req.Value)
+			proto.ShortResult{Cmd: proto.CmdBuyUnlockMissionResult, Result: 1}.Emit(s.out)
+		} else if d := dataOpt(v); d != nil {
+			proto.DecodeShortResult(proto.CmdBuyUnlockMissionResult, d).Emit(s.out)
+		}
 	case proto.CmdSearchTheHouse:
 		req := proto.ReadSearchTheHouse(r)
 		proto.DecodeSearchTheHouseResult(dataBang(s.post("house/search", req.JSON()))).Emit(s.out)
@@ -315,12 +380,17 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		proto.DecodePumpReactionTheHouseResult(dataBang(s.post("house/pump_reaction", req.JSON()))).Emit(s.out)
 	case proto.CmdEndBattle:
 		var req proto.EndBattle
-		if s.v125.Load() {
+		if s.v161.Load() {
+			req = proto.ReadEndBattle161(r)
+		} else if s.v125.Load() {
 			req = proto.ReadEndBattle125(r)
 		} else {
 			req = proto.ReadEndBattle(r)
 		}
-		s.post("game/end_battle", req.JSON())
+		v := s.post("game/end_battle", s.clientJSON(req.JSON()))
+		if s.v161.Load() {
+			proto.EmitEndBattleResult161(s.out, req, proto.DecodeBattleAwards(v))
+		}
 	case proto.CmdAssembleEquip125:
 		req := proto.ReadAssembleEquip125(r)
 		equipID, result := 0, 1
@@ -343,19 +413,85 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		}
 		proto.EmitToggleTeamMemberResult125(s.out, result, req.ProfileID)
 	case proto.CmdUpgradeWeapon:
-		req := proto.ReadRecipe(r)
-		if d := dataOpt(s.post("craft/upgrade_weapon", req.JSON())); d != nil {
-			proto.DecodeWeaponRecipeResult(proto.CmdUpgradeWeaponResult, d).Emit(s.out)
-		}
+		s.weaponRecipe("craft/upgrade_weapon", proto.CmdUpgradeWeaponResult, proto.ReadRecipe(r))
 	case proto.CmdDowngradeWeapon:
-		req := proto.ReadRecipe(r)
-		if d := dataOpt(s.post("craft/downgrade_weapon", req.JSON())); d != nil {
-			proto.DecodeWeaponRecipeResult(proto.CmdDowngradeWeaponResult, d).Emit(s.out)
+		s.weaponRecipe("craft/downgrade_weapon", proto.CmdDowngradeWeaponResult, proto.ReadRecipe(r))
+	case proto.CmdGetFriendsForBoss125:
+		if s.v161.Load() {
+			missions, wager := proto.ReadGetFriendsForMission161(r)
+			friends := pvp.BossFriends(s.UserID(), missions, true)
+			log.Printf("[main %s] %d friends for co-op boss %v (wager %d)", s.short(), len(friends), missions, wager)
+			proto.EmitGetFriendsForMissionResult161(s.out, friends)
+			break
+		}
+		missions := proto.ReadGetFriendsForBoss125(r)
+		friends := pvp.BossFriends(s.UserID(), missions, false)
+		log.Printf("[main %s] %d friends for co-op boss %v", s.short(), len(friends), missions)
+		proto.EmitGetFriendsForBossResult125(s.out, friends)
+	case proto.CmdSetBackpackConf161, proto.CmdSetHotkeys161, proto.CmdSetBackpackConf125, proto.CmdSetHotkeys125:
+		if !s.backpack(cmd, r) && !pvp.HandleLobby(s, cmd, body) {
+			log.Printf("[main %s] unknown command %d", s.short(), cmd)
 		}
 	default:
 		if !pvp.HandleLobby(s, cmd, body) {
 			log.Printf("[main %s] unknown command %d", s.short(), cmd)
 		}
+	}
+}
+
+// backpack saves the arsenal: SetBackpackConf (answered with what was kept) and SetHotkeys (no answer).
+// 1.61.7 has them at 129 and 128, 1.25.0 at 103 and 104; it reports false for a command of the other client.
+func (s *mainSession) backpack(cmd uint32, r *wire.Reader) bool {
+	v161, v125 := s.v161.Load(), s.v125.Load() && !s.v161.Load()
+	switch {
+	case v161 && cmd == proto.CmdSetBackpackConf161:
+		b := proto.ReadSetBackpackConf161(r)
+		proto.EmitSetBackpackConfResult161(s.out, s.saveBackpack(b), b)
+	case v125 && cmd == proto.CmdSetBackpackConf125:
+		b := proto.ReadSetBackpackConf125(r)
+		proto.EmitSetBackpackConfResult125(s.out, s.saveBackpack(b), b)
+	case v161 && cmd == proto.CmdSetHotkeys161, v125 && cmd == proto.CmdSetHotkeys125:
+		keys := proto.ReadSetHotkeys(r)
+		if v, refused := api.PostRefusable("account/hotkeys", proto.HotkeysJSON(keys), s.sid, s.tokenPtr()); refused || resultOf(v) != 0 {
+			log.Printf("[main %s] hotkeys not kept", s.short())
+		}
+	default:
+		return false
+	}
+	return true
+}
+
+// saveBackpack posts the arsenal's layouts: 0 if the API kept them, 1 if not.
+func (s *mainSession) saveBackpack(b proto.Backpack) int16 {
+	v, refused := api.PostRefusable("account/backpack", b.JSON(), s.sid, s.tokenPtr())
+	if refused || resultOf(v) != 0 {
+		log.Printf("[main %s] arsenal of %d layouts not kept", s.short(), len(b.Configs))
+		return 1
+	}
+	return 0
+}
+
+// resultOf is data.Result of an API answer (-1 without one).
+func resultOf(v *jsonx.Value) int64 {
+	if d := dataOpt(v); d != nil && d.Kind == jsonx.Object {
+		if x := d.Obj.Get("Result"); x != nil && x.Kind == jsonx.Integer {
+			return x.I
+		}
+	}
+	return -1
+}
+
+// weaponRecipe upgrades or downgrades a weapon. A recipe the API refuses (one it doesn't know) is answered
+// as failed (Result 1), not by dropping the session.
+func (s *mainSession) weaponRecipe(route string, cmd uint32, req proto.IntField) {
+	v, refused := api.PostRefusable(route, req.JSON(), s.sid, s.tokenPtr())
+	if refused {
+		log.Printf("[main %s] recipe %d refused by the API", s.short(), req.Value)
+		proto.WeaponRecipeResult{Cmd: cmd, RecipeID: int16(req.Value), Result: 1}.Emit(s.out)
+		return
+	}
+	if d := dataOpt(v); d != nil {
+		proto.DecodeWeaponRecipeResult(cmd, d).Emit(s.out)
 	}
 }
 
@@ -439,6 +575,11 @@ func (s *mainSession) login(req proto.Login) {
 		s.userID.Store(req.ID)
 		pvp.Register(s)
 		account.PutOnlineFirst(func(id uint32) bool { return id != req.ID && pvp.Find(id) != nil })
+		if s.v161.Load() {
+			log.Printf("[main %s] user %d logged in (1.61.7 client)", s.short(), req.ID)
+			account.Emit161(s.write, int32(time.Now().Unix()))
+			break
+		}
 		if s.v125.Load() {
 			log.Printf("[main %s] user %d logged in (1.25.0 client)", s.short(), req.ID)
 			account.Emit125(s.write, int32(time.Now().Unix()))
@@ -457,7 +598,11 @@ func (s *mainSession) login(req proto.Login) {
 // loginFailed sends the error, waits and closes the connection.
 func (s *mainSession) loginFailed(id uint32, e *proto.LoginError) {
 	log.Printf("[main %s] login of %d refused (error %d)", s.short(), id, e.Result)
-	e.Emit(s.out)
+	if s.v161.Load() {
+		e.Emit161(s.out)
+	} else {
+		e.Emit(s.out)
+	}
 	time.Sleep(LoginErrorDelay)
 	s.Close()
 }
@@ -481,6 +626,20 @@ func isBlank(s string) bool {
 type pvpSession struct {
 	*conn
 	battle atomic.Pointer[pvp.Battle]
+	// v161: the connection of a 1.61.7 client (its CreateBattleRequest or JoinToBattle had the 1.61.7 salt):
+	// what is sent to it is signed with that salt.
+	v161 atomic.Bool
+}
+
+// SetV161 marks the connection as a 1.61.7 client's.
+func (s *pvpSession) SetV161() { s.v161.Store(true) }
+
+// SendMessage implements pvp.Conn: a 1.61.7 client gets the message signed with its salt.
+func (s *pvpSession) SendMessage(msg []byte) bool {
+	if s.v161.Load() {
+		msg = proto.Resign161(msg)
+	}
+	return s.conn.SendMessage(msg)
 }
 
 func newPvpSession(c *conn) *pvpSession { return &pvpSession{conn: c} }

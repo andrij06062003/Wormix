@@ -6781,13 +6781,27 @@
                pushstring "regeneration"
                pushbyte 80
                pushstring "fireDamage"
-               pushbyte 80
+               pushshort 200
                pushstring "frostDamage"
-               pushbyte 80
+               pushshort 200
                pushstring "poisonDamage"
-               pushbyte 80
+               pushshort 200
                pushstring "airDamage"
+               pushshort 200
+               pushstring "shockDamage"
                pushbyte 80
+               pushstring "fireDefense"
+               pushbyte 40
+               pushstring "frostDefense"
+               pushbyte 40
+               pushstring "poisonDefense"
+               pushbyte 40
+               pushstring "shockDefense"
+               pushbyte 40
+               pushstring "airDefense"
+               pushbyte 40
+               pushstring "physicalDefense"
+               pushbyte 40
                pushstring "leech"
                pushbyte 30
                pushstring "hp"
@@ -6801,7 +6815,7 @@
                pushdouble 0.1
                newobject 3
                newarray 1
-               newobject 14
+               newobject 21
                newarray 158
                initproperty QName(PrivateNamespace("*","1331"),";\"f")
                returnvoid

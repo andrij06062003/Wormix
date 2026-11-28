@@ -142,7 +142,9 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
 
 - `HatTable.pcode` (`§,$J§.§0%G§`, the hat table's class initializer, body 3921; tried as `Wormix.next.swf` since
   build 2026-11-28.2, in Wormix.swf since 2026-11-28.3): one more hat, 1159 "Ксерокс" (`HAT.XEROX` in data/lang/items_*.xml), 100 rubies from
-  level 1: health +200 (since build 2026-11-28.5, on `?next` first), attack and armor +10, regeneration 80, fire, frost, poison and air damage +80%, leech 30%. Its picture
+  level 1: health +200, attack and armor +10, regeneration 80, fire, frost, poison and air damage +200% (+80% before
+  build 2026-11-28.6), shock damage +80%, defense against everything (fire, frost, poison, shock, air, physical)
+  40%, leech 30%. Its picture
   is the class `XeroxHat` that `swf-hat/` (below) adds to data/common/objects/hats2.swf, listed in
   data/resconfigs/resconfig.xml (the client loads only the classes listed there for each file, and stops at 99% when
   a listed class isn't in the library: browsers that still had the old hats2.swf did, until play.html asked for the
@@ -175,8 +177,8 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   with the 960x640 stage the battle filled only its top left 800x600 and the rest was the blue background, in
   full screen and out of it.
 
-The canary (`Wormix.next.swf`) is Wormix.swf with HatTable.pcode (with the health) and Application.size.pcode
-replaced again (build 2026-11-28.5):
+The canary (`Wormix.next.swf`) is Wormix.swf with HatTable.pcode (with the hat's latest stats) and Application.size.pcode
+replaced again (build 2026-11-28.6):
 
     java -jar ffdec-cli.jar -replace Wormix.swf n1.swf '§,$J§.§0%G§' client-patches/standalone-161/HatTable.pcode 3921
     java -jar ffdec-cli.jar -replace n1.swf Wormix.next.swf Application client-patches/standalone-161/Application.size.pcode 2

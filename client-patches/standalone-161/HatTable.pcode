@@ -6790,6 +6790,8 @@
                pushbyte 80
                pushstring "leech"
                pushbyte 30
+               pushstring "hp"
+               pushshort 200
                pushstring "charConfig"
                pushstring "iconClassName"
                pushstring "XeroxHat"
@@ -6799,7 +6801,7 @@
                pushdouble 0.1
                newobject 3
                newarray 1
-               newobject 13
+               newobject 14
                newarray 158
                initproperty QName(PrivateNamespace("*","1331"),";\"f")
                returnvoid

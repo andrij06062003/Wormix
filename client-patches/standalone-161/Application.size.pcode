@@ -1,0 +1,44 @@
+method
+   name null
+   returns null
+   
+   body
+      maxstack 4
+      localcount 1
+      initscopedepth 8
+      maxscopedepth 9
+      
+      code
+         getlocal0
+         pushscope
+         findproperty QName(PackageNamespace("","56061"),"@#V")
+         newfunction 25328
+         pop
+         jump ofs0011
+         pushfalse
+         convert_d
+         pushwith
+ofs0011:
+         pushshort 960
+         initproperty QName(PackageNamespace("","56061"),"@#V")
+         findproperty QName(PackageNamespace("","56061"),"#\"r")
+         pushshort 640
+         initproperty QName(PackageNamespace("","56061"),"#\"r")
+         findproperty QName(PackageNamespace("","56061"),"!!g")
+         pushstring "local"
+         initproperty QName(PackageNamespace("","56061"),"!!g")
+         findproperty QName(PackageNamespace("","56061"),">&2")
+         pushstring "test"
+         initproperty QName(PackageNamespace("","56061"),">&2")
+         findproperty QName(PrivateNamespace("*","38"),"log")
+         findpropstrict QName(PackageNamespace("ru.pragmatix.flox.logger"),"&`")
+         getlocal0
+         constructprop QName(PackageNamespace("ru.pragmatix.flox.logger"),"&`"), 1
+         initproperty QName(PrivateNamespace("*","38"),"log")
+         findproperty QName(PackageNamespace("","56061")," $X")
+         pushtrue
+         setproperty QName(PackageNamespace("","56061")," $X")
+         returnvoid
+      end ; code
+   end ; body
+end ; method

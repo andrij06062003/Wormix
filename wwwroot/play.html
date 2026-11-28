@@ -276,7 +276,7 @@
     const API = location.origin + '/api/';
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
     // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
-    const CLIENT_BUILD = '2026-11-28.3';
+    const CLIENT_BUILD = '2026-11-28.4';
     // play.html?next: the canary. It runs Wormix.next.swf and, for data files that change with a patch, their .next
     // copy (NEXT_DATA_161), so a change that could break the start is tried there before it reaches everyone.
     const NEXT = new URLSearchParams(location.search).has('next');
@@ -615,7 +615,9 @@
     function prefetch161(splash) {
         const early = new Map(startFiles161().map(f => {
             const path = '/vk/1.61.7/data/' + f;
-            return [path, fetch(dataPath161(path)).catch(() => null)];
+            // With the build number, like Wormix.swf: the files are cached for 4 hours, and a browser that still
+            // had hats2.swf from before the Ксерокс hat stopped at 99% (the class resconfig lists wasn't in it).
+            return [path, fetch(dataPath161(path) + '?b=' + CLIENT_BUILD).catch(() => null)];
         }));
         const fetchNow = window.fetch.bind(window);
         window.fetch = function (input, init) {
@@ -629,7 +631,7 @@
                 return next && next !== url.pathname ? fetchNow(next + url.search, init) : fetchNow(input, init);
             }
             early.delete(url.pathname);
-            return ready.then(r => r && r.ok ? r : fetchNow(dataPath161(url.pathname), init));
+            return ready.then(r => r && r.ok ? r : fetchNow(dataPath161(url.pathname) + '?b=' + CLIENT_BUILD, init));
         };
     }
 

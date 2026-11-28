@@ -135,6 +135,11 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   it has some, so the friends bar was empty and co-op had no one to invite. It asks the page
   (`wormixFriends()`, the other players' ids from `account/game`).
 
+- `SocialLanguages.pcode` (`§&$Y§.§2$4§`, the class initializer, body 5231; tried as `Wormix.next.swf` since
+  build 2026-11-28.1): the languages each social network may use. The "none" one had `[RU, EN]`, so the page's
+  `_lang: "ua"` fell back to Russian; it is now `[RU, EN, UA]` (the client has complete `ua` files in data/lang).
+  With it the client also asks for `lang/chat_ua.xml` at start.
+
     cp Wormix.orig.swf a.swf
     java -jar ffdec-cli.jar -replace a.swf b.swf '§8#o§.§1@§' client-patches/standalone-161/WeaponUpgrades.pcode 5944
     java -jar ffdec-cli.jar -replace b.swf c.swf Application client-patches/standalone-161/Application.onAddedToStage.pcode 16
@@ -150,4 +155,23 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
         client-patches/standalone-161/AppFriends.pcode 7122
     java -jar ffdec-cli.jar -replace k.swf Wormix.swf '§8#o§.§1@§' client-patches/standalone-161/BuildFamilies.pcode 5941
 
+The canary (`Wormix.next.swf`) is that file with one more patch and the 960x640 stage (`swf-stage/` below):
+
+    java -jar ffdec-cli.jar -replace Wormix.swf l.swf '§&$Y§.§2$4§' client-patches/standalone-161/SocialLanguages.pcode 5231
+    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- l.swf Wormix.next.swf 960 640
+
 `Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).
+
+## `swf-stage/`: a 960x640 stage for the 1.61.7 client
+
+Tried as `Wormix.next.swf` since build 2026-11-19.3 (`play.html?next`). The 1.61.7 client was made for a
+resizable frame: it lays the main menu and the battle out on the stage's size (`stage.stageWidth`), and some of
+its windows are wider than its 800x600 header (`BattleSettingsMenu`, "Настройки боя", is 911x588). The page keeps
+the stage at the header's size (Ruffle's `exactFit` with `forceScale`), so that window was cut on both sides, as
+was the main menu's top bar in full screen. `swf-stage` (Rust) rewrites only the header's frame size, to 960x640
+(3:2, the page's box; one of the client's own sizes), and the client lays everything out on it:
+
+    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- \
+        wormix-client/vk/1.61.7/Wormix.swf wormix-client/vk/1.61.7/Wormix.next.swf 960 640
+
+Only the 9 bytes of the frame size change (check: inflate both files and compare from byte 9 of the body).

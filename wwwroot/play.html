@@ -11,6 +11,8 @@
            full screen, where this box is what goes full screen). */
         #game { position: relative; width: 900px; max-width: 100%; aspect-ratio: 3 / 2; margin: 20px auto 8px; container-type: size; }
         #game ruffle-player, #game ruffle-object, #game ruffle-embed { width: 100%; height: 100%; }
+        /* The 1.61.7 client's stage is 960x640 (Wormix.next.swf; client-patches/swf-stage): shown at its own size. */
+        #game.v161 { width: 960px; }
         /* Full screen goes to this box (see startGame). The 3:2 game is shown at 16:10, a light stretch,
            and the narrow strips left on a 16:9 screen show the page background. */
         #game:fullscreen { width: 100vw; height: 100vh; max-width: none; margin: 0; aspect-ratio: auto;
@@ -274,7 +276,7 @@
     const API = location.origin + '/api/';
     const RELAY = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
     // The Wormix.swf build: change it whenever a client patch changes Wormix.swf (see urlRewriteRules).
-    const CLIENT_BUILD = '2026-11-19.2';
+    const CLIENT_BUILD = '2026-11-28.1';
 
     // Remembered login, per browser (convenience only).
     const store = {
@@ -478,6 +480,7 @@
         const v161 = !new URLSearchParams(location.search).has('125');
         // play.html?next runs Wormix.next.swf: a client patch to try out before it becomes Wormix.swf.
         const swf161 = new URLSearchParams(location.search).has('next') ? 'Wormix.next.swf' : 'Wormix.swf';
+        document.getElementById('game').classList.toggle('v161', v161);
         const flashvars = v161 ? {
             // Its "none" social network: no VK, the game takes the player's id and auth key from here.
             user_id: id, _masterKey: authKey, _social_type: 'none', _lang: LANGS[LANG].game, _app_mode: 'web'
@@ -493,7 +496,7 @@
             autoplay: 'on',
             unmuteOverlay: 'hidden',
             allowScriptAccess: true,
-            // The game is 900x600 (3:2). Stretch it to fill the player instead of drawing black bars;
+            // The game is 900x600 (1.25.0) or 960x640 (1.61.7 with swf-stage), 3:2. Stretch it to fill the player instead of drawing black bars;
             // the page decides the player's shape (3:2 normally, 16:10 in full screen).
             // forceScale keeps the game from switching it back.
             scale: 'exactFit',

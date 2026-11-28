@@ -280,7 +280,8 @@
     // play.html?next: the canary. It runs Wormix.next.swf and, for data files that change with a patch, their .next
     // copy (NEXT_DATA_161), so a change that could break the start is tried there before it reaches everyone.
     const NEXT = new URLSearchParams(location.search).has('next');
-    const NEXT_DATA_161 = new Map([['/vk/1.61.7/data/resconfigs/resconfig.xml', '/vk/1.61.7/data/resconfigs/resconfig.next.xml']]);
+    // Pairs like ['/vk/1.61.7/data/resconfigs/resconfig.xml', '/vk/1.61.7/data/resconfigs/resconfig.next.xml']; none now.
+    const NEXT_DATA_161 = new Map();
     const dataPath161 = path => (NEXT && NEXT_DATA_161.get(path)) || path;
 
     // Remembered login, per browser (convenience only).

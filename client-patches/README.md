@@ -143,11 +143,11 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
 - `HatTable.pcode` (`§,$J§.§0%G§`, the hat table's class initializer, body 3921; tried as `Wormix.next.swf` since
   build 2026-11-28.2, in Wormix.swf since 2026-11-28.3): one more hat, 1159 "Ксерокс" (`HAT.XEROX` in data/lang/items_*.xml), 100 rubies from
   level 1: attack and armor +10, regeneration 80, fire, frost, poison and air damage +80%, leech 30%. Its picture
-  is the class `XeroxHat` that `swf-hat/` (below) adds to data/common/objects/hats2.swf. The client loads only the
-  classes listed in data/resconfigs/resconfig.xml for each file, but listing `XeroxHat` there stopped the game at 99%
-  (build 2026-11-28.3, taken out again), so it is listed only in resconfig.next.xml, which `play.html?next` reads
-  instead (`NEXT_DATA_161` in play.html). Without it the shop shows the hat's stats and the worm the default
-  picture. The shop row is in
+  is the class `XeroxHat` that `swf-hat/` (below) adds to data/common/objects/hats2.swf, listed in
+  data/resconfigs/resconfig.xml (the client loads only the classes listed there for each file, and stops at 99% when
+  a listed class isn't in the library: browsers that still had the old hats2.swf did, until play.html asked for the
+  start files with the build number in 2026-11-28.4). It was tried first in resconfig.next.xml, which
+  `play.html?next` read instead (`NEXT_DATA_161` in play.html). The shop row is in
   shop161.json (migration 2026_11_28_180000_xerox_hat_161). `-selectclass` takes a comma separated list, so it
   can't name this class (its package is `§,$J§`): export all the scripts to get its P-code.
 

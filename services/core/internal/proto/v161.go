@@ -181,9 +181,15 @@ func (e *EnterAccount) races161() int {
 	return 0
 }
 
+// bossWinAwardTokens is the ArenaResult's bossWinAwardToken: how many boss wins still give the full award today.
+// The client opens the next boss only while it is above 0 (at 0 its window said "the first win of a boss is
+// once a day, come back tomorrow"), shows the award it will give from it, and takes one per boss won. The
+// original game gave one a day; here every boss win counts (the API gives a boss's awards on every win).
+const bossWinAwardTokens = 1000 // Emit161 writes it as a literal to keep its comments aligned
+
 // Emit161 writes the 1.61.7 ArenaResult (no MD5): the 1.25.0 fields, then the arena's timers, the wagers
-// that are closed, the heroic missions' progress, the awards' tokens, the boss awards (none: the server
-// gives them) and the zombie's cooldown.
+// that are closed, the heroic missions' progress, the awards' tokens (bossWinAwardTokens), the boss awards
+// (none: the server gives them) and the zombie's cooldown.
 func (r *ArenaResult) Emit161(out Out) {
 	var w wire.Writer
 	w.U32(uint32(r.BattlesCount))
@@ -200,7 +206,7 @@ func (r *ArenaResult) Emit161(out Out) {
 	w.I32(0)      // defeatContributionMoney
 	w.UTF("{}")   // extraBattlesTimetable (JSON)
 	w.I32(0)      // wagerWinAwardToken
-	w.I32(0)      // bossWinAwardToken
+	w.I32(1000)   // bossWinAwardToken: bossWinAwardTokens
 	w.U16(4)      // BossBattleAwardsStructure, its size:
 	w.U16(0)      //   boss awards
 	w.U16(0)      //   heroic awards

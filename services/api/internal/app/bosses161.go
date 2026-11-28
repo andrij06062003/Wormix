@@ -1,15 +1,14 @@
-package db
+package app
 
-import (
-	"context"
-	"database/sql"
-)
+import "github.com/andrij06062003/Wormix/services/api/internal/php"
 
 // bosses161 are the 1.61.7 client's solo bosses 1-31 (its boss table, §6&'§ in the decompiled client): the
-// level it asks for and its awards, [first win, a win after that]. Bosses 28-31 (Blacksmith, Soul Master,
-// Rebel Robot, Devotee) are only in 1.61.7: without a row the API refused to unlock (the client's "error code
-// 1") or start them. The client shows these awards in its boss window, and the API now gives the same ones.
-// The items are [id, count]; ids from 1000 are hats and artifacts.
+// level it asks for and its awards, [first win, a win after that]. The 1.61.7 client shows these in its boss
+// window, but wormix_missions has the 1.25.0 client's bosses (other levels, other weapons) and no 28-31
+// (Blacksmith, Soul Master, Rebel Robot, Devotee): their unlock was refused (the client's "error code 1") and
+// a win gave other awards than the ones shown. The core marks a 1.61.7 client's requests ("Client": 161), and
+// for them the API takes the bosses from here. The items are [id, count]; ids from 1000 are hats and
+// artifacts, in wormix_weapons since 2026_11_18_140000_shop_161.
 var bosses161 = []struct {
 	id, level int64
 	awards    string
@@ -47,29 +46,25 @@ var bosses161 = []struct {
 	{31, 26, `[{"money":0,"experience":190,"real_money":10,"weapons":[[1109,1],[72,6],[80,6],[130,4]]},{"money":190,"experience":95,"real_money":0,"weapons":[[1109,1],[72,3],[80,3],[130,2]]}]`},
 }
 
-// migrateBosses161 is 2026_11_28_030000_wormix_bosses_161, for a database that has the missions already (a new
-// one gets them from the seed, after missions_awards.json). Their hats and artifacts are in wormix_weapons since
-// 2026_11_18_140000_shop_161.
-func migrateBosses161(ctx context.Context, tx *sql.Tx) error {
-	var n int
-	if err := tx.QueryRowContext(ctx, `select count(*) from "wormix_missions"`).Scan(&n); err != nil {
-		return err
-	}
-	if n == 0 {
-		return nil
-	}
-	return applyBosses161(ctx, tx)
+// client161 reports whether the request is a 1.61.7 client's (the core adds "Client": 161).
+func (c *Ctx) client161() bool {
+	return php.ToInt(c.JSON("Client")) == 161
 }
 
-// applyBosses161 adds the missing bosses and sets the level and awards of the others to the 1.61.7 ones.
-func applyBosses161(ctx context.Context, q execQuerier) error {
-	now := Now()
-	for _, m := range bosses161 {
-		if _, err := q.ExecContext(ctx, `insert into "wormix_missions" ("mission_id", "awards", "required_level", "updated_at", "created_at") values (?, ?, ?, ?, ?)
-			on conflict ("mission_id") do update set "awards" = excluded."awards", "required_level" = excluded."required_level", "updated_at" = excluded."updated_at"`,
-			m.id, m.awards, m.level, now, now); err != nil {
-			return err
+// mission is the solo boss (or training mission) mid: for a 1.61.7 client its bosses161 row, else
+// wormix_missions' (nil when there is none).
+func (c *Ctx) mission(mid any) *Model {
+	if c.client161() {
+		id := php.ToInt(mid)
+		for _, b := range bosses161 {
+			if b.id == id {
+				m := New(defMission)
+				m.SetRaw("mission_id", b.id)
+				m.SetRaw("required_level", b.level)
+				m.SetRaw("awards", b.awards)
+				return m
+			}
 		}
 	}
-	return nil
+	return c.First(defMission, `where "mission_id" = ?`, mid)
 }

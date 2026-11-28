@@ -647,12 +647,14 @@ func (c *Ctx) unlockMission() Resp {
 	if mid > coopBase {
 		return c.unlockCoopMission(mid)
 	}
-	c.Validate([]R{{"MissionId", "exists:wormix_missions,mission_id"}})
+	if c.mission(mid) == nil {
+		c.Validate([]R{{"MissionId", "exists:wormix_missions,mission_id"}})
+	}
 	u := must(c.First(defUser, `where "id" = ?`, c.UserID()))
 	bi := must(c.First(defBattleInfo, `where "wormix_users_battle_info"."user_id" in (?)`, u.Get("id")))
 	worm := must(c.First(defWorm, `where "wormix_worms_data"."owner_id" in (?)`, u.Get("id")))
 	p := must(c.First(defProfile, `where "wormix_user_profiles"."user_id" in (?)`, u.Get("id")))
-	m := must(c.First(defMission, `where "mission_id" = ?`, c.JSON("MissionId")))
+	m := must(c.mission(mid))
 	price := php.Mul(php.Sub(php.Sub(c.JSON("MissionId"), int64(1)), bi.Get("last_mission_id")), int64(10))
 	if php.Lt(worm.Get("level"), m.Get("required_level")) || php.Ge(bi.Get("last_mission_id"), m.Get("mission_id")) || php.Lt(p.Get("real_money"), price) {
 		return dataResult("Result", int64(1))

@@ -53,30 +53,34 @@ func TestEndBattleAwards(t *testing.T) {
 	}
 }
 
-// The 1.61.7 bosses: 28-31 exist only there (without their rows the API refused to unlock or start them), and a
-// win gives the awards the client shows: the Devotee's (31) first win is 10 rubies, 190 experience and its hat
-// 1109 (a hat, so not in the client's list), a win after that 190 money.
+// The 1.61.7 bosses (bosses161): a 1.61.7 client's requests ("Client": 161) get its bosses, 28-31 included
+// (wormix_missions has the 1.25.0 ones, 1-27), and the awards it shows: the Devotee's (31) first win is 10
+// rubies, 190 experience, weapons and its hat 1109 (a hat, so not in the client's list), a win after that 190
+// money and 95 experience.
 func TestBosses161(t *testing.T) {
 	srv, d, v := newServer(t)
 	alice := v.Users["alice"]
 	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
-	for id := 28; id <= 31; id++ {
-		var n int
-		if err := d.QueryRow(`select count(*) from wormix_missions where mission_id = ?`, id).Scan(&n); err != nil || n != 1 {
-			t.Fatalf("mission %d: %d rows (%v)", id, n, err)
-		}
-	}
 	d.Exec(`update wormix_worms_data set level = 26 where owner_id = 1`)
-	d.Exec(`update wormix_users_battle_info set battles_count = 5, last_mission_id = 30 where user_id = 1`)
+	d.Exec(`update wormix_users_battle_info set battles_count = 5, last_mission_id = 29 where user_id = 1`)
+	d.Exec(`update wormix_user_profiles set real_money = 100 where user_id = 1`)
+	// Without the marker (1.25.0) boss 31 doesn't exist; a 1.61.7 client unlocks it for 10 rubies.
+	if st, _ := call(t, srv, "POST", "/api/internal/account/buy/mission", map[string]any{"MissionId": 31}, h); st == 200 {
+		t.Errorf("1.25.0 unlock of 31: %d, want refused", st)
+	}
+	st, j := call(t, srv, "POST", "/api/internal/account/buy/mission", map[string]any{"MissionId": 31, "Client": 161}, h)
+	if res := fmt.Sprint(j["data"].(map[string]any)["Result"]); st != 200 || res != "0" {
+		t.Fatalf("unlock 31: %d %v", st, j)
+	}
 	win := func() map[string]bool {
 		t.Helper()
-		st, j := call(t, srv, "POST", "/api/internal/game/start_battle", map[string]any{"MissionId": 31}, h)
+		st, j := call(t, srv, "POST", "/api/internal/game/start_battle", map[string]any{"MissionId": 31, "Client": 161}, h)
 		if st != 200 {
 			t.Fatalf("start 31: %d %v", st, j)
 		}
 		bid := int(j["data"].(map[string]any)["BattleId"].(float64))
 		st, j = call(t, srv, "POST", "/api/internal/game/end_battle", map[string]any{"Result": bid + 1, "Type": 0, "ExpBonus": 0,
-			"BattleId": bid, "MissionId": 31, "Items": []any{}, "CollectedReagents": []any{}}, h)
+			"BattleId": bid, "MissionId": 31, "Items": []any{}, "CollectedReagents": []any{}, "Client": 161}, h)
 		if st != 200 || fmt.Sprint(j["Status"]) != "OK" {
 			t.Fatalf("end 31: %d %v", st, j)
 		}

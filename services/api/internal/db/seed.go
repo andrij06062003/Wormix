@@ -286,10 +286,6 @@ func (d *DB) Seed(ctx context.Context) error {
 	if err := applyMissions125(ctx, d); err != nil {
 		return fmt.Errorf("seed: missions 1.25.0: %w", err)
 	}
-	// The 1.61.7 client's solo bosses 1-31 (migrateBosses161 leaves a new database to this).
-	if err := applyBosses161(ctx, d); err != nil {
-		return fmt.Errorf("seed: bosses 1.61.7: %w", err)
-	}
 
 	// recipes.json
 	if r, ok := loadJSON("recipes.json").(*php.Arr); ok {

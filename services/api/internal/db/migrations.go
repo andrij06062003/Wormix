@@ -147,8 +147,6 @@ var Migrations = []Migration{
 	{Name: "2026_11_18_160000_complex_weapons_161", Fn: MigrateComplexWeapons},
 	// Both branches of an upgrade crafted (or a recipe un-crafted under a later one): one branch kept (recipechains.go).
 	{Name: "2026_11_18_170000_recipe_branches_161", Fn: MigrateRecipeBranches},
-	// The 1.61.7 client's solo bosses: 28-31 added, and the levels and awards of all of them as it shows them.
-	{Name: "2026_11_28_030000_wormix_bosses_161", Fn: migrateBosses161},
 }
 
 func tableExists(ctx context.Context, q interface {

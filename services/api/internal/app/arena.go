@@ -78,7 +78,7 @@ func (c *Ctx) startBattle() Resp {
 		if php.Gt(mid, php.Add(last, int64(1))) || (!php.StrictEq(mid, php.Sub(last, int64(1))) && php.Lt(last, int64(-1))) {
 			return jsonResp(422, php.Assoc("message", "Try to start invalid mission"))
 		}
-		m := must(c.First(defMission, `where "mission_id" = ?`, mid))
+		m := must(c.mission(mid))
 		w := must(c.First(defWorm, `where "owner_id" = ?`, c.UserID()))
 		if php.Lt(w.Get("level"), m.Get("required_level")) {
 			return jsonResp(422, php.Assoc("message", "Mission required level mismatch"))
@@ -100,7 +100,7 @@ func (c *Ctx) startBattle() Resp {
 		awards = php.NewArr()
 	} else {
 		bi.Set("battle_type", int64(1))
-		awards = must(c.First(defMission, `where "mission_id" = ?`, mid)).Arr("awards")
+		awards = must(c.mission(mid)).Arr("awards")
 	}
 	bi.Set("mission_id", mid)
 	bi.Set("awards", php.Assoc("reagents", reagents, "awards", awards))
@@ -193,7 +193,7 @@ func (c *Ctx) processBattleResult(result int64, bi *Model) {
 		}
 	case 1:
 		if php.StrictEq(bt, int64(1)) {
-			mission = c.First(defMission, `where "mission_id" = ?`, bi.Get("mission_id"))
+			mission = c.mission(bi.Get("mission_id"))
 			if php.Lt(bi.Get("mission_id"), int64(0)) {
 				bi.Set("last_mission_id", bi.Get("mission_id"))
 			} else {

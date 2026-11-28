@@ -147,6 +147,18 @@ func (s *mainSession) post(route string, body []byte) *jsonx.Value {
 	return api.Post(route, body, s.sid, s.tokenPtr())
 }
 
+// clientJSON marks a 1.61.7 client's request body (a JSON object) with "Client": 161: the API takes the
+// solo bosses' levels and awards of that client for it (its bosses161), not the 1.25.0 ones.
+func (s *mainSession) clientJSON(body []byte) []byte {
+	if !s.v161.Load() || len(body) < 2 || body[0] != '{' {
+		return body
+	}
+	if len(body) == 2 {
+		return []byte(`{"Client":161}`)
+	}
+	return append([]byte(`{"Client":161,`), body[1:]...)
+}
+
 // refuseBattle answers a refused StartBattle with ArenaLocked: the arena's delay when the battles are used up,
 // 0 otherwise. The client sets its battle timer from it and leaves the battle loading screen.
 func (s *mainSession) refuseBattle() {
@@ -276,7 +288,7 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		}
 	case proto.CmdStartBattle:
 		req := proto.ReadStartBattle(r)
-		v, refused := api.PostRefusable("game/start_battle", req.JSON(), s.sid, s.tokenPtr())
+		v, refused := api.PostRefusable("game/start_battle", s.clientJSON(req.JSON()), s.sid, s.tokenPtr())
 		if refused {
 			// No battles left (the client counts them itself and can be wrong after a reload), or a mission
 			// it may not start: answer with the arena state instead of dropping the connection.
@@ -349,7 +361,7 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 	case proto.CmdBuyUnlockMission:
 		// A boss the API refuses (one it doesn't know) fails the unlock instead of dropping the session.
 		req := proto.ReadBuyUnlockMission(r)
-		if v, refused := api.PostRefusable("account/buy/mission", req.JSON(), s.sid, s.tokenPtr()); refused {
+		if v, refused := api.PostRefusable("account/buy/mission", s.clientJSON(req.JSON()), s.sid, s.tokenPtr()); refused {
 			log.Printf("[main %s] unlock of mission %d refused by the API", s.short(), req.Value)
 			proto.ShortResult{Cmd: proto.CmdBuyUnlockMissionResult, Result: 1}.Emit(s.out)
 		} else if d := dataOpt(v); d != nil {
@@ -375,7 +387,7 @@ func (s *mainSession) dispatch(cmd uint32, body []byte) {
 		} else {
 			req = proto.ReadEndBattle(r)
 		}
-		v := s.post("game/end_battle", req.JSON())
+		v := s.post("game/end_battle", s.clientJSON(req.JSON()))
 		if s.v161.Load() {
 			proto.EmitEndBattleResult161(s.out, req, proto.DecodeBattleAwards(v))
 		}

@@ -208,8 +208,10 @@ func TestArenaResult161(t *testing.T) {
 	if s := r.UTF(); s != "{}" {
 		t.Fatalf("timetable %q", s)
 	}
-	r.U32()
-	r.U32()
+	r.U32() // wagerWinAwardToken
+	if n := r.U32(); n == 0 {
+		t.Fatal("bossWinAwardToken 0: the client keeps the next boss closed until tomorrow")
+	}
 	size := int(r.U16())
 	before := r.Remaining()
 	r.U16()

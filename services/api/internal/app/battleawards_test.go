@@ -52,3 +52,52 @@ func TestEndBattleAwards(t *testing.T) {
 		t.Errorf("boss won: no weapon awards in %v", got)
 	}
 }
+
+// The 1.61.7 bosses: 28-31 exist only there (without their rows the API refused to unlock or start them), and a
+// win gives the awards the client shows: the Devotee's (31) first win is 10 rubies, 190 experience and its hat
+// 1109 (a hat, so not in the client's list), a win after that 190 money.
+func TestBosses161(t *testing.T) {
+	srv, d, v := newServer(t)
+	alice := v.Users["alice"]
+	h := map[string]string{"X-TCP-SESSION": alice.Tcp, "X-SESSION-KEY": alice.SessionKey}
+	for id := 28; id <= 31; id++ {
+		var n int
+		if err := d.QueryRow(`select count(*) from wormix_missions where mission_id = ?`, id).Scan(&n); err != nil || n != 1 {
+			t.Fatalf("mission %d: %d rows (%v)", id, n, err)
+		}
+	}
+	d.Exec(`update wormix_worms_data set level = 26 where owner_id = 1`)
+	d.Exec(`update wormix_users_battle_info set battles_count = 5, last_mission_id = 30 where user_id = 1`)
+	win := func() map[string]bool {
+		t.Helper()
+		st, j := call(t, srv, "POST", "/api/internal/game/start_battle", map[string]any{"MissionId": 31}, h)
+		if st != 200 {
+			t.Fatalf("start 31: %d %v", st, j)
+		}
+		bid := int(j["data"].(map[string]any)["BattleId"].(float64))
+		st, j = call(t, srv, "POST", "/api/internal/game/end_battle", map[string]any{"Result": bid + 1, "Type": 0, "ExpBonus": 0,
+			"BattleId": bid, "MissionId": 31, "Items": []any{}, "CollectedReagents": []any{}}, h)
+		if st != 200 || fmt.Sprint(j["Status"]) != "OK" {
+			t.Fatalf("end 31: %d %v", st, j)
+		}
+		got := map[string]bool{}
+		for _, a := range j["Awards"].([]any) {
+			m := a.(map[string]any)
+			got[fmt.Sprintf("%v/%v/%v", m["Kind"], m["Count"], m["ItemId"])] = true
+		}
+		return got
+	}
+	first := win()
+	for _, want := range []string{"2/10/0", "11/190/0", "5/6/72", "5/4/130"} {
+		if !first[want] {
+			t.Errorf("first win: no award %s in %v", want, first)
+		}
+	}
+	var hat int
+	if err := d.QueryRow(`select count(*) from wormix_users_weapons where owner_id = 1 and weapon_id = 1109`).Scan(&hat); err != nil || hat != 1 {
+		t.Errorf("first win: hat 1109 not given (%d, %v)", hat, err)
+	}
+	if again := win(); !again["1/190/0"] || !again["11/95/0"] {
+		t.Errorf("second win: %v", again)
+	}
+}

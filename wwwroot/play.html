@@ -31,6 +31,12 @@
         #login .secondary { background: #3a3a3a; color: var(--text); }
         #msg { min-height: 20px; margin-top: 12px; color: var(--error); font-size: 13px; text-align: center; }
         [hidden] { display: none !important; }
+        /* The language switch (on the login form and under the game): the current one is plain text. */
+        .langs button { background: none; border: 0; padding: 0 2px; color: var(--accent); cursor: pointer; font: inherit; }
+        .langs button[aria-current] { color: var(--text); cursor: default; font-weight: 700; }
+        #login .langs { margin-top: 14px; text-align: center; color: var(--muted); font-size: 13px; }
+        #login .langs button { flex: none; padding: 0 2px; border-radius: 0; font-weight: 400; }
+        #login .langs button[aria-current] { font-weight: 700; }
 
         /* Profile: avatar, nickname (once in 60 days), login and password. "Профіль" under the game opens it. */
         #bar img { width: 20px; height: 20px; border-radius: 4px; object-fit: cover; vertical-align: middle; margin-right: 4px; }
@@ -154,32 +160,33 @@
 
 <form id="login" hidden>
     <h1>Wormix</h1>
-    <label for="name">Логін</label>
+    <label for="name" data-t="login">Логін</label>
     <input id="name" autocomplete="username" required minlength="3">
-    <label for="pass">Пароль (щонайменше 8 символів)</label>
+    <label for="pass" data-t="passMin">Пароль (щонайменше 8 символів)</label>
     <input id="pass" type="password" autocomplete="current-password" required minlength="8">
     <div class="buttons">
-        <button type="submit" class="primary" data-action="sign_in">Увійти</button>
-        <button type="submit" class="secondary" data-action="sign_up">Реєстрація</button>
+        <button type="submit" class="primary" data-action="sign_in" data-t="signIn">Увійти</button>
+        <button type="submit" class="secondary" data-action="sign_up" data-t="signUp">Реєстрація</button>
     </div>
     <div id="msg"></div>
+    <div class="langs" aria-label="Мова / Language"></div>
 </form>
 
 <div id="game">
 <div id="splash" hidden><div id="splashBar"><div id="splashFill"></div></div><div id="splashPct">0 %</div></div>
 <div id="chat" hidden>
     <div class="gwin" role="dialog" aria-modal="true" aria-labelledby="gTitle">
-        <div class="gtitle" id="gTitle">Чат</div>
-        <button class="gclose" id="gClose" type="button" title="Закрыть (Esc)">✕</button>
+        <div class="gtitle" id="gTitle" data-t="chat">Чат</div>
+        <button class="gclose" id="gClose" type="button" data-t-title="closeEsc" title="Закрити (Esc)">✕</button>
         <div class="gbody">
             <div class="gpanel gside" id="gTabs"></div>
             <div class="gmain">
-                <div class="gpanel ghead" id="gHead">Общий чат</div>
+                <div class="gpanel ghead" id="gHead" data-t="room">Загальний чат</div>
                 <div class="gpanel glog" id="gLog"></div>
                 <div>
                     <form class="gsend" id="gForm">
-                        <input id="gText" maxlength="300" autocomplete="off" placeholder="Написать сообщение…" aria-label="Сообщение">
-                        <button class="ggreen" id="gSendBtn" type="submit">Отправить</button>
+                        <input id="gText" maxlength="300" autocomplete="off" data-t-placeholder="writeMsg" placeholder="Написати повідомлення…" data-t-aria="message" aria-label="Повідомлення">
+                        <button class="ggreen" id="gSendBtn" type="submit" data-t="send">Надіслати</button>
                     </form>
                     <div class="gerr" id="gErr"></div>
                 </div>
@@ -191,62 +198,62 @@
 
 <div id="profile" hidden>
     <div class="card" role="dialog" aria-modal="true" aria-labelledby="pfTitle">
-        <button id="pfClose" class="pbtn" type="button" title="Закрити (Esc)">✕</button>
+        <button id="pfClose" class="pbtn" type="button" data-t-title="closeEsc" title="Закрити (Esc)">✕</button>
         <h2 id="pfTitle">Мій профіль</h2>
         <div class="pfHead">
-            <img id="pfAva" alt="Аватарка">
+            <img id="pfAva" data-t-alt="avatar" alt="Аватарка">
             <div><div id="pfName"></div><div id="pfMeta"></div><div id="pfStatus"></div></div>
         </div>
         <dl class="stats">
-            <div><dt>Рівень</dt><dd id="stLevel">–</dd></div>
-            <div><dt>Рейтинг</dt><dd id="stRating">–</dd></div>
-            <div><dt>Фузи</dt><dd id="stMoney">–</dd></div>
-            <div><dt>Рубіни</dt><dd id="stRubies">–</dd></div>
+            <div><dt data-t="level">Рівень</dt><dd id="stLevel">–</dd></div>
+            <div><dt data-t="rating">Рейтинг</dt><dd id="stRating">–</dd></div>
+            <div><dt data-t="fuzes">Фузи</dt><dd id="stMoney">–</dd></div>
+            <div><dt data-t="rubies">Рубіни</dt><dd id="stRubies">–</dd></div>
         </dl>
 
         <div id="pfOther" class="row" hidden>
-            <button id="pfWrite" class="pbtn primary" type="button">Написати повідомлення</button>
+            <button id="pfWrite" class="pbtn primary" type="button" data-t="writeMessage">Написати повідомлення</button>
         </div>
         <div id="pfOwn">
         <section>
-            <h3>Аватарка</h3>
+            <h3 data-t="avatar">Аватарка</h3>
             <div class="row">
-                <button id="pfPick" class="pbtn primary" type="button">Вибрати фото…</button>
-                <span class="note">JPG або PNG, від 100×100</span>
+                <button id="pfPick" class="pbtn primary" type="button" data-t="pickPhoto">Вибрати фото…</button>
+                <span class="note" data-t="photoNote">JPG або PNG, від 100×100</span>
             </div>
             <input id="pfFile" type="file" accept="image/jpeg,image/png,image/webp" hidden>
             <div id="pfCrop" hidden>
-                <canvas id="pfCanvas" width="256" height="256" title="Перетягніть, щоб вибрати частину фото"></canvas>
-                <input id="pfZoom" type="range" min="1" max="4" step="0.01" value="1" aria-label="Масштаб">
+                <canvas id="pfCanvas" width="256" height="256" data-t-title="dragPhoto" title="Перетягніть, щоб вибрати частину фото"></canvas>
+                <input id="pfZoom" type="range" min="1" max="4" step="0.01" value="1" data-t-aria="zoom" aria-label="Масштаб">
                 <div class="row">
-                    <button id="pfSaveAva" class="pbtn primary" type="button">Зберегти аватарку</button>
-                    <button id="pfCancelAva" class="pbtn" type="button">Скасувати</button>
+                    <button id="pfSaveAva" class="pbtn primary" type="button" data-t="saveAvatar">Зберегти аватарку</button>
+                    <button id="pfCancelAva" class="pbtn" type="button" data-t="cancel">Скасувати</button>
                 </div>
             </div>
         </section>
 
         <section>
-            <h3>Нікнейм</h3>
+            <h3 data-t="nickname">Нікнейм</h3>
             <form id="pfNickForm">
-                <input id="pfNick" maxlength="20" required aria-label="Нікнейм">
+                <input id="pfNick" maxlength="20" required data-t-aria="nickname" aria-label="Нікнейм">
                 <div id="pfNickNote" class="note">Так вас бачать інші гравці. Змінювати можна раз на 60 днів.</div>
-                <div class="row"><button id="pfNickSave" class="pbtn primary" type="submit">Змінити нікнейм</button></div>
+                <div class="row"><button id="pfNickSave" class="pbtn primary" type="submit" data-t="changeNick">Змінити нікнейм</button></div>
             </form>
         </section>
 
         <section>
-            <h3>Логін і пароль</h3>
+            <h3 data-t="loginPass">Логін і пароль</h3>
             <form id="pfLoginForm">
-                <label for="pfLogin">Логін (для входу в гру)</label>
+                <label for="pfLogin" data-t="loginForGame">Логін (для входу в гру)</label>
                 <input id="pfLogin" maxlength="32" autocomplete="username" required>
-                <label for="pfPass">Новий пароль (порожньо — не змінювати)</label>
+                <label for="pfPass" data-t="newPassNote">Новий пароль (порожньо — не змінювати)</label>
                 <div class="two">
-                    <input id="pfPass" type="password" minlength="8" autocomplete="new-password" placeholder="Новий пароль">
-                    <input id="pfPass2" type="password" minlength="8" autocomplete="new-password" placeholder="Ще раз">
+                    <input id="pfPass" type="password" minlength="8" autocomplete="new-password" data-t-placeholder="newPass" placeholder="Новий пароль">
+                    <input id="pfPass2" type="password" minlength="8" autocomplete="new-password" data-t-placeholder="again" placeholder="Ще раз">
                 </div>
-                <label for="pfCurrent">Поточний пароль</label>
+                <label for="pfCurrent" data-t="currentPass">Поточний пароль</label>
                 <input id="pfCurrent" type="password" autocomplete="current-password" required>
-                <div class="row"><button class="pbtn primary" type="submit">Зберегти логін і пароль</button></div>
+                <div class="row"><button class="pbtn primary" type="submit" data-t="saveLoginPass">Зберегти логін і пароль</button></div>
             </form>
         </section>
 
@@ -254,14 +261,14 @@
         <div id="pfMsg"></div>
         <div id="pfRestart" hidden>
             <div class="row" style="margin-top:0; justify-content:space-between">
-                <span>У грі зміни з'являться після перезапуску.</span>
-                <button id="pfReload" class="pbtn primary" type="button">Перезапустити гру</button>
+                <span data-t="restartNote">У грі зміни з'являться після перезапуску.</span>
+                <button id="pfReload" class="pbtn primary" type="button" data-t="restart">Перезапустити гру</button>
             </div>
         </div>
     </div>
 </div>
 </div>
-<div id="bar" hidden><img id="barAva" alt=""><span id="who"></span> · <button id="profileBtn" type="button">Профіль</button> · <button id="chatBtn" type="button">Чат <span id="chatBadge" class="badge" hidden></span></button> · <button id="logout" type="button">Вийти</button></div>
+<div id="bar" hidden><img id="barAva" alt=""><span id="who"></span> · <button id="profileBtn" type="button" data-t="profile">Профіль</button> · <button id="chatBtn" type="button"><span data-t="chat">Чат</span> <span id="chatBadge" class="badge" hidden></span></button> · <button id="logout" type="button" data-t="logout">Вийти</button> · <span class="langs" aria-label="Мова / Language"></span></div>
 
 <script>
     // Everything (this page, the API at /api/ and the game connections) is served by the game host
@@ -300,6 +307,114 @@
         return data;
     }
 
+    // --- Language ------------------------------------------------------------------------------
+    // Ukrainian or English, per browser (the switch on the login form and under the game). The game follows it
+    // (its _lang: the 1.61.7 client has ua and en texts in data/lang), and so do this page's own texts.
+    const LANGS = { uk: { name: 'Українська', game: 'ua', locale: 'uk-UA' }, en: { name: 'English', game: 'en', locale: 'en-GB' } };
+    const LANG = (() => {
+        try { const v = localStorage.getItem('wormix_lang'); if (LANGS[v]) return v; } catch { }
+        return /^(uk|ru|be)/i.test(navigator.language || '') ? 'uk' : 'en';
+    })();
+    const TEXTS = {
+        uk: {
+            login: 'Логін', passMin: 'Пароль (щонайменше 8 символів)', signIn: 'Увійти', signUp: 'Реєстрація',
+            signUpFailed: m => 'Не вдалося зареєструватися: ' + m + ' (можливо, логін уже зайнятий)',
+            badLogin: 'Неправильний логін або пароль', expired: 'Сесія закінчилася, увійдіть знову',
+            profile: 'Профіль', chat: 'Чат', logout: 'Вийти', closeEsc: 'Закрити (Esc)',
+            myProfile: 'Мій профіль', playerProfile: 'Профіль гравця', avatar: 'Аватарка',
+            level: 'Рівень', rating: 'Рейтинг', fuzes: 'Фузи', rubies: 'Рубіни', writeMessage: 'Написати повідомлення',
+            pickPhoto: 'Вибрати фото…', photoNote: 'JPG або PNG, від 100×100', dragPhoto: 'Перетягніть, щоб вибрати частину фото',
+            zoom: 'Масштаб', saveAvatar: 'Зберегти аватарку', cancel: 'Скасувати', nickname: 'Нікнейм',
+            nickNote: 'Так вас бачать інші гравці. Змінювати можна раз на 60 днів.', changeNick: 'Змінити нікнейм',
+            loginPass: 'Логін і пароль', loginForGame: 'Логін (для входу в гру)', newPassNote: 'Новий пароль (порожньо — не змінювати)',
+            newPass: 'Новий пароль', again: 'Ще раз', currentPass: 'Поточний пароль', saveLoginPass: 'Зберегти логін і пароль',
+            restartNote: "У грі зміни з'являться після перезапуску.", restart: 'Перезапустити гру',
+            minAgo: n => n + ' хв тому', hoursAgo: n => n + ' год тому',
+            notFound: 'Гравця не знайдено', loadFailed: m => 'Не вдалося завантажити профіль: ' + m, loginWord: 'Логін',
+            inGameNow: 'Зараз у грі', lastInGame: w => 'Востаннє в грі ' + w, notInGame: 'Не в грі',
+            nextNick: d => 'Наступна зміна нікнейму: ' + d,
+            photoSmall: 'Фото замале: потрібно щонайменше 100×100', notPhoto: 'Це не схоже на фото (потрібен JPG або PNG)',
+            avatarSaved: 'Аватарку збережено', avatarFailed: m => 'Не вдалося зберегти аватарку: ' + m,
+            enterNick: 'Вкажіть нікнейм', sameNick: 'Це ваш поточний нікнейм',
+            confirmNick: n => 'Змінити нікнейм на «' + n + '»? Наступного разу його можна буде змінити через 60 днів.',
+            nickChanged: 'Нікнейм змінено', nickAt: d => 'Нікнейм можна змінити ' + d, nickFailed: m => 'Не вдалося змінити нікнейм: ' + m,
+            loginFormat: 'Логін: від 3 до 32 літер, цифр або _ - .', passShort: 'Новий пароль: щонайменше 8 символів',
+            passMismatch: 'Нові паролі не збігаються', passSpace: 'Пароль не може починатися чи закінчуватися пробілом',
+            nothingChanged: 'Нічого не змінено', loginPassChanged: 'Логін і пароль змінено',
+            loginChanged: 'Логін змінено: входьте з ним наступного разу', passChanged: 'Пароль змінено',
+            wrongCurrent: 'Неправильний поточний пароль', loginTaken: 'Цей логін уже зайнятий', saveFailed: m => 'Не вдалося зберегти: ' + m,
+            room: 'Загальний чат', writeMsg: 'Написати повідомлення…', message: 'Повідомлення', send: 'Надіслати',
+            player: id => 'Гравець ' + id, inGameCount: n => 'У грі: ' + n, nobody: 'Поки нікого',
+            privateWith: n => 'Особисті повідомлення: ' + n, onlineMark: '● у грі', offlineMark: 'не в грі',
+            emptyRoom: 'Тут поки тихо. Напиши першим!', emptyPrivate: 'Напиши гравцеві перше повідомлення.',
+            writePrivately: 'Написати особисто', tooFast: 'Не так швидко: зачекай кілька секунд', sendFailed: m => 'Не вдалося надіслати: ' + m,
+            inviteText: (url, id) => 'Заходь у Wormix: ' + url + ' (мій ID у грі: ' + id + ')',
+            inviteCopied: 'Посилання на гру скопійовано: надішли його другові!'
+        },
+        en: {
+            login: 'Login', passMin: 'Password (at least 8 characters)', signIn: 'Sign in', signUp: 'Sign up',
+            signUpFailed: m => 'Could not sign up: ' + m + ' (the login may be taken)',
+            badLogin: 'Wrong login or password', expired: 'Your session has ended, please sign in again',
+            profile: 'Profile', chat: 'Chat', logout: 'Sign out', closeEsc: 'Close (Esc)',
+            myProfile: 'My profile', playerProfile: 'Player profile', avatar: 'Avatar',
+            level: 'Level', rating: 'Rating', fuzes: 'Fuzes', rubies: 'Rubies', writeMessage: 'Send a message',
+            pickPhoto: 'Choose a photo…', photoNote: 'JPG or PNG, 100×100 or larger', dragPhoto: 'Drag to choose the part of the photo',
+            zoom: 'Zoom', saveAvatar: 'Save avatar', cancel: 'Cancel', nickname: 'Nickname',
+            nickNote: 'Other players see you by it. You can change it once every 60 days.', changeNick: 'Change nickname',
+            loginPass: 'Login and password', loginForGame: 'Login (to sign in to the game)', newPassNote: 'New password (leave empty to keep it)',
+            newPass: 'New password', again: 'Once more', currentPass: 'Current password', saveLoginPass: 'Save login and password',
+            restartNote: 'The game shows the changes after a restart.', restart: 'Restart the game',
+            minAgo: n => n + ' min ago', hoursAgo: n => n + ' h ago',
+            notFound: 'Player not found', loadFailed: m => 'Could not load the profile: ' + m, loginWord: 'Login',
+            inGameNow: 'In the game now', lastInGame: w => 'Last in the game ' + w, notInGame: 'Not in the game',
+            nextNick: d => 'Next nickname change: ' + d,
+            photoSmall: 'The photo is too small: it needs to be at least 100×100', notPhoto: "This doesn't look like a photo (JPG or PNG needed)",
+            avatarSaved: 'Avatar saved', avatarFailed: m => 'Could not save the avatar: ' + m,
+            enterNick: 'Enter a nickname', sameNick: 'This is your current nickname',
+            confirmNick: n => 'Change your nickname to "' + n + '"? You can change it again in 60 days.',
+            nickChanged: 'Nickname changed', nickAt: d => 'You can change your nickname on ' + d, nickFailed: m => 'Could not change the nickname: ' + m,
+            loginFormat: 'Login: 3 to 32 letters, digits or _ - .', passShort: 'New password: at least 8 characters',
+            passMismatch: "The new passwords don't match", passSpace: "The password can't start or end with a space",
+            nothingChanged: 'Nothing changed', loginPassChanged: 'Login and password changed',
+            loginChanged: 'Login changed: use it to sign in next time', passChanged: 'Password changed',
+            wrongCurrent: 'Wrong current password', loginTaken: 'This login is taken', saveFailed: m => 'Could not save: ' + m,
+            room: 'Common chat', writeMsg: 'Write a message…', message: 'Message', send: 'Send',
+            player: id => 'Player ' + id, inGameCount: n => 'In the game: ' + n, nobody: 'Nobody yet',
+            privateWith: n => 'Private messages: ' + n, onlineMark: '● in the game', offlineMark: 'not in the game',
+            emptyRoom: "It's quiet here. Be the first to write!", emptyPrivate: 'Write the player a first message.',
+            writePrivately: 'Write privately', tooFast: 'Not so fast: wait a few seconds', sendFailed: m => 'Could not send: ' + m,
+            inviteText: (url, id) => 'Come play Wormix: ' + url + ' (my game ID: ' + id + ')',
+            inviteCopied: 'Game link copied: send it to a friend!'
+        }
+    };
+    // t('key') is a text; t('key', ...) fills one in.
+    const t = (key, ...args) => { const v = TEXTS[LANG][key] ?? TEXTS.uk[key]; return typeof v === 'function' ? v(...args) : v; };
+
+    function applyTexts() {
+        document.documentElement.lang = LANG;
+        for (const el of document.querySelectorAll('[data-t]')) el.textContent = t(el.dataset.t);
+        for (const [attr, name] of [['tTitle', 'title'], ['tPlaceholder', 'placeholder'], ['tAria', 'aria-label'], ['tAlt', 'alt']])
+            for (const el of document.querySelectorAll('[data-' + attr.replace(/[A-Z]/g, c => '-' + c.toLowerCase()) + ']'))
+                el.setAttribute(name, t(el.dataset[attr]));
+        for (const box of document.querySelectorAll('.langs')) {
+            box.replaceChildren();
+            Object.entries(LANGS).forEach(([code, l], i) => {
+                if (i) box.append(' · ');
+                const b = Object.assign(document.createElement('button'), { type: 'button', textContent: l.name });
+                if (code === LANG) b.setAttribute('aria-current', 'true');
+                else b.addEventListener('click', () => setLang(code));
+                box.append(b);
+            });
+        }
+    }
+
+    // The game reads its language once, at start: switching restarts it.
+    function setLang(code) {
+        try { localStorage.setItem('wormix_lang', code); } catch { }
+        location.reload();
+    }
+    applyTexts();
+
     // --- Login / registration -------------------------------------------------------------
     const form = document.getElementById('login');
     const msg = document.getElementById('msg');
@@ -320,8 +435,8 @@
             await startGame();
         } catch (err) {
             msg.textContent = action === 'sign_up'
-                ? 'Не вдалося зареєструватися: ' + err.message + ' (можливо, логін уже зайнятий)'
-                : 'Неправильний логін або пароль';
+                ? t('signUpFailed', err.message)
+                : t('badLogin');
         }
     });
 
@@ -347,7 +462,7 @@
         } catch (err) {
             store.clear();
             form.hidden = false;
-            msg.textContent = 'Сесія закінчилася, увійдіть знову';
+            msg.textContent = t('expired');
             return;
         }
 
@@ -368,7 +483,7 @@
         document.getElementById('game').classList.toggle('v161', v161);
         const flashvars = v161 ? {
             // Its "none" social network: no VK, the game takes the player's id and auth key from here.
-            user_id: id, _masterKey: authKey, _social_type: 'none', _lang: 'ru', _app_mode: 'web'
+            user_id: id, _masterKey: authKey, _social_type: 'none', _lang: LANGS[LANG].game, _app_mode: 'web'
         } : {
             api_id: '2', api_settings: '8479', viewer_type: '2', sid: 'smtp', secret: 'smtp',
             access_token: '', user_id: id, viewer_id: id, group_id: '0', is_app_user: '1',
@@ -488,9 +603,12 @@
         'common/objects/clans_icons.swf', 'common/objects/reagent_icons.swf', 'common/objects/shopMenu.swf',
         'common/objects/boosters.swf', 'common/objects/viral_stuff.swf', 'common/objects/OK_action.swf',
         'common/objects/weapons.swf', 'common/objects/weapon_upgrades.swf', 'common/objects/battleStuff.swf'];
+    // The list above is the Russian client's; the language files are the chosen language's (chat_en.xml is
+    // always asked for, so in English it is there once).
+    const startFiles161 = () => [...new Set(START_FILES_161.map(f => f.replace(/_ru\.xml$/, '_' + LANGS[LANG].game + '.xml')))];
 
     function prefetch161(splash) {
-        const early = new Map(START_FILES_161.map(f => {
+        const early = new Map(startFiles161().map(f => {
             const path = '/vk/1.61.7/data/' + f;
             return [path, fetch(path).catch(() => null)];
         }));
@@ -513,7 +631,7 @@
     // nothing for 25 s.
     function showSplash(v161) {
         const el = $('splash'), fill = $('splashFill'), pct = $('splashPct');
-        const names = new Set(START_FILES_161.map(f => '/vk/1.61.7/data/' + f));
+        const files = startFiles161(), names = new Set(files.map(f => '/vk/1.61.7/data/' + f));
         let finished = false, stall = 0, shown = 0, creep = 0;
         const set = p => { shown = p; fill.style.width = Math.max(3, p) + '%'; pct.textContent = Math.round(p) + ' %'; };
         const waiting = () => { clearTimeout(stall); stall = setTimeout(done, 25000); };
@@ -534,7 +652,7 @@
             if (path.startsWith('/vk/storage/sound/')) done();
             else if (path.startsWith('/vk/1.61.7/Wormix.')) set(8);
             else if (names.delete(path)) {
-                set(8 + 82 * (1 - names.size / START_FILES_161.length));
+                set(8 + 82 * (1 - names.size / files.length));
                 // The files are all there; the client takes a few more seconds to log in and build the main menu.
                 if (!names.size) creep = setInterval(() => set(shown + (99 - shown) * .12), 300);
             }
@@ -563,11 +681,11 @@
     const nickOf = a => [a.social_data?.first_name, a.social_data?.last_name].filter(Boolean).join(' ') || a.login;
     const agoUk = iso => {
         const min = Math.max(1, Math.round((Date.now() - new Date(iso)) / 60000));
-        if (min < 60) return min + ' хв тому';
+        if (min < 60) return t('minAgo', min);
         const h = Math.round(min / 60);
-        return h < 24 ? h + ' год тому' : dateUk(iso);
+        return h < 24 ? t('hoursAgo', h) : dateUk(iso);
     };
-    const dateUk = iso => new Date(iso).toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' });
+    const dateUk = iso => new Date(iso).toLocaleDateString(LANGS[LANG].locale, { day: 'numeric', month: 'long', year: 'numeric' });
 
     async function loadAccount(id) {
         const s = store.get();
@@ -595,7 +713,7 @@
         cancelCrop();
         $('pfOwn').hidden = !own;
         $('pfOther').hidden = own;
-        $('pfTitle').textContent = own ? 'Мій профіль' : 'Профіль гравця';
+        $('pfTitle').textContent = own ? t('myProfile') : t('playerProfile');
         $('pfRestart').hidden = !(own && changed);
         $('pfAva').src = photoUrl(null);
         $('pfName').textContent = '…';
@@ -609,7 +727,7 @@
             fillProfile(a, own);
         } catch (err) {
             $('pfName').textContent = '';
-            say(err.status === 404 ? 'Гравця не знайдено' : 'Не вдалося завантажити профіль: ' + err.message);
+            say(err.status === 404 ? t('notFound') : t('loadFailed', err.message));
         }
     }
 
@@ -617,11 +735,11 @@
         const p = a.user_profile || {}, w = a.worm_data || {};
         $('pfAva').src = photoUrl(a.social_data?.photo);
         $('pfName').textContent = nickOf(a);
-        $('pfMeta').textContent = (own ? 'Логін ' + a.login + ' · ' : '') + 'ID ' + a.id;
+        $('pfMeta').textContent = (own ? t('loginWord') + ' ' + a.login + ' · ' : '') + 'ID ' + a.id;
         if (!own) {
             // services/api/internal/app/presence.go: the server knows who has the game open.
             $('pfStatus').className = a.online ? 'on' : '';
-            $('pfStatus').textContent = a.online ? 'Зараз у грі' : a.last_seen_at ? 'Востаннє в грі ' + agoUk(a.last_seen_at) : 'Не в грі';
+            $('pfStatus').textContent = a.online ? t('inGameNow') : a.last_seen_at ? t('lastInGame', agoUk(a.last_seen_at)) : t('notInGame');
         }
         $('stLevel').textContent = w.level ?? '–';
         $('stRating').textContent = p.rating ?? '–';
@@ -633,8 +751,8 @@
         const next = a.social_data?.next_name_change_at;
         $('pfNick').disabled = $('pfNickSave').disabled = !!next;
         $('pfNickNote').textContent = next
-            ? 'Наступна зміна нікнейму: ' + dateUk(next)
-            : 'Так вас бачать інші гравці. Змінювати можна раз на 60 днів.';
+            ? t('nextNick', dateUk(next))
+            : t('nickNote');
         showBarAccount(a);
     }
 
@@ -691,7 +809,7 @@
         const img = new Image();
         img.onload = () => {
             URL.revokeObjectURL(img.src);
-            if (img.naturalWidth < 100 || img.naturalHeight < 100) return say('Фото замале: потрібно щонайменше 100×100');
+            if (img.naturalWidth < 100 || img.naturalHeight < 100) return say(t('photoSmall'));
             crop.img = img;
             crop.base = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
             crop.zoom = 1;
@@ -701,7 +819,7 @@
             $('pfCrop').hidden = false;
             drawCrop();
         };
-        img.onerror = () => say('Це не схоже на фото (потрібен JPG або PNG)');
+        img.onerror = () => say(t('notPhoto'));
         img.src = URL.createObjectURL(file);
     });
 
@@ -745,9 +863,9 @@
             account.social_data = { ...account.social_data, photo: r.data?.photo };
             cancelCrop();
             fillProfile();
-            markChanged('Аватарку збережено');
+            markChanged(t('avatarSaved'));
         } catch (err) {
-            say('Не вдалося зберегти аватарку: ' + err.message);
+            say(t('avatarFailed', err.message));
         } finally {
             btn.disabled = false;
         }
@@ -757,17 +875,17 @@
         e.preventDefault();
         const s = store.get();
         const nick = $('pfNick').value.trim().replace(/\s+/g, ' ');
-        if (!nick) return say('Вкажіть нікнейм');
-        if (nick === nickOf(account)) return say('Це ваш поточний нікнейм');
-        if (!confirm('Змінити нікнейм на «' + nick + '»? Наступного разу його можна буде змінити через 60 днів.')) return;
+        if (!nick) return say(t('enterNick'));
+        if (nick === nickOf(account)) return say(t('sameNick'));
+        if (!confirm(t('confirmNick', nick))) return;
         try {
             await api('account', { body: { social_data: { first_name: nick, last_name: '' } }, token: s.token });
             account = await loadAccount();
             fillProfile();
-            markChanged('Нікнейм змінено');
+            markChanged(t('nickChanged'));
         } catch (err) {
             const next = err.data?.next_change_at;
-            say(next ? 'Нікнейм можна змінити ' + dateUk(next) : 'Не вдалося змінити нікнейм: ' + err.message);
+            say(next ? t('nickAt', dateUk(next)) : t('nickFailed', err.message));
         }
     });
 
@@ -777,37 +895,37 @@
         const login = $('pfLogin').value.trim(), password = $('pfPass').value, password2 = $('pfPass2').value;
         const user = {};
         if (login !== account.login) {
-            if (!/^[\p{L}\p{N}_.\-]{3,32}$/u.test(login)) return say('Логін: від 3 до 32 літер, цифр або _ - .');
+            if (!/^[\p{L}\p{N}_.\-]{3,32}$/u.test(login)) return say(t('loginFormat'));
             user.login = login;
         }
         if (password || password2) {
-            if (password.length < 8) return say('Новий пароль: щонайменше 8 символів');
-            if (password !== password2) return say('Нові паролі не збігаються');
-            if (password.trim() !== password) return say('Пароль не може починатися чи закінчуватися пробілом');
+            if (password.length < 8) return say(t('passShort'));
+            if (password !== password2) return say(t('passMismatch'));
+            if (password.trim() !== password) return say(t('passSpace'));
             user.password = password;
             user.password_confirmation = password2;
         }
-        if (!Object.keys(user).length) return say('Нічого не змінено');
+        if (!Object.keys(user).length) return say(t('nothingChanged'));
         try {
             await api('account', { body: { current_password: $('pfCurrent').value, user }, token: s.token });
             if (user.login) store.set({ ...s, login: user.login });
             account = await loadAccount();
             fillProfile();
             $('pfCurrent').value = $('pfPass').value = $('pfPass2').value = '';
-            say(user.login && user.password ? 'Логін і пароль змінено' : user.login ? 'Логін змінено: входьте з ним наступного разу' : 'Пароль змінено', 'ok');
+            say(user.login && user.password ? t('loginPassChanged') : user.login ? t('loginChanged') : t('passChanged'), 'ok');
         } catch (err) {
             const code = err.data?.error;
-            say(code === 'current_password' ? 'Неправильний поточний пароль'
-                : code === 'login_taken' ? 'Цей логін уже зайнятий'
-                : code === 'login_format' ? 'Логін: від 3 до 32 літер, цифр або _ - .'
-                : 'Не вдалося зберегти: ' + err.message);
+            say(code === 'current_password' ? t('wrongCurrent')
+                : code === 'login_taken' ? t('loginTaken')
+                : code === 'login_format' ? t('loginFormat')
+                : t('saveFailed', err.message));
         }
     });
 
     // --- Chat ----------------------------------------------------------------------------------
     // One room for everybody and private conversations (api/chat, services/api/internal/app/chat.go). The game
     // opens it from the main menu's "bird with a letter" (it was "Верни бойцов", VK invitations). It is drawn
-    // like the game's windows and in its language. The page asks the server for new messages every few seconds:
+    // like the game's windows, in the page's language. The page asks the server for new messages every few seconds:
     // often while the chat is open, rarely while it is closed (for the unread counts and the notice).
     const chatBox = $('chat');
     const chat = { me: null, last: 0, msgs: [], users: {}, peer: null, unread: {}, started: false, timer: null, busy: false,
@@ -821,9 +939,9 @@
         return box;
     };
     const peerKey = m => m.to == null ? null : String(m.from === chat.me ? m.to : m.from);
-    const userOf = id => chat.users[id] || { name: 'Игрок ' + id, photo: null };
+    const userOf = id => chat.users[id] || { name: t('player', id), photo: null };
     const photoOf = u => u.photo || photoUrl(null);
-    const timeRu = iso => new Date(iso).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    const timeRu = iso => new Date(iso).toLocaleTimeString(LANGS[LANG].locale, { hour: '2-digit', minute: '2-digit' });
 
     async function chatPoll() {
         const s = store.get();
@@ -928,18 +1046,18 @@
             el.onclick = () => { chat.peer = key; $('gErr').textContent = ''; renderChat(); $('gText').focus(); };
             tabs.append(el);
         };
-        tab(null, Object.assign(document.createElement('b'), { className: 'groom', textContent: '☺' }), 'Общий чат');
+        tab(null, Object.assign(document.createElement('b'), { className: 'groom', textContent: '☺' }), t('room'));
         for (const k of peers) tab(k, avatar(k), userOf(k).name);
         // Everybody in the game: a click starts a private conversation.
         const others = chat.online.filter(id => id !== String(chat.me));
-        tabs.append(Object.assign(document.createElement('div'), { className: 'gsub', textContent: 'В игре: ' + others.length }));
-        if (!others.length) tabs.append(Object.assign(document.createElement('div'), { className: 'gnone', textContent: 'Пока никого' }));
+        tabs.append(Object.assign(document.createElement('div'), { className: 'gsub', textContent: t('inGameCount', others.length) }));
+        if (!others.length) tabs.append(Object.assign(document.createElement('div'), { className: 'gnone', textContent: t('nobody') }));
         for (const k of others) tab(k, avatar(k), userOf(k).name);
         const head = $('gHead');
-        head.textContent = chat.peer === null ? 'Общий чат' : 'Личные сообщения: ' + userOf(chat.peer).name;
+        head.textContent = chat.peer === null ? t('room') : t('privateWith', userOf(chat.peer).name);
         if (chat.peer !== null) {
             const on = isOnline(chat.peer);
-            head.append(Object.assign(document.createElement('small'), { className: on ? 'on' : '', textContent: on ? '● в игре' : 'не в игре' }));
+            head.append(Object.assign(document.createElement('small'), { className: on ? 'on' : '', textContent: on ? t('onlineMark') : t('offlineMark') }));
         }
 
         const log = $('gLog');
@@ -948,7 +1066,7 @@
         const shown = chat.msgs.filter(m => peerKey(m) === chat.peer);
         if (!shown.length) {
             log.append(Object.assign(document.createElement('div'), { className: 'gempty',
-                textContent: chat.peer === null ? 'Здесь пока тихо. Напиши первым!' : 'Напиши игроку первое сообщение.' }));
+                textContent: chat.peer === null ? t('emptyRoom') : t('emptyPrivate') }));
         }
         for (const m of shown) {
             const u = userOf(m.from), mine = m.from === chat.me;
@@ -958,7 +1076,7 @@
             const ava = avatar(m.from), img = ava.firstChild;
             if (!mine) {
                 // A name or an avatar opens a private conversation with that player.
-                who.title = img.title = 'Написать лично';
+                who.title = img.title = t('writePrivately');
                 who.onclick = img.onclick = () => { chat.peer = String(m.from); renderChat(); $('gText').focus(); };
                 img.style.cursor = 'pointer';
             }
@@ -984,7 +1102,7 @@
             await chatPoll();
             renderChat();
         } catch (err) {
-            $('gErr').textContent = err.status === 429 ? 'Не так быстро: подожди несколько секунд' : 'Не удалось отправить: ' + err.message;
+            $('gErr').textContent = err.status === 429 ? t('tooFast') : t('sendFailed', err.message);
         } finally {
             btn.disabled = false;
             $('gText').focus();
@@ -1001,12 +1119,12 @@
     async function invite() {
         const s = store.get();
         if (!s) return;
-        const text = 'Заходи в Wormix: ' + location.origin + '/ (мой ID в игре: ' + s.id + ')';
+        const text = t('inviteText', location.origin + '/', s.id);
         let copied = false;
         try { await navigator.clipboard.writeText(text); copied = true; } catch { }
         const t = $('gtoast');
         t.replaceChildren(Object.assign(document.createElement('span'), {
-            textContent: copied ? 'Ссылка на игру скопирована: отправь её другу!' : text }));
+            textContent: copied ? t('inviteCopied') : text }));
         t.onclick = () => t.hidden = true;
         t.hidden = false;
         clearTimeout(t.timer);

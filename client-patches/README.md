@@ -136,14 +136,15 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   (`wormixFriends()`, the other players' ids from `account/game`).
 
 - `SocialLanguages.pcode` (`§&$Y§.§2$4§`, the class initializer, body 5231; tried as `Wormix.next.swf` since
-  build 2026-11-28.1): the languages each social network may use. The "none" one had `[RU, EN]`, so the page's
+  build 2026-11-28.1, in Wormix.swf since 2026-11-28.3): the languages each social network may use. The "none" one had `[RU, EN]`, so the page's
   `_lang: "ua"` fell back to Russian; it is now `[RU, EN, UA]` (the client has complete `ua` files in data/lang).
   With it the client also asks for `lang/chat_ua.xml` at start.
 
 - `HatTable.pcode` (`§,$J§.§0%G§`, the hat table's class initializer, body 3921; tried as `Wormix.next.swf` since
-  build 2026-11-28.2): one more hat, 1159 "Ксерокс" (`HAT.XEROX` in data/lang/items_*.xml), 100 rubies from
+  build 2026-11-28.2, in Wormix.swf since 2026-11-28.3): one more hat, 1159 "Ксерокс" (`HAT.XEROX` in data/lang/items_*.xml), 100 rubies from
   level 1: attack and armor +10, regeneration 80, fire, frost, poison and air damage +80%, leech 30%. Its picture
-  is the class `XeroxHat` that `swf-hat/` (below) adds to data/common/objects/hats2.swf. The shop row is in
+  is the class `XeroxHat` that `swf-hat/` (below) adds to data/common/objects/hats2.swf, listed in
+  data/resconfigs/resconfig.xml (the client loads only the classes listed there for each file). The shop row is in
   shop161.json (migration 2026_11_28_180000_xerox_hat_161). `-selectclass` takes a comma separated list, so it
   can't name this class (its package is `§,$J§`): export all the scripts to get its P-code.
 
@@ -160,19 +161,18 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
         client-patches/standalone-161/ScreenController.fullscreen.pcode 2227
     java -jar ffdec-cli.jar -replace j.swf k.swf 'ru.pragmatix.flox.social.controller.§]"Y§' \
         client-patches/standalone-161/AppFriends.pcode 7122
-    java -jar ffdec-cli.jar -replace k.swf Wormix.swf '§8#o§.§1@§' client-patches/standalone-161/BuildFamilies.pcode 5941
-
-The canary (`Wormix.next.swf`) is that file with two more patches and the 960x640 stage (`swf-stage/` below):
-
-    java -jar ffdec-cli.jar -replace Wormix.swf l.swf '§&$Y§.§2$4§' client-patches/standalone-161/SocialLanguages.pcode 5231
+    java -jar ffdec-cli.jar -replace k.swf k2.swf '§8#o§.§1@§' client-patches/standalone-161/BuildFamilies.pcode 5941
+    java -jar ffdec-cli.jar -replace k2.swf l.swf '§&$Y§.§2$4§' client-patches/standalone-161/SocialLanguages.pcode 5231
     java -jar ffdec-cli.jar -replace l.swf m.swf '§,$J§.§0%G§' client-patches/standalone-161/HatTable.pcode 3921
-    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- m.swf Wormix.next.swf 960 640
+    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- m.swf Wormix.swf 960 640
+
+The canary (`Wormix.next.swf`) is the same file now (build 2026-11-28.3): the next patch to try goes on top of it.
 
 `Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).
 
 ## `swf-stage/`: a 960x640 stage for the 1.61.7 client
 
-Tried as `Wormix.next.swf` since build 2026-11-19.3 (`play.html?next`). The 1.61.7 client was made for a
+Tried as `Wormix.next.swf` since build 2026-11-19.3 (`play.html?next`), in Wormix.swf since 2026-11-28.3. The 1.61.7 client was made for a
 resizable frame: it lays the main menu and the battle out on the stage's size (`stage.stageWidth`), and some of
 its windows are wider than its 800x600 header (`BattleSettingsMenu`, "Настройки боя", is 911x588). The page keeps
 the stage at the header's size (Ruffle's `exactFit` with `forceScale`), so that window was cut on both sides, as
@@ -192,7 +192,7 @@ with a thin dark rim (a lossless bitmap with alpha), a square shape filled with 
 class extending `flash.display.MovieClip` (a small ABC of its own) and the link between them. Hats are drawn ten
 times their size (the table scales them by 0.1); the circle's centre and diameter are in those pixels. (160, 190),
 300 wide, covers the head as the masks do. The live client doesn't use the new class, so the file needs no
-canary. Ксерокс (1159), from `standalone-161/xerox.png`:
+canary, but the class must be listed in data/resconfigs/resconfig.xml under that file. Ксерокс (1159), from `standalone-161/xerox.png`:
 
     cargo run --release --manifest-path client-patches/swf-hat/Cargo.toml -- \
         hats2.orig.swf wormix-client/vk/1.61.7/data/common/objects/hats2.swf \

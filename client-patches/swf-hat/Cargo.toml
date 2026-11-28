@@ -1,0 +1,9 @@
+[package]
+name = "swf-hat"
+version = "0.1.0"
+edition = "2021"
+description = "Adds a hat made of a round photo to a hats SWF file of the 1.61.7 client"
+
+[dependencies]
+flate2 = "1.0"
+png = "0.17"

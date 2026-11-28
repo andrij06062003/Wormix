@@ -147,6 +147,8 @@ func TestMigrateEmptyMatchesRef(t *testing.T) {
 	}
 	d.Exec(`delete from wormix_weapons where id > 1061 and id < 1500`)
 	d.Exec(`delete from migrations where migration = '2026_11_08_200000_add_wormix_hats_125'`)
+	// The 1.61.7 hat 1159 (Ксерокс), with the 1.61.7 shop (its row went with the hats above).
+	d.Exec(`delete from migrations where migration = '2026_11_28_180000_xerox_hat_161'`)
 	// And the Ice Shard sold in the shop.
 	var iceHidden int
 	d.QueryRow(`select hide_in_shop from wormix_weapons where id = 2019`).Scan(&iceHidden)
@@ -307,6 +309,12 @@ func TestMigrateRefDBIsNoop(t *testing.T) {
 	d.QueryRow(`select count(*) from migrations`).Scan(&n)
 	if n != len(db.Migrations) {
 		t.Fatalf("migrations rows %d", n)
+	}
+	// The 1.61.7 hat Ксерокс (1159) came after the reference DB: in the shop for 100 rubies, for good.
+	var xerox int
+	d.QueryRow(`select count(*) from wormix_weapons where id = 1159 and real_price = 100 and hide_in_shop = 0 and infinity = 1 and required_level = 1`).Scan(&xerox)
+	if xerox != 1 {
+		t.Errorf("hat 1159 rows %d, want 1", xerox)
 	}
 }
 

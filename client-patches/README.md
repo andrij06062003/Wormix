@@ -140,6 +140,13 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
   `_lang: "ua"` fell back to Russian; it is now `[RU, EN, UA]` (the client has complete `ua` files in data/lang).
   With it the client also asks for `lang/chat_ua.xml` at start.
 
+- `HatTable.pcode` (`§,$J§.§0%G§`, the hat table's class initializer, body 3921; tried as `Wormix.next.swf` since
+  build 2026-11-28.2): one more hat, 1159 "Ксерокс" (`HAT.XEROX` in data/lang/items_*.xml), 100 rubies from
+  level 1: attack and armor +10, regeneration 80, fire, frost, poison and air damage +80%, leech 30%. Its picture
+  is the class `XeroxHat` that `swf-hat/` (below) adds to data/common/objects/hats2.swf. The shop row is in
+  shop161.json (migration 2026_11_28_180000_xerox_hat_161). `-selectclass` takes a comma separated list, so it
+  can't name this class (its package is `§,$J§`): export all the scripts to get its P-code.
+
     cp Wormix.orig.swf a.swf
     java -jar ffdec-cli.jar -replace a.swf b.swf '§8#o§.§1@§' client-patches/standalone-161/WeaponUpgrades.pcode 5944
     java -jar ffdec-cli.jar -replace b.swf c.swf Application client-patches/standalone-161/Application.onAddedToStage.pcode 16
@@ -155,10 +162,11 @@ things the preloader or Flash Player gave it were missing. Each file is a whole 
         client-patches/standalone-161/AppFriends.pcode 7122
     java -jar ffdec-cli.jar -replace k.swf Wormix.swf '§8#o§.§1@§' client-patches/standalone-161/BuildFamilies.pcode 5941
 
-The canary (`Wormix.next.swf`) is that file with one more patch and the 960x640 stage (`swf-stage/` below):
+The canary (`Wormix.next.swf`) is that file with two more patches and the 960x640 stage (`swf-stage/` below):
 
     java -jar ffdec-cli.jar -replace Wormix.swf l.swf '§&$Y§.§2$4§' client-patches/standalone-161/SocialLanguages.pcode 5231
-    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- l.swf Wormix.next.swf 960 640
+    java -jar ffdec-cli.jar -replace l.swf m.swf '§,$J§.§0%G§' client-patches/standalone-161/HatTable.pcode 3921
+    cargo run --release --manifest-path client-patches/swf-stage/Cargo.toml -- m.swf Wormix.next.swf 960 640
 
 `Wormix.orig.swf` is the unpatched 1.61.7 file (commit 3d7018b).
 
@@ -175,3 +183,20 @@ was the main menu's top bar in full screen. `swf-stage` (Rust) rewrites only the
         wormix-client/vk/1.61.7/Wormix.swf wormix-client/vk/1.61.7/Wormix.next.swf 960 640
 
 Only the 9 bytes of the frame size change (check: inflate both files and compare from byte 9 of the body).
+
+## `swf-hat/`: a hat made of a photo for the 1.61.7 client
+
+The client draws a hat from the class its hat table names (`iconClassName`), which it finds in the hats files it
+loads (data/common/objects/hats*.swf). `swf-hat` (Rust) adds such a class to one of them: the photo cut to a circle
+with a thin dark rim (a lossless bitmap with alpha), a square shape filled with it, a sprite with the shape, a
+class extending `flash.display.MovieClip` (a small ABC of its own) and the link between them. Hats are drawn ten
+times their size (the table scales them by 0.1); the circle's centre and diameter are in those pixels. (160, 190),
+300 wide, covers the head as the masks do. The live client doesn't use the new class, so the file needs no
+canary. Ксерокс (1159), from `standalone-161/xerox.png`:
+
+    cargo run --release --manifest-path client-patches/swf-hat/Cargo.toml -- \
+        hats2.orig.swf wormix-client/vk/1.61.7/data/common/objects/hats2.swf \
+        client-patches/standalone-161/xerox.png XeroxHat 160 190 300
+
+`hats2.orig.swf` is hats2.swf before it (commit db75af8). Check: the old tags are unchanged, and ffdec shows the
+class and exports the sprite (`-format sprite:png -selectclass XeroxHat -export sprite`).

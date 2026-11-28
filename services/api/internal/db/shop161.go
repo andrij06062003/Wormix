@@ -28,6 +28,25 @@ func migrateShop161(ctx context.Context, tx *sql.Tx) error {
 
 // applyShop161 brings wormix_weapons to the 1.61.7 shop.
 func applyShop161(ctx context.Context, tx execQuerier) error {
+	return applyShop161Items(ctx, tx, nil)
+}
+
+// migrateXeroxHat161 is 2026_11_28_180000_xerox_hat_161: the hat 1159 (Ксерокс), added to the 1.61.7 client's hat
+// table (client-patches/standalone-161/HatTable.pcode) and to shop161.json after migrateShop161 ran. A new
+// database gets it with the rest of the shop.
+func migrateXeroxHat161(ctx context.Context, tx *sql.Tx) error {
+	var n int
+	if err := tx.QueryRowContext(ctx, `select count(*) from "wormix_levels"`).Scan(&n); err != nil {
+		return err
+	}
+	if n == 0 {
+		return nil
+	}
+	return applyShop161Items(ctx, tx, func(id int64) bool { return id == 1159 })
+}
+
+// applyShop161Items brings the items of the 1.61.7 shop that only accepts (all of them for nil) to it.
+func applyShop161Items(ctx context.Context, tx execQuerier, only func(int64) bool) error {
 	cfg, ok := loadJSON("shop161.json").(*php.Arr)
 	if !ok {
 		return fmt.Errorf("shop161.json: invalid")
@@ -43,6 +62,9 @@ func applyShop161(ctx context.Context, tx execQuerier) error {
 			continue
 		}
 		id := php.ToInt(it.Val("id"))
+		if only != nil && !only(id) {
+			continue
+		}
 		price, realPrice := php.ToInt(orDefault(it, "price", int64(0))), php.ToInt(orDefault(it, "realprice", int64(0)))
 		level, friends := php.ToInt(orDefault(it, "requiredLevel", int64(0))), php.ToInt(orDefault(it, "requiredFriends", int64(0)))
 		rating := php.ToInt(orDefault(it, "requiredRating", int64(0)))

@@ -100,6 +100,7 @@
     <message name="HAT.BOSS_ROMEO" value="Romeo's hat"/>
     <message name="HAT.BOSS_JUILET" value="Juliet's hat"/>
     <message name="HAT.VAMPIRE" value="Vampire's hat"/>
+    <message name="HAT.XEROX" value="Xerox"/>
     <message name="HAT.DOCTOR_ARMBAND" value="Doctor's headband"/>
     <message name="HAT.NEO" value="Neo's sunglasses"/>
     <message name="HAT.NINJA_TURTLES" value="Ninja headband"/>

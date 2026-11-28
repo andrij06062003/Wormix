@@ -100,6 +100,7 @@
     <message name="HAT.BOSS_ROMEO" value="Шапка Ромео"/>
     <message name="HAT.BOSS_JUILET" value="Шапка Джульєтти"/>
     <message name="HAT.VAMPIRE" value="Капелюх вампіра"/>
+    <message name="HAT.XEROX" value="Ксерокс"/>
     <message name="HAT.DOCTOR_ARMBAND" value="Докторська пов'язка"/>
     <message name="HAT.NEO" value="Окуляри Нео"/>
     <message name="HAT.NINJA_TURTLES" value="Пов'язка ніндзя"/>
